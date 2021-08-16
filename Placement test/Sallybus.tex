@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{amsmath}
+\begin{document}
+    \subsection*{Nonhomogeneous linear equation solution set} 
+    The solution of the nonhomogeneous linear equation is consist of two parts; one is a any special solution, and the other is the general solution of the homogeneous linear equation. That means: 
+    \begin{equation}
+        Soltion\ Set = \{Special\ Solution + General\ Solution\}
+    \end{equation}
+    \subsection*{Range}
+    The range of a matrix (A) is the column space of the matrix. 
+    \subsection*{Diagonalizable matrix}
+    If a n-dimension matrix can be diagonalized, it must have n eigenvectors, which are independent with each other. 
+
+    Precedure: 
+    \begin{enumerate}
+        \item Find its eigenvalues $\lambda_1$, $\lambda_2$, $\cdots$, $\lambda_m$;
+        \item Find the correspoding eigenvectors $\vec{a_1}$, $\vec{a_2}$, $\cdots$, $\vec{a_n}$; 
+        \item $V=\{\vec{a_1}, \cdots, \vec{a_n}\}$; 
+        \item $A=V\ diag(\lambda_1, \cdots, \lambda_m)\ V^{-1}$. 
+    \end{enumerate}
+    \subsection*{Inverse matrix}
+    \begin{enumerate}
+        \item $\{A|I\}\Rightarrow\{I|A^{-1}\}$; 
+        \item $A^{-1}=\frac{A^{*}}{|A|}$, $A^{*}$ is adjugate matrix. 
+    \end{enumerate}
+    \subsection*{Orthogonal complement}
+    \begin{itemize}
+        \item Row $(A)^{\perp}=$ Null $(A)$;
+        \item Range $(A)^{\perp}=$ Null $(A^{T})$. 
+    \end{itemize}
+    \subsection*{Geometric multiplicity and algebraic multiplicity}
+    \begin{itemize}
+        \item Geometric multiplicity of $\lambda$ is the dimension of the Null($A-\lambda I$); 
+        \item Algebraic multiplicity of $\lambda$ is the number of times $\lambda$ appears in the equation $|\lambda I-A|=0$. 
+        \item Geometric multiplicity is always not exceed Algebraic multiplicity; And all algebraic multiplicities of different eigenvalues sum up should be n (for a n$\times$n matrix); 
+        \item if every Geometric multiplicity equals to Algebraic multiplicity, we say that the matrix is diagonalizable. 
+    \end{itemize}
+    \subsection*{Vandermonde matrix}
+    \begin{equation*}
+        V=\left(\begin{matrix}
+            1 & x_0 & x_0^2 & \cdots & x_0^n\\
+            1 & x_1 & x_1^2 & \cdots & x_1^n\\
+            \vdots & \vdots & \vdots &  & \vdots\\
+            1 & x_n & x_n^2 & \cdots &x_n^n
+        \end{matrix}\right)
+    \end{equation*}
+    \begin{equation*}
+        V\Rightarrow\left(\begin{matrix}
+            1 & 0 & 0 & \cdots & 0\\
+            1 & x_1-x_0 & x_1(x_1-x_0) & \cdots & x_1^{n-1}(x_1-x_0)\\
+            \vdots & \vdots & \vdots &  & \vdots\\
+            1 & x_n-x_0 & x_n(x_n-x_0) & \cdots &x_n^{n-1}(x_n-x_0)
+        \end{matrix}\right)
+    \end{equation*}
+    \begin{equation*}
+        \det(V)=\left|\begin{matrix}
+             x_1-x_0 & x_1(x_1-x_0) & \cdots & x_1^{n-1}(x_1-x_0)\\
+             \vdots & \vdots &  & \vdots\\
+             x_n-x_0 & x_n(x_n-x_0) & \cdots &x_n^{n-1}(x_n-x_0)
+        \end{matrix}\right|=(x_n-x_0)\cdots(x_1-x_0)\left|\begin{matrix}
+            1 & x_1 & x_1^2 & \cdots & x_1^n\\
+            1 & x_2 & x_2^2 & \cdots & x_2^n\\
+            \vdots & \vdots & \vdots &  & \vdots\\
+            1 & x_n & x_n^2 & \cdots &x_n^n
+        \end{matrix}\right|
+    \end{equation*}
+    \begin{equation*}
+        \det(V)=\prod_{0\leq i<j\leq n}(x_j-x_i)
+    \end{equation*}
+    \subsection*{Characteristic polynomial}
+    The characteristic polynomial of a matrix A is $|A-\lambda I|$. 
+    \subsection*{Representing linear transformations by matrices}
+    For a transformation T and a basis a, it can be represented by a matrix T as follows: 
+    \begin{equation*}
+        T(x)=Tx=x^{T}T^T,\ T=\{T(a_1),\cdots,T(a_n)\}^T
+    \end{equation*}
+    \subsection*{Vector projection}
+    For a vector u, the projection of u on v is as follows: 
+    \begin{equation*}
+        a_1=\frac{<u,v>}{<v,v>}v
+    \end{equation*}
+    So, the projection of u on a plane with normal vector v is as follows:
+    \begin{equation*}
+        a_2=u-a_1
+    \end{equation*}
+    So, the reflection of u on a plane with normal vector v is as follows:
+    \begin{equation*}
+        a_2=u-2a_1
+    \end{equation*}
+    \subsection*{Dimension formula}
+    \begin{equation*}
+        \dim(V_1+V_2)=\dim(V_1)+\dim(V_2)-\dim(V_1\cap V_2)
+    \end{equation*}
+    \subsection*{Rotation and reflection}
+    For a transformation, if its matrix is orthogonal and the determinant is 1, then, it is a Rotation. Otherwise, if the determinant is -1, then, it is a reflection. 
+    \begin{equation*}
+        \left(\begin{matrix}
+            \cos(\theta)&-\sin(\theta)\\
+            \sin(\theta)&\cos(\theta)
+        \end{matrix}\right)
+    \end{equation*}
+    \subsection*{Gram–Schmidt process}
+    For a basis $(\alpha_1,\cdots,\alpha_n)$, the orthogonal basis can be gotten with the following steps: 
+    \begin{enumerate}
+        \item $\beta_1=\alpha_1$; 
+        \item $\beta_2=\alpha_2-k\beta_1$, $k=\frac{<\alpha_2,\beta_1>}{<\beta_1, \beta_1>}$; 
+        \item $\cdots \cdots$
+        \item $\beta_n=\alpha_n-k_1\beta_1-k_2\beta_2-\cdots-k_{n-1}\beta_{n-1}$, $k_{i}=\frac{<\alpha_n,\beta_i>}{<\beta_i,\beta_i>}$. 
+    \end{enumerate}
+\end{document}
