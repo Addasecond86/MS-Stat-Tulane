@@ -1,0 +1,124 @@
+\documentclass[en, normal, 11pt, black]{elegantnote}
+
+\usepackage{tcolorbox}
+\usepackage{amsfonts}
+\usepackage{newtxtext}
+
+\newenvironment{exercise}[1]{\begin{tcolorbox}[colback=black!15, colframe=black!80, title=#1]}{\end{tcolorbox}}
+
+\renewenvironment{proof}{\begin{tcolorbox}[colback=white, colframe=black!50, title=Proof. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+
+\newenvironment{solution}{\begin{tcolorbox}[colback=white, colframe=black!50, title=Solution. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+
+\newcommand{\pder}{\partial\,}
+
+\newcommand{\der}{\,\mathbf{d}}
+
+\title{\textsc{Probability: Problem Set 2}}
+\author{\textsc{Zehao Wang}}
+\date{\today}
+
+%1.4.1, 1.4.2, 1.4.3, 1.4.4 (you can use the previous excise without proof), 1.5.2, 1.5.7, 1.6.1, 1.6.2, 1.6.3, 1.6.9, 1.6.10, 1.6.11
+
+\begin{document}
+\maketitle
+    \begin{exercise}{1.4.1.}
+        Show that if \(f\geq 0\) and \(\int f\der \mu = 0\), then \(f=0\) a.e. 
+    \end{exercise}
+
+    \begin{exercise}{1.4.2.}
+        Let \(f \geq 0\) and \(E_{n, m}=\left\{x: m / 2^{n} \leq f(x)<(m+1) / 2^{n}\right\} \). As \(n \uparrow \infty\), 
+        \[\sum \sum_{m=1}^{\infty} \frac{m}{2^{n}} \mu\left(E_{n, m}\right) \uparrow \int f \der \mu\]
+    \end{exercise}
+
+    \begin{exercise}{1.4.3.}
+        Let $g$ be an integrable function on $\mathbf{R}$ and $\epsilon>0$. 
+        
+        (i) Use the definition of the integral to conclude there is a simple function $\varphi=\sum_{k} b_{k} 1_{A_{k}}$ with $\int|g-\varphi| d x<\epsilon$. 
+        
+        (ii) Use Exercise A.2.1 to approximate the $A_{k}$ by finite unions of intervals to get a step function
+        $$
+        q=\sum_{j=1}^{k} c_{j} 1_{\left(a_{j-1}, a_{j}\right)}
+        $$
+        with $a_{0}<a_{1}<\ldots<a_{k}$, so that $\int|\varphi-q|<\epsilon$. 
+        
+        (iii) Round the corners of $q$ to get a continuous function $r$ so that $\int|q-r| \der x<\epsilon$. 
+
+        (iv) To make a continuous function replace each $c_{j} 1_{\left(a_{j-1}, a_{j}\right)}$ by a function that is 0 $\left(a_{j-1}, a_{j}\right)^{c}, c_{j}$ on $\left[a_{j-1}+\delta-j, a_{j}-\delta_{j}\right]$, and linear otherwise. If the $\delta_{j}$ are small enough and we let $r(x)=\sum_{j=1}^{k} r_{j}(x)$, then
+        $$
+        \int|q(x)-r(x)| \der \mu=\sum_{j=1}^{k} \delta_{j} c_{j}<\epsilon. 
+        $$
+    \end{exercise}
+
+    \begin{exercise}{1.4.4.}
+        Prove the Riemann-Lebesgue lemma. If \(g\) is integrable, then
+        $$
+        \lim _{n \rightarrow \infty} \int g(x) \cos n x \der x=0, 
+        $$
+        Hint: If $g$ is a step function, this is easy. Now use the previous exercise.
+    \end{exercise}
+
+    \begin{exercise}{1.5.2.}
+        Show that if $\mu$ is a probability measure, then
+        $$
+        \|f\|_{\infty}=\lim _{p \rightarrow \infty}\|f\|_{p}.
+        $$
+    \end{exercise}
+
+    \begin{exercise}{1.5.7.}
+        Let $f \geq 0$. 
+        
+        (i) Show that $\int f \wedge n \der \mu \uparrow \int f \der \mu$ as $n \rightarrow \infty$. 
+        
+        (ii) Use (i) to conclude that if $g$ is integrable and $\epsilon>0$, then we can pick $\delta>0$ so that $\mu(A)<\delta$ implies $\int_{A}|g| \der \mu<\epsilon$. 
+    \end{exercise}
+
+    \begin{exercise}{1.6.1.}
+        Suppose $\varphi$ is strictly convex, i.e., $>$ holds for $\lambda \in(0,1) .$ Show that, under the assumptions of Theorem 1.6.2, $\varphi(E X)=E \varphi(X)$ implies $X=E X$ a.s. 
+    \end{exercise}
+    \begin{exercise}{1.6.2.}
+        Suppose $\varphi: \mathbf{R}^{n} \rightarrow \mathbf{R}$ is convex. Imitate the proof of Theorem $1.5 .1$ to show
+        $$
+        E \varphi\left(X_{1}, \ldots, X_{n}\right) \geq \varphi\left(E X_{1}, \ldots, E X_{n}\right)
+        $$
+        provided $E\left|\varphi\left(X_{1}, \ldots, X_{n}\right)\right|<\infty$ and $E\left|X_{i}\right|<\infty$ for all $i$
+    \end{exercise}
+    \begin{exercise}{1.6.3.}
+        Chebyshev's inequality is and is not sharp. 
+        
+        (i) Show that Theorem $1.6.4$ is sharp by showing that if $0<b \leq a$ are fixed there is an $X$ with $E X^{2}=b^{2}$ for which $P(|X| \geq a)=b^{2} / a^{2}$. 
+        
+        (ii) Show that Theorem 1.6.4 is not sharp by showing that if $X$ has $0<E X^{2}<\infty$, then
+        $$
+        \lim _{a \rightarrow \infty} a^{2} P(|X| \geq a) / E X^{2}=0. 
+        $$
+    \end{exercise}
+
+    \begin{exercise}{1.6.9.}
+        Inclusion-exclusion formula. Let $A_{1}, A_{2}, \ldots A_{n}$ be events and $A=\cup_{i=1}^{n} A_{i} .$ Prove that $1_{A}=1-\prod_{i=1}^{n}\left(1-1_{A_{i}}\right)$. Expand out the right-hand side, then take expected value to conclude
+        $$
+        \begin{aligned}
+        P\left(\cup_{i=1}^{n} A_{i}\right)=& \sum_{i=1}^{n} P\left(A_{i}\right)-\sum_{i<j} P\left(A_{i} \cap A_{j}\right) \\
+        &+\sum_{i<j<k} P\left(A_{i} \cap A_{j} \cap A_{k}\right)-\cdots+(-1)^{n-1} P\left(\cap_{i=1}^{n} A_{i}\right). 
+        \end{aligned}
+        $$
+    \end{exercise}
+    \begin{exercise}{1.6.10.}
+        Bonferroni inequalities. Let $A_{1}, A_{2}, \ldots A_{n}$ be events and $A=\cup_{i=1}^{n} A_{i} .$ Show that $1_{A} \leq \sum_{i=1}^{n} 1_{A_{i}}$, etc. and then take expected values to conclude
+        $$
+        \begin{aligned}
+        P\left(\cup_{i=1}^{n} A_{i}\right) & \leq \sum_{i=1}^{n} P\left(A_{i}\right) \\
+        P\left(\cup_{i=1}^{n} A_{i}\right) & \geq \sum_{i=1}^{n} P\left(A_{i}\right)-\sum_{i<j} P\left(A_{i} \cap A_{j}\right) \\
+        P\left(\cup_{i=1}^{n} A_{i}\right) & \leq \sum_{i=1}^{n} P\left(A_{i}\right)-\sum_{i<j} P\left(A_{i} \cap A_{j}\right)+\sum_{i<j<k} P\left(A_{i} \cap A_{j} \cap A_{k}\right)
+        \end{aligned}
+        $$
+        In general, if we stop the inclusion-exclusion formula after an even (odd) number of sums, we get a(n) lower (upper) bound. 
+    \end{exercise}
+    \begin{exercise}{1.6.11.}
+        If $E|X|^{k}<\infty$, then for $0<j<k, E|X|^{j}<\infty$, and furthermore
+        $$
+        E|X|^{j} \leq\left(E|X|^{k}\right)^{j / k}. 
+        $$
+    \end{exercise}
+\end{document}
+

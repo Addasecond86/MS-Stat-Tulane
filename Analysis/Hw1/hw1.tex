@@ -1,0 +1,88 @@
+\documentclass[en, normal, 12pt, black]{elegantnote}
+
+\usepackage{tcolorbox}
+\usepackage{amsfonts}
+\usepackage{newtxtext}
+
+\newenvironment{exercise}[1]{\begin{tcolorbox}[colback=black!15, colframe=black!80, title=#1]}{\end{tcolorbox}}
+
+\renewenvironment{proof}{\begin{tcolorbox}[colback=white, colframe=black!50, title=Proof. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+
+\newenvironment{solution}{\begin{tcolorbox}[colback=white, colframe=black!50, title=Solution. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+
+\newcommand{\pder}{\partial\,}
+
+\newcommand{\der}{\,\mathbf{d}}
+
+\title{\textsc{Analysis: exercise class 1}}
+\author{\textsc{Zehao Wang}}
+\date{\today}
+
+\begin{document}
+\maketitle
+    \begin{exercise}{1.1.}
+        Prove that (1.5) implies \(y(x)\equiv0\).  
+    \end{exercise}
+    \begin{proof}
+        For \(y^\prime(x)=y(x)\), we can know that \(y=Ce^x\), and because \(e^x>0\), \(y(x_0)=0\), we know that $C=0$. So, \(y\equiv 0\). 
+    \end{proof}
+
+    \begin{exercise}{1.4.}
+        Prove that a differentiable weak solution of (1.4) is a strong solution. 
+    \end{exercise}
+    \begin{proof}
+        We only need to prove that for a weak solution \(y(x)\), it satisfies 1) \(y^\prime(x)=y(x)\), 2) \(y(x_0)=y_0\). 
+
+        1), \(\frac{\pder y(x)}{\pder x}=\frac{\pder \int_{x_0}^{x}y(s)\der s}{\pder x}=y(x)\). 
+
+        2), \(y(x_0)=\int_{x_0}^{x_0}y(s)\der s+y_0=y_0\). 
+
+        So, a differentiable weak solution is a strong solution. 
+    \end{proof}
+
+    \begin{exercise}{1.5.}
+        The iteration defined in (1.10) is called an explicit iteration scheme. Repeat the process described here for the implicit iteration scheme, defined by
+        \[\widetilde{y}_{n-1}(x)=\int_{x_{0}}^{x} \widetilde{y}_{n}(s) d s+y_{0}, \]
+        starting at $\widetilde{y}_0(x)\equiv {y}_0$. 
+    \end{exercise}
+
+    \begin{exercise}{1.6.}
+        Prove that the function $y_n(x)$ is given by
+        \begin{equation}
+            \label{equ:result}
+            y_{n}(x)=y_{0} \sum_{j=0}^{n} \frac{\left(x-x_{0}\right)^{j}}{j !}.
+        \end{equation}
+    \end{exercise}
+    \begin{proof}
+        Use mathematical induction: 
+
+        For \(n=1\), \(y_1(x)=y_0+(x-x_0)y_0\). So, (\ref{equ:result}) holds. 
+
+        For \(n=2\), \(y_2(x)=y_0+\left((x-x_0)+\frac{1}{2}(x-x_0)^2\right)y_0\). So, (\ref{equ:result}) holds, too. 
+
+        Assume that for all \(n=k>2\), (\ref{equ:result}) holds, then, for \(n=k+1\), we have: 
+        \begin{align*}
+            y_{k+1}&=\int_{x_0}^xy_k(s)\der s + y_0\\
+            &=y_0\int_{x_0}^x\sum_{j=0}^{k} \frac{\left(s-x_{0}\right)^{j}}{j !}\der s + y_0\\
+            &=y_0\sum_{j=1}^{k+1} \frac{\left(x-x_{0}\right)^{j}}{j !}+y_0\\
+            &=y_0\sum_{j=0}^{k+1} \frac{\left(x-x_{0}\right)^{j}}{j !}. 
+        \end{align*}
+        So, (\ref{equ:result}) holds, as well. \( y_{n}(x)=y_{0} \sum_{j=0}^{n} \frac{\left(x-x_{0}\right)^{j}}{j !}\). 
+
+    \end{proof}
+
+    \begin{exercise}{1.7.}
+            (1) Prove that \(\mathcal{L}\) is a linear operator; that is 
+            \[\mathcal{L}\left(\alpha_{1} y_{1}+\alpha_{2} y_{2}\right)=\alpha_{1} \mathcal{L}\left(y_{1}\right)+\alpha_{2} \mathcal{L}\left(y_{2}\right)\]
+            (2) Prove that $\operatorname{Ker}(\mathcal{L})$ is a subspace of the vector space where $\mathcal{L}$ is defined. What is its dimension? Can you write the range of $\mathcal{L}$ in some explicit form? 
+    \end{exercise}
+
+    \begin{exercise}{1.18.}
+        Exercise 1.8. Extend the discussion of the equation $y^{\prime}=y$ to a general first order linear equation; that is, an equation of the form
+        \[
+            a_{0}(x) D y(x)+a_{1}(x) y(x)=b(x)
+        \]
+        by imposing conditions on the functions \(a_{0}, a_{1}, b\) needed for your analysis. Here \(D=\frac{\pder}{\pder x}\) is the derivative with respect to the variable \(x\). Discuss existence and uniqueness of solutions.
+    \end{exercise}
+\end{document}
+
