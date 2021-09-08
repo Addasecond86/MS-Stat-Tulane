@@ -1,88 +1,140 @@
-\documentclass[en, normal, 12pt, black]{elegantnote}
+\documentclass[en, normal, 11pt, black]{elegantnote}
 
 \usepackage{tcolorbox}
+\tcbuselibrary{breakable}
 \usepackage{amsfonts}
 \usepackage{newtxtext}
+\usepackage{ulem}
+\usepackage{amssymb}
 
-\newenvironment{exercise}[1]{\begin{tcolorbox}[colback=black!15, colframe=black!80, title=#1]}{\end{tcolorbox}}
+\newenvironment{exercise}[1]{\begin{tcolorbox}[colback=black!15, colframe=black!80, breakable, title=#1]}{\end{tcolorbox}}
 
-\renewenvironment{proof}{\begin{tcolorbox}[colback=white, colframe=black!50, title=Proof. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+\renewenvironment{proof}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Proof. ]\setlength{\parskip}{0.8em}}{\,\\\rightline{$\square$}\end{tcolorbox}}
 
-\newenvironment{solution}{\begin{tcolorbox}[colback=white, colframe=black!50, title=Solution. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+\newenvironment{solution}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Solution. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
 
 \newcommand{\pder}{\partial\,}
 
 \newcommand{\der}{\,\mathbf{d}}
 
-\title{\textsc{Analysis: exercise class 1}}
+\title{\textsc{Analysis: Homework 1}}
 \author{\textsc{Zehao Wang}}
 \date{\today}
 
 \begin{document}
 \maketitle
-    \begin{exercise}{1.1.}
-        Prove that (1.5) implies \(y(x)\equiv0\).  
+    \begin{exercise}{Picard's Theorem}
+        For the Initial Value Problem: 
+        \begin{equation*}
+            \left\{
+            \begin{aligned}
+                y^\prime(x)&=F(x,y) \\
+                y(x_0)&=y_0. 
+            \end{aligned}
+            \right.
+        \end{equation*}
+        Prove the existence and uniqueness of the solution on \[R=\{(x,y): |x-x_0|\leqslant a, |y-y_0|\leqslant b\}. \] 
+        Assume: 
+        \begin{itemize}
+            \item $F:D\subset \mathbb{R}^2\to\mathbb{R}$ is Lipschitz continuous for $y$ with constant $\delta$, which means for $y_1$, $y_2$: 
+            \[\left|F(x,y_1)-F(x,y_2)\right|\leqslant\delta\left|y_1-y_2\right|. \]
+            \item $F$ is bounded: 
+            \[\forall\,(x,y) \in D,\,\exists\,M\in \mathbb{R},\,s.t.\,\left|F(x,y)\right|\leqslant M. \]
+            \item $\delta a<1$. 
+        \end{itemize}
     \end{exercise}
     \begin{proof}
-        For \(y^\prime(x)=y(x)\), we can know that \(y=Ce^x\), and because \(e^x>0\), \(y(x_0)=0\), we know that $C=0$. So, \(y\equiv 0\). 
-    \end{proof}
-
-    \begin{exercise}{1.4.}
-        Prove that a differentiable weak solution of (1.4) is a strong solution. 
-    \end{exercise}
-    \begin{proof}
-        We only need to prove that for a weak solution \(y(x)\), it satisfies 1) \(y^\prime(x)=y(x)\), 2) \(y(x_0)=y_0\). 
-
-        1), \(\frac{\pder y(x)}{\pder x}=\frac{\pder \int_{x_0}^{x}y(s)\der s}{\pder x}=y(x)\). 
-
-        2), \(y(x_0)=\int_{x_0}^{x_0}y(s)\der s+y_0=y_0\). 
-
-        So, a differentiable weak solution is a strong solution. 
-    \end{proof}
-
-    \begin{exercise}{1.5.}
-        The iteration defined in (1.10) is called an explicit iteration scheme. Repeat the process described here for the implicit iteration scheme, defined by
-        \[\widetilde{y}_{n-1}(x)=\int_{x_{0}}^{x} \widetilde{y}_{n}(s) d s+y_{0}, \]
-        starting at $\widetilde{y}_0(x)\equiv {y}_0$. 
-    \end{exercise}
-
-    \begin{exercise}{1.6.}
-        Prove that the function $y_n(x)$ is given by
-        \begin{equation}
-            \label{equ:result}
-            y_{n}(x)=y_{0} \sum_{j=0}^{n} \frac{\left(x-x_{0}\right)^{j}}{j !}.
-        \end{equation}
-    \end{exercise}
-    \begin{proof}
-        Use mathematical induction: 
-
-        For \(n=1\), \(y_1(x)=y_0+(x-x_0)y_0\). So, (\ref{equ:result}) holds. 
-
-        For \(n=2\), \(y_2(x)=y_0+\left((x-x_0)+\frac{1}{2}(x-x_0)^2\right)y_0\). So, (\ref{equ:result}) holds, too. 
-
-        Assume that for all \(n=k>2\), (\ref{equ:result}) holds, then, for \(n=k+1\), we have: 
+        \textsc{Existence}, we construct the iteration as following: 
+        \begin{equation*}
+            \left\{
+                \begin{aligned}
+                    y_0(x)&=y_0, \\
+                    y_{n+1}(x)&=y_0+\int_{x_0}^xF(s, y_{n}(s))\der s. 
+                \end{aligned}
+            \right.
+        \end{equation*}
+        We can know that $\{y_n\}$ is differentiable. Then, we need to prove the limit exists. 
         \begin{align*}
-            y_{k+1}&=\int_{x_0}^xy_k(s)\der s + y_0\\
-            &=y_0\int_{x_0}^x\sum_{j=0}^{k} \frac{\left(s-x_{0}\right)^{j}}{j !}\der s + y_0\\
-            &=y_0\sum_{j=1}^{k+1} \frac{\left(x-x_{0}\right)^{j}}{j !}+y_0\\
-            &=y_0\sum_{j=0}^{k+1} \frac{\left(x-x_{0}\right)^{j}}{j !}. 
+            |y_1(x)-y_0(x)|\leqslant & \left|\int_{x_0}^x F(s, y_0(s))\der s\right|\\
+            \leqslant & M|x-x_0|\\
+            \leqslant & Ma
         \end{align*}
-        So, (\ref{equ:result}) holds, as well. \( y_{n}(x)=y_{0} \sum_{j=0}^{n} \frac{\left(x-x_{0}\right)^{j}}{j !}\). 
-
+        \begin{align*}
+            |y_2(x)-y_1(x)|\leqslant & \left|\int_{x_0}^x F(s, y_1(s))-F(s, y_0(s))\der s\right|\\
+            \leqslant & \left|\delta\int_{x_0}^x |y_1(s)-y_0(s)|\der s\right|\\
+            \leqslant & \left|\delta\int_{x_0}^x \int_{x_0}^{s_0} |F(s_1,y_0(s_1)|\der s_1\right|\\
+            \leqslant & \delta M\frac{|x-x_0|^2}{2!}\\
+            \leqslant & \frac{a^2}{2!}\delta M. 
+        \end{align*}
+        So, for $|y_n(x)-y_{n-1}(x)|$, we have: 
+        \begin{align*}
+            |y_n(x)-y_{n-1}(x)| \leqslant & \left|\int_{x_0}^x F(s, y_{n-1}(s))-F(s, y_{n-2}(s))\der s\right|\\
+            \leqslant & \left|\delta^{n-1}\int_{x_0}^x\int_{x_0}^{s_0}\cdots\int_{x_0}^{s_{n-2}} |F(s_{n-1}, y_0(s_{n-1}))|\der s_{n-1}\right|\\
+            \leqslant & \delta^{n-1} M\frac{|x-x_0|^n}{n!}\\
+            \leqslant & \frac{a^n}{n!}\delta^{n-1} M. 
+        \end{align*}
+        Since $\delta a<1$, then, $\forall\,m>n>0$, we can get: 
+        \begin{align*}
+            |y_m(x)-y_{n}(x)| \leqslant & |y_m(x)-y_{m-1}(x)|+\cdots+|y_{n+1}(x)-y_{n}(x)|\\
+            \leqslant & \delta^{n-1} M \sum_{i=n}^m \frac{a^n}{n!}. 
+        \end{align*}
+        When $n\to \infty$, $|y_m(x)-y_{n}(x)|\to 0$. So, $\{y_n\}$ is a cauchy sequence, and it is uniformly convergent. 
+        
+        Let $\lim_{n\to\infty}y_n=y$, then: 
+        \[y(x)=y_0+\int_{x_0}^xF(s,y(s))\der s, \]
+        And 
+        \begin{equation*}
+            \left\{
+                \begin{aligned}
+                    y(x)&=y_0, \\
+                    y^\prime(x)&=F(x, y(x)). 
+                \end{aligned}
+            \right.
+        \end{equation*}
+        Thus, $y$ is the solution of that Initial Value Problem. 
     \end{proof}
-
-    \begin{exercise}{1.7.}
-            (1) Prove that \(\mathcal{L}\) is a linear operator; that is 
-            \[\mathcal{L}\left(\alpha_{1} y_{1}+\alpha_{2} y_{2}\right)=\alpha_{1} \mathcal{L}\left(y_{1}\right)+\alpha_{2} \mathcal{L}\left(y_{2}\right)\]
-            (2) Prove that $\operatorname{Ker}(\mathcal{L})$ is a subspace of the vector space where $\mathcal{L}$ is defined. What is its dimension? Can you write the range of $\mathcal{L}$ in some explicit form? 
+    \begin{proof}
+        \textsc{Uniqueness}, if $y_1$, $y_2$ are both the solution of the problem, then, we have: 
+        \[y_1(x)=y_0+\int_{x_0}^xF(s,y_1(s))\der s, \]
+        \[y_2(x)=y_0+\int_{x_0}^xF(s,y_2(s))\der s, \]
+        Then, 
+        \begin{align*}
+            |y_1(x)-y_2(x)|&=\left|\int_{x_0}^xF(s,y_1(s))-F(s,y_2(s))\der s\right|\\
+            &\leqslant\left|\delta\int_{x_0}^x|y_1(s)-y_2(s)|\der s\right|\\
+            &\leqslant\delta |x-x_0| \max_{s\in [x_0,x_0+h]}|y_1(s)-y_2(s)|\\
+            &\leqslant \delta a \max_{s\in [x_0,x_0+a]}|y_1(s)-y_2(s)|. 
+        \end{align*}
+        We can write above inequation as: 
+        \[\max_{x\in [x_0, x_0+a]}|y_1(x)-y_2(x)|\leqslant \delta a \max_{s\in [x_0,x_0+a]}|y_1(s)-y_2(s)|, \]
+        So, $\max_{x\in [x_0, x_0+a]}|y_1(x)-y_2(x)|$ can only be $0$, which means $y_1=y_2$. 
+    \end{proof}
+    \begin{exercise}{\textsc{Exercise. }1}
+        \[y^\prime=1+y^2.\]
     \end{exercise}
-
-    \begin{exercise}{1.18.}
-        Exercise 1.8. Extend the discussion of the equation $y^{\prime}=y$ to a general first order linear equation; that is, an equation of the form
-        \[
-            a_{0}(x) D y(x)+a_{1}(x) y(x)=b(x)
-        \]
-        by imposing conditions on the functions \(a_{0}, a_{1}, b\) needed for your analysis. Here \(D=\frac{\pder}{\pder x}\) is the derivative with respect to the variable \(x\). Discuss existence and uniqueness of solutions.
+    \begin{solution}
+        \[\frac{\der y}{1+y^2}=\der x\]
+        \[\arctan(y)=x+c\]
+        For generality, we can write $y$ as: 
+        \[y(x)=\tan(x+c), \]
+        If we know the initial value $y(x_0)=y_0$, then
+        \[c=\arctan(y_0)-x_0. \]
+    \end{solution}
+    \begin{exercise}{\textsc{Exercise. }2}
+        \[y^\prime=\sqrt{|y|}. \]
     \end{exercise}
+    \begin{solution}
+        If $y>0$, 
+        \[y^{-1/2}\der y=\der x\]
+        \[2y^{1/2}=x+c\]
+        \[y=\frac{1}{4}(x+c)^2\]
+        If we know $y(x_0)=y_0$, then
+        \[c=2\sqrt{y_0}-x_0. \]
+        If $y<0$, 
+        \[(-y)^{-1/2}\der y=\der x\]
+        \[2(-y)^{1/2}=x+c\]
+        \[y=-\frac{1}{4}(x+c)^2\]
+        If we know $y(x_0)=y_0$, then
+        \[c=2\sqrt{-y_0}-x_0. \]
+    \end{solution}
 \end{document}
 
