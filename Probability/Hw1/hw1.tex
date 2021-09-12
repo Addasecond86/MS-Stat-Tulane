@@ -47,7 +47,7 @@
         \[\left(a_1, b_{1}\right] \times \cdots \times\left(a_{d}, b_{d}\right]=\cap_{n\to\infty}\left(a_1, b_{1}+1 / n\right)\times \cdots \times\left(a_{d}, b_{d}+1 / n\right)\]
         Because the union of open sets is open set, as well, we can get that $\mathcal{S}_d\subset\sigma(\mathcal{O})$. Futher, $\sigma(\mathcal{S}_d)\subset \sigma(\mathcal{O})$. 
 
-        c), Combine a) and b), we know that $\sigma(\mathcal{S}_d)=\mathcal{R}^d$. Let $\mathcal{Q}=\{(q_1, \infty)\times\cdots\times(q_n, \infty):q_i\in\mathbb{Q}\}$. For any $\mathcal{S}=\left(a_1, b_{1}\right] \times \cdots \times\left(a_{d}, b_{d}\right]\in\mathcal{S}_d$, since $\mathbb{Q}$ is countable, $\mathcal{S}$ can be represected by countable intersection and union operations of the subsets in $\mathcal{Q}$. So, $\sigma(\mathcal{Q})=\sigma(\mathcal{S}_d)$. Then, we can get that $\mathcal{R}^d$ is countably generated. 
+        c), Combine a) and b), we know that $\sigma(\mathcal{S}_d)=\mathcal{R}^d$. Let $\mathcal{Q}=\{(q_1, \infty)\times\cdots\times(q_n, \infty):q_i\in\mathbb{Q}\}$. For any $\mathcal{S}=\left(a_1, b_{1}\right] \times \cdots \times\left(a_{d}, b_{d}\right]\in\mathcal{S}_d$, since $\mathbb{Q}$ is countable, $\mathcal{S}$ can be represented as countable intersection and union operations of the subsets in $\mathcal{Q}$. So, $\sigma(\mathcal{Q})=\sigma(\mathcal{S}_d)$. Then, we can get that $\mathcal{R}^d$ is countably generated. 
     \end{proof}
 
     \begin{exercise}{1.1.4}
@@ -66,8 +66,7 @@
     \begin{solution}
         ii), Let $\mathcal{F}_i=\{-i,\cdots,i\}$, and $\mathcal{F}_1\subset\mathcal{F}_2\subset\cdots$. 
         For $\mathcal{A}_i=\{i\}\in\cup_i\mathcal{F}_i$, $\cup_i^{\infty}\mathcal{A}_i=\mathbb{N}\backslash\{0\}$. 
-        If $\cup_i\mathcal{F}_i$ is a $\sigma$-algebra, there should be a $k$, such that $\mathbb{N}\backslash\{0\}\subset\mathcal{F}_k$. 
-        However, it is impossible. So, $\cup_i\mathcal{F}_i$ need not be a $\sigma$-algebra. \footnote{Maybe not correct. }
+        If $\cup_i\mathcal{F}_i$ is a $\sigma$-algebra, there should be a $k$, such that $\mathbb{N}\backslash\{0\}\subset\mathcal{F}_k$, however, it is impossible. So, $\cup_i\mathcal{F}_i$ need not be a $\sigma$-algebra. \footnote{Maybe not correct. }
     \end{solution}
 
     \begin{exercise}{1.1.5}
@@ -97,12 +96,34 @@
 
         $\cdots\cdots$
 
-        Like this, we can get an Infinite countable set sequence $\{A_i\}$, and its limit oscillates between $\frac{1}{2}$ and $\frac{1}{4}$. So, the limit of $\{A_i\}$ doesn't exist, i.e. $\cup_i^\infty A_i\not\in\mathcal{A}$, however, $A_i\in \mathcal{A}$. Hence, $\mathcal{A}$ isn't a $\sigma$-algebra. 
+        Like this, we can get an infinite countable set sequence $\{A_i\}$, and its limit oscillates between $\frac{1}{2}$ and $\frac{1}{4}$. So, the limit of $\{A_i\}$ doesn't exist, i.e. $\cup_i^\infty A_i\not\in\mathcal{A}$, however, $A_i\in \mathcal{A}$. Hence, $\mathcal{A}$ isn't a $\sigma$-algebra. 
+
+        I guess it may not be an algebra. But I can not get an example to prove it. 
     \end{solution}
 
     \begin{exercise}{1.2.1}
         Suppose $X$ and $Y$ are random variables on $(\Omega, \mathcal{F}, P)$ and let $A \in \mathcal{F}$. Show that if we let $Z(\omega)=X(\omega)$ for $\omega \in A$ and $Z(\omega)=Y(\omega)$ for $\omega \in A^{c}$, then $Z$ is a random variable.
     \end{exercise}
+    \begin{proof}
+        First, $Z: \Omega\to\mathbb{R}$, 
+        \begin{equation*}
+            z(\omega)=\left\{
+            \begin{aligned}
+                &X(\omega)\in\mathbb{R}, \omega\in A\\
+                &Y(\omega)\in\mathbb{R}, \omega\in A^c
+            \end{aligned}
+            \right., 
+        \end{equation*}
+        So, $Z(\omega)\in\mathbb{R}$. 
+
+        Second, for borel set $B\in\mathbb{R}$, we need to prove that $Z^{-1}\in\mathcal{F}$. 
+        \begin{align*}
+            Z^{-1}(B)&=\{\omega\in\Omega:Z(\omega)\in B\}\\
+            &=\{\omega\in A: X(\omega)\in B\}\cup\{\omega\in A^c: Y(\omega)\in B\}\\
+            &=\{A\cap X^{-1}(B)\}\cup\{A^c\cap Y^{-1}(B)\}. 
+        \end{align*}
+        Because $A$ and $A^c\in\mathcal{F}$, $Z^{-1}\in\mathcal{F}$. 
+    \end{proof}
 
     \begin{exercise}{1.2.4}
         Show that if $F(x)=P(X \leq x)$ is continuous, then $Y=F(X)$ has a uniform distribution on $(0,1)$, that is, if $y \in[0,1], P(Y \leq y)=y$.
