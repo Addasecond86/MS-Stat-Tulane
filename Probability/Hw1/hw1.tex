@@ -107,7 +107,7 @@
         Suppose $X$ and $Y$ are random variables on $(\Omega, \mathcal{F}, P)$ and let $A \in \mathcal{F}$. Show that if we let $Z(\omega)=X(\omega)$ for $\omega \in A$ and $Z(\omega)=Y(\omega)$ for $\omega \in A^{c}$, then $Z$ is a random variable.
     \end{exercise}
     \begin{proof}
-        First, $Z: \Omega\to\mathbb{R}$, 
+        1, We need to prove $Z: \Omega\to\mathbb{R}$, 
         \begin{equation*}
             z(\omega)=\left\{
             \begin{aligned}
@@ -118,7 +118,7 @@
         \end{equation*}
         So, $Z(\omega)\in\mathbb{R}$. 
 
-        Second, for borel set $B\in\mathbb{R}$, we need to prove that $Z^{-1}\in\mathcal{F}$. 
+        2, For borel set $B\in\mathbb{R}$, we need to prove that $Z^{-1}\in\mathcal{F}$. 
         \begin{align*}
             Z^{-1}(B)&=\{\omega\in\Omega:Z(\omega)\in B\}\\
             &=\{\omega\in A: X(\omega)\in B\}\cup\{\omega\in A^c: Y(\omega)\in B\}\\
@@ -139,6 +139,7 @@
             &=F(F^{-1}(y))\\
             &=y
         \end{align*}
+        \vspace{-20pt}
     \end{proof}
 
     \begin{exercise}{1.2.7}
