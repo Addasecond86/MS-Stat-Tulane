@@ -154,13 +154,12 @@
 \begin{exercise}{(6), }
     Let $A \subset \mathbb{R}$. Evaluate $\lim _{n \rightarrow \infty}|A \cup[-n, n]|$. 
 \end{exercise}
-\begin{proof}
-    \textcolor{blue}{This problem is kind of strange. }
 
-    Suppose $[-n,n]\in\mathbb{Z}$, 
-    \[|A\cup[-n,n]|\leqslant|A|+|[-n,n]|\leqslant|A|+2n, \]
+\begin{proof}
+    Considering $|[-n,n]|=2n$, 
+    \[|A\cup[-n,n]|\geqslant|[-n,n]|=2n, \]
     So, 
-    \[\lim _{n \rightarrow \infty}|A \cup[-n, n]|=|A|+\infty=\infty. \]
+    \[\lim _{n \rightarrow \infty}|A \cup[-n, n]|=\infty. \]
     \vspace{-30pt}
 \end{proof}
 
@@ -179,8 +178,8 @@
             A=\mathbb{R}\backslash U=\mathbb{R}\cap U^c=U^c, 
         \]  
         So, $A$ is a closed set. 
-        \item $|U|\leqslant\sum_{n=1}^{\infty}|\left(r_{n}-\frac{1}{2^{n}}, r_{n}+\frac{1}{2^{n}}\right)|\leqslant2$. And $\infty=|R|=|U|+|U^c|\leqslant2+|U^c|$. Hence $|U^c|=\infty$, i.e. $|A|=\infty$. 
-        \item \textcolor{blue}{Can we get an interval $I\subset A$? I mean because $\mathbb{Q}\subset U$, $A$ is nowhere dense. Hence $A$ should only contain infinite single irrational points. One can not even take an interval in it. }
+        \item $|U|\leqslant\sum_{n=1}^{\infty}|\left(r_{n}-\frac{1}{2^{n}}, r_{n}+\frac{1}{2^{n}}\right)|\leqslant2$. And $|U|+|U^c|\geqslant|U\cup U^c|=|\mathbb{R}|=\infty$. Hence $|U^c|=\infty$, i.e. $|A|=\infty$. 
+        \item \textcolor{blue}{Because $\mathbb{Q}\subset U$, $A=U^c$ is nowhere dense. Hence $A$ should only contain infinite single irrational points. One can not even take an interval which contain more than one point in it. }
     \end{itemize}
     \vspace{-30pt}
 \end{proof}
