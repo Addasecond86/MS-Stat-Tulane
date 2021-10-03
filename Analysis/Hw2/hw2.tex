@@ -29,9 +29,32 @@
 \begin{exercise}{(1), }
     Let $f, g:[a, b] \rightarrow \mathbb{R}$ be Riemann integrable. Prove that $f+g$ is also Riemann integrable and
     \[
-        \int_{a}^{b}(f+g)=\int_{a}^{b} f+\int_{a}^{b} g. 
+        \int_{a}^{b}(f(x)+g(x))\der x=\int_{a}^{b} f(x)\der x+\int_{a}^{b} g(x)\der x. 
     \]
 \end{exercise}
+\begin{proof}
+    Because $f$ and $g$ are integrable, there exist $I(f), I(g)\in\mathbb{R}$, such that
+    \[
+        \int_{a}^{b} f(x)\der x=I(f)=\lim_{n\to\infty}\sum_{i=1}^{n}f(\varepsilon_i)(x_{i-1}, x_i)
+    \]
+    \[
+        \int_{a}^{b} g(x)\der x=I(g)=\lim_{n\to\infty}\sum_{i=1}^{n}g(\varepsilon_i)(x_{i-1}, x_i)
+    \]
+    where $\varepsilon_i\in(x_{i-1}, x_i)$. So, we need to evaluate 
+    \[
+        \lim_{n\to\infty}\left(\sum_{i=1}^{n}\left(f(\varepsilon_i)+g(\varepsilon_i)\right)(x_{i-1}, x_i)-\sum_{i=1}^{n}f(\varepsilon_i)(x_{i-1}, x_i)-\sum_{i=1}^{n}g(\varepsilon_i)(x_{i-1}, x_i)\right). 
+    \]
+    \begin{align*}
+        &\left|\sum_{i=1}^{n}\left(f(\varepsilon_i)+g(\varepsilon_i)\right)(x_{i-1}, x_i)-\sum_{i=1}^{n}f(\varepsilon_i)(x_{i-1}, x_i)-\sum_{i=1}^{n}g(\varepsilon_i)(x_{i-1}, x_i)\right|\\
+        \leqslant&\left|\sum_{i=1}^{n}f(\varepsilon_i)(x_{i-1}, x_i)-f(\varepsilon_i)(x_{i-1}, x_i)\right|+\left|\sum_{i=1}^{n}g(\varepsilon_i)(x_{i-1}, x_i)-g(\varepsilon_i)(x_{i-1}, x_i)\right|\\
+        =&0. 
+    \end{align*}
+    So, $f+g$ is integrable, and
+    \[
+        \int_{a}^{b}(f(x)+g(x))\der x=I(f)+I(g)=\int_{a}^{b} f(x)\der x+\int_{a}^{b} g(x)\der x. 
+    \]
+    \vspace{-30pt}
+\end{proof}
 
 \begin{exercise}{(2), }
     Suppose $f:[a, b] \rightarrow \mathbb{R}$ is Riemann integrable. Define 
@@ -40,6 +63,11 @@
     \]
     Prove that $F$ is a continuous function. 
 \end{exercise}
+\begin{proof}
+    Because $f$ is integrable, $f$ is continuous on $(a,b]$. And
+    \[\lim_{x\to a}F(x)=\lim_{x\to a}\int_{a}^{x}f(t)\der t=\int_a^af(x)\der x=0=F(a). \]
+    So, $F$ is continuous. 
+\end{proof}
 
 \begin{exercise}{(3), }
     Let $\mathbb{Q}=\left\{r_{j}\right\} .$ Define a function 
@@ -53,19 +81,38 @@
     Prove that $f$ is not Riemann integrable. Argue that the area under the curve of $f$ is at most $2 .$ Discuss existence of this area.
 \end{exercise}
 
+\begin{proof}
+    % WLOG, let $\{r_j\}$ be monotonical, i.e. $r_i\leqslant r_j$, for $i<j$. Because the domain of $f$ is $[0,1]$, $f_n(x)=0$, for all $r_n\geqslant 1$, and in this case, $f(x)=0$. 
+
+    % Let $\mathbb{Q}^+:=\{r_i:r_i>0\}$
+    If $r_n<0$ or $r_n>1$, then $f$ is integrable because it will be bounded on $[0,1]$. So, in the case $r_n\in[0,1]$, we have $f_n(x)=0$, $x\leqslant r_n$, and $f_n(x)=(x-r_n)^{-1/2}=\frac{1}{\sqrt{x-r_n}}\leqslant\frac{1}{\sqrt{x}}$, $x>r_n$. So, we can know that 
+    \[
+        f(x)\leqslant\sum_{n=1}^{\infty} \frac{1/\sqrt{x}}{2^{n}}=\frac{1}{\sqrt{x}}, 
+    \]
+    The equality holds when $r_n=0$. And because $\frac{1}{\sqrt{x}}$ is unbounded and $[0,1]$ is a closed interval, $f(x)$ is not integrable. 
+
+    However, 
+    \[
+        \lim_{t\to0}\int_t^1\frac{1}{\sqrt{x}}\der x=2. 
+    \]
+    So, the area under the curve is at most $2$. \vspace{-10pt}
+\end{proof}
+
 \begin{exercise}{(4), }
+    \textcolor{blue}{I modified $n$ to $2n$. }
+
     Compute
     \[
-        h(x)=\lim _{m \rightarrow \infty} \lim _{n \rightarrow \infty} \cos (m ! \pi x)^{n}, 
+        h(x)=\lim _{m \rightarrow \infty} \lim _{n \rightarrow \infty} \cos (m ! \pi x)^{2n}, 
     \]
     and discuss this function in terms of Riemann integrability.
 \end{exercise}
 \begin{solution}
     Because $|\cos(m!\pi x)|\leqslant1$, 
     \[
-        \lim_{n\to\infty}\cos(m!\pi x)^n=
+        \lim_{n\to\infty}\cos(m!\pi x)^{2n}=
         \begin{cases}
-            \pm 1, & |\cos(m!\pi x)|=1, \\
+            1, & |\cos(m!\pi x)|=1, \\
             0, & \text{otherwise}. 
         \end{cases}
     \]
@@ -73,10 +120,8 @@
     
     Hence we can get that $x=\frac{k}{m!}$, $k\in\mathbb{Z}$. And for any rational number denoted by $\frac{p}{q}$, $p,q\in\mathbf{Z}$, $q\not=0$, $\frac{p}{q}=\frac{(q-1)!p}{q!}$, which means $x$ can be any rational number. 
     
-    When $x$ is an irrational number, $h(x)=0$.  But when $x$ is a rational number, the limit value would oscillate between $-1$ and $1$. In this case, the limit doesn't exist. So, 
-    \[
-        h(x)=0, \, x\in\mathbb{R}\backslash\mathbb{Q}. 
-    \]
+    When $x$ is an irrational number, $h(x)=0$.  And when $x$ is a rational number, $h(x)=1$. 
+
     Because $\mu(\mathbb{Q})=0$, 
     \[
         \int_\mathbb{R}h(x)\der x=\int_{\mathbb{R}\backslash\mathbb{Q}}h(x)\der x+\int_\mathbb{Q}h(x)\der x=0. 
@@ -94,17 +139,51 @@
     Let $A, B \subset \mathbb{R}$ and $|B|=0 .$ Prove that $|A \cup B|=|A|$. 
 \end{exercise}
 
+\begin{proof}
+    $\leqslant$: 
+    \begin{align*}
+        |A\cup B|\leqslant|A|+|B|=|A|, 
+    \end{align*}
+    $\geqslant$:
+    \[
+        |A|\leqslant|A\cup B|
+    \]
+    So, $|A\cup B|=|A|$. 
+\end{proof}
+
 \begin{exercise}{(6), }
     Let $A \subset \mathbb{R}$. Evaluate $\lim _{n \rightarrow \infty}|A \cup[-n, n]|$. 
 \end{exercise}
+\begin{proof}
+    \textcolor{blue}{This problem is kind of strange. }
+
+    Suppose $[-n,n]\in\mathbb{Z}$, 
+    \[|A\cup[-n,n]|\leqslant|A|+|[-n,n]|\leqslant|A|+2n, \]
+    So, 
+    \[\lim _{n \rightarrow \infty}|A \cup[-n, n]|=|A|+\infty=\infty. \]
+    \vspace{-30pt}
+\end{proof}
 
 \begin{exercise}{(7), }
     Let $\mathbb{Q}=\left\{r_{n}\right\}$. Define
     \[
         A=\mathbb{R} \backslash \bigcup_{n=1}^{\infty}\left(r_{n}-\frac{1}{2^{n}}, r_{n}+\frac{1}{2^{n}}\right). 
     \]
-    Prove that $A$ is closed; that any interval $I \subset A$ contains more than one element and that $|A|=\infty$. 
+    Prove that $A$ is closed, that any interval $I \subset A$ contains more than one element and that $|A|=\infty$. 
 \end{exercise}
+\begin{proof}
+    $U:=\bigcup_{n=1}^{\infty}\left(r_{n}-\frac{1}{2^{n}}, r_{n}+\frac{1}{2^{n}}\right)$. 
+    \begin{itemize}
+        \item Because $U$ is countable unions of open set, it is a open set. And 
+        \[
+            A=\mathbb{R}\backslash U=\mathbb{R}\cap U^c=U^c, 
+        \]  
+        So, $A$ is a closed set. 
+        \item $|U|\leqslant\sum_{n=1}^{\infty}|\left(r_{n}-\frac{1}{2^{n}}, r_{n}+\frac{1}{2^{n}}\right)|\leqslant2$. And $\infty=|R|=|U|+|U^c|\leqslant2+|U^c|$. Hence $|U^c|=\infty$, i.e. $|A|=\infty$. 
+        \item \textcolor{blue}{Can we get an interval $I\subset A$? I mean because $\mathbb{Q}\subset U$, $A$ is nowhere dense. Hence $A$ should only contain infinite single irrational points. One can not even take an interval in it. }
+    \end{itemize}
+    \vspace{-30pt}
+\end{proof}
 
 \end{document}
 
