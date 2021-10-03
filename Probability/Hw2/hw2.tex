@@ -41,7 +41,7 @@
     \begin{exercise}{1.4.2}
         Let $f \geq 0$ and $E_{n, m}=\left\{x: m / 2^{n} \leqslant f(x)<(m+1) / 2^{n}\right\}$. Show that as $n \uparrow \infty$, 
         \[
-            \sum_{m=1}^{\infty} \frac{m}{2^{n}} \mu\left(E_{n, m}\right) \uparrow \int f d \mu. 
+            \sum_{m=1}^{\infty} \frac{m}{2^{n}} \mu\left(E_{n, m}\right) \uparrow \int f \der \mu. 
         \]
     \end{exercise}
     \begin{proof}
@@ -81,30 +81,140 @@
         
         (i), Use the definition of the integral to conclude there is a simple function 
         \[
-            \varphi=\sum_{k} b_{k} 1_{A_{k}},\,\text{with}\int|g-\varphi| d x<\varepsilon. 
+            \varphi=\sum_{k} b_{k} \mathbf{1}_{A_{k}},\,\text{with}\int|g-\varphi| \der x<\varepsilon. 
         \]
         
         (ii), Use Exercise A.2.1 to approximate the $A_{k}$ by finite unions of intervals to get a step function 
         \[
-            q=\sum_{j=1}^{k} c_{j} 1_{\left(a_{j-1}, a_{j}\right)}
+            q=\sum_{j=1}^{k} c_{j} \mathbf{1}_{\left(a_{j-1}, a_{j}\right)}
         \]
         with $a_{0}<a_{1}<\cdots<a_{k}$, so that $\int|\varphi-q|<\varepsilon$. 
         
-        (iii), Round the corners of $q$ to get a continuous function $r$ so that $\int|q-r| d x<\varepsilon$. 
+        (iii), Round the corners of $q$ to get a continuous function $r$ so that $\int|q-r| \der x<\varepsilon$. 
+
+        % \textcolor{blue}{\emph{I found something strange, the description of the fourth question seems to be the solution to the third question. }}
 
         (iv), To make a continuous function replace each $c_{j} \mathbf{1}_{\left(a_{j-1}, a_{j}\right)}$ by a function that is $0$ on $\left(a_{j-1}, a_{j}\right)^{c}$, $c_{j}$ on $\left[a_{j-1}+\delta-j, a_{j}-\delta_{j}\right]$, and linear otherwise. If the $\delta_{j}$ are small enough and we let $r(x)=\sum_{j=1}^{k} r_{j}(x)$, then
         \[
             \int|q(x)-r(x)| d \mu=\sum_{j=1}^{k} \delta_{j} c_{j}<\varepsilon. 
         \]
     \end{exercise}
+    \begin{solution}
+        {\large\bf(i)}, From exercise 1.4.2, we can know that if $g\geqslant0$, then 
+        \[
+            \sum_{m=1}^{\infty} \frac{m}{2^{n}} \mu\left(E_{n, m}\right) \uparrow \int f \der \mu. 
+        \]
+        Because $g=g^+-g^-$, let 
+        \[
+            \varphi_1=\sum_{m=1}^\infty\frac{m}{2^n}\mathbf{1}_{E_{n,m}^{g^+}},\ \varphi_2=\sum_{m=1}^\infty\frac{m}{2^n}\mathbf{1}_{E_{n,m}^{g^-}}, 
+        \]
+        So, we can know that 
+        \[\int g^+\der\mu-\int \varphi_1\der\mu=\int|g^+-\varphi_1|\der\mu\leqslant\frac{\varepsilon}{2}, \]
+        \[\int g^-\der\mu-\int \varphi_2\der\mu=\int|g^--\varphi_2|\der\mu\leqslant\frac{\varepsilon}{2}, \]
+        Hence, we have: 
+        \begin{align*}
+            \int |g-(\varphi_1-\varphi_2)|\der \mu&=\int |g^+-g^--(\varphi_1-\varphi_2)|\der \mu\\
+            &\leqslant\int|g^+-\varphi_1|\der \mu + \int |g^--\varphi_2|\der \mu\\
+            &\leqslant\varepsilon. 
+        \end{align*}
+        {\large\bf(ii)}, \emph{I had a discussion with a few other students, but I still couldn't figure out the relationship between this problem and Exercise A.2.1. }
+        
+        Knowing that each $E_{n,m}$ is closed, we can pick $A_k$ so that $\mu(A_m-E_{n,m})\leqslant\frac{2^n\varepsilon}{k^2}$. And let $q=\sum_{m=1}^k\frac{m}{2^n}\mathbf{1}_{A_m}$then we can get 
+        \[\int|\varphi-q|\der\mu\leqslant\sum_{m=1}^k\frac{m}{2^n}\mu(A_m-E_{n,m})\leqslant\varepsilon. \]
+        {\large\bf(iii)}, \textcolor{blue}{\emph{I found something strange, the description of the fourth question seems to be the solution to the third question. }}
+    \end{solution}
     
     \begin{exercise}{1.4.4}
         Prove the Riemann-Lebesgue lemma. If $g$ is integrable, then 
         \[
-            \lim _{n \rightarrow \infty} \int g(x) \cos n x d x=0. 
+            \lim _{n \rightarrow \infty} \int g(x) \cos(nx) \der x=0. 
         \]
         Hint: If $g$ is a step function, this is easy. Now use the previous exercise. 
     \end{exercise}
-    
+    \begin{proof}
+        From Exercose 1.4.3, we know that $g$ can be approximated by the step function, i.e. $g(x)=\sum_{i=1}^k m \mathbf{1}_{(a_i, b_i)}(x)$, then 
+        \[
+            \int g(x) \cos (n x )\der x\sim\sum_{i=1}^k m \int_{a_i}^{b_i} \cos (n x) \der x\leqslant\frac{2km}{n}, 
+        \]
+        So, for some $n$, $\int g(x) \cos (n x )\der x\rightarrow 0$. 
+    \end{proof}
+
+    \begin{exercise}{1.5.2}
+        Show that if $\mu$ is a probability measure, then
+        \[
+            \|f\|_{\infty}=\lim_{p\to\infty}\|f\|_p. 
+        \]
+    \end{exercise}
+
+
+    \begin{exercise}{1.5.7}
+        Let $f\geqslant0$. 
+        
+        (i) Show that
+        \[
+            \int f\wedge n\der\mu\uparrow\int f\der\mu,\,\text{as}\,n\to\infty. 
+        \]
+        (ii) Use (i) to conclude that if $g$ is integrable and $\varepsilon>0$, then we can pick $\delta > 0$ so that $\mu(A) < \delta$ implies
+        \[
+            \int_A|g|\der\mu<\varepsilon. 
+        \]
+    \end{exercise}
+
+    \begin{exercise}{1.6.1}
+        Suppose $\varphi$ is strictly convex, i.e., $>$ holds for $\lambda \in(0,1)$. Show that, under the assumptions of Theorem 1.6.2, $\varphi(E X)=E \varphi(X)$ implies $X=E X$ a.s. 
+    \end{exercise}
+
+
+
+    \begin{exercise}{1.6.2}
+        Suppose $\varphi: \mathbb{R}^{n} \rightarrow \mathbb{R}$ is convex. Imitate the proof of Theorem $1.5.1$ to show
+        \[
+            E \varphi\left(X_{1}, \ldots, X_{n}\right) \geq \varphi\left(E X_{1}, \ldots, E X_{n}\right). 
+        \]
+        provided $E\left|\varphi\left(X_{1}, \ldots, X_{n}\right)\right|<\infty$ and $E\left|X_{i}\right|<\infty$ for all $i$. 
+    \end{exercise}
+
+
+
+    \begin{exercise}{1.6.3. Chebyshev's inequality is and is not sharp.}        
+        (i) Show that Theorem $1.6.4$ is sharp by showing that if $0<b \leq a$ are fixed there is an $X$ with $E X^{2}=b^{2}$ for which $P(|X| \geq a)=b^{2} / a^{2}$. 
+        
+        (ii) Show that Theorem 1.6.4 is not sharp by showing that if $X$ has $0<E X^{2}<\infty$, then
+        \[
+            \lim _{a \rightarrow \infty} a^{2} P(|X| \geq a) / E X^{2}=0. 
+        \]
+    \end{exercise}
+
+
+    \begin{exercise}{1.6.9. Inclusion-exclusion formula.}
+        Let $A_{1}, A_{2}, \ldots A_{n}$ be events and $A=\cup_{i=1}^{n} A_{i}$. Prove that $1_{A}=1-\prod_{i=1}^{n}\left(1-1_{A_{i}}\right)$. Expand out the right-hand side, then take expected value to conclude
+        \begin{align*}
+            P\left(\cup_{i=1}^{n} A_{i}\right)=& \sum_{i=1}^{n} P\left(A_{i}\right)-\sum_{i<j} P\left(A_{i} \cap A_{j}\right) \\
+            &+\sum_{i<j<k} P\left(A_{i} \cap A_{j} \cap A_{k}\right)-\cdots+(-1)^{n-1} P\left(\cap_{i=1}^{n} A_{i}\right). 
+        \end{align*}
+    \end{exercise}
+
+
+    \begin{exercise}{1.6.10. Bonferroni inequalities.}
+        Let $A_{1}, A_{2}, \ldots A_{n}$ be events and $A=\cup_{i=1}^{n} A_{i} .$ Show that $1_{A} \leq \sum_{i=1}^{n} 1_{A_{i}}$, etc. and then take expected values to conclude
+        \[
+            P\left(\cup_{i=1}^{n} A_{i}\right) \leq \sum_{i=1}^{n} P\left(A_{i}\right), 
+        \]
+        \[
+            P\left(\cup_{i=1}^{n} A_{i}\right) \geq \sum_{i=1}^{n} P\left(A_{i}\right)-\sum_{i<j} P\left(A_{i} \cap A_{j}\right), 
+        \]
+        \[
+            P\left(\cup_{i=1}^{n} A_{i}\right) \leq \sum_{i=1}^{n} P\left(A_{i}\right)-\sum_{i<j} P\left(A_{i} \cap A_{j}\right)+\sum_{i<j<k} P\left(A_{i} \cap A_{j} \cap A_{k}\right). 
+        \]
+        In general, if we stop the inclusion-exclusion formula after an even (odd) number of sums, we get a(n) lower (upper) bound. 
+    \end{exercise}
+
+
+    \begin{exercise}{1.6.11.}
+        If $E|X|^{k}<\infty$, then for $0<j<k, E|X|^{j}<\infty$, and furthermore 
+        \[
+            E|X|^{j} \leq\left(E|X|^{k}\right)^{j / k}. 
+        \]
+    \end{exercise}
 \end{document}
 
