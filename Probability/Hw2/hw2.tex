@@ -30,13 +30,14 @@
     \end{exercise}
 
     \begin{proof}
-        We need to prove $\mu\left(\left\{x:f(x)>0\right\}\right)=0$. And let $A_\varepsilon=\left\{x:f(x)>\varepsilon\right\}$. So, when $\varepsilon\to0$, $A_\varepsilon\to A_0$. 
-        And from the definition of measure, we can know: 
+        We need to prove $\mu\left(\left\{x:f(x)>0\right\}\right)=0$. Let $A_\varepsilon=\left\{x:f(x)>\varepsilon\right\}$. So, when $\varepsilon\to0$, $A_\varepsilon\to A_0$. 
+        From the definition of measure, we can know
         \begin{align*}
             0\leqslant\varepsilon\mu(A_\varepsilon)=\int_{A_\varepsilon}\varepsilon\der\mu\leqslant\int f\der\mu=0, 
         \end{align*}
-        So, $\mu(A_\varepsilon)=0$, and considering the arbitrary of $\varepsilon$, we can know that: 
-        \[\mu(A_0)=\lim_{\varepsilon\to0}\mu(A_\varepsilon)=0. \]\vspace{-30pt}
+        So, $\mu(A_\varepsilon)=0$, and considering the arbitrary of $\varepsilon$, we can know
+        \[\mu(A_0)=\lim_{\varepsilon\to0}\mu(A_\varepsilon)=0. \]
+        Hence,  $\mu\left(\left\{x:f(x)>0\right\}\right)=0$. 
     \end{proof}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -49,20 +50,21 @@
     \end{exercise}
 
     \begin{proof}
-        Let $g=\sum_{m=1}^\infty\frac{m}{2^n}\mathbf{1}_{E_{n,m}}$, $\forall\,x\in E_{n,m}$, $\frac{m}{2^n}<f(x)$. So, we have 
+        Let $g=\sum_{m=1}^\infty\frac{m}{2^n}\mathbf{1}_{E_{n,m}}$, $\forall\,x\in E_{n,m}$, $\frac{m}{2^n}\leqslant f(x)$. So, we have 
         \[
             \sum_{m=1}^\infty\frac{m}{2^n}\mu(E_{n,m})=\int g\der \mu\leqslant\int f\der \mu. 
         \]
-        Hence as $n\to\infty$, $\sup \sum_{m=1}^\infty\frac{m}{2^n}\mu(E_{n,m})\leqslant \int f\der \mu$. 
+        As $n\to\infty$, $\sup \sum_{m=1}^\infty\frac{m}{2^n}\mu(E_{n,m})\leqslant \int f\der \mu$. 
 
         For the other inequation, 
         \[
-            g+\sum_{m=1}^\infty \frac{1}{2^n}\mathbf{1}_{E_{n,m}}\geqslant f\mathbf{1}_{E_{n,m}}
+            g+\sum_{m=1}^\infty \frac{1}{2^n}\mathbf{1}_{E_{n,m}}=\sum_{i=1}^\infty\frac{m+1}{2^n}\mathbf{1}_{n,m}\geqslant f\mathbf{1}_{E_{n,m}}, 
         \]
+        Take integral for the both sides, 
         \[
             \frac{1}{2^n}\sum_{m=1}^\infty\mu(E_{n,m})+\sum_{m=1}^\infty\frac{m}{2^n}\mu(E_{n,m})\geqslant\int f\der\mu, 
         \]
-        As $n\to 0$, we can write above inequation as: 
+        As $n\to \infty$, we can write above inequation as: 
         \[
             \sum_{m=1}^\infty\frac{m}{2^n}\mu(E_{n,m})\geqslant\int f\der\mu, 
         \]
@@ -124,10 +126,17 @@
             &\leqslant\int|g^+-\varphi_1|\der \mu + \int |g^--\varphi_2|\der \mu\\
             &\leqslant\varepsilon. 
         \end{align*}
-        {\large\bf(ii)}, \emph{I had a discussion with a few other students, but I still couldn't figure out the relationship between this problem and Exercise A.2.1. }
+
+        {\large\bf(ii)}, 
+        % \emph{I had a discussion with a few other students, but I still couldn't figure out the relationship between this problem and Exercise A.2.1. }
+        From (i), we know 
+        \[
+            \varphi=\varphi_1-\varphi_2=\sum_{m=1}^\infty\frac{m}{2^n}\mathbf{1}_{E_{n,m}^{g^+}-E_{n,m}^{g^-}},\ \sum_{m=1}^\infty-\frac{m}{2^n}\mathbf{1}_{E_{n,m}^{g^-}-E_{n,m}^{g^+}}, 
+        \]
+        When $x\in E_{n,m}^{g^+}\cap E_{n,m}^{g^-}$, $\varphi=0$. Because $E_{i=1}^k=\{E_{n,m}^{g^+}-E_{n,m}^{g^-}$, $E_{n,m}^{g^-}-E_{n,m}^{g^+}$, $E_{n,m}^{g^+}\cap E_{n,m}^{g^-}\}$ are disjoint, and they are sets on $\mathbb{R}$, we can represent them with finite union of some intervals and some single points (the measure of the single point is $0$). 
         
-        Knowing that $E_{n,m}$ is disjoint, we can pick $\{A_k\}$ so that $\mu(A_m-E_{n,m})\leqslant\frac{2^n\varepsilon}{k^2}$. And let $q=\sum_{m=1}^k\frac{m}{2^n}\mathbf{1}_{A_m}$then we can get 
-        \[\int|\varphi-q|\der\mu\leqslant\sum_{m=1}^k\frac{m}{2^n}\mu(A_m-E_{n,m})\leqslant\varepsilon. \]
+        So, for any $E_i$, we can pick $\{A_i\}$ so that $\mu(A_i-E_i)\leqslant\frac{2^n\varepsilon}{k^2}$. And let $q=\sum_{m=1}^k\frac{m}{2^n}\mathbf{1}_{A_m}$, because $|q|\geqslant0$, we can get 
+        \[\int|\varphi-q|\der\mu\leqslant\int|\varphi|-|q|\der\mu\leqslant\sum_{m=1}^k\frac{m}{2^{n}}\mu(A_i-E_i)\leqslant\varepsilon. \]
 
         {\large\bf(iii)}, \textcolor{blue}{\emph{I found something strange, the description of the fourth question seems to be the solution to the third question. }}
     \end{solution}
@@ -143,9 +152,9 @@
     \end{exercise}
 
     \begin{proof}
-        From Exercose 1.4.3, we know that $g$ can be approximated by the step function, i.e. $g(x)=\sum_{i=1}^\infty m_i \mathbf{1}_{(a_i, b_i)}(x)$, and since $g$ is integrable, $\int g(x)\der x=\sum_{i=1}^\infty m_i\mu((a_i,b_i))<\infty$, then 
+        From Exercose 1.4.3, we know that $g$ can be approximated by the step function, i.e. $g(x)=\sum_{i=1}^k m_i \mathbf{1}_{(a_i, b_i)}(x)$, and since $g$ is integrable, $\int g(x)\der x=\sum_{i=1}^k m_i\mu((a_i,b_i))<\infty$, then 
         \[
-            \int g(x) \cos (n x )\der x=\sum_{i=1}^\infty m_i \int_{a_i}^{b_i} \cos (n x) \der x\leqslant\frac{1}{n}\sum_{i=1}^\infty m_i\mu((a_i,b_i)), 
+            \int g(x) \cos (n x )\der x=\sum_{i=1}^k m_i \int_{a_i}^{b_i} \cos (n x) \der x\leqslant\frac{2}{n}\sum_{i=1}^k m_i, 
         \]
         So, $n\to \infty$, $\int g(x) \cos (n x )\der x\rightarrow 0$. 
     \end{proof}
@@ -166,17 +175,17 @@
         \]
         Then, 
         \[
-            \lim\sup_{p\to\infty}\|f\|_p\leqslant N. 
+            \lim_{p\to\infty}\sup\|f\|_p\leqslant N. 
         \]
-        For some $M$, if $\mu(\{x:f(x)\geqslant M\})=m>0$, then
+        And WOLG, we can let $N=\|f\|_\infty$. For some $M$, if $\mu(\{x:f(x)\geqslant M\})=m>0$, then
         \[
             \left(\int|f|^p\der \mu\right)^{\frac{1}{p}}\geqslant\sqrt[p]{m}M, 
         \]
         Then 
         \[
-            \lim\inf_{p\to \infty}\|f\|_p\geqslant M. 
+            \lim_{p\to \infty}\inf\|f\|_p\geqslant M. 
         \]
-        And because $\|f\|_\infty=\sup\{|f(x)|\}$, let $m\to0$, we can get that $\sup\{|f(|x|)\}=M=N=\lim_{p\to\infty}\|f\|_p$. 
+        And because $\|f\|_\infty=\inf_R\{|f(x)|:\mu(f(x\geqslant R))=0\}$, let $m\to0$, we can get that $\|f\|_\infty=N=M=\lim_{p\to\infty}\|f\|_p$. 
     \end{proof}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -195,7 +204,8 @@
     \end{exercise}
 
     \begin{proof}
-        (i), We can know that $f\wedge n\leqslant f\wedge (n+1)$, and $\lim_{n\to \infty}(f\wedge n)=f$. So, \[\int f\wedge n\der\mu\uparrow\int f\der\mu. \]
+        (i), We can know that $f\wedge n\leqslant f\wedge (n+1)$, and $\lim_{n\to \infty}(f\wedge n)=f$. So, for $f_n=\{f\wedge n\}$, $f_n\leqslant f$. From D.C.T., we know
+        \[\int f\wedge n\der\mu\uparrow\int f\der\mu. \]
         (ii), Let $f=|g|$, then, $|g|\geqslant (|g|\wedge n)$, for any $n\in\mathbb{Z}^+$. Because $\int |g|\wedge n\der\mu\uparrow\int |g|\der\mu$, there exist $n$, such that
         \[
             \int_A |g|\der\mu-\int_A |g|\wedge n\der\mu\leqslant \frac{\varepsilon}{2}. 
@@ -203,176 +213,9 @@
         Pick $\delta=\frac{\varepsilon}{2n}$, then we have
         \begin{align*}
             \int_A|g|\der\mu&\leqslant\int_A|g|\der\mu-\int_A |g|\wedge n\der\mu+\int_A |g|\wedge n\der\mu\\
-            &\leqslant\frac{\varepsilon}{2}+\mu(A)n<\varepsilon. 
+            &\leqslant\frac{\varepsilon}{2}+\mu(A)n\\
+            &\geqslant\varepsilon. 
         \end{align*}
-        \vspace{-30pt}
-    \end{proof}
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \begin{exercise}{1.6.1}
-        Suppose $\varphi$ is strictly convex, i.e., $>$ holds for $\lambda \in(0,1)$. Show that, under the assumptions of Theorem 1.6.2, $\varphi(E X)=E \varphi(X)$ implies $X=E X$ a.s. 
-    \end{exercise}
-
-    \begin{proof}
-        Because $\varphi$ is strictly convex, there exist $c$, such that when $x\not=x_0$, 
-        \[
-            \varphi(x)-\varphi(x_0)>c(x-x_0), 
-        \]
-        Let $x_0=EX$, we can get that 
-        \[
-            \varphi(x)>c(x-EX)+\varphi(EX), 
-        \]
-        From Jensen's inequality, we know that if $\varphi(EX)=E\varphi(X)$, then $E(x-EX)=0$, i.e. $P(X=EX)=1$, $X=EX$, a.e. 
-    \end{proof}
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \begin{exercise}{1.6.2}
-        Suppose $\varphi: \mathbb{R}^{n} \rightarrow \mathbb{R}$ is convex. Imitate the proof of Theorem $1.5.1$ to show
-        \[
-            E \varphi\left(X_{1}, \ldots, X_{n}\right) \geq \varphi\left(E X_{1}, \ldots, E X_{n}\right). 
-        \]
-        provided $E\left|\varphi\left(X_{1}, \ldots, X_{n}\right)\right|<\infty$ and $E\left|X_{i}\right|<\infty$ for all $i$. 
-    \end{exercise}
-
-    \begin{proof}
-        Because $\varphi$ is convex, let $X$ denote $(X_1, \cdots, X_n)$ and we can get a linear function $l(X)=\varphi(E(X))+\sum_{i=1}^na_i(X_i-E(X_i))$, which satisfy for some $c=E(X)$, $l(c)=\varphi(c)$, and for other $x\not=c$, $\varphi(X)>l(X)$, 
-        \[
-            E(\varphi(X))\geqslant E\left(l(X)\right)=\varphi(E(X))+\sum_{i=1}^na_i(E(X_i)-E(X_i))=\varphi(E(X)). 
-        \]
-        \vspace{-30pt}
-    \end{proof}
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \begin{exercise}{1.6.3. Chebyshev's inequality is and is not sharp.}        
-        (i) Show that Theorem $1.6.4$ is sharp by showing that if $0<b \leq a$ are fixed there is an $X$ with $E X^{2}=b^{2}$ for which $P(|X| \geq a)=b^{2} / a^{2}$. 
-        
-        (ii) Show that Theorem 1.6.4 is not sharp by showing that if $X$ has $0<E X^{2}<\infty$, then
-        \[
-            \lim _{a \rightarrow \infty} a^{2} P(|X| \geq a) / E X^{2}=0. 
-        \]
-    \end{exercise}
-
-    \begin{proof}
-        (i), Let $P(|X|=a)=P(X=a)+P(X=-a)=\frac{b^2}{a^2}$, and $P(X=0)=1-P(|X|=a)$. And $E(X)=0$, $E(X^2)=Var(X)=b^2$. If $i_{A}=\inf\,\{\varphi(y): y \in A\}$, then we need to prove that
-        \[
-            i_{A}\,P(X \in A) \leq E(\varphi(X) ; X \in A) \leq E \varphi(X), 
-        \]
-        where $A=\{X:P(|X|\geqslant a)\}$, $\varphi(X)=X^2$. So, we have
-        \begin{align*}
-            &i_{A}\,P(X \in A)=a^2\frac{b^2}{a^2}=b^2, \\
-            &E(\varphi(X) ; X \in A)=a^2\frac{b^2}{a^2}=b^2, \\
-            &E \varphi(X)=b^2. 
-        \end{align*}
-        So, it is sharp for such a r.v. $X$. 
-        
-        (ii), WLOG, let $X\sim N(0,1)$, then $EX=0$, $Var(X)=E(X^2)=1$. $A_a=\{X:P(|X|\geqslant a)\}$, then
-        \[
-            a^{2} P(|X| \geq a) / E X^{2}\leqslant x^2 P(|X| \geq a)=\int_{a}^\infty x^2 f(x)\der x, 
-        \]
-        where $f(\cdot)$ is pdf of $X$. So, 
-        \[
-            \lim_{a\to\infty}a^{2} P(|X| \geq a) / E X^{2}\longrightarrow 0, 
-        \]
-        And because $a^{2} P(|X| \geq a)<E(X^2)$, for any $a$, Chebyshev’s inequality is not sharp. 
-    \end{proof}
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \begin{exercise}{1.6.9. Inclusion-exclusion formula.}
-        Let $A_{1}, A_{2}, \ldots A_{n}$ be events and $A=\cup_{i=1}^{n} A_{i}$. Prove that $\mathbf{1}_{A}=1-\prod_{i=1}^{n}\left(1-\mathbf{1}_{A_{i}}\right)$. Expand out the right-hand side, then take expected value to conclude
-        \begin{align*}
-            P\left(\cup_{i=1}^{n} A_{i}\right)=& \sum_{i=1}^{n} P\left(A_{i}\right)-\sum_{i<j} P\left(A_{i} \cap A_{j}\right) \\
-            &+\sum_{i<j<k} P\left(A_{i} \cap A_{j} \cap A_{k}\right)-\cdots+(-1)^{n-1} P\left(\cap_{i=1}^{n} A_{i}\right). 
-        \end{align*}
-    \end{exercise}
-
-    \begin{proof}
-        If $x\in A$, i.e. $x\in \cup_{i=1}^\infty A_i$. There must be at least one $i$, such that $x\in A_i$, $1-\mathbf{1}_{A_i}=1$. So, in this case, 
-        \[
-            \mathbf{1}_A=1=1-0=1-\prod_{i=1}^n(1-\mathbf{1}_{A_i}). 
-        \] 
-        If $x\not\in A$, the $\mathbf{1}_A=0$, and $\mathbf{1}_{A_i}=0$, for all $i$. Then
-        \[
-            \mathbf{1}_{A}=0=1-1=1-\prod_{i=1}^n(1-0)=1-\prod_{i=1}^n(1-\mathbf{1}_{A_i}). 
-        \]
-        For $\prod_{i=1}^n(1-\mathbf{1}_{A_i})$, we can expand it as
-        \begin{align*}
-            \mathbf{1}_A=&1-\prod_{i=1}^n(1-\mathbf{1}_{A_i})\\
-            =&1-(1-\mathbf{1}_{A_1})(1-\mathbf{1}_{A_2})\cdots(1-\mathbf{1}_{A_n})\\
-            =&(-1)^{0}\sum_{1\leqslant i\leqslant n}\mathbf{1}_{A_i}+(-1)^{1}\sum_{1\leqslant i<j\leqslant n}\mathbf{1}_{A_i}\mathbf{1}_{A_j}\\
-            &+(-1)^{2}\sum_{1\leqslant i<j<k\leqslant n}\mathbf{1}_{A_i}\mathbf{1}_{A_j}\mathbf{1}_{A_k}-\cdots+(-1)^{n-1}\mathbf{1}_{A_1}\cdots\mathbf{1}_{A_n}\\
-            =&\sum_{1\leqslant i\leqslant n}\mathbf{1}_{A_i}-\sum_{1\leqslant i<j\leqslant n}\mathbf{1}_{A_i}\mathbf{1}_{A_j}
-            +\sum_{1\leqslant i<j<k\leqslant n}\mathbf{1}_{A_i}\mathbf{1}_{A_j}\mathbf{1}_{A_k}-\cdots+(-1)^{n-1}\mathbf{1}_{A_1}\cdots\mathbf{1}_{A_n}, 
-        \end{align*}
-        Take expectation for both sides, we can get
-        \begin{align*}
-            P(A)=P(\cup_{i=1}^nA_i)=&\sum_{1\leqslant i\leqslant n}P(A_i)-\sum_{1\leqslant i<j\leqslant n}P(A_i\cap A_j)\\
-            &+\sum_{1\leqslant i<j<k\leqslant n}P(A_i\cap A_j\cap A_k)-\cdots+(-1)^{n-1}P(A_1\cap\cdots\cap A_n). 
-        \end{align*}
-        \vspace{-30pt}
-    \end{proof}
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \begin{exercise}{1.6.10. Bonferroni inequalities.}
-        Let $A_{1}, A_{2}, \ldots A_{n}$ be events and $A=\cup_{i=1}^{n} A_{i} .$ Show that $\mathbf{1}_{A} \leq \sum_{i=1}^{n} \mathbf{1}_{A_{i}}$, etc. and then take expected values to conclude
-        \[
-            P\left(\cup_{i=1}^{n} A_{i}\right) \leq \sum_{i=1}^{n} P\left(A_{i}\right), 
-        \]
-        \[
-            P\left(\cup_{i=1}^{n} A_{i}\right) \geq \sum_{i=1}^{n} P\left(A_{i}\right)-\sum_{i<j} P\left(A_{i} \cap A_{j}\right), 
-        \]
-        \[
-            P\left(\cup_{i=1}^{n} A_{i}\right) \leq \sum_{i=1}^{n} P\left(A_{i}\right)-\sum_{i<j} P\left(A_{i} \cap A_{j}\right)+\sum_{i<j<k} P\left(A_{i} \cap A_{j} \cap A_{k}\right). 
-        \]
-        In general, if we stop the inclusion-exclusion formula after an even (odd) number of sums, we get a(n) lower (upper) bound. 
-    \end{exercise}
-    \begin{proof}
-        Becasue subadditivity, first inequality is apparent. For the second inequality, it equals to 
-        \[
-            \mathbf{1}_{A} \geqslant \sum_{1\leqslant i\leqslant n}^{n} \mathbf{1}_{A_{i}}-\sum_{1\leqslant i<j\leqslant n} \mathbf{1}_{A_{i}} \mathbf{1}_{A_{j}}, 
-        \]
-        Assume for $x\in A$, there are $m$ sets $A_i, \cdots, A_{i+m-1}$ satisfy $x\in A_i$, $m\geqslant2$. Then
-        \[
-            \sum_{1\leqslant i\leqslant n}^{n} \mathbf{1}_{A_{i}}-\sum_{1\leqslant i<j\leqslant n} \mathbf{1}_{A_{i}} \mathbf{1}_{A_{j}}
-            =m-\binom{m}{2} \leqslant 1=\mathbf{1}_{A}. 
-        \]
-        Similarly, for the third inequality, we need to prove
-        \[
-            \mathbf{1}_{A} \leqslant \sum_{1\leqslant i\leqslant n}^{n} \mathbf{1}_{A_{i}}-\sum_{1\leqslant i<j\leqslant n} \mathbf{1}_{A_{i}} \mathbf{1}_{A_{j}}+\sum_{1\leqslant i<j<k\leqslant n} \mathbf{1}_{A_{i}} \mathbf{1}_{A_{j}}\mathbf{1}_{A_{k}}, 
-        \]
-        And if $m\geqslant3$, 
-        \[
-            \sum_{1\leqslant i\leqslant n}^{n} \mathbf{1}_{A_{i}}-\sum_{1\leqslant i<j\leqslant n} \mathbf{1}_{A_{i}} \mathbf{1}_{A_{j}}+\sum_{1\leqslant i<j<k\leqslant n} \mathbf{1}_{A_{i}} \mathbf{1}_{A_{j}}\mathbf{1}_{A_{k}}=m-\binom{m}{2}+\binom{m}{3}\geqslant1. 
-        \]
-        \vspace{-30pt}
-    \end{proof}
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \begin{exercise}{1.6.11.}
-        If $E|X|^{k}<\infty$, then for $0<j<k, E|X|^{j}<\infty$, and furthermore 
-        \[
-            E|X|^{j} \leq\left(E|X|^{k}\right)^{j / k}. 
-        \]
-    \end{exercise}
-
-    \begin{proof}
-        If $|X|^j\geqslant|X|^k$, then $|X|^j\leqslant|X|\leqslant1$. So, $E|X|^j\leqslant\infty$. If $|X|^j\leqslant|X|^k$, then because $E|X|^k\leqslant\infty$, $E|X|^j\leqslant\infty$. 
-        
-        For the inequality, let $\varphi(x)=x^{k/j}$. And because $\varphi$ is convex, we have
-        \[
-            E|X|^{k}=E\varphi\left(|X|^j\right)\geqslant\varphi\left(E|X|^j\right), 
-        \]
-        \[
-            E|X|^{k}\geqslant\left(E|X|^j\right)^{k/j}, 
-        \]
-        \[
-            \left(E|X|^{k}\right)^{j/k}\geqslant E|X|^j. 
-        \]
         \vspace{-30pt}
     \end{proof}
 \end{document}
