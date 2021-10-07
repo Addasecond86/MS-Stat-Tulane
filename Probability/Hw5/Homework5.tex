@@ -25,6 +25,31 @@
 
 \begin{document}
     \maketitle
-    
+    \begin{exercise}{2.2.1}
+        Let $X_{1}, X_{2}, \ldots$ be uncorrelated with $E X_{i}=\mu_{i}$ and $\operatorname{var}\left(X_{i}\right) / i \rightarrow 0$ as $i \rightarrow \infty$. Let $S_{n}=X_{1}+\cdots+X_{n}$ and $v_{n}=E S_{n} / n$ then as $n \rightarrow \infty, S_{n} / n-v_{n} \rightarrow 0$ in $L^{2}$ and in probability. 
+    \end{exercise}
 
+    \begin{exercise}{2.2.2}
+        The $L^{2}$ weak law generalizes immediately to certain dependent sequences. Suppose $E X_{n}=0$ and $E X_{n} X_{m} \leq r(n-m)$ for $m \leq n$ (no absolute value on the left-hand side!) with $r(k) \rightarrow 0$ as $k \rightarrow \infty$. Show that $\left(X_{1}+\cdots+X_{n}\right) / n \rightarrow 0$ in probability. 
+    \end{exercise}
+
+    \begin{exercise}{2.2.3. Monte Carlo integration. }
+        (i) Let $f$ be a measurable function on $[0,1]$ with $\int_{0}^{1}|f(x)| d x<\infty .$ Let $U_{1}, U_{2}, \ldots$ be independent and uniformly distributed on $[0,1]$, and let
+        \[
+            I_{n}=n^{-1}\left(f\left(U_{1}\right)+\cdots+f\left(U_{n}\right)\right), 
+        \]
+        Show that $I_{n} \rightarrow I \equiv \int_{0}^{1} f d x$ in probability. 
+        
+        (ii) Suppose $\int_{0}^{1}|f(x)|^{2} d x<\infty .$ Use Chebyshev's inequality to estimate $P\left(\left|I_{n}-I\right|>a / n^{1 / 2}\right)$. 
+    \end{exercise}
+
+    \begin{exercise}{2.2.5}
+        Let $X_{1}, X_{2}, \ldots$ be i.i.d. with $P\left(X_{i}>x\right)=e / x \log x$ for $x \geq e$. Show that $E\left|X_{i}\right|=$ $\infty$, but there is a sequence of constants $\mu_{n} \rightarrow \infty$ so that $S_{n} / n-\mu_{n} \rightarrow 0$ in probability. 
+    \end{exercise}
+
+    \begin{exercise}{2.2.6}
+        (i) Show that if $X \geq 0$ is integer valued $E X=\sum_{n \geq 1} P(X \geq n)$. 
+        
+        (ii) Find a similar expression for $E X^{2}$. 
+    \end{exercise}
 \end{document}

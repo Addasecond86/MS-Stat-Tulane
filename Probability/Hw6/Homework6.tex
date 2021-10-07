@@ -25,6 +25,55 @@
 
 \begin{document}
     \maketitle
-    
+    \begin{exercise}{2.3.1}
+        Prove that $P(\lim \sup A_n) \geqslant \lim \sup P(A_n)$ and $P(\lim \inf A_n) \leqslant \lim \inf P(A_n)$. 
+    \end{exercise}
 
+    \begin{exercise}{2.3.6. Metric for convergence in probability. }
+        Show (a) that $d(X, Y)=E(|X-Y| /(1+$ $|X-Y|)$ ) defines a metric on the set of random variables, i.e., 
+        \begin{itemize}
+            \item[(i)] $d(X, Y)=0$ if and only if $X=Y$ a.s., 
+            \item[(ii)] $d(X, Y)=d(Y, X)$, 
+            \item[(iii)] $d(X, Z) \leq d(X, Y)+d(Y, Z)$. 
+        \end{itemize}
+        And (b) that $d\left(X_{n}, X\right) \rightarrow 0$ as $n \rightarrow \infty$ if and only if $X_{n} \rightarrow X$ in probability. 
+    \end{exercise}
+
+    \begin{exercise}{2.3.7}
+        Show that random variables are a complete space under the metric defined in the previous exercise, i.e., if $d\left(X_{m}, X_{n}\right) \rightarrow 0$ whenever $m, n \rightarrow \infty$, then there is a r.v. $X_{\infty}$ so that $X_{n} \rightarrow X_{\infty}$ in probability. 
+    \end{exercise}
+
+    \begin{exercise}{2.3.8}
+        Let $A_{n}$ be a sequence of independent events with $P\left(A_{n}\right)<1$ for all $n$. Show that $P\left(\cup A_{n}\right)=1$ implies $\sum_{n} P\left(A_{n}\right)=\infty$ and hence $P\left(A_{n}\right.$ i.o. $)=1$. 
+    \end{exercise}
+
+    \begin{exercise}{2.3.9}
+        (i) If $P\left(A_{n}\right) \rightarrow 0$ and $\sum_{n=1}^{\infty} P\left(A_{n}^{c} \cap A_{n+1}\right)<\infty$, then $P\left(A_{n}\right.$ i.o. $)=0$. 
+        
+        (ii) Find an example of a sequence $A_{n}$ to which the result in (i) can be applied but the BorelCantelli lemma cannot. 
+    \end{exercise}
+    
+    \begin{exercise}{2.3.11}
+        Let $X_{1}, X_{2}, \ldots$ be independent with $P\left(X_{n}=1\right)=p_{n}$ and $P\left(X_{n}=0\right)=1-p_{n}$. Show that (i) $X_{n} \rightarrow 0$ in probability if and only if $p_{n} \rightarrow 0$, and (ii) $X_{n} \rightarrow 0$ a.s. if and only if $\sum p_{n}<\infty$. 
+    \end{exercise}
+
+    \begin{exercise}{2.3.13}
+        If $X_{n}$ is any sequence of random variables, there are constants $c_{n} \rightarrow \infty$ so that $X_{n} / c_{n} \rightarrow 0$ a.s. 
+    \end{exercise}
+
+    \begin{exercise}{2.3.14}
+        Let $X_{1}, X_{2}, \ldots$ be independent. Show that sup $X_{n}<\infty$ a.s. if and only if $\sum_{n} P\left(X_{n}>\right.$ $A)<\infty$ for some $A$. 
+    \end{exercise} 
+    
+    \begin{exercise}{2.3.15}
+        Let $X_{1}, X_{2}, \ldots$ be i.i.d. with $P\left(X_{i}>x\right)=e^{-x}$, let $M_{n}=\max _{1 \leq m \leq n} X_{m} .$ Show that (i) $\lim \sup _{n \rightarrow \infty} X_{n} / \log n=1$ a.s. and (ii) $M_{n} / \log n \rightarrow 1$ a.s. 
+    \end{exercise}
+
+    \begin{exercise}{2.3.18}
+        Let $0 \leq X_{1} \leq X_{2} \ldots$ be random variables with $E X_{n} \sim a n^{\alpha}$ with $a, \alpha>0$, and $\operatorname{var}\left(X_{n}\right) \leq B n^{\beta}$ with $\beta<2 \alpha .$ Show that $X_{n} / n^{\alpha} \rightarrow a$ a.s. 
+    \end{exercise}
+    
+    \begin{exercise}{2.3.19}
+        Let $X_{n}$ be independent Poisson r.v.'s with $E X_{n}=\lambda_{n}$, and let $S_{n}=X_{1}+\cdots+X_{n}$. Show that if $\sum \lambda_{n}=\infty$, then $S_{n} / E S_{n} \rightarrow 1$ a.s. 
+    \end{exercise}
 \end{document}

@@ -25,6 +25,109 @@
 
 \begin{document}
     \maketitle
-    
 
+    \begin{exercise}{3.1.1}
+        Generalize the proof of Lemma 3.1.1 to conclude that if $\max _{1 \leq j \leq n}\left|c_{j, n}\right| \rightarrow 0$, $\sum_{j=1}^{n} c_{j, n} \rightarrow \lambda$, and $\sup _{n} \sum_{j=1}^{n}\left|c_{j, n}\right|<\infty$, then $\prod_{j=1}^{n}\left(1+c_{j, n}\right) \rightarrow e^{\lambda}$. 
+    \end{exercise}
+
+    The next three exercises illustrate the use of Stirling's formula. In them, $X_{1}, X_{2}, \ldots$ are i.i.d. and $S_{n}=X_{1}+\cdots+X_{n}$. 
+
+    \begin{exercise}{3.1.2}
+        If the $X_{i}$ have a Poisson distribution with mean 1, then $S_{n}$ has a Poisson distribution with mean $n$, i.e., $P\left(S_{n}=k\right)=e^{-n} n^{k} / k !$ Use Stirling's formula to show that if $(k-n) / \sqrt{n} \rightarrow x$, then
+        \[
+            \sqrt{2 \pi n} P\left(S_{n}=k\right) \rightarrow \exp \left(-x^{2} / 2\right). 
+        \]
+    \end{exercise}
+
+    As in the case of coin flips it follows that
+    \[
+        P\left(a \leq\left(S_{n}-n\right) / \sqrt{n} \leq b\right) \rightarrow \int_{a}^{b}(2 \pi)^{-1 / 2} e^{-x^{2} / 2} d x
+    \]
+    but proving the last conclusion is not part of the exercise. In the next two examples you should begin by considering $P\left(S_{n}=k\right)$ when $k / n \rightarrow$ $a$ and then relate $P\left(S_{n}=j+1\right)$ to $P\left(S_{n}=j\right)$ to show $P\left(S_{n} \geq k\right) \leq C P\left(S_{n}=k\right)$. 
+
+    \begin{exercise}{3.1.4}
+        Suppose $P\left(X_{i}=k\right)=e^{-1} / k !$ for $k=0,1, \ldots$ Show that if $a>1$
+        \[
+            \frac{1}{n} \log P\left(S_{n} \geq n a\right) \rightarrow a-1-a \log a. 
+        \]
+    \end{exercise}
+
+    \begin{exercise}{3.2.1}
+        Give an example of random variables $X_{n}$ with densities $f_{n}$ so that $X_{n} \Rightarrow$ a uniform distribution on $(0,1)$ but $f_{n}(x)$ does not converge to 1 for any $x \in[0,1]$. 
+    \end{exercise}
+
+    \begin{exercise}{3.2.2. Convergence of maxima. }
+        Let $X_{1}, X_{2}, \ldots$ be independent with distribution $F$, and let $M_{n}=\max _{m \leq n} X_{m} .$ Then $P\left(M_{n} \leq x\right)=F(x)^{n}$. Prove the following limit laws for $M_{n}$ : 
+        \begin{itemize}
+            \item[(i)] If $F(x)=1-x^{-\alpha}$ for $x \geq 1$, where $\alpha>0$, then for $y>0$
+            \[
+            P\left(M_{n} / n^{1 / \alpha} \leq y\right) \rightarrow \exp \left(-y^{-\alpha}\right). 
+            \]
+            \item[(ii)] If $F(x)=1-|x|^{\beta}$ for $-1 \leq x \leq 0$, where $\beta>0$, then for $y<0$
+            \[
+                P\left(n^{1 / \beta} M_{n} \leq y\right) \rightarrow \exp \left(-|y|^{\beta}\right). 
+            \]
+            \item[(iii)] If $F(x)=1-e^{-x}$ for $x \geq 0$, then for all $y \in(-\infty, \infty)$
+            \[
+                P\left(M_{n}-\log n \leq y\right) \rightarrow \exp \left(-e^{-y}\right). 
+            \]
+        \end{itemize}
+    \end{exercise}
+    
+    The limits that appear here are called the extreme value distributions. The last one is called the double exponential or Gumbel distribution. Necessary and sufficient conditions for $\left(M_{n}-b_{n}\right) / a_{n}$ to converge to these limits were obtained by Gnedenko (1943). For a recent treatment, see Resnick (1987).
+
+    \begin{exercise}{3.2.3}
+        Let $X_{1}, X_{2}, \ldots$ be i.i.d. and have the standard normal distribution. 
+        \begin{itemize}
+            \item[(i)] From Theorem 1.2.6, we know
+            \[
+                P\left(X_{i}>x\right) \sim \frac{1}{\sqrt{2 \pi} x} e^{-x^{2} / 2} \quad \text { as } x \rightarrow \infty
+            \]
+            Use this to conclude that for any real number $\theta$
+            \[
+                P\left(X_{i}>x+(\theta / x)\right) / P\left(X_{i}>x\right) \rightarrow e^{-\theta}. 
+            \]
+            \item[(ii)] Show that if we define $b_{n}$ by $P\left(X_{i}>b_{n}\right)=1 / n$
+            \[
+                P\left(b_{n}\left(M_{n}-b_{n}\right) \leq x\right) \rightarrow \exp \left(-e^{-x}\right). 
+            \]
+            \item[(iii)] Show that $b_{n} \sim(2 \log n)^{1 / 2}$ and conclude $M_{n} /(2 \log n)^{1 / 2} \rightarrow 1$ in probability. 
+        \end{itemize}
+    \end{exercise}
+
+    \begin{exercise}{3.2.6. The Lévy Metric}
+        Show that
+        \[
+            \rho(F, G)=\inf \{\epsilon: F(x-\epsilon)-\epsilon \leq G(x) \leq F(x+\epsilon)+\epsilon \text { for all } x\}
+        \]
+        defines a metric on the space of distributions and $\rho\left(F_{n}, F\right) \rightarrow 0$ if and only if $F_{n} \Rightarrow F$. 
+    \end{exercise}
+
+    \begin{exercise}{3.2.7. }
+        The Ky Fan Metric on random variables is defined by
+        \[
+            \alpha(X, Y)=\inf \{\epsilon \geq 0: P(|X-Y|>\epsilon) \leq \epsilon\}. 
+        \]
+        Show that if $\alpha(X, Y)=\alpha$, then the corresponding distributions have Lévy distance $\rho(F, G) \leq \alpha$. 
+    \end{exercise}
+
+    \begin{exercise}{3.2.9}
+        If $F_{n} \Rightarrow F$ and $F$ is continuous, then sup $_{x}\left|F_{n}(x)-F(x)\right| \rightarrow 0$. 
+    \end{exercise}
+
+    \begin{exercise}{3.2.15}
+        Show that if $X_{n}=\left(X_{n}^{1}, \ldots, X_{n}^{n}\right)$ is uniformly distributed over the surface of the sphere of radius $\sqrt{n}$ in $\mathbf{R}^{n}$, then $X_{n}^{1} \Rightarrow$ a standard normal. 
+        
+        Hint: Let $Y_{1}, Y_{2}, \ldots$ be i.i.d. standard normals and let $X_{n}^{i}=Y_{i}\left(n / \sum_{m=1}^{n} Y_{m}^{2}\right)^{1 / 2}$. 
+    \end{exercise}
+
+    \begin{exercise}{3.2.16}
+        Suppose $Y_{n} \geq 0, E Y_{n}^{\alpha} \rightarrow 1$ and $E Y_{n}^{\beta} \rightarrow 1$ for some $0<\alpha<\beta$. Show that $Y_{n} \rightarrow 1$ in probability. 
+    \end{exercise}
+    
+    \begin{exercise}{3.2.17}
+        For each $K<\infty$ and $y<1$ there is a $c_{y, K}>0$ so that $E X^{2}=1$ and $E X^{4} \leq K$ implies $P(|X|>y) \geq c_{y, K}$. 
+    \end{exercise}
+
+  
 \end{document}
