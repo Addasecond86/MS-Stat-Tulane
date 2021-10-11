@@ -19,7 +19,7 @@
 
 \title{\textsc{Probability: Problem Set 3}}
 \author{\textsc{Zehao Wang}}
-\date{\today}
+\date{Oct 10, 2021}
 
 % \vspace{-30pt}
 
@@ -27,10 +27,10 @@
     \maketitle
     \begin{exercise}{1.6.1}
         Suppose $\varphi$ is strictly convex, i.e., $>$ holds for $\lambda \in(0,1)$. Show that, under the assumptions of Theorem 1.6.2, $\varphi(E X)=E \varphi(X)$ implies $X=E X$ a.s. 
-    \end{exercise}
+    \end{exercise} 
 
     \begin{proof}
-        Because $\varphi$ is strictly convex, there exist $c$, such that when $x\not=x_0$, 
+        Because $\varphi$ is strictly convex, there exist $c\in \mathbb{R}$, such that when $x\not=x_0$, 
         \[
             \varphi(x)-\varphi(x_0)>c(x-x_0), 
         \]
@@ -38,7 +38,7 @@
         \[
             \varphi(x)>c(x-EX)+\varphi(EX), 
         \]
-        From Jensen's inequality, we know that if $\varphi(EX)=E\varphi(X)$, then $E(x-EX)=0$, i.e. $P(X=EX)=1$, $X=EX$, a.e. 
+        From Jensen's inequality, we know that if $E\varphi(X)=\varphi(EX)$, then $E(x-EX)=0$, i.e. $P(X=EX)=1$, $X=EX$, a.e. 
     \end{proof}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -71,7 +71,11 @@
     \end{exercise}
 
     \begin{proof}
-        (i), Let $P(|X|=a)=P(X=a)+P(X=-a)=\frac{b^2}{a^2}$, and $P(X=0)=1-P(|X|=a)$. And $E(X)=0$, $E(X^2)=Var(X)=b^2$. If $i_{A}=\inf\,\{\varphi(y): y \in A\}$, then we need to prove that
+        (i), Let 
+        \[
+            P(|X|=a)=2P(X=a)=2P(X=-a)=\frac{b^2}{a^2}, 
+        \]
+        and $P(X=0)=1-P(|X|=a)$. So, $E(X)=0$, $E(X^2)=Var(X)=b^2$. If $i_{A}=\inf\,\{\varphi(y): y \in A\}$, then we need to prove that
         \[
             i_{A}\,P(X \in A) \leq E(\varphi(X) ; X \in A) \leq E \varphi(X), 
         \]
@@ -91,7 +95,7 @@
         \[
             \lim_{a\to\infty}a^{2} P(|X| \geq a) / E X^{2}\longrightarrow 0, 
         \]
-        And because $a^{2} P(|X| \geq a)<E(X^2)$, for any $a$, Chebyshev’s inequality is not sharp. 
+        And because $a^{2} P(|X| \geq a)\leqslant E(X^2)$, for any $a$, Chebyshev’s inequality is not sharp. 
     \end{proof}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -105,7 +109,7 @@
     \end{exercise}
 
     \begin{proof}
-        If $x\in A$, i.e. $x\in \cup_{i=1}^\infty A_i$. There must be at least one $i$, such that $x\in A_i$, $1-\mathbf{1}_{A_i}=1$. So, in this case, 
+        If $x\in A$, i.e. $x\in \cup_{i=1}^\infty A_i$. There must be at least one $i$, such that $x\in A_i$, $1-\mathbf{1}_{A_i}=0$. So, in this case, 
         \[
             \mathbf{1}_A=1=1-0=1-\prod_{i=1}^n(1-\mathbf{1}_{A_i}). 
         \] 
@@ -176,9 +180,7 @@
     \end{exercise}
 
     \begin{proof}
-        If $|X|^j\geqslant|X|^k$, then $|X|^j\leqslant|X|\leqslant1$. So, $E|X|^j\leqslant\infty$. If $|X|^j\leqslant|X|^k$, then because $E|X|^k\leqslant\infty$, $E|X|^j\leqslant\infty$. 
-        
-        For the inequality, let $\varphi(x)=x^{k/j}$. And because $\varphi$ is convex, we have
+        When $|X|\leqslant1$, $|X|^j\geqslant|X|^k$. So, $E|X|^j\leqslant\infty$. If $|X|^j\leqslant|X|^k$, then because $E|X|^k\leqslant\infty$, $E|X|^j\leqslant\infty$. For the inequality, let $\varphi(x)=x^{k/j}$. And because $\varphi$ is convex, we have
         \[
             E|X|^{k}=E\varphi\left(|X|^j\right)\geqslant\varphi\left(E|X|^j\right), 
         \]
@@ -186,7 +188,7 @@
             E|X|^{k}\geqslant\left(E|X|^j\right)^{k/j}, 
         \]
         \[
-            \left(E|X|^{k}\right)^{j/k}\geqslant E|X|^j. 
+            E|X|^j\leqslant \left(E|X|^{k}\right)^{j/k}. 
         \]
         \vspace{-30pt}
     \end{proof}
