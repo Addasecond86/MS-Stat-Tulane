@@ -26,13 +26,26 @@
 
 \begin{document}
     \maketitle
+
     \begin{exercise}{2.1.1}
         Suppose $\left(X_{1}, \ldots, X_{n}\right)$ has density $f\left(x_{1}, x_{2}, \ldots, x_{n}\right)$, that is
         \[
-        P\left(\left(X_{1}, X_{2}, \ldots, X_{n}\right) \in A\right)=\int_{A} f(x) d x \text { for } A \in \mathcal{R}^{n}
+        P\left(\left(X_{1}, X_{2}, \ldots, X_{n}\right) \in A\right)=\int_{A} f(x) \der x \text { for } A \in \mathcal{R}^{n}
         \]
         If $f(x)$ can be written as $g_{1}\left(x_{1}\right) \cdots g_{n}\left(x_{n}\right)$ where the $g_{m} \geq 0$ are measurable, then $X_{1}, X_{2}, \ldots, X_{n}$ are independent. Note that the $g_{m}$ are not assumed to be probability densities. 
     \end{exercise}
+
+    \begin{proof}
+        We want to prove that 
+        \[
+            P((X_1,X_2,\cdots,X_n)\in A)=\prod_{i=1}^nP(X_i\in A_i)=\prod_{i=1}^n\int_{A_i}f_i(x_i) \der x_i, 
+        \]
+        So, if we find every probability density $f_i(\cdot)$, we prove that conclusion. Because $f(x)=g_1(x_1)g_2(x_2)\cdots g_n(x_n)$ and $\int_Af(x)\der x=1<\infty$, for every $i\in \mathbb{N}$, define 
+        \[
+            m_i=\int_A g_i(x_i) \der x_i<\infty, 
+        \]
+        So, we only need to make $f_i(x_i)=\frac{g_i(x_i)}{m_i}$, in this way, $f_i(\cdot)$ is a probability density. 
+    \end{proof}
 
     \begin{exercise}{2.1.2}
          Suppose $X_{1}, \ldots, X_{n}$ are random variables that take values in countable sets $S_{1}, \ldots, S_{n} .$ Then in order for $X_{1}, \ldots, X_{n}$ to be independent, it is sufficient that whenever $x_{i} \in S_{i}$
@@ -49,21 +62,84 @@
         (ii) $h(x)=x /(x+1)$ satisfies the hypotheses in (i). 
     \end{exercise}
 
+    \begin{proof}
+        (i), Because $\rho$ is a metric, 
+        \[
+            x=y\Leftrightarrow\rho(x,y)=0\Leftrightarrow h(\rho(x,y)), 
+        \]
+        \[\rho(x,y)=\rho(y,x),\qquad h(\rho(x,y))=h(\rho(y,x)), \]
+        For, the triangle inequality: 
+        \[
+            \begin{aligned}
+            h(\rho(x, y))+h(\rho(y, z)) &=\int_{0}^{\rho(x, y)} h^{\prime}(s) \der s+\int_{0}^{\rho(y, z)} h^{\prime}(s) \der s \\
+            & \geq \int_{0}^{\rho(x, y)+\rho(y, z)} h^{\prime}(s) \der s \\
+            & \geq \int_{0}^{\rho(x, z)} h^{\prime}(s) \der s\\
+            &=h(\rho(x, z)). 
+            \end{aligned}
+        \]
+        So, $h(\rho(x,y))$ is metric. 
+
+        (ii), $h(x)$ is continuous, and it is differentiable. $h(0)=0$, $h'(x)=\frac{1}{(x+1)^2}>0$. $h''(x)=\frac{-2}{(x+1)^3}<0$, when $x\in[0,\infty)$, so, $h'(x)$ is decreasing. 
+    \end{proof}
+
     \begin{exercise}{2.1.4}
         Let $\Omega=(0,1), \mathcal{F}=$ Borel sets, $P=$ Lebesgue measure. $X_{n}(\omega)=\sin (2 \pi n \omega)$, $n=1,2, \ldots$ are uncorrelated but not independent. 
     \end{exercise}
 
+    \begin{proof}
+        The period of $\sin(2\pi n\omega)$ is $T=\frac{2\pi}{2\pi n}=\frac{1}{n}$. So, there must be n complete period on $(0, 1)$, which means the expectation on $(0,1)$ will be $0$. For the uncorrelation, we need to calculate $E(X_nX_m)$: 
+        \[
+            \begin{aligned}
+                E X_{m} X_{n}=S &=\int_{0}^{1} \sin (2 \pi m x) \sin (2 \pi n x) d x \\
+                &=\frac{m}{n} \int_{0}^{1} \cos (2 \pi m x) \cos (2 \pi n x) d x \\
+                &=\frac{m^{2}}{n^{2}} \int_{0}^{1} \sin (2 \pi m x) \sin (2 \pi n x) d x\\
+                &=\frac{m^2}{n^2}S, 
+            \end{aligned}
+        \]
+        So, $S=0$, i.e. $E(X_nX_m)=0$. For the non-independent, let $n=1$, $m=6$, 
+        \[P(x_1\in[0,1])=\frac{1}{2},\qquad P(x_6\in[-1,0])=\frac{1}{2}, \]
+        While, 
+        \[P(X_1\in[0,1], X_6\in[-1,0])=\frac{1}{6}\not=\frac{1}{4}. \]
+        So, $X_n$ is not independent. 
+    \end{proof}
+
     \begin{exercise}{2.1.6}
-        Prove directly from the definition that if $X$ and $Y$ are independent and $f$ and $g$ are measurable functions, then $f(X)$ and $g(Y)$ are independent.
+        Prove directly from the definition that if $X$ and $Y$ are independent and $f$ and $g$ are measurable functions, then $f(X)$ and $g(Y)$ are independent. 
     \end{exercise}
+
+    \begin{proof}
+        Because $f$ and $g$ are measurable function, for $M$, $N\in\mathbb{R}$, $f^{-1}(M), f^{-1}(N)\in\sigma(R)$. 
+        \[
+            \begin{aligned}
+                P(f(X) \in M, g(Y) \in N) &=P\left(X \in f^{-1}(M), Y \in g^{-1}(N)\right) \\
+                &=P\left(X \in f^{-1}(M)\right) P\left(Y \in g^{-1}(N)\right) \\
+                &=P(f(X) \in M) P(g(Y) \in N). 
+            \end{aligned}
+        \]
+        So, $f(X)$ and $g(Y)$ are independent. 
+    \end{proof}
 
     \begin{exercise}{2.1.7}
         Let $K \geq 3$ be a prime and let $X$ and $Y$ be independent random variables that are uniformly distributed on $\{0,1, \ldots, K-1\} .$ For $0 \leq n<K$, let $Z_{n}=X+$ $n Y \bmod K$. Show that $Z_{0}, Z_{1}, \ldots, Z_{K-1}$ are pairwise independent, i.e., each pair is independent. They are not independent because if we know the values of two of the variables then we know the values of all the variables. 
     \end{exercise}
+
+    \begin{proof}
+        We know that $P(Z_n=i)=\frac{1}{K}$, $i\in[0,K-1]$. For $i, j$, there must be some $m$ and $n$ which satisfies $Z_n=i$, $Z_m=j$: 
+        \[
+            P(Z_m=i, Z_n=j)=\frac{1}{K^2}=P(Z_m=i)P(Z_n=j). 
+        \]
+        So, any pair are independent. 
+    \end{proof}
     
     \begin{exercise}{2.1.9}
         Let $\Omega=\{1,2,3,4\}, \mathcal{F}=$ all subsets of $\Omega$, and $P(\{i\})=1 / 4$. Give an example of two collections of sets $\mathcal{A}_{1}$ and $\mathcal{A}_{2}$ that are independent but whose generated $\sigma$-fields are not. 
     \end{exercise}
+
+    \begin{proof}
+        Let $\mathcal{A}_1=\{\{1,2\}\}$, and $\mathcal{A}_2=\{\{2,3\},\{2,4\}\}$. They are independent. 
+        
+        But $\sigma(\mathcal{A}_1)=\{\varnothing, \{1,2\},\{3,4\}, {1,2,3,4}, \Omega\}$, $\sigma(\mathcal{A}_2)=2^\Omega$. $\sigma(\mathcal{A}_1)\subset\sigma(\mathcal{A}_2)$. So, they are not independent. 
+    \end{proof}
 
     \begin{exercise}{2.1.10}
         Show that if $X$ and $Y$ are independent, integer-valued random variables, then
@@ -72,9 +148,34 @@
         \]
     \end{exercise}
 
+    \begin{proof}
+        \[
+            \begin{aligned}
+                P(X+Y=n)=&E\left(E(X+Y=n|X=m)\right)\\
+                =&E(P(X=m)P(Y=n-m))\\
+                =&\sum_mP(X=m)P(Y=n-m). 
+            \end{aligned}
+        \]
+        \vspace*{-30pt}
+    \end{proof}
+
     \begin{exercise}{2.1.11}
         In Example $1.6 .13$, we introduced the Poisson distribution with parameter $\lambda$, which is given by $P(Z=k)=e^{-\lambda} \lambda^{k} / k !$ for $k=0,1,2, \ldots$ Use the previous exercise to show that if $X=$ Poisson $(\lambda)$ and $Y=$ Poisson $(\mu)$ are independent, then $X+Y=$ $\operatorname{Poisson}(\lambda+\mu)$. 
     \end{exercise}
+
+    \begin{proof}
+        Using last exercise: 
+        \[
+            \begin{aligned}
+                P(X+Y=n) &=\sum_{m=0}^{n} e^{-\lambda} \frac{\lambda^{m}}{m !} e^{-\mu} \frac{\mu^{n-m}}{(n-m) !} \\
+                &=e^{-(\lambda+\mu)} \sum_{m=0}^{n} \frac{1}{m !(n-m) !} \lambda^{m} \mu^{n-m} \\
+                &=e^{-(\lambda+\mu)} \frac{1}{n !} \sum_{m=0}^{n} \frac{n !}{m !(n-m) !} \lambda^{m} \mu^{n-m} \\
+                &=e^{-(\lambda+\mu)} \frac{1}{n !} \binom{n}{m} \lambda^{m} \mu^{n-m} \\
+                &=e^{-(\lambda+\mu)} \frac{(\mu+\lambda)^{n}}{n !}. 
+            \end{aligned}
+        \]
+        So, if $X\sim Poisson(\lambda)$, $Y\sim Poisson(\mu)$, then $X+Y\sim Poisson(\lambda+\mu)$. 
+    \end{proof}
 
     \begin{exercise}{2.1.12}
         $X$ is said to have a Binomial $(n, p)$ distribution if
@@ -86,8 +187,40 @@
     (ii) Look at Example $1.6 .12$ and use induction to conclude that the sum of $n$ independent Bernoulli $(p)$ random variables is $\operatorname{Binomial}(n, p)$. 
     \end{exercise}
 
+    \begin{proof}
+        (i), Similarly, using previous exercise: 
+        \[
+            \begin{aligned}
+            P(X+Y=k) &=\sum_{j=0}^{k}\binom{n}{j} p^{j}(1-p)^{n-j}\binom{m}{k-j} p^{k-j}(1-p)^{m-(k-j)} \\
+            &=p^{k}(1-p)^{n+m-k} \sum_{j=0}^{k}\binom{n}{j}\binom{m}{k-j} \\
+            &=p^{k}(1-p)^{n+m-k}\binom{n+m}{k}. 
+            \end{aligned}
+        \]
+        So, $X+Y\sim Binomial(n+m,p)$. 
+
+        (ii), In fact, Bernoulli distribution is $Binomaial(1,p)$. 
+        \[
+            P(X=0)=\binom{1}{0}p^0(1-p)^{1-0}=1-p. 
+        \]
+        \[
+            P(X=1)=\binom{1}{1}p^1(1-p)^{1-1}=p. 
+        \]
+        So, the sum of $n$ independent Bernoulli $(p)$ random variables is the sum of $n$ independent Binomial random variables. So, the reslts should be $binomial(n,p)$, according (i). 
+    \end{proof}
+
     \begin{exercise}{2.1.14}
         Let $X, Y \geq 0$ be independent with distribution functions $F$ and $G$. Find the distribution function of $X Y$. 
     \end{exercise}
 
+    \begin{proof}
+        $Y=\frac{Z}{X}$, 
+        \[
+            \begin{aligned}
+                F_{Z}(z) &= P(Z \leq z) \\
+                &=P(X Y \leq z) \\
+                &=P(Y \leq z / X, X \geq 0)+P(Y \geq z / X, X \leq 0) \\
+                &=\int_{0}^{\infty} G\left(\frac{z}{x}\right) \der (F(x)) +\int_{-\infty}^{0} 1-G\left(\frac{z}{x}\right) \der (F(x)). 
+            \end{aligned}
+        \]
+    \end{proof}
 \end{document}

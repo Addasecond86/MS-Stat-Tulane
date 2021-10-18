@@ -25,3 +25,5 @@
 *.pdf
 *.out
 *.synctex.gz
+*.xml
+*.bcf
