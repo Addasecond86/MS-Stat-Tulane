@@ -19,7 +19,7 @@
 
 \title{\textsc{Probability: Problem Set 4}}
 \author{\textsc{Zehao Wang}}
-\date{\today}
+\date{Oct 20, 2021}
 
 
 % \vspace{-30pt}
@@ -88,20 +88,18 @@
 
     \begin{proof}
         % The period of $\sin(2\pi n\omega)$ is $T=\frac{2\pi}{2\pi n}=\frac{1}{n}$. So, there must be complete $n$ period on $(0, 1)$, which means the expectation on $(0,1)$ will be $0$. 
-        For the uncorrelation, we need to calculate $E(X_nX_m)$, we integrate it by parts twice: 
+        Because $P$ is Lebesgue measure, for $(0,1)$, $P(\omega\in(0,1))=1$. $E(X_n)=\int_0^1\sin(2\pi n x)\der P=0$. 
+        For the uncorrelation, we only need to calculate $E(X_nX_m)$, we integrate it by parts twice: 
         \[
             \begin{aligned}
-                E (X_{m} X_{n})=S &=\int_{0}^{1} \sin (2 \pi m x) \sin (2 \pi n x) d x \\
-                &=\frac{m}{n} \int_{0}^{1} \cos (2 \pi m x) \cos (2 \pi n x) d x \\
-                &=\frac{m^{2}}{n^{2}} \int_{0}^{1} \sin (2 \pi m x) \sin (2 \pi n x) d x\\
-                &=\frac{m^2}{n^2}S, 
+                E (X_{m} X_{n})=\int_{0}^{1} \sin (2 \pi m x) \sin (2 \pi n x) \der P, 
             \end{aligned}
         \]
-        So, $S=0$, i.e. $E(X_nX_m)=0$. For the non-independent, let $n=1$, $m=6$, 
-        \[P(X_1\in[0,1])=\frac{1}{2},\qquad P(x_6\in[-1,0])=\frac{1}{2}, \]
+        Because the value of $\sin (2 \pi m x) \sin (2 \pi n x)$ is symmetric, the expectation of $\sin (2 \pi m x)$ $\sin (2 \pi n x)$ is $0$. Hence, any pair of $X_n,X_m$ are uncorrelated. For the non-independent, let $n=1$, $m=3$, 
+        \[P(X_1\in[0,1])=\frac{1}{2},\qquad P(x_3\in[0,1])=\frac{1}{2}, \]
         While, 
-        \[P(X_1\in[0,1], X_6\in[-1,0])=\frac{1}{6}\not=\frac{1}{4}. \]
-        So, $X_n$ is not independent. 
+        \[P(X_1\in[0,1], X_6\in[0,1])=\frac{1}{3}\not=\frac{1}{4}. \]
+        So, $\{X_n\}$ is not independent. 
     \end{proof}
 
     \begin{exercise}{2.1.6}
@@ -152,8 +150,8 @@
     \begin{proof}
         \[
             \begin{aligned}
-                P(X+Y=n)=&E\left(E(X+Y=n|X=m)\right)\\
-                =&E(P(X=m)P(Y=n-m))\\
+                P(X+Y=n)=&E_X\left(E_Y(X+Y=n|X=m)\right)\\
+                =&E_X(P(X=m)P(Y=n-m))\\
                 =&\sum_mP(X=m)P(Y=n-m). 
             \end{aligned}
         \]

@@ -33,7 +33,7 @@
 
 \title{\textsc{Analysis: Homework 3}}
 \author{\textsc{Zehao Wang}}
-\date{\today}
+\date{Oct 20, 2021}
 
 % \vspace{-30pt}
 
@@ -62,7 +62,7 @@
         \[
             \mu(E-N)<\varepsilon, 
         \]
-        Let $B_n$ be a closed ball with radius $n$ and center at point $0$. So, $F_k=N\cap B_k$ is closed, and it is compact. And $F_k\uparrow N$, $E-F_k\downarrow E-N$. Hence, for a large $N$, if $k>N$, then $\mu(E-F_k)<\varepsilon$. In this case, let $G=E-\bigcup_{k=1}^nF_k=E-N$, $\mu(G)=0$. 
+        Let $B_n$ be a closed ball with radius $n$ and center at point $0$. So, $F_k=N\cap B_k$ is closed, and it is compact. And $F_k\uparrow N$, $E-F_k\downarrow E-N$. Hence, for a large $N$, if $k>N$, then $\mu(E-F_k)<\varepsilon$. In this case, let $G=E-\bigcup_{k=1}^\infty F_k=E-N$, $\mu(G)=0$. 
     \end{proof}
 
     \begin{exercise}{3}
@@ -90,7 +90,7 @@
     \begin{solution}
         We want to transfer the measure $\mu$ on measurable space $(X,\mathscr{S})$ to another measurable space $(Y,\mathscr{T})$ by using a measurable function $f$. Assume $m: \mathscr{T}\to [0,\infty]$ is the measure on $(Y,\mathscr{T})$. It must satisfy: 
         \[m(X)=\mu(f^{-1}(X)),\quad \forall\, X\in\mathscr{T}. \]
-        For a random variable, it is a pushforward measure(Prof. Nathan talked about it in probability class). It first maps the probability space into a space, and then give it a probability measure defined by this called pushforward. 
+        For a random variable, it is a pushforward measure (Prof. Nathan talked about it in probability class). It first maps the probability space into a space, and then give it a probability measure defined by this called pushforward. 
     \end{solution}
 
     \begin{exercise}{5}
@@ -104,26 +104,157 @@
     \end{solution}
 
     \begin{exercise}{6}
-        A measure space $(X; \mathscr{S}; \mu)$ is called complete if it contains every subset of measure $0$; that is, if $F \subset X$ and there exists a set $E \in \mathscr{S}$ with $E \subset F$ and $\mu(E) = 0$, then $F \in S$. Now suppose $(X; \mathscr{S}; \mu)$ is a measure space and let
+        A measure space $(X; \mathscr{S}; \mu)$ is called complete if it contains every subset of measure $0$; that is, if $F \subset X$ and there exists a set $E \in \mathscr{S}$ with $E \subset F$ and $\mu(E) = 0$, then $F \in \mathscr{S}$. Now suppose $(X; \mathscr{S}; \mu)$ is a measure space and let
         \[\mathscr{N}=\{N\in\mathscr{S}:\mu(N)=0\}. \]
         Define
-        \[\bar{\mathscr{S}}=\{E\sup F: E\in\mathscr{S}, F\subset N for some N\subset \mathscr{N}\}. \]
+        \[\bar{\mathscr{S}}=\{E\cup F: E\in\mathscr{S}, F\subset N \text{ for some } N\subset \mathscr{N}\}. \]
         Define $\bar{\mu}: \bar{\mathscr{S}}\to[0,\infty]$ by
         \[\bar{\mu}(E\cup F)=\mu(E). \]
-        Prove that $\bar{S}$ is a $\sigma$-algebra and $\bar{\mu}$ extends $\mu$ and $(\bar{\mathscr{S}}, \bar{\mu})$, is a complete measure space. 
+        Prove that $\bar{S}$ is a $\sigma$-algebra and $\bar{\mu}$ extends $\mu$ and $(\bar{\mathscr{S}}, \bar{\mu})$ is a complete measure space. 
     \end{exercise}
+
+    \begin{solution}
+        $\sigma$-algebra: 
+
+        Let $X\in \bar{\mathscr{S}}$, Then $X=E\cup F$, where $E\in \mathscr{S}$ and $F\subset N$ for some $N\in\mathscr{N}$ with $\mu(N)=0$. Then we have: 
+        \begin{align*} 
+            X^c &= (E \cup F)^c \\ 
+            &= (E \cup (N \setminus (N \setminus F)))^c \\ 
+            &= (E \cup (N \cap (N \setminus F)^c))^c \\ 
+            &= E^c \cap (N^c \cup (N \setminus F)) \\ 
+            &= (E^c \cap N^c) \cup (E^c \cap (N \setminus F)) 
+        \end{align*}
+        Considering $E, N, F\in\mathscr{S}$, $E^c, N^c\in\mathscr{S}$. So, $E^c\cap N^c\in\mathscr{S}$, $(N\backslash F)\subset N$ with $\mu(N)=0$. Hence, $X^c\in \bar{\mathscr{S}}$. 
+
+        If $\{S_i\}_i^\infty\in\bar{\mathscr{S}}$, then:
+        \begin{align*} 
+            \bigcup_{n=1}^{\infty} S_n &= \bigcup_{n=1}^{\infty} (E_n \cup F_n) \\ 
+            &= \left ( \bigcup_{n=1}^{\infty} E_n \right ) \cup \left ( \bigcup_{n=1}^{\infty} F_n \right ) 
+        \end{align*}
+        And $\bigcup_{n=1}^{\infty} E_n\in\mathscr{S}$, $\bigcup_{n=1}^{\infty} F_n\subset N$. So, $ \bigcup_{n=1}^{\infty} S_n\in \mathscr{S}$. Plus $\{\varnothing, X\}\in\bar{\mathscr{S}}$, $\bar{\mathscr{S}}$ is $\sigma$-algebra. 
+
+        $\bar{\mu}$ is a measure: 
+
+        We only need to prove countable additivity. Let $\{S_n\}_{n=1}^\infty\in\bar{\mathscr{S}}$. Then, $S_n=E_n\cup F_n$. 
+        \begin{align*} 
+            \bar{\mu} \left ( \bigcup_{n=1}^{\infty} S_n \right ) = \mu \left ( \bigcup_{n=1}^{\infty} (E_n\cup F_n) \right ) = \mu \left ( \bigcup_{n=1}^{\infty} E_n \right ) =\sum_{n=1}^{\infty} \mu (E_n) = \sum_{n=1}^{\infty} \bar{\mu} (E_n). 
+        \end{align*}
+        So, $(X, \bar{\mathscr{S}}, \bar{\mu})$ is a measure space. 
+
+        Complete: 
+
+        For $N'\in\bar{\mathscr{S}}$, $\bar{\mu}(N')=0$, let $F'\subset N'$, we need to prove that $F'\in \bar{\mathscr{S}}$. Since $N'\in \bar{\mathscr{S}}$, we know $N'=E\cup F$ where $E\subset{\mathscr{S}}$, 
+        $F\subset N$ with $\mu(N)=0$. And because $\bar{\mu}(N')=0$, $\mu(E)=0$. $F'=\varnothing\cup F'$, where $\varnothing\in\mathscr{S}$, $F'\subset N$ with $\mu(N)=0$. So, $F'\in\bar{\mathscr{S}}$. 
+        
+        I learn this from this website, it used an alternative definition of complete. \footfullcite{ababab}
+        
+    \end{solution}
 
     \begin{exercise}{7}
         Present a discussion of \texttt{the Caratheodory procedure} to define a measure from an \texttt{outer measure}. Compare your statements from the results pre-sented in class. 
     \end{exercise}
 
+    \begin{solution}
+        \emph{Given an outer measure $\mu$ on a set $X$, the collection $\mathscr{S}$ of measurable subsets of $X$ forms a $\sigma$-algebra. Moreover, $\mu$ restricted to $\mathscr{S}$ is a measure.}
+
+        Because $\mathscr{S}$ contains all measurable subsets of $X$, for $A\in\mathscr{S}$, $A$ is measurable. So, for every set $E\subset X$, $\mu(E)=\mu(E\cap A)+\mu(E^c\cap A)$. Hence, $A^c$ is measurable and $A^c\in\mathscr{S}$. $\{\varnothing, X\}\in\mathscr{S}$. 
+
+        Then, we want to prove that $\mathscr{S}$ is closed under countable disjoint union. We first prove a weaker result that $\mathscr{S}$ is closed under finite disjoint union. For $E_1,E_2\in\mathscr{S}$, take a set $A\subset X$, then using sub-additivity, we have: 
+        \[
+            \begin{aligned}
+                \mu(A)&=\mu(E_1\cap X)+\mu(E_1^c\cap X)\\
+                &=\mu(E_2\cap E_1\cap X)+\mu(E_2^c\cap E_1\cap X)+\mu(E_2\cap E_1^c\cap X)+\mu(E_2^c\cap E_1^c\cap X)\\
+                &\geqslant\mu((E_2\cup E_1)\cap X)+\mu((E_2\cup E_1)^c\cap X), 
+            \end{aligned}
+        \]
+        And clearly, $\mu(A)\leqslant\mu((E_2\cup E_1)\cap X)+\mu((E_2\cup E_1)^c\cap X)$, which means $E_2\cup E_1$ is also measurable. So, $E_2\cup E_1\in\mathscr{S}$. Then we have: 
+        \[Y_n=\bigcup_{i=1}^nE_i\in\mathscr{S},\qquad Y=\bigcup_{i=1}^\infty E_i, \]
+        We should prove $E\in\mathscr{S}$. For any set $A\subset X$: 
+        \[
+            \begin{aligned}
+                \mu\left(Y_{n} \cap A\right) &=\mu\left(E_{n} \cap\left(Y_{n} \cap A\right)\right)+\mu\left(E_{n}^{c} \cap\left(Y_{n} \cap A\right)\right) \\
+                &=\mu\left(E_{n} \cap A\right)+\mu\left(Y_{n-1} \cap A\right) \text{  (because $\{E_i\}$ are disjoint)}\\
+                &=\mu\left(E_{n} \cap A\right)+\mu\left(E_{n-1} \cap A\right)+\mu\left(Y_{n-2} \cap A\right)\\
+                &=\sum_{i=1}^{n} \mu\left(E_{i} \cap A\right). 
+            \end{aligned}
+        \]
+        Because $Y_{n+1}^c\subset Y_{n}^c$, $Y^c\subset Y_{n}^c$, $\mu(Y^c)\leqslant\mu(Y_n^c)$, 
+        \[
+            \begin{aligned}
+                \mu(A)&=\mu\left(Y_{n} \cap A\right)+\mu\left(Y_{n}^{c} \cap A\right) \\
+                &=\sum_{i=1}^{n} \mu\left(E_{i} \cap A\right)+\mu\left(Y_{n}^{c} \cap A\right) \\
+                &\geqslant \sum_{i=1}^{n} \mu\left(E_{i} \cap A\right)+\mu\left(Y^{c} \cap A\right)
+            \end{aligned}
+        \]
+        Make $n$ tend to $\infty$, 
+        \[
+            \begin{aligned}
+                \mu(A) &\geqslant \sum_{i=1}^{\infty} \mu\left(E_{i} \cap A\right)+\mu\left(Y^{c} \cap A\right)\\
+                 & \geqslant \mu(Y \cap A)+\mu\left(Y^{c} \cap A\right) \\
+                & \geqslant \mu(A), 
+            \end{aligned}
+        \]
+        So, $Y\in\mathscr{S}$. And $\mu$ on $\mathscr{S}$ is a measure. 
+    \end{solution}
+
+    
+
     \begin{exercise}{8}
-        Let $(X; \mathscr{A}; \mu)$ be a measure space. Assume $\mu(X) = 1$, so that this is a \texttt{probability space}. Take a collection of measurable sets fAng. Give a definition of the set of points $x \in X$ with the condition $x$ is \texttt{infinitely often} in $\{A_n\}$. Prove that this set is measurable. This is denoted by $An i.o.$ Prove that
-        \[if \sum_k \mu(A_k)<\infty, \quad then \mu(A_n\ i.o.)=0. \]
+        Let $(X; \mathscr{A}; \mu)$ be a measure space. Assume $\mu(X) = 1$, so that this is a \texttt{probability space}. Take a collection of measurable sets $\{A_n\}$. Give a definition of the set of points $x \in X$ with the condition $x$ is \texttt{infinitely often} in $\{A_n\}$. Prove that this set is measurable. This is denoted by $A_n\ i.o.$ Prove that
+        \[\text{if } \sum_k \mu(A_k)<\infty, \text{ then } \mu(A_n\ i.o.)=0. \]
         (This goes under the name \emph{the easy part of Borel-Cantelli.}) Read about the
         notion of \texttt{independence of sets} and discuss the converse of the previous
         statement.
     \end{exercise}
+
+    \begin{solution}
+        If $x$ is infinitely often, then the set is $\{x: x\in \cap_{j=1}^\infty \cup_{i=j}^\infty A_i\}$. This is the limit supremum of set, which means there will be infinite events. The intersection and union are countable, it is measurable. 
+
+        Proof: 
+
+        Let $\{E_n\}$ be a events sequence, and $\{\cup_i^\infty E_n\}_{i=1}^\infty$ is non-increasing. So, 
+        \[
+            \begin{aligned}
+                \Pr(\cap_{j=1}^\infty\cup_{i=j}^\infty A_i)&=\lim_{j\to\infty} \Pr(\cup_{i=j}^\infty A_i)\\
+                &\leqslant \sum_{i=j}^\infty \Pr(A_i)\\
+                &\leqslant \sum_{i=1}^\infty \Pr(A_i)\leqslant \infty. 
+            \end{aligned}
+        \]
+        So, $\sum_{i=1}^\infty \Pr(A_i)$ is bounded, and it converges. Then, 
+        \[
+            \lim_{j\to\infty} \Pr(\cup_{i=j}^\infty A_i)\leqslant \sum_{i=j}^\infty \Pr(A_i)\to 0. 
+        \]
+
+        Converse: 
+
+        If events $\{E_{n}\}_{n=1}^{\infty }$ are independent, and $\sum _{n=1}^{\infty }\Pr(E_{n})=\infty$, then 
+        \[
+            \Pr(\limsup _{n\to \infty }E_{n})=1. 
+        \]
+
+        Proof: 
+
+        We need to prove: 
+        \[
+            1 - \Pr (\limsup_{i \to \infty} E_i)=1-\Pr(\cap_{j=1}^\infty\cup_{i=j}^\infty E_i) = 0. 
+        \]
+        Noting that: 
+        \[
+            \begin{aligned}
+                1-\Pr\left(\bigcap_{j=1}^\infty\bigcup_{i=j}^\infty E_i\right)
+                &=\Pr \left(\left(\bigcap _{j=1}^{\infty }\bigcup _{i=j}^{\infty }E_{i}\right)^{c}\right)\\
+                &=\Pr \left(\bigcup _{j=1}^{\infty }\bigcap _{i=j}^{\infty }E_{i}^{c}\right)\\
+                &=\lim _{j\to \infty }\Pr \left(\bigcap _{i=j}^{\infty }E_{i}^{c}\right), 
+            \end{aligned}
+        \]
+        Because $E_i$ are independent, $E_i^c$ are independent, as well. So, 
+        \[
+            \begin{aligned}
+                \lim _{j\to \infty }\Pr \left(\bigcap _{i=j}^{\infty }E_{i}^{c}\right)=\lim_{j\to \infty }\prod_{i=j}^{\infty }(1-\Pr(E_i))\to 0. 
+            \end{aligned}
+        \]
+        
+    \end{solution}
 
     \begin{exercise}{9}
         Prove \texttt{Kolmogorov 0-1 law}: if $\{A_n\}$ is a sequence of independent sets. Then
@@ -134,6 +265,9 @@
             \end{cases}
         \]
     \end{exercise}
+    \begin{solution}
+        This is actually exercise 8. 
+    \end{solution}
 
     \begin{exercise}{10}
         Give a construction of a measure space based on the idea of flipping a coin many times. 
