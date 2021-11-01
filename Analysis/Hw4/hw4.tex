@@ -8,7 +8,7 @@
 \tcbuselibrary{breakable}
 \usepackage{amsfonts} 
 \usepackage{amsmath}
-\usepackage{newtxtext}
+% \usepackage{newtxtext}
 % \usepackage{ulem}
 \usepackage{amssymb}
 % \usepackage[backend=biber]{biblatex}
@@ -84,12 +84,13 @@
         \[
             \lim_{n\to\infty}n\mu(\{x\in X: |f(x)|\geqslant n\})=0. 
         \]
+        
     \end{exercise}
 
     \begin{proof}
         Define
         \[
-            A_n=\{x\in X: n\leqslant|f(x)|\leqslant n+1\}. 
+            A_n=\{x\in X: n\leqslant|f(x)|< n+1\}. 
         \]
         Then, 
         \[
@@ -112,16 +113,83 @@
     \end{proof}
 
     \begin{exercise}{3}
+        Define $f : \mathbb{R} \to \mathbb{R}$ by
+        \[
+            f(x)=\begin{cases}
+                x^{1/2} & 0<x<1, \\
+                0 & otherwise. 
+            \end{cases}
+        \]
+        Is this function in $L^1(\mathbb{R})$? Try to use monotone convergence theorem to decide. 
         
+        Let $\{r_n\}$ a list of the rational numbers. Define 
+        \[
+            g(x)=\sum_{n=1}^\infty\frac{1}{2^n}f(x-r_n). 
+        \]
+        Prove that $g \in L^1(\mathbb{R})$ even though is unbounded on any interval of $\mathbb{R}$. 
     \end{exercise}
+
+    \begin{solution}
+        Because
+        \[
+            \int_{\mathbb{R}}x^{1/2}\der x=\frac{2}{3}, 
+        \]
+        $f\in L^1$. \textcolor{blue}{use monotone convergence theorem for what? }
+        
+        For $g$, 
+        \[
+            \begin{aligned}
+                \int_\mathbb{R}g(x)\der x&=\int_\mathbb{R}\sum_{n=1}^\infty\frac{1}{2^n}f(x-r_n) \der x \\
+                &=\sum_{n=1}^\infty\frac{1}{2^n}\int_\mathbb{R}f(x-r_n)\der x \\
+                &=\sum_{n=1}^\infty\frac{1}{2^n}\int_{r_n}^{r_n + 1}f(x-r_n)\der x \\
+                &=\sum_{n=1}^\infty\frac{1}{2^n}\frac{2}{3} \\
+                &=\frac{2}{3}<\infty. 
+            \end{aligned}
+        \]
+        \textcolor{blue}{When will $g$ be unbounded? }
+    \end{solution}
 
     \begin{exercise}{4}
-        
+        Let $f\in L^1(\mathbb{R})$. Prove that 
+        \[
+            \lim_{n\to\infty} \int_{-n}^{n} f\der \mu = 0, 
+        \]
+        where $\mu$ is Lebesgue measure. 
     \end{exercise}
 
+    \begin{solution}
+        There seems to be a mistake in this problem? 
+
+        \textcolor{blue}{
+            Counterexample, if $X\sim N(0,1)$, i.e. $f(x)=\frac {1}{ \sqrt {2\pi }}e^{-\frac {x^{2}}{2}}$. Then \[
+                \lim_{n\to\infty} \int_{-n}^{n} f\der \mu = \int_{-\infty}^{\infty}f(x)\der x=1. 
+            \]
+        }
+    \end{solution}
+
     \begin{exercise}{5}
-        
+        Examine the behavior of the integral of
+        \[
+            f_n(x)=\frac{1}{2n}\chi_{(n^2-n,n^2+n)}(x). 
+        \]
     \end{exercise}
+
+    \begin{solution}
+        For $n=1$, 
+        \[f_1(x)=\frac{1}{2}\chi_{(0,2)}(x). \]
+        So, 
+        \[
+            \int_\mathbb{R}\frac{1}{2}\chi_{(0,2)}(x)\der x = 1. 
+        \]
+        And we can find that for any fixed $n>0$, 
+        \[
+            \int_\mathbb{R}\frac{1}{2n}\chi_{(n^2-n,n^2+n)}(x)\der x = 1. 
+        \]
+        Then, 
+        \[
+            \lim_{n\to\infty}\int_\mathbb{R}\frac{1}{2n}\chi_{(n^2-n,n^2+n)}(x)\der x = 1\not=0=\int_\mathbb{R}\lim_{n\to\infty}\frac{1}{2n}\chi_{(n^2-n,n^2+n)}(x)\der x . 
+        \]
+    \end{solution}
 
     \begin{exercise}{6}
         Evaluate 
@@ -142,28 +210,172 @@
     \end{solution}
 
     \begin{exercise}{7}
-        
+        Let $f : \mathbb{R} \to [0, \infty)$ be a measurable function. Is
+        \[
+            \lim_{n\to\infty}\int_{-n}^nf\der \mu=\int_\mathbb{R}f\der \mu
+        \]
+        valid? 
     \end{exercise}
+
+    \begin{solution}
+        % From exercise 2, we know 
+        % \[
+        %     \lim_{k\to\infty}k\mu(\{x\in \mathbb{R}: |f(x)|\geqslant k\})=0. 
+        % \]
+        Define
+        \[
+            A_k=\{x\in \mathbb{R}: k - 1 \leqslant |f(x)| < k\}. 
+        \]
+        Then, 
+        \[
+            \int_\mathbb{R}f\der \mu=\sum_{k = 1}^\infty\int_{A_k}f\der \mu. 
+        \]
+        Let $B_k=[-n, n]\cap A_k$. Then, we have
+        \[
+            \begin{aligned}
+                \int_{-n}^{n} f\der \mu &= \sum_{k=1}^\infty\int_{B_k}f\der \mu
+                % \\
+                % &\leqslant\sum_{k=1}^\infty\int_{B_k}k\der \mu\\
+                % &\leqslant\sum_{k=1}^\infty k \mu(B_k). 
+            \end{aligned}
+        \]
+        % Similarly, 
+        % \[
+        %     \int_{-n}^{n} f\der \mu \geqslant \sum_{k=1}^\infty(k-1)\mu(B_k). 
+        % \]
+        Let $n\to\infty$, $[-n,n]=\mathbb{R}$, $B_k=\mathbb{R}\cap A_k=A_k$. So, 
+        \[
+            \lim_{n\to\infty}\int_{-n}^{n} f\der \mu = \sum_{k=1}^\infty\int_{B_k}f\der \mu=\sum_{k = 1}^\infty\int_{A_k}f\der \mu=\int_\mathbb{R}f\der \mu. 
+        \]
+    \end{solution}
 
     \begin{exercise}{8}
-        
+        Let $f\geqslant0$, $f(0)=0$, $f'(0)<\infty$. Assume $f\in L^1([0,\infty))$. Prove
+        \[
+            \int_0^\infty\frac{f(x)}{x}\der x<\infty. 
+        \]
     \end{exercise}
+
+    \begin{solution}
+        For any $0<\varepsilon<1$, because $f\in L^1([0,\infty))$, 
+        \[
+            \int_\varepsilon^\infty\frac{f(x)}{x}\der x<\frac{1}{\varepsilon}\int_\varepsilon^\infty f(x)\der x<\infty, 
+        \]
+        We only need to prove 
+        \[
+            \int_0^\varepsilon\frac{f(x)}{x}\der x<\infty. 
+        \]
+        Rewrite $f(x)$ at $0$ using Taylor formula, 
+        \[
+            f(x)=f(0)+f'(0)x+o(x^2). 
+        \]
+        Then
+        \[
+            \frac{f(x)}{x}=f'(0)+\frac{o(x^2)}{x}. 
+        \]
+        Let $\varepsilon\to 0$, then $\frac{o(x^2)}{x}=0$. So, 
+        \[
+            \frac{f(x)}{x}=f'(0)<\infty. 
+        \]
+        Finally, we can get
+        \[
+            \int_0^\infty\frac{f(x)}{x}\der x<=\int_0^\varepsilon\frac{f(x)}{x}\der x+\int_\varepsilon^\infty\frac{f(x)}{x}\der x<\infty. 
+        \]
+    \end{solution}
 
     \begin{exercise}{9}
-        
+        Prove that 
+        \[
+            \lim_{n\to \infty}\int_0^1 n\ln(1+\frac{|f(x)|^2}{n^2})\der x=0. 
+        \]
     \end{exercise}
+
+    \begin{solution}
+        We know $|f(x)|^2/n^2$ is nonnegative, thus $\ln(1+|f(x)|^2/n^2)\leqslant |f(x)|^2/n^2$. SO, we have
+        \[
+            \int_0^1n\ln(1+\frac{|f(x)|^2}{n^2})\der x\leqslant \int_0^1n\frac{|f(x)|^2}{n^2}\der x=\int_0^1\frac{|f(x)|^2}{n}\der x
+        \]
+        We assume $f(x)\in L^1$, then $\int_0^1|f(x)|\der x<\infty$. And $|f(x)|^2$ is bounded on $(0,1)$. So, 
+        \[
+            \lim_{n\to \infty}\int_0^1 n\ln(1+\frac{|f(x)|^2}{n^2})\der x=\int_0^1\lim_{n\to \infty}\frac{|f(x)|^2}{n}\der x=0. 
+        \]
+    \end{solution}
 
     \begin{exercise}{10}
-        
+        Let $f \in L^1(\mathbb{R})$ and $p > 0$ a fixed number. Prove that
+        \[
+            \lim_{n\to\infty}\frac{f(nx)}{n^p}=0
+        \]
+        almost everywhere in $x \in \mathbb{R}$. This means that the set where this does not happen has measure 0. 
     \end{exercise}
+
+    \begin{solution}
+        Because $f\in L^1(\mathbb{R})$, $f$ is bounded $a.e$. That means there may be a set $E$ with $\mu(E)=0$, on which $f$ can be unbounded. Let 
+        \[
+            M=\max_{\mathbb{R}\backslash E}\{f\}<\infty, 
+        \]
+        then
+        \[
+            \lim_{n\to\infty}\frac{f(nx)}{n^p}\leqslant\lim_{n\to\infty}\frac{M}{n^p}=0, 
+        \]
+        So, 
+        \[
+            \lim_{n\to\infty}\frac{f(nx)}{n^p}=0, \qquad a.e. 
+        \]
+    \end{solution}
 
     \begin{exercise}{11}
-        
+        Let $f \in L^1(\mathbb{R})$. Prove that if the integral of $f$ over every interval with rational endpoints, then $f = 0$ almost everywhere. 
     \end{exercise}
 
-    \begin{exercise}{12}
+    \begin{solution}
+        \textcolor{blue}{I think the problem should be like this? }
         
+        Let $f \in L^1(\mathbb{R})$. Prove that if the integral of $f$ over every interval with rational endpoints \textcolor{red}{is $0$}, then $f = 0$ almost everywhere. 
+        
+        Suppose there is a set $E\subset \mathbb{R}$ satisfy $f|_E\not=0$. $E$ contains two types of elements: 1) lots of single points, denoted by $P=\{p_i\}$ and 2) some intervals, denoted by $I=\{[a_i,b_i]\}$. 
+
+        1) single points. Because $\mathbb{Q}$ is dense in $\mathbb{R}$, for any point $p_i$, there must be an rational interval contains it. So, $\sum_i\mu(p_i)$ has to be $0$. 
+
+        2) some intervals. Also because $\mathbb{Q}$ is dense in $\mathbb{R}$, there must be an rational interval contains $\cup_i[a_i,b_i]$. Hence, $\mu(\cup_i[a_i,b_i])$ has to be $0$, as well. 
+
+        Finally, we know that \[\mu(E)=\mu(P)+\mu(I)\leqslant0, \]
+        i.e. $f=0,\quad a.e$. 
+    \end{solution}
+
+    \begin{exercise}{12}
+        Let $(X, \mathscr{S}, \mu)$ be a measure space and $\rho : X \to [0, \infty]$ be a measurable function. For $A \in \mathscr{S}$, define
+        \[
+            v(A)=\int_A\rho\der \mu. 
+        \]
+        Prove that $v$ is a measure and that for every $f: X\to [0;\infty]$ measurable the formula
+        \[
+            \int_Xf\der v=\int_Xf\rho\der\mu. 
+        \]
     \end{exercise}
+
+    \begin{solution}
+        \textsc{1. Non-negativity: }
+
+        Because $\rho\geqslant 0$ and $\mu(A)\geqslant 0$, $v(A)$ is also not less than $0$. 
+
+        \textsc{2. Null empty set: }
+
+        Because $\mu(\varnothing)=0$, $v(\varnothing)=0$. 
+
+        \textsc{3. Countable additivity: }
+
+        Let $\{A_i\}\subset \mathscr{S}$, and is pairwise disjoint, then
+        \[
+            v(\cup_{i=1}^\infty A_i)=\int_{\cup_{i=1}^\infty A_i}\rho\der \mu=\sum_{i=1}^\infty\int_{A_i}\rho\der \mu=\sum_{i=1}^\infty v(A_i). 
+        \]
+        So, $v$ is a measure. 
+
+        For $A\in\mathscr{S}$, $x\in A$, 
+        \[
+            \int_Af(x)\der(v(x))=\int_Af(x)\der(v(x))=\int_Af(x)\der(\int_A\rho(x)\der \mu(x))=\int_Af(x)\rho(x)\der \mu(x). 
+        \]
+    \end{solution}
 
     % \printbibliography
 \end{document}
