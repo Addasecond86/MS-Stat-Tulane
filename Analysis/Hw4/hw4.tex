@@ -33,7 +33,7 @@
 
 \title{\textsc{Analysis: Homework 4}}
 \author{\textsc{Zehao Wang}}
-\date{\emph{\today}}
+\date{\emph{November 3, 2021}}
 
 % \vspace{-30pt}
 
@@ -279,7 +279,7 @@
         \]
         Finally, we can get
         \[
-            \int_0^\infty\frac{f(x)}{x}\der x<=\int_0^\varepsilon\frac{f(x)}{x}\der x+\int_\varepsilon^\infty\frac{f(x)}{x}\der x<\infty. 
+            \int_0^\infty\frac{f(x)}{x}\der x\leqslant\int_0^\varepsilon\frac{f(x)}{x}\der x+\int_\varepsilon^\infty\frac{f(x)}{x}\der x<\infty. 
         \]
     \end{solution}
 
@@ -291,13 +291,13 @@
     \end{exercise}
 
     \begin{solution}
-        We know $|f(x)|^2/n^2$ is nonnegative, thus $\ln(1+|f(x)|^2/n^2)\leqslant |f(x)|^2/n^2$. SO, we have
+        We know $|f(x)|^2/n^2$ is nonnegative, thus $\ln(1+|f(x)|^2/n^2)\leqslant |f(x)|^2/n^2$. So, we have
         \[
-            \int_0^1n\ln(1+\frac{|f(x)|^2}{n^2})\der x\leqslant \int_0^1n\frac{|f(x)|^2}{n^2}\der x=\int_0^1\frac{|f(x)|^2}{n}\der x
+            \int_0^1n\ln\left(1+\frac{|f(x)|^2}{n^2}\right)\der x\leqslant \int_0^1n\frac{|f(x)|^2}{n^2}\der x=\int_0^1\frac{|f(x)|^2}{n}\der x
         \]
         We assume $f(x)\in L^1$, then $\int_0^1|f(x)|\der x<\infty$. And $|f(x)|^2$ is bounded on $(0,1)$. So, 
         \[
-            \lim_{n\to \infty}\int_0^1 n\ln(1+\frac{|f(x)|^2}{n^2})\der x=\int_0^1\lim_{n\to \infty}\frac{|f(x)|^2}{n}\der x=0. 
+            \lim_{n\to \infty}\int_0^1 n\ln\left(1+\frac{|f(x)|^2}{n^2}\right)\der x=\int_0^1\lim_{n\to \infty}\frac{|f(x)|^2}{n}\der x=0. 
         \]
     \end{solution}
 
@@ -373,7 +373,7 @@
 
         For $A\in\mathscr{S}$, $x\in A$, 
         \[
-            \int_Af(x)\der(v(x))=\int_Af(x)\der(v(x))=\int_Af(x)\der(\int_A\rho(x)\der \mu(x))=\int_Af(x)\rho(x)\der \mu(x). 
+            \int_Af(x)\der(v(x))=\int_Af(x)\der(\int_A\rho(x)\der \mu(x))=\int_Af(x)\rho(x)\der \mu(x). 
         \]
     \end{solution}
 
