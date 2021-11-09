@@ -1,0 +1,86 @@
+\documentclass{beamer}
+\usetheme{metropolis}
+\title{A easy problem}
+\date{\today}
+\usepackage{amsfonts} 
+\usepackage{amssymb}
+\usepackage{newtxtext}
+\author{Zehao Wang}
+\usepackage{amsmath}
+\newcommand{\der}{\,\mathbf{d}}
+
+\begin{document}
+    \begin{frame}{HW4: Problem 1}
+    Evaluate the limit
+        \[
+            \lim_{n\to \infty}\int_0^\infty\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x. 
+        \]
+    \end{frame}
+
+    \begin{frame}
+        If we can interchange the limit and integral, then: 
+        \[
+            \begin{aligned}
+                \lim_{n\to \infty}\int_0^\infty\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x
+                &\overset{???}{=} \int_0^\infty\lim_{n\to \infty}\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x \\
+                &=\int_0^\infty\lim_{n\to \infty}\frac{\sin\left(0\right)}{x+x^2}\der x \\
+                &=0. 
+            \end{aligned}
+        \]
+        So, consider D.C.T. 
+    \end{frame}
+
+    \begin{frame}
+        \[
+            \left|\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\right|\leqslant g(x). 
+        \]
+
+        \[
+            g(x)=\frac{1}{x^2}\geqslant\frac{1}{x+x^2}\geqslant\frac{sin\left(\frac{x}{n}\right)}{x+x^2}. 
+        \]
+
+        However, $g$ is not integrable on $(0,\infty)$. 
+
+        Divide the interval $(0,\infty)$ into two parts: $(0,1)$, $[1,\infty)$. 
+    \end{frame}
+
+    \begin{frame}{$[1,\infty)$}
+        \[
+            \int_1^\infty g(x)\der x=-x^{-1}\big|_1^\infty=1. 
+        \]
+        So, on $[1,\infty)$, limit and integral are interchangable. 
+
+        \[
+            \begin{aligned}
+            \lim_{n\to \infty}\int_1^\infty\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x
+            =\int_1^\infty\lim_{n\to \infty}\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x =0
+            \end{aligned}
+        \] 
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{$(0,1)$}
+        \[
+            \frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\leqslant\frac{\frac{x}{n}}{x+x^2}=\frac{1}{n}\frac{1}{1+x}
+        \]
+
+        \[
+            \int_0^1\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\leqslant\frac{1}{n}\int_0^1\frac{1}{1+x}=\frac{1}{n}\ln(2)
+        \]
+
+        \[
+            \lim_{n\to\infty}\int_0^1\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\leqslant\lim_{n\to\infty}\frac{1}{n}\ln(2)=0. 
+        \]
+    \end{frame}
+
+    \begin{frame}
+        \[
+            \begin{aligned}
+                &\lim_{n\to \infty}\int_0^\infty\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x
+                \\
+                =&\lim_{n\to \infty}\int_0^1\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x+\lim_{n\to \infty}\int_1^\infty\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x\\
+                =&\ 0. 
+            \end{aligned}
+        \]      
+    \end{frame}
+\end{document}

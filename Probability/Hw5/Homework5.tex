@@ -19,37 +19,171 @@
 
 \title{\textsc{Probability: Problem Set 5}}
 \author{\textsc{Zehao Wang}}
-\date{\today}
+\date{\emph{November 9, 2021}}
 
 % \vspace{-30pt}
 
 \begin{document}
     \maketitle
     \begin{exercise}{2.2.1}
-        Let $X_{1}, X_{2}, \cdots$ be uncorrelated with $E X_{i}=\mu_{i}$ and $var\left(X_{i}\right) / i \rightarrow 0$ as $i \rightarrow \infty$. Let $S_{n}=X_{1}+\cdots+X_{n}$ and $v_{n}=E S_{n} / n$ then as $n \rightarrow \infty, S_{n} / n-v_{n} \rightarrow 0$ in $L^{2}$ and in probability. 
+        Let $X_{1}, X_{2}, \cdots$ be uncorrelated with $E (X_{i})=\mu_{i}$ and $\frac{Var\left(X_{i}\right) }{i} \rightarrow 0$ as $i \rightarrow \infty$. Let $S_{n}=X_{1}+\cdots+X_{n}$ and $v_{n}=E\left(\frac{S_n}{n}\right)$ then, prove that as $n \rightarrow \infty$, 
+        \[
+            \frac{S_{n}}{n}-v_{n} \rightarrow 0
+        \]
+        in $L^{2}$ and in probability. 
     \end{exercise}
+
+    \begin{proof}
+        \[
+            E\left(\frac{S_n}{n}-v_n\right)^2=Var\left(\frac{S_n}{n}\right)=\frac{1}{n^2}Var(S_n)=\frac{1}{n^2}\sum_{k=1}^nVar(X_k), 
+        \]
+        Because $\frac{Var(X_i)}{i}\to0$, for any $\varepsilon>0$, there exist $A$, such that $Var(X_i)<A+i\varepsilon$. So, 
+        \[
+            \frac{1}{n^2}\sum_{k=1}^nVar(X_k)\leqslant A/n+\varepsilon. 
+        \]
+        With $n\to\infty$, $\frac{S_n}{n}-v_n\to0$. 
+    \end{proof}
 
     \begin{exercise}{2.2.2}
-        The $L^{2}$ weak law generalizes immediately to certain dependent sequences. Suppose $E X_{n}=0$ and $E X_{n} X_{m} \leq r(n-m)$ for $m \leq n$ (no absolute value on the left-hand side!) with $r(k) \rightarrow 0$ as $k \rightarrow \infty$. Show that $\left(X_{1}+\cdots+X_{n}\right) / n \rightarrow 0$ in probability. 
+        The $L^{2}$ weak law generalizes immediately to certain dependent sequences. Suppose 
+        \[
+            E (X_{n})=0, \qquad E (X_{n} X_{m}) \leqslant r(n-m)
+        \]
+        for $m \leqslant n$ (no absolute value on the left-hand side!) with $r(k) \rightarrow 0$ as $k \rightarrow \infty$. Show that 
+        \[
+            \frac{X_{1}+\cdots+X_{n}}{ n} \rightarrow 0
+        \]
+        in probability. 
     \end{exercise}
 
+    \begin{proof}
+        Let $S_n=X_1+\cdots+X_n$. And what we want to prove is 
+        \[
+            P\left(\left|\frac{S_n}{n}\right|>\varepsilon\right)=0. 
+        \]
+
+        From Chebyshev's inequality, we know that 
+        \[
+            P\left(\left|\frac{S_n}{n}\right|>\varepsilon\right)\leqslant\frac{Var(S_n/n)}{\varepsilon^2}. 
+        \]
+        And
+        \[
+            Var(S_n)=E(S_n)^2
+        \]
+        Because $r(k)\to0$, for any $\varepsilon>0$, there exist $K\in\mathbb{Z}$, such that when $k>K$, $r(k)<\varepsilon$. 
+        \[
+            \begin{aligned}
+                E(S_n)^2=\sum_{1\leqslant i,j\leqslant n}E(X_iX_j)&=\sum_{|i-j|\leqslant K}E(X_iX_j)+\sum_{|i-j|>K}E(X_iX_j)\\
+                &\leqslant Kc+\sum_{|i-j|>K}\varepsilon\\
+                &\leqslant Kc+n\varepsilon. 
+            \end{aligned}
+        \]
+        Where $c=\max\{r(0), r(1), \cdots, r(K)\}$. 
+        So, 
+        \[
+            Var(S_n/n)=\frac{E(S_n)^2}{n^2}\leqslant\frac{Kc}{n^2}+\frac{\varepsilon}{n}\to0,\quad\text{with $n\to0$}. 
+        \]
+    \end{proof}
+
     \begin{exercise}{2.2.3. Monte Carlo integration. }
-        (i) Let $f$ be a measurable function on $[0,1]$ with $\int_{0}^{1}|f(x)| d x<\infty .$ Let $U_{1}, U_{2}, \ldots$ be independent and uniformly distributed on $[0,1]$, and let
+        (i) Let $f$ be a measurable function on $[0,1]$ with 
+        \[
+            \int_{0}^{1}|f(x)| \der x<\infty. 
+        \]
+        Let $U_{1}, U_{2}, \cdots$ be independent and uniformly distributed on $[0,1]$, and let
         \[
             I_{n}=n^{-1}\left(f\left(U_{1}\right)+\cdots+f\left(U_{n}\right)\right), 
         \]
-        Show that $I_{n} \rightarrow I \equiv \int_{0}^{1} f d x$ in probability. 
+        Show that 
+        \[
+            I_{n} \rightarrow I \equiv \int_{0}^{1} f \der x
+        \]
+        in probability. 
         
-        (ii) Suppose $\int_{0}^{1}|f(x)|^{2} d x<\infty .$ Use Chebyshev's inequality to estimate $P\left(\left|I_{n}-I\right|>a / n^{1 / 2}\right)$. 
+        (ii) Suppose 
+        \[
+            \int_{0}^{1}|f(x)|^{2} \der x<\infty. 
+        \]
+        Use Chebyshev's inequality to estimate 
+        \[
+            P\left(\left|I_{n}-I\right|>a / n^{1 / 2}\right). 
+        \]
     \end{exercise}
+
+    \begin{proof}
+        {\bfseries{(i). }}
+        From Weak Law of Large Number, 
+        \[
+            E\left(\frac{\sum_{i=1}^nf(U_i)}{n}\right)\to \int_0^1f\der x. 
+        \]
+
+        {\bfseries{(ii). }}
+        \[
+            P\left(|I_n-I|>\frac{a}{n^{1/2}}\right)\leqslant\frac{n}{a^2}Var(I_n)=\frac{n\cdot E(I_n-I)^2}{a^2}=\frac{n}{a^2}\left(\int_0^1f^2\der x-\left(\int_0^1f\der x\right)^2\right). 
+        \]
+        \vspace*{-20pt}
+    \end{proof}
 
     \begin{exercise}{2.2.5}
-        Let $X_{1}, X_{2}, \ldots$ be i.i.d. with $P\left(X_{i}>x\right)=e / x \log x$ for $x \geq e$. Show that $E\left|X_{i}\right|=$ $\infty$, but there is a sequence of constants $\mu_{n} \rightarrow \infty$ so that $S_{n} / n-\mu_{n} \rightarrow 0$ in probability. 
+        Let $X_{1}, X_{2}, \cdots$ be i.i.d. with 
+        \[
+            P\left(X_{i}>x\right)=\frac{e}{x \log x}
+        \]
+        for $x \geqslant e$. Show that 
+        \[
+            E\left|X_{i}\right|=\infty, 
+        \]
+        but there is a sequence of constants $\mu_{n} \rightarrow \infty$ so that $\frac{S_{n}}{n}-\mu_{n} \rightarrow 0$ in probability. 
     \end{exercise}
 
+    \begin{proof}
+        \[
+            E(X_i)=\int_e^\infty P(X_i>x)\der x_i=e\log(\log x)\big|_e^\infty=\infty. 
+        \]
+        Define $\mu_n^{(i)}=\int_e^nP(X_i>x)\der x_i$. So, 
+        \[
+            \mu_n^{(i)}=e\log(\log x)\big|_e^n=e\log(\log n)\to\infty. 
+        \]
+        So, $S_n/n-\mu_n\to0$, with $n\to\infty$. 
+    \end{proof}
+
     \begin{exercise}{2.2.6}
-        (i) Show that if $X \geq 0$ is integer valued $E X=\sum_{n \geq 1} P(X \geq n)$. 
+        (i) Show that if $X \geqslant 0$ is integer valued, 
+        \[
+            E(X)=\sum_{n \geqslant 1} P(X \geqslant n). 
+        \]
         
-        (ii) Find a similar expression for $E X^{2}$. 
+        (ii) Find a similar expression for $E (X^{2})$. 
     \end{exercise}
+
+    \begin{proof}
+        \bfseries{(i). }
+        \[
+            \begin{aligned}
+                E(X)=&\sum_{k=0}^\infty k\cdot P(X=k)\\
+                =&1\cdot P(X=1)+2\cdot P(X=2)+\cdots\\
+                =&\quad P(X=1)\\
+                &+P(X=2)+P(X=2)\\
+                &+P(X=3)+P(X=3)+P(X=3)\\
+                &+\cdots\\
+                =&\sum_{k=1}^\infty P(X=k)+\sum_{k=2}^\infty P(X=k)+\sum_{k=3}^\infty P(X=k)+\cdots\\
+                =&P(X>0)+P(X>1)+P(X>2)+\cdots\\
+                =&\sum_{k=0}^\infty P(X>k). 
+            \end{aligned}
+        \]
+        \bfseries{(ii). }
+        \[
+            \begin{aligned}
+                E(X^2)=&\sum_{k=0}^\infty k^2\cdot P(X^2=k^2)\\
+                =&1^2\cdot P(X^2=1^2)+2^2\cdot P(X^2=2^2)+\cdots\\
+                =&\quad1\cdot P(X^2=1^2)\\
+                &+2\cdot P(X^2=2^2)+2\cdot P(X^2=2^2)\\
+                &+3\cdot P(X^2=3^2)+3\cdot P(X^2=3^2)+3\cdot P(X^2=3^2)\\
+                &+4\cdot P(X^2=4^2)+4\cdot P(X^2=4^2)+4\cdot P(X^2=4^2)+4\cdot P(X^2=4^2)\\
+                &+\cdots\\
+                =&\sum_{k=1}^\infty k\cdot P(X^2=k^2)+\sum_{k=2}^\infty k\cdot P(X^2=k^2)+\sum_{k=3}^\infty k\cdot P(X^2=k^2)+\cdots\\
+                =&\sum_{n=1}^\infty\sum_{k=n}^\infty k\cdot P(X^2=k^2). 
+            \end{aligned}
+        \]
+    \end{proof}
 \end{document}
