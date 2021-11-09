@@ -27,4 +27,6 @@
 *.synctex.gz
 *.xml
 *.bcf
+*.snm
+*.nav
 .DS_Store
