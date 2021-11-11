@@ -34,6 +34,15 @@
     \end{exercise}
 
     \begin{proof}
+        We want to prove that 
+        \[
+            P\left(\left|\frac{S_n}{n}-v_n\right|>\varepsilon\right)=0
+        \]
+        From Chebyshev's inequality, 
+        \[
+            P\left(\left|\frac{S_n}{n}-v_n\right|>\varepsilon\right)\leqslant\frac{Var(\frac{S_n}{n})}{\varepsilon^2}
+        \]
+        So, 
         \[
             E\left(\frac{S_n}{n}-v_n\right)^2=Var\left(\frac{S_n}{n}\right)=\frac{1}{n^2}Var(S_n)=\frac{1}{n^2}\sum_{k=1}^nVar(X_k), 
         \]
@@ -68,21 +77,22 @@
         \]
         And
         \[
-            Var(S_n)=E(S_n)^2
+            Var(S_n)=E(S_n)^2, \qquad\text{because $E(X_i)=0$. }
         \]
         Because $r(k)\to0$, for any $\varepsilon>0$, there exist $K\in\mathbb{Z}$, such that when $k>K$, $r(k)<\varepsilon$. 
         \[
             \begin{aligned}
                 E(S_n)^2=\sum_{1\leqslant i,j\leqslant n}E(X_iX_j)&=\sum_{|i-j|\leqslant K}E(X_iX_j)+\sum_{|i-j|>K}E(X_iX_j)\\
-                &\leqslant Kc+\sum_{|i-j|>K}\varepsilon\\
-                &\leqslant Kc+n\varepsilon. 
+                &\leqslant n(2K+1)c+\sum_{|i-j|>K}\varepsilon\\
+                &\leqslant n(2K+1)c+n^2\varepsilon. 
             \end{aligned}
         \]
         Where $c=\max\{r(0), r(1), \cdots, r(K)\}$. 
         So, 
         \[
-            Var(S_n/n)=\frac{E(S_n)^2}{n^2}\leqslant\frac{Kc}{n^2}+\frac{\varepsilon}{n}\to0,\quad\text{with $n\to0$}. 
+            Var(S_n/n)=\frac{E(S_n)^2}{n^2}\leqslant\frac{(2K+1)c}{n}+\varepsilon\to0,\quad\text{with $n\to0$}. 
         \]
+        \vspace*{-30pt}
     \end{proof}
 
     \begin{exercise}{2.2.3. Monte Carlo integration. }
@@ -116,12 +126,18 @@
         \[
             E\left(\frac{\sum_{i=1}^nf(U_i)}{n}\right)\to \int_0^1f\der x. 
         \]
+        (I think this can be directly concluded from WLLN. )
 
         {\bfseries{(ii). }}
         \[
-            P\left(|I_n-I|>\frac{a}{n^{1/2}}\right)\leqslant\frac{n}{a^2}Var(I_n)=\frac{n\cdot E(I_n-I)^2}{a^2}=\frac{n}{a^2}\left(\int_0^1f^2\der x-\left(\int_0^1f\der x\right)^2\right). 
+            \begin{aligned}
+                P\left(|I_n-I|>\frac{a}{n^{1/2}}\right)&\leqslant\frac{n}{a^2}Var(I_n)\\
+                &=\frac{n\cdot E(I_n-I)^2}{a^2}\\
+                &=\frac{n\cdot E(I_n^2-2I_nI+I^2)}{a^2}\\
+                &=\frac{\int_0^1f^2\der x-\left(\int_0^1f\der x\right)^2}{a^2}. 
+            \end{aligned}
         \]
-        \vspace*{-20pt}
+        \vspace*{-30pt}
     \end{proof}
 
     \begin{exercise}{2.2.5}
@@ -137,6 +153,7 @@
     \end{exercise}
 
     \begin{proof}
+        Directly calculate the expectation: 
         \[
             E(X_i)=\int_e^\infty P(X_i>x)\der x_i=e\log(\log x)\big|_e^\infty=\infty. 
         \]
