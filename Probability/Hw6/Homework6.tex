@@ -121,47 +121,155 @@
         \]
     \end{solution}
 
-    \begin{exercise}{2.3.7}
-        Show that random variables are a complete space under the metric defined in the previous exercise, i.e., if $d\left(X_{m}, X_{n}\right) \rightarrow 0$ whenever $m, n \rightarrow \infty$, then there is a r.v. $X_{\infty}$ so that $X_{n} \rightarrow X_{\infty}$ in probability. 
+%     \begin{exercise}{2.3.7}
+%         Show that random variables are a complete space under the metric defined in the previous exercise, i.e., if $d\left(X_{m}, X_{n}\right) \rightarrow 0$ whenever $m, n \rightarrow \infty$, then there is a r.v. $X_{\infty}$ so that $X_{n} \rightarrow X_{\infty}$ in probability. 
+%     \end{exercise}
+
+%     \begin{solution}
+%         Take $N_k$ so that if $m, n \geqslant N_k$, then $d(X_m, X_n) \leqslant 2^{-k}$. We can pick a subsequence $X_{n_m}$ satisfying that $n_m$ increasing with $m$ and $n_m \geqslant N_k$. 
+        
+        
+%         Using Chebyshev’s inequality with φ(z) = z/(1 + z) we have
+% P (|Xn(mk ) − Xn(mk+1)| > k−2) ≤ (k2 + 1)2−k
+% The right hand side is summable so the Borel-Cantelli 􏰗lemma implies that for large k, we have |Xn(mk) − Xn(mk+1)| ≤ k−2. Since k k−2 < ∞ this and the triangle inequality imply that Xn(mk) converges a.s. to a limit X. To see that the limit does not depend on the subsequence note that if Xn′(m′k) → X′ then our original assumption implies d(Xn(mk),Xn′(m′k)) → 0, and the bounded convergence theorem implies d(X, X′) = 0. The desired result now follows from
+%     \end{solution}
+
+    \begin{exercise}{2.3.8}
+        Let $A_{n}$ be a sequence of independent events with $P\left(A_{n}\right) < 1$ for all $n$. Show that $P\left(\cup A_{n}\right)=1$ implies $\sum_{n} P\left(A_{n}\right)=\infty$ and hence $P\left(A_{n}\right.\ i.o.)=1$. 
     \end{exercise}
 
     \begin{solution}
-        What we want to prove is that Cauchy sequence $\{X_n\}_{n=1}^\infty$ is convergent for random variables. 
-
-        There exist $N\in\mathbb{N}$, such that when $n>m>N$, $d(X_n-X_m)<$
+        Because $A_n$ is independent, the events $A_n^c$ are independent, too. 
+        \[
+            P\left(\bigcap_{m=1}^nA_m^c\right)=\prod_{m=1}^n(1-P(A_m)). 
+        \]
+        If $P(\cup_{m=1}^nA_m) = 1$, then $P(\cap_{m=1}^nA_m^c)=0$, and the infinite product is $0$, but if $P(A_n) < 1$ for all $m$, we have $P(A_n) = \infty$. So, from the second Borel-Cantelli lemma, we can know that 
+        \[
+            P(A_n\ i.o.)=1. 
+        \]
     \end{solution}
-
-    \begin{exercise}{2.3.8}
-        Let $A_{n}$ be a sequence of independent events with $P\left(A_{n}\right)<1$ for all $n$. Show that $P\left(\cup A_{n}\right)=1$ implies $\sum_{n} P\left(A_{n}\right)=\infty$ and hence $P\left(A_{n}\right.$ i.o. $)=1$. 
-    \end{exercise}
 
     \begin{exercise}{2.3.9}
         (i) If $P\left(A_{n}\right) \rightarrow 0$ and $\sum_{n=1}^{\infty} P\left(A_{n}^{c} \cap A_{n+1}\right)<\infty$, then $P\left(A_{n}\right.$ i.o. $)=0$. 
         
-        (ii) Find an example of a sequence $A_{n}$ to which the result in (i) can be applied but the BorelCantelli lemma cannot. 
+        (ii) Find an example of a sequence $A_{n}$ to which the result in (i) can be applied but the Borel-Cantelli lemma cannot. 
     \end{exercise}
+
+    \begin{solution}
+        (i). 
+
+        Let $B_n =A_n^c\cap A_n+1$ and note that when $n\to\infty$, 
+        \[
+            P\left(\bigcap_{n}^\infty\bigcup_{m=n}^\infty A_m\right)\leqslant P(A_n)+\sum_{m=n}^\infty P(B_m)\to 0. 
+        \]
+        So, $P\left(A_{n}\right.$ i.o. $)=0$. 
+    \end{solution}
     
     \begin{exercise}{2.3.11}
-        Let $X_{1}, X_{2}, \ldots$ be independent with $P\left(X_{n}=1\right)=p_{n}$ and $P\left(X_{n}=0\right)=1-p_{n}$. Show that (i) $X_{n} \rightarrow 0$ in probability if and only if $p_{n} \rightarrow 0$, and (ii) $X_{n} \rightarrow 0$ a.s. if and only if $\sum p_{n}<\infty$. 
+        Let $X_{1}, X_{2}, \ldots$ be independent with $P\left(X_{n}=1\right)=p_{n}$ and $P\left(X_{n}=0\right)=1-p_{n}$. Show that 
+        
+        (i) $X_{n} \rightarrow 0$ in probability if and only if $p_{n} \rightarrow 0$, 
+        
+        (ii) $X_{n} \rightarrow 0$ a.s. if and only if $\sum p_{n}<\infty$. 
     \end{exercise}
+
+    \begin{solution}
+        (i). 
+        
+        If $p_n\to0$, then $P(X_n=0)\to1$, i.e. $X_n\to 0$ in probability. 
+
+        (ii). 
+
+        From the two Borel-Cantelli lemmas, we can know that when $\sum_np_n=\infty$, 
+        \[
+            P(|X_n|=1)=1. 
+        \]
+        So, $X_{n} \rightarrow 0$ a.s. if and only if $\sum p_{n}<\infty$. 
+    \end{solution}
 
     \begin{exercise}{2.3.13}
         If $X_{n}$ is any sequence of random variables, there are constants $c_{n} \rightarrow \infty$ so that $X_{n} / c_{n} \rightarrow 0$ a.s. 
     \end{exercise}
 
+    \begin{solution}
+        Take $\varepsilon_n\to 0$ and $c_n$ such that $P(|X_n| > \varepsilon_nc_n ) \leqslant 2^{-n}$. Since $\sum_n^\infty 2^{-n} < \infty$, the Borel-Cantelli lemma implies that 
+        \[
+            P(|X_n/c_n| > \varepsilon_n\ i.o.) = 0. 
+        \]
+    \end{solution}
+
     \begin{exercise}{2.3.14}
         Let $X_{1}, X_{2}, \ldots$ be independent. Show that sup $X_{n}<\infty$ a.s. if and only if $\sum_{n} P\left(X_{n}>\right.$ $A)<\infty$ for some $A$. 
     \end{exercise} 
+
+    \begin{solution}
+        If $\sum_nP(X_n >A)<\infty$, then $P(X_n >A\ i.o.)=0$ and $\sup_nX_n <\infty$. 
+        
+        On the other hand, if $\sum_nP(X_n >A)=\infty$ for any $A$, then $P(X_n >A\ i.o.)=1$ for any $A$ and $\sup_n X_n = \infty$. 
+    \end{solution}
     
     \begin{exercise}{2.3.15}
-        Let $X_{1}, X_{2}, \ldots$ be i.i.d. with $P\left(X_{i}>x\right)=e^{-x}$, let $M_{n}=\max _{1 \leq m \leq n} X_{m} .$ Show that (i) $\lim \sup _{n \rightarrow \infty} X_{n} / \log n=1$ a.s. and (ii) $M_{n} / \log n \rightarrow 1$ a.s. 
+        Let $X_{1}, X_{2}, \cdots$ be i.i.d. with $P\left(X_{i}>x\right)=e^{-x}$, let $M_{n}=\max _{1 \leq m \leq n} X_{m} .$ Show that 
+        
+        (i). $\lim \sup _{n \rightarrow \infty} X_{n} / \log n=1$ a.s. 
+        
+        (ii). $M_{n} / \log n \rightarrow 1$ a.s. 
     \end{exercise}
 
+    \begin{solution}
+        (i). 
+        
+        $P (X_n \geqslant \log n) = \frac{1}{n}$ and because these events are independent, so the second Borel-Cantelli implies that 
+        \[
+            P (X_n \geqslant \log n\ i.o.) = 1. 
+        \]
+        On the other hand, 
+        \[
+            P (X_n \geqslant (1 + \varepsilon) \log n) = 1/n^{1+\varepsilon}. 
+        \]
+        So, the first Borel-Cantelli lemma implies that $P (X_n \geqslant (1 + \varepsilon) \log n\ i.o.) = 0$. 
+
+        (ii). 
+
+        The first result implies that if $\varepsilon > 0$, then $X_n \leqslant (1 + \varepsilon)\log n$ for some large $n$. So, 
+        \[
+            \lim\sup_{n\to\infty} M_n/\log n \leqslant 1. 
+        \]
+        On the other hand, if $\varepsilon > 0$, 
+        \[
+            P(M_n < (1-\varepsilon)\log n) = (1-n^{-(1-\varepsilon)})n \leqslant e^{-n^\varepsilon}. 
+        \]
+        It is summable. So, the first Borel-Cantelli lemma implies that 
+        \[
+            P(M_n<(1-\varepsilon)\log n\ i.o.)=0. 
+        \]
+    \end{solution}
+
     \begin{exercise}{2.3.18}
-        Let $0 \leq X_{1} \leq X_{2} \ldots$ be random variables with $E X_{n} \sim a n^{\alpha}$ with $a, \alpha>0$, and $\operatorname{var}\left(X_{n}\right) \leq B n^{\beta}$ with $\beta<2 \alpha .$ Show that $X_{n} / n^{\alpha} \rightarrow a$ a.s. 
+        Let $0 \leqslant X_{1} \leqslant X_{2} \leqslant \cdots$ be random variables with $E X_{n} \sim a n^{\alpha}$ with $a, \alpha>0$, and $Var \left(X_{n}\right) \leq B n^{\beta}$ with $\beta<2 \alpha .$ Show that $X_{n} / n^{\alpha} \rightarrow a$ a.s. 
     \end{exercise}
+
+    \begin{solution}
+        $E\left(\frac{X_n}{n^\alpha}\right)=a$. So, 
+        \[
+            \begin{aligned}
+                P\left(\left|\frac{X_n}{n^\alpha}-a\right|>\varepsilon\right) &\leqslant \frac{Var(X_n/n^\alpha)}{\varepsilon^2}\\
+                &\leqslant \frac{Bn^\beta}{n^{2\alpha}\varepsilon^2}\\
+                &=\frac{1}{n^{2\alpha-\beta}}\frac{B}{\varepsilon^2}\to 0. 
+            \end{aligned}
+        \]
+        Hence, $\frac{X_n}{n^\alpha}\to a$ a.s. 
+    \end{solution}
     
     \begin{exercise}{2.3.19}
         Let $X_{n}$ be independent Poisson r.v.'s with $E X_{n}=\lambda_{n}$, and let $S_{n}=X_{1}+\cdots+X_{n}$. Show that if $\sum \lambda_{n}=\infty$, then $S_{n} / E S_{n} \rightarrow 1$ a.s. 
     \end{exercise}
+
+    \begin{solution}
+        Because $X_n$ is sampled from poisson distribution, we can know that $Var(X_n)=\lambda_n=EX_n$. So, 
+        \[
+            P\left(\left|\frac{S_n}{ES_n}-1\right|>\varepsilon\right)\leqslant\frac{Var(S_n/ES_n)}{\varepsilon^2}=\frac{\sum_{n}Var(X_n)}{(ES_n)^2\varepsilon^2}\to 0. 
+        \]
+        Hence, $\frac{S_n}{ES_n}\to 1$ a.s. 
+    \end{solution}
 \end{document}
