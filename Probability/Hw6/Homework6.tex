@@ -21,27 +21,115 @@
 \author{\textsc{Zehao Wang}}
 \date{\today}
 
-% \vspace{-30pt}
+% \vspace*{-30pt}
 
 \begin{document}
     \maketitle
     \begin{exercise}{2.3.1}
-        Prove that $P(\lim \sup A_n) \geqslant \lim \sup P(A_n)$ and $P(\lim \inf A_n) \leqslant \lim \inf P(A_n)$. 
+        Prove that 
+        \[
+            P(\lim \sup A_n) \geqslant \lim \sup P(A_n)
+        \]
+        and
+        \[
+            P(\lim \inf A_n) \leqslant \lim \inf P(A_n). 
+        \]
     \end{exercise}
 
+    \begin{proof}
+        1. 
+        \[
+            \begin{aligned}
+                P(\lim\sup A_n)=&P\left(\bigcap_{n=1}^\infty\bigcup_{k=n}^\infty A_k\right)\\
+                \geqslant&\lim_{n\to\infty}P\left(\bigcup_{k=n}^\infty A_k\right)\\
+                \geqslant&\lim_{n\to\infty}\sup_{k\geqslant n}P(A_k)\\
+                \geqslant&\lim\sup P(A_n). 
+            \end{aligned}
+        \]
+        2. 
+        \[
+            \begin{aligned}
+                P(\lim\inf A_n)=&P\left(\bigcup_{n=1}^\infty\bigcap_{k=n}^\infty A_k\right)\\
+                \leqslant&\lim_{n\to\infty}P\left(\bigcap_{k=n}^\infty A_k\right)\\
+                \leqslant&\lim_{n\to\infty}\inf_{k\geqslant n}P(A_k)\\
+                \leqslant&\lim\inf P(A_n). 
+            \end{aligned}
+        \]
+        \vspace*{-25pt}
+    \end{proof}
+
     \begin{exercise}{2.3.6. Metric for convergence in probability. }
-        Show (a) that $d(X, Y)=E(|X-Y| /(1+$ $|X-Y|)$ ) defines a metric on the set of random variables, i.e., 
+        Show that
+        
+        {\bfseries(a).} $d(X, Y)=E(|X-Y| /(1+$ $|X-Y|))$ defines a metric on the set of random variables, i.e., 
         \begin{itemize}
             \item[(i)] $d(X, Y)=0$ if and only if $X=Y$ a.s., 
             \item[(ii)] $d(X, Y)=d(Y, X)$, 
             \item[(iii)] $d(X, Z) \leq d(X, Y)+d(Y, Z)$. 
         \end{itemize}
-        And (b) that $d\left(X_{n}, X\right) \rightarrow 0$ as $n \rightarrow \infty$ if and only if $X_{n} \rightarrow X$ in probability. 
+        {\bfseries(b).} $d\left(X_{n}, X\right) \rightarrow 0$ as $n \rightarrow \infty$ if and only if $X_{n} \rightarrow X$ in probability. 
     \end{exercise}
+
+    \begin{solution}
+        {\bfseries (a), }
+
+        (i). 
+        \[
+            \begin{aligned}
+                d(X,Y)&=E\left(\frac{|X-Y|}{1+|X-Y|}\right)\\
+                &=1-E\left(\frac{1}{1+|X-Y|}\right)
+            \end{aligned}
+        \]
+        So, if $d(X,Y)=0$, then $X=Y$, a.s. 
+        
+        (ii). Because $|X-Y|=|Y-X|$, $d(X,Y)=d(Y,X)$. 
+
+        (iii). 
+        \[
+            \begin{aligned}
+                d(X,Y)+d(Y,Z)&=E\left(\frac{|X-Y|}{1+|X-Y|}\right)+E\left(\frac{|Y-Z|}{1+|Y-Z|}\right)\\
+                &\geqslant E\left(\frac{|X-Y|}{1+|X-Y|+|Y-Z|}\right)+E\left(\frac{|Y-Z|}{1+|X-Y|+|Y-Z|}\right)\\
+                &=E\left(\frac{|X-Y|+|Y-Z|}{1+|X-Y|+|Y-Z|}\right)\\
+                &=1-E\left(\frac{1}{1+|X-Y|+|Y-Z|}\right)\\
+                &\geqslant 1-E\left(\frac{1}{1+|X-Z|}\right)\\
+                &=d(X,Z). 
+            \end{aligned}
+        \]
+        So, $d(\cdot)$ is a metric. 
+
+        {\bfseries (b), } 
+
+        $\Longrightarrow$: If $d(X_n,X)\to 0$, then for any $\varepsilon>0$, there exist $N\in\mathbb{N}$, such that when $n>N$, $d(X_n,X)\leqslant \frac{\varepsilon^2}{1+\varepsilon}$. 
+        \[
+            \begin{aligned}
+                \frac{\varepsilon^2}{1+\varepsilon}\geqslant&\ d(X_n,X)=E\left(\frac{|X_n-X|}{1+|X_n-X|}\right)\\
+                \geqslant&\ E\left(\frac{\varepsilon}{1+\varepsilon}\mathbf{1}_{|X_n-X|>\varepsilon}\right)\\
+                =&\ \frac{\varepsilon}{1+\varepsilon}P\left(|X_n-X|>\varepsilon\right), 
+            \end{aligned}
+        \]
+        That means $P\left(|X_n-X|>\varepsilon\right)\leqslant\varepsilon$. i.e. $X_n\to X$ in probability. 
+
+        $\Longleftarrow$: If $X_n\to X$, i.e. for any $\varepsilon>0$, there exist $N\in\mathbb{N}$, such that when $n>N$, $P\left(|X_n-X|>\varepsilon\right)\leqslant\varepsilon$. So, 
+        \[
+            \begin{aligned}
+                d(X_n, X)=&\ E\left(\frac{|X_n-X|}{1+|X_n-X|}\mathbf{1}_{|X_n-X|\leqslant\varepsilon}\right)+E\left(\frac{|X_n-X|}{1+|X_n-X|}\mathbf{1}_{|X_n-X|>\varepsilon}\right)\\
+                \leqslant&\ E\left(\frac{|X_n-X|}{1}\mathbf{1}_{|X_n-X|\leqslant\varepsilon}\right)+E\left(\frac{1+|X_n-X|}{1+|X_n-X|}\mathbf{1}_{|X_n-X|>\varepsilon}\right)\\
+                \leqslant&\ E(|X_n-X|\mathbf{1}_{|X_n-X|\leqslant\varepsilon})+E\left(\mathbf{1}_{|X_n-X|>\varepsilon}\right)\\
+                \leqslant&\ \varepsilon+P(|X_n-X|>\varepsilon)\\
+                \leqslant&\ 2\varepsilon\to0. 
+            \end{aligned}
+        \]
+    \end{solution}
 
     \begin{exercise}{2.3.7}
         Show that random variables are a complete space under the metric defined in the previous exercise, i.e., if $d\left(X_{m}, X_{n}\right) \rightarrow 0$ whenever $m, n \rightarrow \infty$, then there is a r.v. $X_{\infty}$ so that $X_{n} \rightarrow X_{\infty}$ in probability. 
     \end{exercise}
+
+    \begin{solution}
+        What we want to prove is that Cauchy sequence $\{X_n\}_{n=1}^\infty$ is convergent for random variables. 
+
+        There exist $N\in\mathbb{N}$, such that when $n>m>N$, $d(X_n-X_m)<$
+    \end{solution}
 
     \begin{exercise}{2.3.8}
         Let $A_{n}$ be a sequence of independent events with $P\left(A_{n}\right)<1$ for all $n$. Show that $P\left(\cup A_{n}\right)=1$ implies $\sum_{n} P\left(A_{n}\right)=\infty$ and hence $P\left(A_{n}\right.$ i.o. $)=1$. 

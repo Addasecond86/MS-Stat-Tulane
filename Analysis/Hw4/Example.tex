@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{amsfonts} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{newtxmath}
+\usepackage{hyperref}
+
+\linespread{1.3}
+\setlength{\parskip}{3mm}
+\setlength{\parindent}{2em}
+
+% \usepackage[backend=biber]{biblatex}
+% \addbibresource{my.bib}
+
+\newcounter{problem}
+
+\newenvironment{exercise}{\begin{tcolorbox}[colback=black!15, colframe=black!80, breakable, title=\refstepcounter{problem}\theproblem]}{\end{tcolorbox}}
+
+\newenvironment{proof}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Proof. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+
+\newenvironment{solution}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Solution. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+
+\newcommand{\pder}{\partial\,}
+
+\newcommand{\der}{\,\mathbf{d}}
+
+\title{\textsc{Analysis: Homework 4}}
+\author{\textsc{Zehao Wang}}
+\date{\emph{November 3, 2021}}
+
+% \vspace{-30pt}
+
+\begin{document}
+    \maketitle
+
+    \begin{exercise}
+        Evaluate the limit
+        \[
+            \lim_{n\to \infty}\int_0^\infty\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x. 
+        \]
+    \end{exercise}
+
+    \begin{solution}
+        At first, I want to find a dominated function. However, it doesn't exist on $(0,\infty)$. So, I divide $(0,\infty)$ in two parts: $(0,1]$ and $(1,\infty)$. 
+
+        For $x\in (0,1]$, 
+        \[
+            \begin{aligned}
+                \int_0^1\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x & \leqslant\int_0^1\left|\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\right|\der x\\
+                & \leqslant\int_0^1\frac{x/n}{x+x^2}\der x\\
+                & \leqslant\frac{1}{n}\int_0^1\frac{1}{1+x}\der x\\
+                & =\frac{1}{n}\ln(2). 
+            \end{aligned}
+        \]
+        Let $n\to\infty$, 
+        \[
+            \begin{aligned}
+                \lim_{n\to\infty}\int_0^1\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x \leqslant\lim_{n\to\infty}\frac{1}{n}\ln(2)=0. 
+            \end{aligned}
+        \]
+        For $x\in(1,\infty)$, $\left|\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\right|\leqslant\frac{1}{x^2}$. And we have
+        \[
+            \int_1^\infty\frac{1}{x^2}\der x=-x^{-1}\big|_1^\infty=1<\infty. 
+        \]
+        So, 
+        \[
+            \lim_{n\to\infty}\int_1^\infty\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x =\int_1^\infty\lim_{n\to\infty}\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x=\int_1^\infty\frac{0}{x+x^2}\der x=0. 
+        \]
+        Then, we can get
+        \[
+            \lim_{n\to \infty}\int_0^\infty\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x=\lim_{n\to \infty}\int_0^1\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x+\lim_{n\to \infty}\int_1^\infty\frac{\sin\left(\frac{x}{n}\right)}{x+x^2}\der x=0. 
+        \]
+    \end{solution}
+
+    \begin{exercise}
+        Let $f\in L^1(X,\mathscr{S},\mu)$. Prove that
+        \[
+            \lim_{n\to\infty}n\mu(\{x\in X: |f(x)|\geqslant n\})=0. 
+        \]
+    \end{exercise}
+
+    \begin{proof}
+        Define
+        \[
+            A_n=\{x\in X: n\leqslant|f(x)|< n+1\}. 
+        \]
+        Then, 
+        \[
+            \sum_{n=0}^\infty\int_{A_n}|f|\der \mu=\int_X|f|\der \mu<\infty. 
+        \]
+        So, for any $\varepsilon>0$, there is some large enough $n$, such that $\sum_{k=n}^\infty\int_{A_k}|f|\der \mu<\varepsilon$. In other words, 
+        \[
+            \lim_{n\to\infty}\sum_{k=n}^\infty\int_{A_k}|f|\der \mu=0. 
+        \]
+        Because $|f|\geqslant k$ on $A_k$, we can get 
+        \[
+            \begin{aligned}
+                \lim_{n\to\infty}n\mu(\{x\in X: n\leqslant|f(x)|\})
+                \leqslant&\lim_{n\to\infty}n\sum_{k=n}^\infty\mu(A_k)\\
+                \leqslant&\lim_{n\to\infty}\sum_{k=n}^\infty k\mu(A_k)\\
+                \leqslant&\lim_{n\to\infty}\sum_{k=n}^\infty\int_{A_k}|f|\der \mu=0. 
+            \end{aligned}
+        \]
+    \end{proof}
+
+    % \printbibliography
+\end{document}
