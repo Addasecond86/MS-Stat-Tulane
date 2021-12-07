@@ -1,0 +1,204 @@
+\documentclass[en, normal, 12pt, black]{elegantnote}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{amsfonts}
+\usepackage{newtxtext}
+\usepackage{ulem}
+\usepackage{amssymb}
+
+\newenvironment{exercise}[1]{\begin{tcolorbox}[colback=black!15, colframe=black!80, breakable, title=#1]}{\end{tcolorbox}}
+
+\renewenvironment{proof}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Proof. ]\setlength{\parskip}{0.8em}}{\,\\\rightline{$\square$}\end{tcolorbox}}
+
+\newenvironment{solution}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Solution. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+
+\newcommand{\pder}{\partial\,}
+
+\newcommand{\der}{\,\mathbf{d}\,}
+
+\title{\textsc{Probability: Problem Set 8}}
+\author{\textsc{Zehao Wang}}
+\date{\today}
+
+% \vspace{-30pt}
+
+\begin{document}
+    \maketitle
+    \begin{exercise}{3.3.1}
+        Show that if $\varphi$ is a ch.f., then $Re(\varphi)$ and $|\varphi|^2$ are also. 
+    \end{exercise}
+    \begin{solution}
+        $Re(\varphi)=\varphi+\bar{\varphi}$, and $\phi(-t)=\bar{\varphi}$. So, $\bar{\varphi}$ is ch.f. Hence, $Re(\varphi)$ is ch.f. 
+        
+        Similarly, because $|\varphi|^2=\varphi\cdot\bar{\varphi}$, $|\varphi|^2$ is also ch.f. 
+    \end{solution}
+
+    \begin{exercise}{3.3.2}
+        \begin{itemize}
+            \item[(i).] Imitate the proof of Theorem $3.3.11$ to show that
+            \[
+                \mu(\{a\})=\lim _{T \rightarrow \infty} \frac{1}{2 T} \int_{-T}^{T} e^{-i t a} \varphi(t) \der t. 
+            \]
+            \item[(ii).] If $P(X \in h \mathbf{Z})=1$, where $h>0$, then its ch.f. has $\varphi(2 \pi / h+t)=\varphi(t)$ so
+            \[
+                P(X=x)=\frac{h}{2 \pi} \int_{-\pi / h}^{\pi / h} e^{-i t x} \varphi(t) \der t, \quad\text{for } x \in h \mathbf{Z}. 
+            \]
+            \item[(iii).] If $X=Y+b$, then $E(\exp (i t X))=e^{i t b} E (\exp (i t Y))$. So if $P(X \in b+h Z)=1$, the inversion formula in (ii) is valid for $x \in b+h \mathbf{Z}$. 
+        \end{itemize}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{itemize}
+            \item[(i).] We know that $\varphi(t)$ is ch.f. So, 
+            \[
+                \begin{aligned}
+                    \frac{1}{2T} \int_{-T}^{T} e^{-i t a} \int e^{i t x} \mu(\der x) \der t, 
+                \end{aligned}
+            \]
+            Switching the two integral, we can get: 
+            \[
+                \begin{aligned}
+                    & \int \frac{1}{2 T} \int_{-T}^{T} e^{i t(x-a)} \der t\ \mu(\der x)\\ = & \int \frac{1}{2 T} \left(\int_{-T}^{T} \cos (t(x-a)) \der t+\int_{-T}^{T} i \sin (t(x-a)) \der t\right)\mu(\der x), 
+                \end{aligned}
+            \]
+            Because $\sin$ is odd. So, its integral is $0$. Then, 
+            \[
+                \int \frac{1}{2 T} \int_{-T}^{T} e^{i t(x-a)} \der t\ \mu(\der x)=\int \frac{1}{2 T} \left(\int_{-T}^{T} \cos (t(x-a)) \der t\right)\mu(\der x). 
+            \]
+            Noting that $\left|\frac{1}{2 T} \int_{-T}^{T} \cos (t(x-a)) \der t\right| \leqslant 1$, and when $T \rightarrow \infty$, $x\in\{a\}$, 
+            \[
+                \frac{1}{2 T} \int_{-T}^{T} \cos (t(x-a)) \der t \rightarrow 1. 
+            \]
+            So, 
+            \[
+                \lim _{T \rightarrow \infty} \frac{1}{2 T} \int_{-T}^{T} e^{-i t a} \varphi(t) \der t=\int 1\ \mu(\der x)=\mu(\{a\}). 
+            \]
+        \end{itemize}
+    \end{solution}
+
+\begin{exercise}{3.3.5}
+    Show that if $X_{1}, \cdots, X_{n}$ are independent and uniformly distributed on $(-1,1)$, then for $n \geqslant 2$, $X_{1}+\cdots+X_{n}$ has density
+    \[
+        f(x)=\frac{1}{\pi} \int_{0}^{\infty}(\sin t / t)^{n} \cos t x \der t
+    \]
+    Although it is not obvious from the formula, $f$ is a polynomial in each interval $(k, k+1), k \in \mathbf{Z}$ and vanishes on $[-n, n]^{c}$.         
+\end{exercise}
+
+\begin{solution}
+    We know that if $X$ is uniformly distributed on $(-1,1)$, then its ch.f. is $(\sin t)/t$. So, the ch.f. of $X_1+\cdots+X_n$ is $\left(\frac{\sin t}{t}\right)^n$. Therefore, the density should be like this: 
+    \[
+        \begin{aligned}
+            f(x)&=\frac{1}{\pi}\int_0^{\infty}\left(\frac{\sin t}{t}\right)^ne^{itx}\der t\\
+            &=\frac{1}{\pi}\int_0^{\infty}\left(\frac{\sin t}{t}\right)^n\left(\cos(tx)+i\sin(tx)\right)\der t. 
+        \end{aligned}
+    \]
+    Noting that $\frac{\sin t}{t}$ is even, $\cos$ is even and $\sin$ is odd. So, we have: 
+    \[
+        \begin{aligned}
+            f(x)=\frac{1}{\pi} \int_{0}^{\infty}(\sin t / t)^{n} \cos t x \der t. 
+        \end{aligned}
+    \]
+\end{solution}
+
+\begin{exercise}{3.3.6}
+    Use the result in Example $3.3.16$ to conclude that if $X_{1}, X_{2}, \cdots$ are independent and have the Cauchy distribution, then $\left(X_{1}+\cdots+X_{n}\right) / n$ has the same distribution as $X_{1}$. 
+\end{exercise}
+
+\begin{solution}
+    We know that $X_1$ has ch.f. $e^{-|t|}$, and $X_1+\cdots+X_n$ has ch.f. $e^{-n|t|}$. So, 
+    \[
+        \frac{X_1+\cdots+X_n}{n}\text{ has ch.f. }e^{-|t|}. 
+    \]
+\end{solution}
+
+\begin{exercise}{3.3.7}
+    Suppose that $X_{n} \Rightarrow X$ and $X_{n}$ has a normal distribution with mean $0$ and variance $\sigma_{n}^{2}$. Prove that $\sigma_{n}^{2} \rightarrow \sigma^{2} \in[0, \infty)$. 
+\end{exercise}
+
+\begin{solution}
+    $X_n$ has ch.f. $\varphi_n(t) = e^{−\sigma_n^2t^2/2}$. If $X_n\Rightarrow X$, then there must be $\varphi_n(t)\Rightarrow\varphi(t)$. So, for any $a$, $\varphi_n(a)$ has a limit i.f.f. $\sigma_n^2\Rightarrow\sigma^2\in[0,\infty)$. 
+\end{solution}
+
+\begin{exercise}{3.3.8}
+    Show that if $X_{n}$ and $Y_{n}$ are independent for $1 \leqslant n \leqslant \infty$, $X_{n} \Rightarrow X_{\infty}$, and $Y_{n} \Rightarrow Y_{\infty}$, then $X_{n}+Y_{n} \Rightarrow X_{\infty}+Y_{\infty}$.
+\end{exercise}
+
+\begin{solution}
+    Let $\varphi(t)$ and $\psi(t)$ be ch.f. of $X_n$ and $Y_n$, respectively. So, $\varphi_n\Rightarrow \varphi_\infty$ and $\psi_n\Rightarrow\psi_\infty$. Because the ch.f. of $X_n+Y_n$ is $\varphi_n(t)\psi_n(t)$. And because ch.f. is continuous, $\varphi_n(t)\psi_n(t)\Rightarrow\varphi_\infty(t)\psi_\infty(t)$. 
+\end{solution}
+
+\begin{exercise}{3.3.9}
+    Let $X_{1}, X_{2}, \cdots$ be independent and let $S_{n}=X_{1}+\cdots+X_{n}$. Let $\varphi_{j}$ be the ch.f. of $X_{j}$ and suppose that $S_{n} \rightarrow S_{\infty}$ a.s. Then $S_{\infty}$ has ch.f. $\prod_{j=1}^{\infty} \varphi_{j}(t)$. 
+\end{exercise}
+
+\begin{solution}
+    We know that ch.f. of $S_n$ is $\mu_n=\prod_{j=1}^n\varphi_j(t)$. And because ch.f. is continuous, as $S_n\Rightarrow S_\infty$, $\mu_n\Rightarrow\mu_\infty$. 
+\end{solution}
+
+
+% \begin{exercise}{3.3.12}
+%     Use Theorem $3.3.18$ and the series expansion for $e^{-t^{2} / 2}$ to show that the standard normal distribution has
+%     \[
+%         E \left(X^{2 n}\right)=(2 n) ! / 2^{n} n !=(2 n-1)(2 n-3) \cdots 3 \cdot 1 \equiv(2 n-1) ! !
+%     \]
+% \end{exercise}
+
+\begin{exercise}{3.3.13}
+        \begin{itemize}
+            \item[(i).] Suppose that the family of measures $\left\{\mu_{i}, i \in I\right\}$ is tight, i.e., $\sup _{i} \mu_{i}\left([-M, M]^{c}\right) \rightarrow$ 0 as $M \rightarrow \infty$. Use (d) in Theorem $3.3 .1$ and (3.3.3) with $n=0$ to show that their ch.f.'s $\varphi_{i}$ are equicontinuous, i.e., if $\varepsilon>0$ we can pick $\delta>0$ so that if $|h|<\delta$, then $\left|\varphi_{i}(t+h)-\varphi_{i}(t)\right|<\varepsilon$. 
+            \item[(ii).] Suppose $\mu_{n} \Rightarrow \mu_{\infty}$. Use Theorem $3.3.17$ and equicontinuity to conclude that the ch.f.'s $\varphi_{n} \rightarrow \varphi_{\infty}$ uniformly on compact sets. [Argue directly. You don't need to go to AA.] 
+            \item[(iii).] Give an example to show that the convergence need not be uniform on the whole real line.
+        \end{itemize}
+\end{exercise}
+
+\begin{solution}
+    \begin{itemize}
+        \item[(i).] Let $X_{i}$ be a R.V. with ch.f. $\varphi_{i}$. (3.3.1.d) and (3.3.3) with $n=0$ imply that
+        \[
+            \begin{aligned}
+            \left|\varphi_{i}(t+h)-\varphi_{i}(t)\right| & \leqslant E\left|e^{i h X_{i}}-1\right|\\ & \leqslant E \left(\min \left(h\left|X_{i}\right|, 2\right)\right) \\
+            & \leq E\left(h\left|X_{i}\right|:\left|X_{i}\right| \leq h^{-1 / 2}\right)+2 P\left(\left|X_{i}\right|>h^{-1 / 2}\right)
+            \end{aligned}
+        \]
+        For the first term, the expected value is $\leqslant h^{1 / 2}$, and for the second term, it  goes to $0$ as $h \rightarrow 0$. So, what we need to do is pick $h$, so that $h\leqslant\varepsilon^2$. 
+    \end{itemize}
+\end{solution}
+
+
+\begin{exercise}{3.3.16}
+    Show that if 
+    \[
+        \lim _{t \downarrow 0}(\varphi(t)-1) / t^{2}=c>-\infty,
+    \]
+    then $E X=0$ and $E|X|^{2}=-2 c<\infty$. In particular, if $\varphi(t)=1+o\left(t^{2}\right)$, then $\varphi(t) \equiv 1$. 
+\end{exercise}
+
+\begin{solution}
+    From Theorem 3.3.21, we know that $E X^{2}<\infty$. Then, using Theorem 3.3.20, it follows that $\varphi(t)=1+i \mu t-t^{2} \sigma^{2} / 2+o\left(t^{2}\right)$ and we have $E(X)=0$ and $E|X|^{2}=-2 c$. If $\varphi(t)=1+o\left(t^{2}\right)$ then $c=0$ and $X \equiv 0$, which means $\varphi(t)\equiv1$. 
+\end{solution}
+
+\begin{exercise}{3.3.17}
+    If $Y_{n}$ are R.V.'s with ch.f.'s $\varphi_{n}$, then $Y_{n} \Rightarrow 0$ if and only if there is a $\delta>0$ so that $\varphi_{n}(t) \rightarrow 1$ for $|t| \leqslant \delta$. 
+\end{exercise}
+
+\begin{solution}
+    We know that if $Y_n\Rightarrow0$, $\varphi_n(t)\rightarrow1$, for $|t|\leqslant\delta$. Conversely, if we know that there is a $\delta>0$ so that $\varphi_{n}(t) \rightarrow 1$ for $|t| \leqslant \delta$, then $Y_n$ is tight. 
+
+    So, any subsequences' limit of $\varphi_n$ must be $1$, which means $Y_n$ has to be $0$. i.e. $Y_n\Rightarrow0$. 
+\end{solution}
+
+\begin{exercise}{3.3.18}
+    Let $X_{1}, X_{2}, \cdots$ be independent. If $S_{n}=\sum_{m \leqslant n} X_{m}$ converges in distribution then it converges in probability (and hence a.s. by Exercise 2.5.10). Hint: The last exercise implies that if $m, n \rightarrow \infty$, then $S_{m}-S_{n} \rightarrow 0$ in probability. Now use Exercise 2.5.11. 
+\end{exercise}
+
+\begin{solution}
+    Knowing that $S_{n}$ converges in distribution, then its ch.f. $\varphi_{n}(t)\rightarrow \varphi(t)$. Hence, we could get $|\varphi(t)-1|<1 / 2$ for $t \in[-\delta, \delta]$. And if $m<n$, let
+    \[
+        \varphi_{m, n}(t)=E e^{i t\left(S_{n}-S_{m}\right)}=\varphi_{n}(t) / \varphi_{m}(t). 
+    \]
+    So, when $\varphi_{m}(t) \neq 0$. We can see that if $m, n \rightarrow \infty$ then $\varphi_{m, n} \rightarrow 1$ for $t \in[-\delta, \delta]$. 
+    
+    And using the previous exercise, we can know that when $m, n \rightarrow$ $\infty$, $S_{n}-S_{m} \rightarrow 0$ in probability. 
+\end{solution}
+\end{document}

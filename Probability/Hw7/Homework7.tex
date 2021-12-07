@@ -1,8 +1,8 @@
-\documentclass[en, normal, 11pt, black]{elegantnote}
+\documentclass[en, normal, 12pt, black]{elegantnote}
 
 \usepackage{tcolorbox}
 \tcbuselibrary{breakable}
-\usepackage{amsfonts} 
+\usepackage{amsfonts}
 \usepackage{newtxtext}
 \usepackage{ulem}
 \usepackage{amssymb}
@@ -15,7 +15,7 @@
 
 \newcommand{\pder}{\partial\,}
 
-\newcommand{\der}{\,\mathbf{d}}
+\newcommand{\der}{\,\mathbf{d}\,}
 
 \title{\textsc{Probability: Problem Set 7}}
 \author{\textsc{Zehao Wang}}
@@ -27,57 +27,113 @@
     \maketitle
 
     \begin{exercise}{3.1.1}
-        Generalize the proof of Lemma 3.1.1 to conclude that if $\max _{1 \leq j \leq n}\left|c_{j, n}\right| \rightarrow 0$, $\sum_{j=1}^{n} c_{j, n} \rightarrow \lambda$, and $\sup _{n} \sum_{j=1}^{n}\left|c_{j, n}\right|<\infty$, then $\prod_{j=1}^{n}\left(1+c_{j, n}\right) \rightarrow e^{\lambda}$. 
+        Generalize the proof of Lemma 3.1.1 to conclude that if \[\max_{1 \leqslant j \leqslant n}\left|c_{j, n}\right| \rightarrow 0,\ \sum_{j=1}^{n} c_{j, n} \rightarrow \lambda,\text{ and }\sup _{n} \sum_{j=1}^{n}\left|c_{j, n}\right|<\infty\]
+        then \[\prod_{j=1}^{n}\left(1+c_{j, n}\right) \rightarrow e^{\lambda}. \]
     \end{exercise}
 
-    The next three exercises illustrate the use of Stirling's formula. In them, $X_{1}, X_{2}, \ldots$ are i.i.d. and $S_{n}=X_{1}+\cdots+X_{n}$. 
+    \begin{solution}
+        \[
+            \log \left(\prod_{j=1}^{n}\left(1+c_{j, n}\right)\right)=\sum_{j=1}^{n}\log(1+c_{j,n})
+        \]
+        Because $\max_{1 \leqslant j \leqslant n}\left|c_{j, n}\right| \rightarrow 0$, 
+        \[
+            \log(1+c_{j,n})\sim c_{j,n}. 
+        \]
+        So, we have 
+        \[
+            \sum_{j=1}^{n}\log(1+c_{j,n})\sim\sum_{j=1}^{n}c_{j,n}\rightarrow \lambda. 
+        \]
+        Therefore, 
+        \[
+            \prod_{j=1}^{n}\left(1+c_{j, n}\right)\rightarrow e^\lambda. 
+        \]
+    \end{solution}
+
+    % The next three exercises illustrate the use of Stirling's formula. In them, $X_{1}, X_{2}, \ldots$ are i.i.d. and $S_{n}=X_{1}+\cdots+X_{n}$. 
 
     \begin{exercise}{3.1.2}
-        If the $X_{i}$ have a Poisson distribution with mean 1, then $S_{n}$ has a Poisson distribution with mean $n$, i.e., $P\left(S_{n}=k\right)=e^{-n} n^{k} / k !$ Use Stirling's formula to show that if $(k-n) / \sqrt{n} \rightarrow x$, then
+        If the $X_{i}$ have a Poisson distribution with mean 1, then $S_{n}$ has a Poisson distribution with mean $n$, i.e., 
+        \[P\left(S_{n}=k\right)=e^{-n} n^{k} / k !\]
+        Use Stirling's formula to show that if $(k-n) / \sqrt{n} \rightarrow x$, then
         \[
             \sqrt{2 \pi n} P\left(S_{n}=k\right) \rightarrow \exp \left(-x^{2} / 2\right). 
         \]
     \end{exercise}
 
-    As in the case of coin flips it follows that
-    \[
-        P\left(a \leq\left(S_{n}-n\right) / \sqrt{n} \leq b\right) \rightarrow \int_{a}^{b}(2 \pi)^{-1 / 2} e^{-x^{2} / 2} d x
-    \]
-    but proving the last conclusion is not part of the exercise. In the next two examples you should begin by considering $P\left(S_{n}=k\right)$ when $k / n \rightarrow$ $a$ and then relate $P\left(S_{n}=j+1\right)$ to $P\left(S_{n}=j\right)$ to show $P\left(S_{n} \geq k\right) \leq C P\left(S_{n}=k\right)$. 
-
-    \begin{exercise}{3.1.4}
-        Suppose $P\left(X_{i}=k\right)=e^{-1} / k !$ for $k=0,1, \ldots$ Show that if $a>1$
+    \begin{solution}
+        \begin{align*}
+            \sqrt{2\pi n}P(S_n=k)=&\sqrt{2\pi n}e^{-n} n^{k} / k !\\
+            = &\frac{\sqrt{2\pi n}e^{-n}n^{n}n^{k-n}}{k!}\\
+            \sim &\frac{n!n^{k-n}}{k!}\\
+            =&\left(\prod_{k=1}^{k-n} 1+\frac{k}{n}\right)^{-1}
+        \end{align*}
+        Because $\sum_{k=1}^{k-n}\frac{k}{n}\sim\frac{(k-n)^2}{2n}\to x$. So, 
         \[
-            \frac{1}{n} \log P\left(S_{n} \geq n a\right) \rightarrow a-1-a \log a. 
+            \sqrt{w\pi n}P(S_n=k)\to e^{-x^2/2}. 
         \]
-    \end{exercise}
+    \end{solution}
+
+    % As in the case of coin flips it follows that
+    % \[
+    %     P\left(a \leq\left(S_{n}-n\right) / \sqrt{n} \leq b\right) \rightarrow \int_{a}^{b}(2 \pi)^{-1 / 2} e^{-x^{2} / 2} d x
+    % \]
+    % but proving the last conclusion is not part of the exercise. In the next two examples you should begin by considering $P\left(S_{n}=k\right)$ when $k / n \rightarrow$ $a$ and then relate $P\left(S_{n}=j+1\right)$ to $P\left(S_{n}=j\right)$ to show $P\left(S_{n} \geq k\right) \leq C P\left(S_{n}=k\right)$. 
+
+    % \begin{exercise}{3.1.4}
+    %     Suppose $P\left(X_{i}=k\right)=e^{-1} / k !$, for $k=0,1, \cdots$. Show that if $a>1$, 
+    %     \[
+    %         \frac{1}{n} \log P\left(S_{n} \geq n a\right) \rightarrow a-1-a \log a. 
+    %     \]
+    % \end{exercise}
+
+    % \begin{solution}
+    %     a
+    % \end{solution}
 
     \begin{exercise}{3.2.1}
         Give an example of random variables $X_{n}$ with densities $f_{n}$ so that $X_{n} \Rightarrow$ a uniform distribution on $(0,1)$ but $f_{n}(x)$ does not converge to 1 for any $x \in[0,1]$. 
     \end{exercise}
 
-    \begin{exercise}{3.2.2. Convergence of maxima. }
-        Let $X_{1}, X_{2}, \ldots$ be independent with distribution $F$, and let $M_{n}=\max _{m \leq n} X_{m} .$ Then $P\left(M_{n} \leq x\right)=F(x)^{n}$. Prove the following limit laws for $M_{n}$ : 
+    \begin{solution}
+        Let $f_n(x) = 2$ if $x \in [\frac{m}{2^n},\frac{m+1}{2^n})$, where $m$ is an even integer and $0 \leqslant m < 2^n$. 
+
+        It's easy to see that this density function satisfied those two conditions. 
+    \end{solution}
+
+    \begin{exercise}{3.2.2. Convergence of maxima}
+        Let $X_{1}, X_{2}, \cdots$ be independent with distribution $F$, and let $M_{n}=\max _{m \leqslant n} X_{m} .$ Then $P\left(M_{n} \leqslant x\right)=F(x)^{n}$. Prove the following limit laws for $M_{n}$: 
         \begin{itemize}
-            \item[(i)] If $F(x)=1-x^{-\alpha}$ for $x \geq 1$, where $\alpha>0$, then for $y>0$
+            \item[(i)] If $F(x)=1-x^{-\alpha}$ for $x \geqslant 1$, where $\alpha>0$, then for $y>0$
             \[
-            P\left(M_{n} / n^{1 / \alpha} \leq y\right) \rightarrow \exp \left(-y^{-\alpha}\right). 
+            P\left(M_{n} / n^{1 / \alpha} \leqslant y\right) \rightarrow \exp \left(-y^{-\alpha}\right). 
             \]
-            \item[(ii)] If $F(x)=1-|x|^{\beta}$ for $-1 \leq x \leq 0$, where $\beta>0$, then for $y<0$
+            \item[(ii)] If $F(x)=1-|x|^{\beta}$ for $-1 \leqslant x \leqslant 0$, where $\beta>0$, then for $y<0$
             \[
-                P\left(n^{1 / \beta} M_{n} \leq y\right) \rightarrow \exp \left(-|y|^{\beta}\right). 
+                P\left(n^{1 / \beta} M_{n} \leqslant y\right) \rightarrow \exp \left(-|y|^{\beta}\right). 
             \]
-            \item[(iii)] If $F(x)=1-e^{-x}$ for $x \geq 0$, then for all $y \in(-\infty, \infty)$
+            \item[(iii)] If $F(x)=1-e^{-x}$ for $x \geqslant 0$, then for all $y \in(-\infty, \infty)$
             \[
-                P\left(M_{n}-\log n \leq y\right) \rightarrow \exp \left(-e^{-y}\right). 
+                P\left(M_{n}-\log n \leqslant y\right) \rightarrow \exp \left(-e^{-y}\right). 
             \]
         \end{itemize}
     \end{exercise}
-    
-    The limits that appear here are called the extreme value distributions. The last one is called the double exponential or Gumbel distribution. Necessary and sufficient conditions for $\left(M_{n}-b_{n}\right) / a_{n}$ to converge to these limits were obtained by Gnedenko (1943). For a recent treatment, see Resnick (1987).
 
+    \begin{solution}
+        \begin{itemize}
+            \item[(i).] \[
+                P\left(\frac{M_n}{n^{1/\alpha}}\leqslant y\right)=\left(1-y^{-\alpha}n^{-1}\right)^n\longrightarrow e^{-y^{-\alpha}}. 
+            \]
+            \item[(ii).] \[
+                P\left(n^{1/\beta}M_n\leqslant y\right)=\left(1-|yn^{-1/\beta}|^{\beta}\right)^n\longrightarrow e^{-|y|^{\beta}}. 
+            \]
+            \item[(iii).] \[
+                P(M_n - \log n \leqslant y)=\left(1-e^{-(y+\log n)}\right)^n=\left(1-e^{-y}n^{-1}\right)^n=e^{-e^{-y}}. 
+            \]
+        \end{itemize}
+    \end{solution}
+    
     \begin{exercise}{3.2.3}
-        Let $X_{1}, X_{2}, \ldots$ be i.i.d. and have the standard normal distribution. 
+        Let $X_{1}, X_{2}, \cdots$ be i.i.d. and have the standard normal distribution. 
         \begin{itemize}
             \item[(i)] From Theorem 1.2.6, we know
             \[
@@ -95,39 +151,93 @@
         \end{itemize}
     \end{exercise}
 
+    \begin{solution}
+        \begin{itemize}
+            \item[(i).] From the asymptotic formula, we have
+        \[
+            \lim _{x \rightarrow \infty} \frac{P\left(X_{i}>x+(\theta / x)\right)}{P\left(X_{i}>x\right)}=\lim _{x \rightarrow \infty} \frac{x}{x+(\theta / x)} \exp \left(-\theta-\left(\theta^{2} / 2 x^{2}\right)\right)=e^{-\theta}
+        \]
+            \item[(ii).] Let $p_{n}=P\left(X_{i}>b_{n}+\left(x / b_{n}\right)\right)$. Knowing that the definition of $b_{n}$ , so we have $n p_{n} \rightarrow e^{-x}$. Hence, \[
+                P\left(b_{n}\left(M_{n}-b_{n}\right) \leq x\right)=\left(1-p_{n}\right)^{n} \rightarrow \exp \left(-e^{-x}\right)
+            \]
+            \item[(iii).] We have\[
+                P\left(X_{i}>(2 \log n)^{1 / 2}\right) \sim \frac{1}{(2 \log n)^{1 / 2}} \cdot \frac{1}{n}. 
+            \]
+            So, for large $n$, we know that $b_{n} \leqslant(2 \log n)^{1 / 2}$. On the other hand
+            \[
+            P\left(X_{i}>(2 \log n-2 \log \log n)^{1 / 2}\right) \sim \frac{1}{(2 \log n)^{1 / 2}} \cdot \frac{\log n}{n}
+            \]
+            So, for large $n$, $b_{n} \geqslant(2 \log n-2 \log \log n)^{1 / 2}$. From (ii), we know that if $x_{n} \rightarrow \infty$ and $y_{n} \rightarrow-\infty$
+            \[
+            P\left(\frac{y_{n}}{b_{n}} \leq M_{n}-b_{n} \leq \frac{x_{n}}{b_{n}}\right) \rightarrow 1
+            \]
+            Let $x_{n}, y_{n}\rightarrow 0$, we can get the desired results. 
+        \end{itemize}
+    \end{solution}
+
     \begin{exercise}{3.2.6. The Lévy Metric}
         Show that
         \[
-            \rho(F, G)=\inf \{\epsilon: F(x-\epsilon)-\epsilon \leq G(x) \leq F(x+\epsilon)+\epsilon \text { for all } x\}
+            \rho(F, G)=\inf \{\varepsilon: F(x-\varepsilon)-\varepsilon \leq G(x) \leq F(x+\varepsilon)+\varepsilon \text { for all } x\}
         \]
         defines a metric on the space of distributions and $\rho\left(F_{n}, F\right) \rightarrow 0$ if and only if $F_{n} \Rightarrow F$. 
     \end{exercise}
 
-    \begin{exercise}{3.2.7. }
-        The Ky Fan Metric on random variables is defined by
-        \[
-            \alpha(X, Y)=\inf \{\epsilon \geq 0: P(|X-Y|>\epsilon) \leq \epsilon\}. 
-        \]
-        Show that if $\alpha(X, Y)=\alpha$, then the corresponding distributions have Lévy distance $\rho(F, G) \leq \alpha$. 
-    \end{exercise}
+    \begin{solution}
+        \begin{itemize}
+            \item[(i).] Clearly $\rho(F, G)=0$ if and only if $F=G$. 
+            \item[(ii).] It is also easy to see that $\rho(F, G)=\rho(G, F)$. 
+            \item[(iii).] We want to prove \[
+                \rho(H,G)+\rho(G,F)\leqslant\rho(H,F)
+            \]
+        \end{itemize} To check the triangle inequality we note that if $G(x) \leq F(x+a)+a$ and $H(x) \leq G(x+b)+b$ for all $x$ then $H(x) \leq F(x+a+b)+a+b$ for all $x$. 
+    \end{solution}
+
+    % \begin{exercise}{3.2.7. }
+    %     The Ky Fan Metric on random variables is defined by
+    %     \[
+    %         \alpha(X, Y)=\inf \{\varepsilon \geq 0: P(|X-Y|>\varepsilon) \leq \varepsilon\}. 
+    %     \]
+    %     Show that if $\alpha(X, Y)=a$, then the corresponding distributions have Lévy distance $\rho(F, G) \leq \alpha$. 
+    % \end{exercise}
+
+    % \begin{solution}
+    %     If $\alpha(X, Y)=a$ then $P(|X-Y| \geq a) \geq a \geq P(|X-Y|>a)$. The worst case for the lower bound is $P(|X-Y|=a)=a, P(|X-Y|=0)=1-a$. The worst case for the upper bound is $P(|X-Y|=a)=1-a, P(|X-Y| \approx \infty)=a$.
+    % \end{solution}
 
     \begin{exercise}{3.2.9}
         If $F_{n} \Rightarrow F$ and $F$ is continuous, then sup $_{x}\left|F_{n}(x)-F(x)\right| \rightarrow 0$. 
     \end{exercise}
 
-    \begin{exercise}{3.2.15}
-        Show that if $X_{n}=\left(X_{n}^{1}, \ldots, X_{n}^{n}\right)$ is uniformly distributed over the surface of the sphere of radius $\sqrt{n}$ in $\mathbf{R}^{n}$, then $X_{n}^{1} \Rightarrow$ a standard normal. 
-        
-        Hint: Let $Y_{1}, Y_{2}, \ldots$ be i.i.d. standard normals and let $X_{n}^{i}=Y_{i}\left(n / \sum_{m=1}^{n} Y_{m}^{2}\right)^{1 / 2}$. 
-    \end{exercise}
+    \begin{solution}
+        Let $x_{j, k}=\inf \{x: F(x)>j / k\}$. We know $F_{n}\left(x_{j, k}\right) \rightarrow F\left(x_{j, k}\right)$. So, we can pick $N_{k}$ so that if $n \geqslant N_{k}$ then $| F_{n}\left(x_{j, k}\right)-$ $F\left(x_{j, k}\right) |<1 / k$ for $1 \leq j<k$. Hence, $\sup _{x}\left|F_{n}(x)-F(x)\right| \leq 2 / k$. Considering the arbitrary of $k$, we can get that $\sup_x\left|F_{n}(x)-F(x)\right| \rightarrow 0$. 
+    \end{solution}
 
-    \begin{exercise}{3.2.16}
-        Suppose $Y_{n} \geq 0, E Y_{n}^{\alpha} \rightarrow 1$ and $E Y_{n}^{\beta} \rightarrow 1$ for some $0<\alpha<\beta$. Show that $Y_{n} \rightarrow 1$ in probability. 
-    \end{exercise}
+    % \begin{exercise}{3.2.15}
+    %     Show that if $X_{n}=\left(X_{n}^{1}, \ldots, X_{n}^{n}\right)$ is uniformly distributed over the surface of the sphere of radius $\sqrt{n}$ in $\mathbf{R}^{n}$, then $X_{n}^{1} \Rightarrow$ a standard normal. 
+        
+    %     Hint: Let $Y_{1}, Y_{2}, \ldots$ be i.i.d. standard normals and let $X_{n}^{i}=Y_{i}\left(n / \sum_{m=1}^{n} Y_{m}^{2}\right)^{1 / 2}$. 
+    % \end{exercise}
+
+    % \begin{solution}
+    %     The spherical symmetry of the normal distribution implies that the $X_{n}^{i}$ are unifrom over the surface of the sphere. The strong law of large numbers implies $Y_{i} n / \sum_{m=1}^{n} Y_{m}^{2} \rightarrow Y_{i}$ almost surely so the desired result follows from Exercise $2.9$. 
+    % \end{solution}
+
+%     \begin{exercise}{3.2.16}
+%         Suppose $Y_{n} \geq 0, E Y_{n}^{\alpha} \rightarrow 1$ and $E Y_{n}^{\beta} \rightarrow 1$ for some $0<\alpha<\beta$. Show that $Y_{n} \rightarrow 1$ in probability. 
+%     \end{exercise}
+
+%     \begin{solution}
+%         $E Y_{n}^{\beta} \rightarrow 1$ implies $E Y_{n}^{\beta} \leq C$ so (2.7) implies that the sequence is tight. Suppose $\mu_{n(k)} \Rightarrow \mu$, and let $Y$ be a random variable with distribution $\mu$. Exercise $2.5$ implies that if $\alpha<\beta$ then $E Y^{\alpha}=1$. If we let $\gamma \in(\alpha, \beta)$ we have
+% \[
+% E Y^{\gamma}=1=\left(E Y^{\alpha}\right)^{\gamma / \alpha}
+% \]
+% so for the random variable $Y^{\alpha}$ and the convex function $\varphi(x)=\left(x^{+}\right)^{\gamma / \alpha}$ we have equality in Jensen's inequality and Exercise $3.3$ in Chapter 1 implies $Y^{\alpha}=1$ a.s.
+%     \end{solution}
     
-    \begin{exercise}{3.2.17}
-        For each $K<\infty$ and $y<1$ there is a $c_{y, K}>0$ so that $E X^{2}=1$ and $E X^{4} \leq K$ implies $P(|X|>y) \geq c_{y, K}$. 
-    \end{exercise}
+%     \begin{exercise}{3.2.17}
+%         For each $K<\infty$ and $y<1$ there is a $c_{y, K}>0$ so that $E X^{2}=1$ and $E X^{4} \leq K$ implies $P(|X|>y) \geq c_{y, K}$. 
+%     \end{exercise}
 
   
 \end{document}
