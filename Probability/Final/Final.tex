@@ -1,0 +1,167 @@
+\documentclass[11pt]{article}
+
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{amsfonts} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{newtxmath}
+\usepackage{hyperref}
+
+\linespread{1.3}
+\setlength{\parskip}{3mm}
+\setlength{\parindent}{2em}
+
+% \usepackage[backend=biber]{biblatex}
+% \addbibresource{my.bib}
+
+\numberwithin{equation}{section}
+
+% Problem 
+
+\newcounter{exercise}[section]
+
+\newenvironment{exercise}[1][\textsc{Exercise }\thesection.\refstepcounter{exercise}\theexercise]{\begin{tcolorbox}[colback=black!15, colframe=black!80, breakable, title=\textsc{Exercise }#1]}{\end{tcolorbox}}
+
+
+% Example
+
+\newcounter{example}[section]
+
+\newenvironment{example}[1][\textsc{Example }\thesection.\refstepcounter{example}\theexample]{\begin{tcolorbox}[colback=black!15, colframe=black!80, breakable, title=#1]}{\end{tcolorbox}}
+
+% Theorem
+
+\newcounter{theorem}[section]
+
+\newenvironment{theorem}[1][\textsc{Theorem }\thesection.\refstepcounter{theorem}\thetheorem]{\begin{tcolorbox}[colback=black!15, colframe=red!60, breakable, title=#1]}{\end{tcolorbox}}
+
+
+\newenvironment{proof}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Proof. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+
+\newenvironment{solution}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Solution. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+
+\newcommand{\pder}{\partial\,}
+
+\newcommand{\der}{\,\mathbf{d}\,}
+
+\title{\textsc{Probability: Final Exam}}
+\author{\textsc{Zehao Wang}}
+\date{\emph{\today}}
+
+\begin{document}
+    \maketitle
+
+    \begin{exercise}[2.3.19]
+        Let $X_{n}$ be independent Poisson r.v.'s with $E X_{n}=\lambda_{n}$, and let $S_{n}=X_{1}+\cdots+X_{n}$. Show that if $\sum \lambda_{n}=\infty$, then $S_{n} / E S_{n} \rightarrow 1$ a.s. 
+    \end{exercise}
+    \begin{solution}
+        Because $X_n$ is sampled from poisson distribution, we can know that $Var(X_n)=\lambda_n=EX_n$. $X_n$ are independent, $Var(S_n)=\sum_nVar(X_n)$. So, 
+        \[
+            P\left(\left|\frac{S_n}{ES_n}-1\right|>\varepsilon\right)\leqslant\frac{Var(S_n/ES_n)}{\varepsilon^2}=\frac{\sum_{n}Var(X_n)}{(ES_n)^2\varepsilon^2}=\frac{1}{\sum_n\lambda_n\varepsilon^2}\to 0. 
+        \]
+        Hence, $\frac{S_n}{ES_n}\to 1$ a.s. 
+    \end{solution}
+
+    \begin{exercise}[3.2.1]
+        Give an example of random variables $X_{n}$ with densities $f_{n}$ so that $X_{n} \Rightarrow$ a uniform distribution on $(0,1)$ but $f_{n}(x)$ does not converge to 1 for any $x \in[0,1]$. 
+    \end{exercise}
+
+    \begin{solution}
+        We consider a piecewise function as the density of $X_n$. 
+        \[
+            f_n(x)=a, x\in\left(\frac{2i}{2^n}, \frac{2i+1}{2^n}\right), 0\leqslant i\leqslant2^{n-1}-1. 
+        \]
+        $f_n(x)=0$, for other situations. Because $\int_0^1f_n(x)\der x=1$, we have
+        \[
+            \int_0^1f_n(x)\der x=\sum_{i=0}^{2^{n-1}-1}\int_{2i/2^n}^{(2i+1)/2^n}a\der x=1. 
+        \]
+        Solve it, we can get that $a=2$. So, when $n\to\infty$, 
+        \[
+            f_n(x)\to f(x)=2, x\in(0,1). 
+        \]
+        For any $x\in[0,1]$, $f_n(x)\neq1$. 
+    \end{solution}
+
+    \begin{exercise}[3.3.1]
+        Show that if $\varphi$ is a ch.f., then $Re(\varphi)$ and $|\varphi|^2$ are also. 
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}
+            \item $Re(\varphi)=Re(E(e^{itX}))=Re(E(\cos(tX)+i\sin(tX)))=E(\cos(tX))$, let $f(t)=Re(\varphi(t))$. 
+            \begin{itemize}
+                \item $f(0)=1$. 
+                \item $f(-t)=Re(\varphi(-t))=E(\cos(-tX))=E(\cos(tX))=\overline{f(t)}$. 
+                \item $|E(\cos(tX))|\leqslant E|\cos(tX)|=1.$ 
+                \item \ \\
+                \vspace{-30pt}\[
+                    \begin{aligned}
+                        \left|E(Re(e^{i(t+h) x}))-E(Re( e^{i t x})) \right| &=\left|E\left(Re( e^{i(t+h) x})-Re (e^{i t X})\right)\right| \\
+                        &=\left|E( Re( e^{i t X}e^{i h x}-1))\right|\\
+                        & \leqslant E\left|e^{i t X}\right|\left|e^{i h x}-1\right| \\
+                        &=E\left|e^{i h x}-1\right| .
+                        \end{aligned}
+                \]
+                So, it is uniformly continuous. 
+                \item \ \\
+                \vspace{-30pt}\[
+                    \begin{aligned}
+                        Re(E(e^{it(aX+b)}))=E ((e^{i t b}) Re (e^{i t a X})) &=e^{i t b} E \cos(t a X) \\
+                        &=e^{i t b} Re( \varphi(a t)).
+                        \end{aligned}
+                \]
+            \end{itemize}
+            So, $Re(\varphi)$ is a ch.f. 
+            \item $|\varphi|^2=\left(E\cos(tX)\right)^2+\left(E\sin(tX)\right)^2$. Similarly, we can verify it is a ch.f. 
+            \begin{itemize}
+                \item Uniformly continuous: \[
+                    \begin{aligned}
+                        \left|E e^{i(t+h) X}\right|^{2}-\left|E e^{itX}\right|^{2} &= \left(| E e^{i(t+h) X}|-| E e^{i t X} |\right)\left(|E e^{i(t+h) X}|+| E e^{i t X} |\right) \\ & \leqslant 2 E| e^{i(t+h) X}-e^{i t X} | \\ & \leqslant 2 E\left|e^{i t X}(e^{i h X}-1)\right|\\&=2 E| e^{i h x}-1 \mid .
+                        \end{aligned}
+                \]
+                \item Other conditions are easily to verify. 
+            \end{itemize}
+            So, $|\varphi|^2$ is a ch.f. 
+        \end{enumerate}
+    \end{solution}
+
+    \begin{exercise}[3.4.4]
+        Let $X_1, X_2, \cdots$ be i.i.d. with $X_i \geqslant 0$, $E(X_i) = 1$, and $Var(X_i)= \sigma^2\in(0,\infty)$. Show that 
+        \[
+            2\left(\sqrt{S_n}-\sqrt{n}\right)\Rightarrow\sigma\,\chi. 
+        \]
+    \end{exercise}
+
+    \begin{solution}
+        Let $2\sqrt{S_n}-\sqrt{n}$ as a r.v., and $F_n(x)$ as the distribution function. Then, 
+        \[
+            \begin{aligned}
+                F_{n}(x) &=P\left(2\left(\sqrt{S_{n}}-\sqrt{n}\right) \leqslant x\right) \\
+                &=P\left(\sqrt{S_{n}} \leqslant \frac{x}{2}+\sqrt{n}\right) \\
+                &=P\left(S_{n} \leqslant n+\frac{x^{2}}{4}+x \sqrt{n}\right) \\
+                &=P\left(\frac{S_{n}-n}{\sqrt{n}} \leqslant x+\frac{x^{2}}{4 \sqrt{n}}\right)
+            \end{aligned}
+        \]
+        From C.L.T., we know that 
+        \[
+            \frac{S_{n}-n}{\sqrt{n}} \Rightarrow \sigma \chi
+        \]
+        So, 
+        \[
+            \lim _{n \rightarrow \infty} P\left(\frac{S_{n}-n}{\sqrt{n}} \leqslant x\right)=P(\sigma \chi \leqslant x)
+        \]
+        Let $n\to\infty$, 
+        \[
+            \begin{aligned}
+            \lim _{n \rightarrow \infty} F_{n}(x) &=\lim _{n \rightarrow \infty} P\left(\frac{S_{n}-n}{\sqrt{n}} \leqslant x+\frac{x^{2}}{4 \sqrt{n}}\right) \\
+            &=\lim _{n \rightarrow \infty} P\left(\frac{S_{n}-n}{\sqrt{n}} \leqslant x\right) \\
+            &=P\left(\frac{S_{n}-n}{\sqrt{n}} \leqslant x\right) \\
+            &=P(\sigma \chi \leqslant x)
+            \end{aligned}
+        \]
+        Hence, $\lim_{n\to\infty}F_n(x)$ has the same distribution with $\frac{S_n-n}{\sqrt{n}}$. $2\left(\sqrt{S_{n}}-\sqrt{n}\right) \Rightarrow \sigma \chi$.
+    \end{solution}
+\end{document}

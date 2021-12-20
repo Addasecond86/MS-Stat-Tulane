@@ -1,0 +1,133 @@
+\documentclass[en, normal, 12pt, black]{elegantnote}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{amsfonts}
+\usepackage{newtxtext}
+\usepackage{ulem}
+\usepackage{amssymb}
+
+\newenvironment{exercise}[1]{\begin{tcolorbox}[colback=black!15, colframe=black!80, breakable, title=#1]}{\end{tcolorbox}}
+
+\renewenvironment{proof}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Proof. ]\setlength{\parskip}{0.8em}}{\,\\\rightline{$\square$}\end{tcolorbox}}
+
+\newenvironment{solution}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Solution. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+
+\newcommand{\pder}{\partial\,}
+
+\newcommand{\der}{\,\mathbf{d}\,}
+
+\title{\textsc{Probability: Problem Set 9}}
+\author{\textsc{Zehao Wang}}
+\date{\today}
+
+% \vspace{-30pt}
+
+\begin{document}
+    \maketitle
+    \begin{exercise}{3.4.1}
+        Suppose you roll a die $180$ times. Use the normal approximation (with the histogram correction) to estimate the probability you will get fewer than $25$ sixes. 
+    \end{exercise}
+    \begin{solution}
+        Let $X_1,\cdots,X_{180}$ denote the results of whether the $i$-th die is six, (1 is six, 0 is others) and $S_{180}=\sum_{i=1}^{180}X_i$, Then, 
+        \[
+            E(X_i)=\frac{1}{6},\ Var(X_i)=\frac{5}{36}. 
+        \]
+        $\sigma=\sqrt{Var(X_i)}=\frac{\sqrt{5}}{6}$. 
+        \begin{align*}
+            S_{180}<25\Rightarrow\frac{S_{180}-30}{\sqrt{180}\sqrt{5}/6}<\frac{25-30}{5}=-1
+        \end{align*}
+        \[\Pr(S_{180}<25)=\Phi(-1)\approx0.1587.\]
+    \end{solution}
+
+    % \begin{exercise}{3.4.2 (Optional)}
+    %     Let $X_1,X_2,\cdots$ be i.i.d with $E(X_i) = 0$, $0 < Var(X_i) < \infty$, and let $S_n = X_1+ \cdots + X_n$. 
+    %     \begin{itemize}
+    %         \item[(a).] Use the central limit theorem and Kolmogorov's zero-one law to conclude that 
+    %         \[
+    %             \limsup S_n/\sqrt{n} = \infty,\ a.s. 
+    %         \]
+    %         \item[(b).] Use an argument by contradiction to show that
+    %         $S_n/\sqrt{n}$ does not converge in probability. Hint: Consider $n = m!$. 
+    %     \end{itemize}
+    % \end{exercise}
+
+    \begin{exercise}{3.4.4}
+        Let $X_1, X_2, \cdots$ be i.i.d. with $X_i \geqslant 0$, $E(X_i) = 1$, and $Var(X_i)= \sigma^2\in(0,\infty)$. Show that 
+        \[
+            2\left(\sqrt{S_n}-\sqrt{n}\right)\Rightarrow\sigma\,\chi. 
+        \]
+    \end{exercise}
+
+    \begin{solution}
+        Let $F(x)=2x^{1/2}$, then $F'(x)=f(x)=x^{-1/2}$. 
+        \[
+            2\left(\sqrt{S_n}-\sqrt{n}\right)=F(S_n)-F(n)=\int_n^{S_n}f(x)\der x, 
+        \]
+        we know $S_n/n\to1$, as $n\to\infty$. So, the results of the integral is $(S_n-n)n^{-1/2}$. 
+        \[
+            \frac{S_n-n}{n^{1/2}}\Rightarrow\sigma\chi. 
+        \]
+    \end{solution}
+
+    \begin{exercise}{3.4.6 Random index central limit theorem. }
+        Let $X_1, X_2, \cdots$ be i.i.d. with $E(X_i) = 0$ and $E(X_i^2) = \sigma^2 \in (0,\infty)$, and let $S_n = X_1 + \cdots + X_n$. Let $N_n$ be a sequence of nonnegative integer-valued random variables and $a_n$ a sequence of integers with $a_n\to\infty$ and $N_n/a_n \to 1$ in probability. Show that
+        \[
+            S_{N_n}/\sigma\sqrt{a_n}\Rightarrow\chi. 
+        \]
+        Hint: Use Kolmogorov's inequality (Theorem 2.5.5) to conclude that if $Y_n = S_{N_n}/\sigma\sqrt{a_n}$ and $Z_n = S_{a_n}/\sigma\sqrt{a_n}$ then $Y_n-Z_n \to 0$ in probability. 
+    \end{exercise}
+
+    \begin{solution}
+        We know that
+        \[
+            \frac{S_{a_n}}{\sigma\sqrt{a_n}}\Rightarrow\chi, 
+        \]
+        Because $N_n\to a_n$ in probability, 
+        \[
+            P(|S_{N_n}-S_{a_n}|\geqslant\delta\sigma\sqrt{a_n})\leqslant\frac{2\varepsilon}{\delta^2}, 
+        \]
+        So, for all $\varepsilon$, $P(|Y_n-Z_n|>\delta)\to 0$. i.e. $Y_n\to Z_n$ in probability. Then
+        \[
+            S_{N_n}/\sigma\sqrt{a_n}\Rightarrow\chi. 
+        \]
+    \end{solution}
+
+    % \begin{exercise}{3.4.9 (Optional)}
+    %     Suppose $P\left(X_{m}=m\right)=P\left(X_{m}=-m\right)=m^{-2} / 2$, and for $m \geq 2$
+    %     \[
+    %         P\left(X_{m}=1\right)=P\left(X_{m}=-1\right)=\left(1-m^{-2}\right) / 2. 
+    %     \]
+    %     Show that $Var\left(S_{n}\right) / n \rightarrow 2$ but $S_{n} / \sqrt{n} \Rightarrow \chi .$ The trouble here is that $X_{n, m}=$ $X_{m} / \sqrt{n}$ does not satisfy (ii) of Theorem 3.4.10. 
+    % \end{exercise}
+
+    \begin{exercise}{3.4.10}
+        Show that if $\left|X_{i}\right| \leqslant M$ and $\sum_{n} Var\left(X_{n}\right)=\infty$, then
+        \[
+            \left(S_{n}-E S_{n}\right) / \sqrt{Var\left(S_{n}\right)} \Rightarrow \chi. 
+        \]
+    \end{exercise}
+
+    \begin{solution}
+        Let
+        \[\frac{S_n-ES_n}{\sqrt{Var(S_n)}} = \sum_{m=1}^n\frac{X_m - E(X_m)}{Var(S_n)}. \]
+        Considering $|X_m-E(X_m)|<2M$. For some large $n$, from the Exercise 3.4.5, we know that 
+        \[
+            \frac{S_n-ES_n}{\sqrt{Var(S_n)}} \Rightarrow \chi. 
+        \]
+    \end{solution}
+
+    \begin{exercise}{3.4.11}
+        Suppose $E X_{i}=0, E X_{i}^{2}=1$ and $E\left|X_{i}\right|^{2+\delta} \leq C$ for some $0<\delta, C<\infty$. Show that $S_{n} / \sqrt{n} \Rightarrow \chi$. 
+    \end{exercise}
+
+    \begin{solution}
+        Let $X_{n,m} = X_m/\sqrt{n}$. We have
+        \[
+            \begin{aligned}
+                \sum_{m=1}^nE(X_{n,m}^2;\left|X_{n, m}\right|>\varepsilon)&=\frac{1}{n}\sum_{m=1}^nE(X_{m}^2;\left|X_{m}\right|>\varepsilon \sqrt{n})\\
+                &\leqslant n^{-1}(\varepsilon \sqrt{n})^{-\delta} \sum_{m=1}^{n} E\left(|X|^{2+\delta}\right)\\ &\leqslant C(\varepsilon \sqrt{n})^{-\delta} \rightarrow 0
+            \end{aligned}
+        \]
+    \end{solution}
+\end{document}
