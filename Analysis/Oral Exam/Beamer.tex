@@ -1,0 +1,127 @@
+\documentclass[11pt]{beamer}
+
+\hypersetup{pdfpagemode=FullScreen}
+
+\usetheme[
+    numbering=none
+]{metropolis}
+
+\useoutertheme{smoothbars}
+\useinnertheme{metropolis}
+\usefonttheme{serif}
+\usecolortheme{crane}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{amsfonts} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{newtxmath}
+\usepackage{hyperref}
+
+\newenvironment{exercise}[1][\textsc{Exercise }\thesection.\refstepcounter{exercise}\theexercise]{\begin{tcolorbox}[colback=black!15, colframe=black!80, breakable, title=\textsc{Exercise }#1]}{\end{tcolorbox}}
+
+\newenvironment{other}[1][\textsc{Exercise }\thesection.\refstepcounter{exercise}\theexercise]{\begin{tcolorbox}[colback=black!15, colframe=black!80, breakable, title=#1]}{\end{tcolorbox}}
+
+
+
+\begin{document}
+    \begin{frame}[plain]
+        \begin{exercise}[(5)] 
+            Assume $f_{n}, g_{n}, f, g \in L^{1}$ and that $f_{n} \rightarrow f, g_{n} \rightarrow g$ \emph{a.e.} with $\left|f_{n}\right| \leqslant g_{n}$. Show that if $\int g_{n} \rightarrow \int g$, then $\int f_{n} \rightarrow \int f$. 
+        \end{exercise}
+
+        \vspace*{10pt}
+        If $|f_n|\leqslant g$, from the D.C.T., we can know that 
+        \[
+            \lim_{n\to\infty}\int f_n = \int f. 
+        \]
+
+        \vspace*{15pt}However, it's $|f_n|\leqslant g_n$. So, we need to find another way. 
+
+        \vspace*{75pt}
+    \end{frame}
+
+    \begin{frame}[plain]
+        \begin{other}[Fatou's lemma: ] 
+            \[
+                \int \liminf _{n\to \infty }f_{n}\leqslant \liminf _{n\to \infty }\int f_{n}. 
+            \]
+        \end{other}
+        \vspace*{10pt}
+        Because
+        \[
+            f=\lim_{n\to\infty}f_n=\liminf_{n\to\infty}f_n, 
+        \]
+        
+        \vspace*{15pt}
+        We can get 
+        \begin{equation*}
+            \begin{aligned}
+                \int f = & \int \liminf_{n\to\infty} f_n
+                \leqslant \liminf_{n\to\infty} \int f_n. 
+            \end{aligned}
+        \end{equation*}
+        \vspace*{50pt}
+    \end{frame}
+
+    \begin{frame}[plain]
+        \begin{other}[Fatou's lemma: ] 
+            \[
+                \int \liminf _{n\to \infty }f_{n}\leqslant \liminf _{n\to \infty }\int f_{n}. 
+            \]
+        \end{other}
+        \vspace*{10pt}
+        On the other direction: 
+        \begin{equation*}
+            \begin{aligned}
+            \int(g-f\,)
+            &=\int \liminf _{n\to\infty}\left(g_{n}-f_{n}\right) \\ \pause
+            &\leqslant \liminf _{n\to\infty} \int\left(g_{n}-f_{n}\right)\\ \pause
+            &=\liminf _{n\to\infty}\left(\int g_{n}-\int f_{n}\right) \\ \pause
+            &=\int g+\liminf_{n\to\infty} \left(-\int f_{n}\right)\\ \pause
+            &=\int g-\limsup _{n\to\infty} \left(\int f_{n}\right). 
+            \end{aligned}
+        \end{equation*}
+    \end{frame}
+
+    \begin{frame}[plain]
+        \begin{exercise}[(5)] 
+            Assume $f_{n}, g_{n}, f, g \in L^{1}$ and that $f_{n} \rightarrow f, g_{n} \rightarrow g$ \emph{a.e.} with $\left|f_{n}\right| \leqslant g_{n}$. Show that if $\int g_{n} \rightarrow \int g$, then $\int f_{n} \rightarrow \int f$. 
+        \end{exercise}
+        \vspace*{10pt}So, we get that
+        \[
+            \int g-\int f \leqslant\int g-\limsup_{n\to\infty}\int f_n, 
+        \]
+
+        \vspace*{10pt}Which imply 
+        \[
+            \int f\geqslant\limsup_{n\to\infty}\int f_n. 
+        \]
+
+        \vspace*{50pt}
+    \end{frame}
+
+    \begin{frame}[plain]
+        \begin{exercise}[(5)] 
+            Assume $f_{n}, g_{n}, f, g \in L^{1}$ and that $f_{n} \rightarrow f, g_{n} \rightarrow g$ \emph{a.e.} with $\left|f_{n}\right| \leqslant g_{n}$. Show that if $\int g_{n} \rightarrow \int g$, then $\int f_{n} \rightarrow \int f$. 
+        \end{exercise}
+        Finally, we have
+        \[
+            \limsup_{n\to\infty}\int f_n\leqslant\int f\leqslant\liminf_{n\to\infty}\int f_n, 
+        \]
+        With the truth that 
+        \[
+            \liminf_{n\to\infty}\int f_n\leqslant\limsup_{n\to\infty}\int f_n, 
+        \]
+        We know that 
+        \[
+            \int f =\liminf_{n\to\infty}\int f_n = \limsup_{n\to\infty}\int f_n = \lim_{n\to\infty} \int f_n
+        \]
+        $\hfill \blacksquare$
+    
+    \end{frame}
+
+
+
+\end{document}
