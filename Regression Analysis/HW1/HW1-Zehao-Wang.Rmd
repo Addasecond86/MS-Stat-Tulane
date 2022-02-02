@@ -1,0 +1,261 @@
+---
+title: "Regression Analysis Homework 1"
+date: "`r Sys.Date()`"
+author: "Zehao Wang"
+output:
+  rmdformats::robobook:
+    number_sections: true
+    fig_width: 7.5
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+sessionInfo()
+```
+
+In a diabetes study, 1123 subjects were recruited, and a number of clinical traits and information were collected, including (see data in the attached file `HW1_data.txt`): 
+
+|  Variables  |  Meanings  | 
+| :------: | :------ |
+| Sex | male/female | 
+| Age | age of the study subject |
+| bmi | body mass index |
+| fbg | fasting blood glucose | 
+| fins | fasting insulin | 
+| hba1c | hemoglobin A1c | 
+| tg | total glyceride |
+| tcho | total cholesterol |
+| hdl | high density lipoprotein |
+| ldl | low density lipoprotein |
+
+Particularly, the investigators are interested in the effects of fbg (X1) and tg (X2) on hba1c (Y). In addition, hba1c > 6.5 is considered to be diabetic. So another question is whether the same model can be used to characterize the relationship between predictors and hba1c for all individuals, or whether two different models are needed: one for people with diabetes, and the other for those without diabetes. Now, you are assigned to analyze the data, and are asked to complete the following tasks. 
+
+# Fit a simple linear regression model between hba1c and fbg for diabetic patients. 
+
+## Obtain the parameter estimations and the corresponding standard errors. 
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(car)
+data <- read_table("HW1_data.txt")
+```
+
+```{r}
+data1 <- data %>%
+  filter(hba1c > 6.5)
+
+# data1 %>%
+#   ggplot(mapping = aes(hba1c, fbg)) +
+#   geom_point() +
+#   theme_bw()
+
+data2 <- data1
+```
+
+
+```{r}
+lm1 <- lm(hba1c ~ fbg, data1)
+summary(lm1)
+```
+
+So, for the diabetic patients (hba1c > 6.5), the linear regression model is:
+\[
+  X_{hba1c} = 0.38403X_{fbg}+5.54929. 
+\]
+The std errors for $\beta_{fbg}$ is $0.03317$, std errors for $\beta_0$ is $0.31580$. 
+
+## Check on the validity of the assumptions including normality and homoscedasticity, using the approaches you think appropriate. 
+**Note** that in order to check whether variances are constant, you may need to put fbg values into several intervals, and consider all fbg value in a particular interval being the same. So use a software to bin the data with the following range:` <4; (4, 5); (5, 6.5); (6.5, 8); (8, 10); >10`. Then set the original X values to the mid-point of the corresponding interval. 
+
+For example, we have five data points with X={4.6, 5.4, 6.1, 7, 7.8}. After the process, we will change the X’s to 4.5, 5.75, 5.75, 7.25, and 7.25, as they fall into intervals (4,5), (5, 6.5), (5, 6.5), (6.5, 8), and (6.5, 8).
+
+### Levene's Test
+
+First, we should bin the data into several intervals. 
+
+```{r}
+min(data1$fbg)
+max(data1$fbg)
+```
+
+```{r}
+sum(data1$fbg <= 4)
+```
+
+Because there is only one point less than 4, I set the range of first group to $[3.88,5)$. 
+
+```{r}
+data1$fbg[data1$fbg < 5] <- 4.44
+data1$fbg[data1$fbg >= 5 & data1$fbg < 6.5] <- 5.75
+data1$fbg[data1$fbg >= 6.5 & data1$fbg < 8] <- 7.25
+data1$fbg[data1$fbg >= 8 & data1$fbg < 10] <- 9
+data1$fbg[data1$fbg >= 10] <- 13.14
+```
+
+```{r warning=FALSE}
+leveneTest(data1$hba1c, data1$fbg, center = mean)
+leveneTest(data1$hba1c, data1$fbg, center = median)
+```
+
+Apparently, for the both methods (mean and median), the results are significant. So, these results indicate that there are differences between variances of the various groups. 
+
+### Bartlett’s Test
+
+```{r}
+bartlett.test(data1$hba1c, data1$fbg)
+```
+
+We can see that this result is also significant, which indicates inhomogeneous variances and non-normality. 
+
+### Shapiro-Wilk Test
+```{r}
+shapiro.test(lm1$residuals)
+```
+
+It is also significant. That means we need to reject the normality hypothesis. 
+
+## Complete the ANOVA table, and determine whether the F-statistic will result in a significant result. Interpret your result. 
+
+```{r}
+summary(aov(lm1))
+sum((data2$hba1c - mean(data2$hba1c)) ^ 2) / 1122
+```
+| | df | Sum of Squares |Mean Squares | F |
+|---|---|---|---|---|
+| SSR(fbg) | 1 | 349.4 | 349.4 | 134 |
+| SSE | 389 | 1014.2 | 2.6 | |
+| SST | 1122 | 1363.586 | 1.215 | |
+
+<!-- # ```{r} -->
+<!-- # summary(aov(hba1c ~ factor(fbg), data1)) -->
+<!-- # ``` -->
+
+This result is significant, which indicates we need to reject the hypothesis $\beta_{fbg}=0$. That is the variable $X_{fbg}$ is significant in this simple linear model. 
+
+# Fit a simple linear regression model between hba1c and fbg for all subjects. 
+
+```{r}
+lm2 <- lm(hba1c ~ fbg, data)
+summary(lm2)
+```
+
+## Obtain the parameter estimations. 
+
+As we can see, the estimated parameters are: 
+
+\[X_{hba1c}=0.63449X_{fbg}+2.49764. \]
+
+## Check on the lack-of-fit. 
+Again, we need to “create” pure errors before we could conduct the test. Use similar process described in 1.2 above, and use intervals <4; (4, 4.5); (4.5, 5); …; (9, 9.5); (9.5, 10); >10. 
+
+```{r}
+min(data$fbg)
+max(data$fbg)
+```
+
+```{r}
+data$fbg[data$fbg < 4] <- 3.685
+data$fbg[data$fbg >= 4 & data$fbg < 4.5] <- 4.25
+data$fbg[data$fbg >= 4.5 & data$fbg < 5] <- 4.75
+data$fbg[data$fbg >= 5 & data$fbg < 5.5] <- 5.25
+data$fbg[data$fbg >= 5.5 & data$fbg < 6] <- 5.75
+data$fbg[data$fbg >= 6 & data$fbg < 6.5] <- 6.25
+data$fbg[data$fbg >= 6.5 & data$fbg < 7] <- 6.75
+data$fbg[data$fbg >= 7 & data$fbg < 7.5] <- 7.25
+data$fbg[data$fbg >= 7.5 & data$fbg < 8] <- 7.75
+data$fbg[data$fbg >= 8 & data$fbg < 8.5] <- 8.25
+data$fbg[data$fbg >= 8.5 & data$fbg < 9] <- 8.75
+data$fbg[data$fbg >= 9 & data$fbg < 9.5] <- 9.25
+data$fbg[data$fbg >= 9.5 & data$fbg < 10] <- 9.75
+data$fbg[data$fbg >= 10] <- 13.14
+data$fbg <-  factor(data$fbg)
+```
+
+
+```{r}
+lm3 <- lm(hba1c ~ fbg, data)
+lmf <- lm(hba1c ~ ., data)
+```
+
+
+```{r}
+anova(lmf, lm3)
+```
+
+The F test-statistic turns out to be $5.9486$ and the corresponding p-value is $1.737e-07$. Since this p-value is pretty small, we can reject the null hypothesis of the test and conclude that the full model offers a statistically significantly better fit than the reduced model. 
+
+## Do you think this model similar to the model you obtain in 1)? 
+(No formal test needed here. We will study how to conduct a formal statistic test later.)
+
+```{r}
+summary(lm1)
+summary(lm2)
+```
+
+They are pretty different. The coefficient for $X_{fbg}$ of second model is almost two times larger than the first one's. 
+
+# Fit a multiple linear regression model between hba1c and fbg + tg. 
+
+```{r message=FALSE, warning=FALSE}
+data <- read_table("HW1_data.txt")
+```
+
+
+```{r}
+lm4 <- lm(hba1c ~ fbg + tg, data)
+summary(lm4)
+```
+
+## Obtain the parameter estimations and complete the ANOVA table. 
+
+The parameters are like following: 
+
+\[X_{hba1c}=0.63302X_{fbg}+0.01685X_{tg}+2.47787. \]
+
+Now, complete the ANOVA table. 
+
+```{r}
+summary(aov(lm4))
+sum((data$hba1c - mean(data$hba1c)) ^ 2)
+```
+
+| | df | Sum of Squares |Mean Squares | F |
+|---|---|---|---|---|
+| SSR(fbg) | 1 | 2796.5 | 2796.5 | 1681.09 |
+| SSR(tg) | 1 | 0.2 | 0.2 | 0.14 |
+| SSE | 1120 | 1863.1 | 1.7 | |
+| SST | 1122 | 4659.815 | 4.153 | |
+
+## Conduct a test for the whole model and interpret your result. 
+
+With the ANOVA table, we can directly test whether $\beta_{fbg}$ or $\beta_{tg}$ is $0$. Since the p-value of $X_{fbg}$ is less than $2e^{-16}$, and the p-value of $X_{tg}$ is $0.708$, we should reject the hypothesis $\beta_{fbg}=0$ but accept $\beta_{tg}=0$. That means $X_{fbg}$ is significant but $X_{tg}$ is not. 
+
+## 	Manually calculate the corresponding R^2 and adjusted R^2 based on the quantities in the ANOVA table. 
+You need to write out the formula and include at least one or two intermediate steps showing the values of the quantities. 
+
+```{r}
+1 - 1863.1 / 4659.815
+```
+
+\[
+\begin{aligned}
+R^2=1-\frac{SSE}{SST}=1-\frac{1863.1}{4659.815}=0.600173. 
+\end{aligned}
+\]
+
+```{r}
+1 - 1863.1 / 1120 / (4659.815 / 1122)
+```
+
+\[
+\begin{aligned}
+R^2_{Adj}=1-\frac{SSE/df_E}{SST/df_T}=1-\frac{1863.1/1120}{4659.815/1122}=0.5994633. 
+\end{aligned}
+\]
+
+These results are corresponding to the Model fitting results. 
+
+
