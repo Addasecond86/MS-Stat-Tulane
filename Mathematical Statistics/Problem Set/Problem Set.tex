@@ -149,18 +149,18 @@
 
     \begin{solution}
         \begin{itemize}
-            \item[(a)] When \(x>0\), 
+            \item[(a)]
             \[
                 \begin{aligned}
-                    \exp(\ln(f(x)))&=\exp(\alpha\ln(\lambda)-\ln(\Gamma(\alpha))+(\alpha-1)\ln(x)-\lambda x)\\
-                    &=\exp((\alpha-1)\ln(x)-\lambda x+\alpha\ln(\lambda)-\ln(\Gamma(\alpha))), 
+                    f(x|\alpha, \lambda)&=1_{\{x>0\}}\exp(\alpha\ln(\lambda)-\ln(\Gamma(\alpha))+(\alpha-1)\ln(x)-\lambda x)\\
+                    &=1_{\{x>0\}}\exp((\alpha-1)\ln(x)-\lambda x+\alpha\ln(\lambda)-\ln(\Gamma(\alpha))), 
                 \end{aligned}
             \]
             So, the nature parameter is $(\eta_1,\eta_2)=(\alpha-1, -\lambda)$. And the parameter space \(\mathcal{E}\) is \((-1,\infty)\times(-\infty,0)\). 
-            \item[(b)] When \(0<x<1\), 
+            \item[(b)] 
             \[
                 \begin{aligned}
-                    \exp(\ln(f(x)))=&\exp((a-1)\ln(x)+(b-1)\ln(1-x)\\&+\ln(\Gamma(a+b))-\ln(\Gamma(a))-\ln(\Gamma(b))), 
+                    f(x|a,b)=1_{\{0<x<1\}}&\exp((a-1)\ln(x)+(b-1)\ln(1-x)\\&+\ln(\Gamma(a+b))-\ln(\Gamma(a))-\ln(\Gamma(b))), 
                 \end{aligned}
             \] 
             So, the nature parameter is $(\eta_1,\eta_2)=(a-1, b-1)$. And the parameter space \(\mathcal{E}\) is \((-1,\infty)\times(-1,\infty)\). 
@@ -170,17 +170,17 @@
             \]
             \[
                 \begin{aligned}
-                    \exp(\ln(f(x)))=&1/k!\cdot\exp(-\lambda+k\ln(\lambda)), 
+                    P(X=k)=&1/k!\cdot\exp(-\lambda+k\ln(\lambda)), 
                 \end{aligned}
             \]
             So, the nature parameter is $(\eta)=(\ln(\lambda))$. And the parameter space \(\mathcal{E}\) is \((-\infty,\infty)\). 
             \item[(d)] When \(x\in\mathbb{N}\), 
             \[
                 \begin{aligned}
-                    \exp(\ln(f(x)))&=\binom{r+x-1}{x}\exp\left(r\ln(p)+x\ln(1-p)\right), 
+                    f(x|p)&=\binom{r+x-1}{x}\exp\left(r\ln(p)+x\ln(1-p)\right), 
                 \end{aligned}
             \]
-            So, the nature parameter is $(\eta)=(\ln(1-p))$. And the parameter space \(\mathcal{E}\) is \((-\infty,0)\). 
+            So, the nature parameter is $(\eta)=(\ln(1-p))$. And the parameter space \(\mathcal{E}\) is \((-\infty,0]\). 
         \end{itemize}
     \end{solution}
 
@@ -203,11 +203,11 @@
 
     \begin{solution}
         \begin{itemize}
-            \item[(a)] We know that every \(0\leqslant p_i\leqslant 1\). 
+            \item[(a)] We know for every \(0\leqslant p_i\leqslant 1\). 
             \[
-                f(x)=\frac{n !}{x_{0} ! x_{1} ! \ldots x_{k} !} \exp\left(x_0\ln (p_0)+\cdots+x_k\ln (p_k)\right). 
+                f(x|\mathbf{p})=\frac{n !}{x_{0} ! x_{1} ! \ldots x_{k} !} \exp\left(x_0\ln (p_0)+\cdots+x_k\ln (p_k)\right). 
             \]
-            So, the nature parameter is $(\eta_0,\cdots,\eta_k)=(\ln(p_0),\cdots,\ln(p_k))$. And the parameter space \(\mathcal{E}\) is \((-\infty,0)\times\cdots\times(-\infty,0)\). 
+            So, the nature parameter is $(\eta_0,\cdots,\eta_k)=(\ln(p_0),\cdots,\ln(p_k))$. And the parameter space \(\mathcal{E}\) is \((-\infty,0]\times\cdots\times(-\infty,0]\). 
             \item[(b)] 
         \end{itemize}
     \end{solution}
@@ -223,6 +223,23 @@
             \item[(c)] Find the moment generating function of \(T\) and show that \(\mathbb{E}(X)=\mu, \operatorname{Var}(X)=\mu^{3} \lambda^{-1}\), \(\mathbb{E}\left(X^{-1}\right)=\mu^{-1}+\lambda^{-1}, \operatorname{Var}\left(X^{-1}\right)=(\lambda \mu)^{-1}+2 \lambda^{-2} .\)
         \end{itemize}
     \end{exercise}
+
+    \begin{solution}
+        \begin{itemize}
+            \item[(a)] \[
+                \begin{aligned}
+                    f(x|\mu,\lambda)&=(2 \pi)^{-1 / 2} x^{-3 / 2}\exp\left\{-\lambda(x^2-2\mu x+\mu^2)\cdot(2\mu^2x)^{-1}+\frac{1}{2}\ln(\lambda)\right\}\\
+                    &=(2 \pi)^{-1 / 2} x^{-3 / 2}\exp\left\{\frac{-\lambda}{2\mu^2}x + \frac{\lambda}{\mu}-\frac{\lambda}{2}x^{-1}+\frac{1}{2}\ln(\lambda)\right\}
+                \end{aligned}
+            \]
+            So, $T(X)=-\frac{1}{2}(X,X^{-1})$, \(h(x)=\) \((2 \pi)^{-1 / 2} x^{-3 / 2}\). 
+            \item[(b)] $B((\lambda, \mu))=-(1/2\ln(\lambda)+\lambda/\mu)$, and $\eta=(\eta_1,\eta_2)=(\lambda/\mu^2, \lambda)$. So, 
+            \[
+                A(\eta)=-(1/2\ln(\eta_2)+(\eta_1\eta_2)^{1/2}). 
+            \]
+            \item[(c)] 
+        \end{itemize}
+    \end{solution}
 
     \begin{exercise}
         For each of the following families: \((i)\) verify that it is an exponential family; \((i i)\) describe the curve in which the parameter vector \(\theta\) lies (with respect to the natural parametrization). 

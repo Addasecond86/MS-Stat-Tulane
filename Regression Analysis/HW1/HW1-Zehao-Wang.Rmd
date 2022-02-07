@@ -12,7 +12,14 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(car)
+```
+
+Environment Information. 
+
+```{r warning=FALSE}
 sessionInfo()
 ```
 
@@ -38,8 +45,6 @@ Particularly, the investigators are interested in the effects of fbg (X1) and tg
 ## Obtain the parameter estimations and the corresponding standard errors. 
 
 ```{r message=FALSE, warning=FALSE}
-library(tidyverse)
-library(car)
 data <- read_table("HW1_data.txt")
 ```
 
@@ -71,6 +76,13 @@ The std errors for $\beta_{fbg}$ is $0.03317$, std errors for $\beta_0$ is $0.31
 **Note** that in order to check whether variances are constant, you may need to put fbg values into several intervals, and consider all fbg value in a particular interval being the same. So use a software to bin the data with the following range:` <4; (4, 5); (5, 6.5); (6.5, 8); (8, 10); >10`. Then set the original X values to the mid-point of the corresponding interval. 
 
 For example, we have five data points with X={4.6, 5.4, 6.1, 7, 7.8}. After the process, we will change the X’s to 4.5, 5.75, 5.75, 7.25, and 7.25, as they fall into intervals (4,5), (5, 6.5), (5, 6.5), (6.5, 8), and (6.5, 8).
+
+### Shapiro-Wilk Test
+```{r}
+shapiro.test(lm1$residuals)
+```
+
+It is significant. That means we need to reject the normality hypothesis. 
 
 ### Levene's Test
 
@@ -108,14 +120,7 @@ Apparently, for the both methods (mean and median), the results are significant.
 bartlett.test(data1$hba1c, data1$fbg)
 ```
 
-We can see that this result is also significant, which indicates inhomogeneous variances and non-normality. 
-
-### Shapiro-Wilk Test
-```{r}
-shapiro.test(lm1$residuals)
-```
-
-It is also significant. That means we need to reject the normality hypothesis. 
+We can see that this result is also significant, and we already know the residual is not normal distribution, which indicates inhomogeneous. 
 
 ## Complete the ANOVA table, and determine whether the F-statistic will result in a significant result. Interpret your result. 
 
@@ -127,7 +132,7 @@ sum((data2$hba1c - mean(data2$hba1c)) ^ 2) / 1122
 |---|---|---|---|---|
 | SSR(fbg) | 1 | 349.4 | 349.4 | 134 |
 | SSE | 389 | 1014.2 | 2.6 | |
-| SST | 1122 | 1363.586 | 1.215 | |
+| SST | 390 | 1363.586 | | |
 
 <!-- # ```{r} -->
 <!-- # summary(aov(hba1c ~ factor(fbg), data1)) -->
@@ -227,7 +232,7 @@ sum((data$hba1c - mean(data$hba1c)) ^ 2)
 | SSR(fbg) | 1 | 2796.5 | 2796.5 | 1681.09 |
 | SSR(tg) | 1 | 0.2 | 0.2 | 0.14 |
 | SSE | 1120 | 1863.1 | 1.7 | |
-| SST | 1122 | 4659.815 | 4.153 | |
+| SST | 1122 | 4659.815 | | |
 
 ## Conduct a test for the whole model and interpret your result. 
 
