@@ -126,7 +126,7 @@ We can see that this result is also significant, and we already know the residua
 
 ```{r}
 summary(aov(lm1))
-sum((data2$hba1c - mean(data2$hba1c)) ^ 2) / 1122
+sum((data2$hba1c - mean(data2$hba1c)) ^ 2)
 ```
 | | df | Sum of Squares |Mean Squares | F |
 |---|---|---|---|---|
@@ -200,7 +200,7 @@ summary(lm1)
 summary(lm2)
 ```
 
-They are pretty different. The coefficient for $X_{fbg}$ of second model is almost two times larger than the first one's. 
+They are pretty different. The coefficient for $X_{fbg}$ of second model is almost twice larger than the first one's. 
 
 # Fit a multiple linear regression model between hba1c and fbg + tg. 
 

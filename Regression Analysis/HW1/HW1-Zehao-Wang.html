@@ -7,7 +7,7 @@
 
         <meta name="author" content="Zehao Wang" />
     
-        <meta name="date" content="2022-02-03" />
+        <meta name="date" content="2022-02-08" />
     
     <title>Regression Analysis Homework 1</title>
 
@@ -211,7 +211,7 @@
         <ul class="authors">
           <li class="divider"></li>
                                 <li><span><i class="glyphicon glyphicon-user"></i> Zehao Wang</span></li>
-                                         <li><span><i class="glyphicon glyphicon-calendar"></i> 2022-02-03</span></li>
+                                         <li><span><i class="glyphicon glyphicon-calendar"></i> 2022-02-08</span></li>
                   </ul>     
       </div>
       <div class="book-body fixed">
@@ -424,8 +424,8 @@
 ## Residuals   389 1014.2     2.6                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>((data2<span class="sc">$</span>hba1c <span class="sc">-</span> <span class="fu">mean</span>(data2<span class="sc">$</span>hba1c)) <span class="sc">^</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="dv">1122</span></span></code></pre></div>
-<pre><code>## [1] 1.215317</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>((data2<span class="sc">$</span>hba1c <span class="sc">-</span> <span class="fu">mean</span>(data2<span class="sc">$</span>hba1c)) <span class="sc">^</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1363.586</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -570,7 +570,7 @@
 ## Residual standard error: 1.289 on 1121 degrees of freedom
 ## Multiple R-squared:  0.6001, Adjusted R-squared:  0.5998 
 ## F-statistic:  1682 on 1 and 1121 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>They are pretty different. The coefficient for <span class="math inline">\(X_{fbg}\)</span> of second model is almost two times larger than the first one’s.</p>
+<p>They are pretty different. The coefficient for <span class="math inline">\(X_{fbg}\)</span> of second model is almost twice larger than the first one’s.</p>
 </div>
 </div>
 <div id="fit-a-multiple-linear-regression-model-between-hba1c-and-fbg-tg." class="section level1" number="3">
