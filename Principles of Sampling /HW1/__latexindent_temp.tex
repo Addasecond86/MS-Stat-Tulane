@@ -23,7 +23,7 @@
             y_{4}=133 & y_{5}=190 & y_{6}=175
             \end{array}
         \]
-        We are interested in \(\bar{y}_U\), the population mean. Two sampling plans are proposed. 
+        We are interested in \(\bar{y}_u\), the population mean. Two sampling plans are proposed. 
         \begin{itemize}
             \item Plan 1. Eight possible samples may be chosen. 
             \begin{center}
@@ -50,7 +50,7 @@
             \end{center}
         \end{itemize}
         \begin{enumerate}[(a)]
-            \item What is the value of \(\bar{y}_U\)? 
+            \item What is the value of \(\bar{y}_u\)? 
             \item Let \(\bar{y}\) be the mean of the sample values. For each sampling plan, find
             
             (i) \(E[\bar{y}]\);\ 
@@ -63,32 +63,25 @@
 
     \begin{solution}
         \begin{enumerate}[(a)]
-            \item $\bar{y}_U=\frac{1}{N}\sum_{i=1}^N y_i=852/6=142. $
+            \item $\bar{y}_u=\frac{1}{n}\sum_{i=1}^n y_i=852/6=142. $
             \item 
             \begin{itemize}
                 \item Plan 1. 
                 \begin{enumerate}[(i)]
                     \item $\bar{y}_1=147.33$, $\bar{y}_2=142.33$, $\bar{y}_3=140.33$, $\bar{y}_4=135.33$, \\
                     $\bar{y}_5=148.67$, $\bar{y}_6=143.67$, $\bar{y}_7=141.67$, $\bar{y}_8=136.67$.\\
-                    $E[\bar{y}]=\sum_{i=1}^8p_i\bar{y}_i=142$. 
-
-                    \item $Var[\bar{y}]=\sum_{i=1}^8p_i(\bar{y}_i-E(\bar{y}_i))^2=18.94$. 
-                    
-                    $V[\bar{y}]=SE[\bar{y}]/E[\bar{y}]=\sqrt{18.94}/142=3.06\%$. 
-                    
-                    \item $Bias(\bar{y})=E(\bar{y})-\bar{y}_U=0$. 
-                    
-                    \item $MSE(\bar{y})=\sum_{i=1}^8p_i(\bar{y}_i-\bar{y}_U)^2=18.94$. 
+                    $E[\bar{y}]=\frac{1}{8}\sum_{i=1}^8\bar{y}_i=142$. 
+                    \item $V[\bar{y}]=\frac{1}{8}\sum_{i=1}^8(\bar{y}_i-E(\bar{y}_i))^2=18.94$. 
+                    \item $Bias(\bar{y})=E(\bar{y})-\bar{y}_u=0$. 
+                    \item $MSE(\bar{y})=\frac{1}{8}\sum_{i=1}^8(\bar{y}_i-\bar{y}_u)^2=18.94$. 
                 \end{enumerate}
                 \item Plan 2.  
                 \begin{enumerate}[(i)]
                     \item $\bar{y}_1=135.33$, $\bar{y}_2=143.67$, $\bar{y}_3=147.33$.\\
                     $E[\bar{y}]=\sum_{i=1}^3p_i\bar{y}_i=142.5$. 
-                    \item $Var[\bar{y}]=\sum_{i=1}^3p_i(\bar{y}_i-E(\bar{y}_i))^2=19.36$. 
-                    
-                    $V[\bar{y}]=SE[\bar{y}]/E[\bar{y}]=\sqrt{19.36}/142.5=3.09\%$. 
-                    \item $Bias(\bar{y})=E(\bar{y})-\bar{y}_U=0.5$. 
-                    \item $MSE(\bar{y})=\sum_{i=1}^3p_i(\bar{y}_i-\bar{y}_U)^2=19.51$. 
+                    \item $V[\bar{y}]=\sum_{i=1}^3p_i(\bar{y}_i-E(\bar{y}_i))^2=19.36$. 
+                    \item $Bias(\bar{y})=E(\bar{y})-\bar{y}_u=0.5$. 
+                    \item $MSE(\bar{y})=\sum_{i=1}^3p_i(\bar{y}_i-\bar{y}_u)^2=19.61$. 
                 \end{enumerate}
             \end{itemize}
             \item In general, Plan 1 is better because its bias, variance, and mean square error are smaller. However, in terms of convenience, Plan 2 has fewer kinds of samples. 
@@ -183,26 +176,13 @@
         It is desired to perform a quality control audit of laboratory data from a large clinical trial for purposes of estimating the proportion of laboratory values in the database that are invalid. There are 394 patients in the clinical trial, and each person has had from 60 to 200 laboratory determinations during the course of the trial. The sampling plan chosen was to select a random sample of 10 patients and for each sample person take a random sample of 10 laboratory determinations, which would then be checked against the patient medical record for accuracy. 
     \end{exercise}
 
-    \begin{solution}
-        Let $p_{i}$ be the proportion of invalid values for subject $i$. Then, 
-
-        $p_1=1/103$, $p_2=0$, $p_3=2/93$, $p_4=0$, $p_5=1/128$. 
-
-        $p_6=0$, $p_7=0$, $p_8=0$, $p_9=0$, $p_{10}=1/180$. 
-
-        So, the estimation is 
-        \[
-            \hat{p}=E(p_i)=0.4458\%
-        \]
-    \end{solution}
-
     \begin{exercise}[Levy-3.6]
         A survey of workers is to be taken in a large plant that makes products similar to those made in the plant from which the data in Table 3.8 are obtained. The purposes of the survey are to estimate 
         \begin{enumerate}[(a)]
             \item the proportion of all workers having an fvc below $70\%$. 
             \item the mean fvc among all workers. 
-            \item Estimates are needed within $5\%$ of the true value of the parameter being estimated. How large a sample of workers is required? The plant employs 5000 workers.
         \end{enumerate}
+        Estimates are needed within $5\%$ of the true value of the parameter being estimated. How large a sample of workers is required? The plant employs 5000 workers.
     \end{exercise}
 
     \begin{longtable}[c]{lllllllllll}
@@ -239,33 +219,6 @@
         20     & 2        & 99  & 1200    & 30  &  & 40     & 3        & 84  & 1200    & 30  \\ \hline
     \end{longtable}
 
-    \begin{solution}
-        \begin{enumerate}[(a)]
-            \item There are $11$ workers  having an fvc below $70\%$. So, the estimation for the proportion is 
-            \[
-                \hat{p}=11/40=27.5\%.
-            \]
-            \item Let $\bar{x}$ be the mean value of the population. $\hat{\bar{x}}=\frac{1}{n}\sum_{i=1}^{40}x_i=80.4$. 
-            
-            \item \begin{itemize}
-                \item For (a), let the confidence level be $95\%$, then $z=1.96$, 
-                \[
-                    n\geqslant\frac{z^2Np(1-p)}{(N-1)0.05^2p^2+z^2p(1-p)}=2238.165. 
-                \]
-                So, $n=2239$. 
-                \item For (a), let the confidence level be $95\%$, then $z=1.96$, 
-                \[
-                    V^2=\frac{\sigma^2}{\bar{x}^2}=\frac{(n-1)s^2}{n\bar{x}^2}=\frac{39\times153.94}{40\times80.4^2}=0.0232, 
-                \]
-                \[
-                    n\geqslant\frac{z^2NV^2}{z^2V^2+(N-1)\cdot 0.05^2}=35.4, 
-                \]
-                So, $n=36$. 
-            \end{itemize}
-        \end{enumerate}
-        
-    \end{solution}
-
     \begin{exercise}[Levy-4.2(a-c)]
         From the 120 homes of Exercise 1, suppose a one-in-five systematic sample was taken and suppose that the initial random number was 5 .
         \begin{enumerate}[a.]
@@ -278,19 +231,5 @@
     \begin{exercise}[Exercise 4.1]
         Suppose the local Childhood Lead Poisoning Prevention Council in a metropolitan area in western Tennessee undertakes the responsibility of determining the proportion of homes in a certain development of 120 homes with unsafe lead levels. Because of the great expense involved in performing spectrometric testing of interior walls, ceilings, floors, baseboards, cabinets, and other obvious lead hazards such as crib bars, as well as of exterior sidings, porches and porch rails, it was decided to select a sample of the homes under study. A good up-to-date frame exists for sampling purposes. This frame is a street listing containing the address and owner of each home for each of the streets in the target area. It was decided to select a one-in-three sample of homes. Let us assume that the only houses with serious lead hazard problems are the 26th, 27th, 28th, and 29th on the list. 
     \end{exercise}
-
-    \begin{solution}
-        \begin{enumerate}[a.]
-            \item The elements will be selected out are $5, 10, 15, 20, \cdots, 115, 120$. And the houses with hazard level are $26, 27, 28, 29$, so, the proportion is $0\%$. 
-            \item \textcolor{red}{[0,0]??????}
-            \item There are five possible values for $p$, $p_1=1/24$, $p_2=1/24$, $p_3=1/24$, $p_4=1/24$, $p_5=0$. 
-            \[
-                E(p)=\frac{1}{5}\cdot\frac{4}{24}=1/30. 
-            \]
-            \[
-                Var(p)=\frac{1}{5}(4\times(1/24-1/30)^2+(-1/30)^2)=0.0002778. 
-            \]
-        \end{enumerate}
-    \end{solution}
     % \printbibliography
 \end{document}
