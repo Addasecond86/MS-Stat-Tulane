@@ -63,4 +63,8 @@
 
 \usepackage{hyperref}
 
+\newtcolorbox[blend into=figures]{myfigure}[2][]{float=htb,capture=hbox,
+blend before title=dash hang,title={#2},every float=\centering,#1}
 
+\newtcolorbox[blend into=tables]{mytable}[2][]{float=htb, capture=hbox,
+blend before title=dash hang,title={#2},every float=\centering,#1}
