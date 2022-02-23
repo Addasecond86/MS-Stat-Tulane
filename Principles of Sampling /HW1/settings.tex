@@ -12,7 +12,7 @@
 \usepackage{amssymb}
 \usepackage{newtxmath}
 \usepackage{enumerate}
-\usepackage{minted}
+% \usepackage{minted}
 \usepackage{fancyhdr}
 
 
@@ -62,5 +62,8 @@
 \AddToHook{cmd/section/before}{\clearpage}
 
 \usepackage{hyperref}
+
+\newtcolorbox[blend into=figures]{myfigure}[2][]{float=htb,capture=hbox,
+blend before title=dash hang,title={#2},every float=\centering,#1}
 
 
