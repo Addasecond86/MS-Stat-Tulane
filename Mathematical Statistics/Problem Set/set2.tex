@@ -31,6 +31,57 @@
     \end{enumerate}
 \end{exercise}
 
+\begin{solution}
+    \begin{enumerate}
+        \item
+        $\Rightarrow:$ If $X\sim\frac{1}{\sigma}f\left(\frac{\cdot-\mu}{\sigma}\right)$, Let $Z=\frac{X-\mu}{\sigma}$, 
+        \begin{align*}
+            P(Z\leqslant z)&=P\left(\frac{X-\mu}{\sigma}\leqslant z\right)\\
+            &=P\left(X\leqslant\sigma z+\mu\right). 
+        \end{align*}
+        \[
+            F_Z(z)=F_X(\sigma z+\mu), 
+        \]
+        \begin{align*}
+            f_Z(z)&=\sigma f_X(\sigma z+\mu)\\
+            &=\sigma \frac{1}{\sigma}f_X\left(\frac{\sigma z +\mu-\mu}{\sigma}\right)\\
+            &=f_X(z)
+        \end{align*}
+        Which means $Z$ has density $f(\cdot)$. 
+
+        $\Leftarrow$: If $Z\sim f(z)$, $X=\sigma Z+\mu$, 
+        \begin{align*}
+            P(X\leqslant x)&=P(\sigma Z+\mu\leqslant x)\\
+            &=P(Z\leqslant\frac{x-\mu}{\sigma})\\
+            &=F_Z\left(\frac{x-\mu}{\sigma}\right), 
+        \end{align*}
+        So, \[
+            f_X(x)=\frac{1}{\sigma}f_Z\left(\frac{x-\mu}{\sigma}\right). 
+        \]
+        \item \begin{enumerate}[(i)]
+            \item Because for a density function $f(\cdot)$, $\int f(x) \der x=1$, and Cauchy distribution is symmetric about the y-axis. So, 
+            \[
+                P(X\leqslant0)=P(X\geqslant0)=1/2. 
+            \]
+            \item \[
+                P(X\leqslant1)=P(X\geqslant1)=\int_1^\infty\frac{1}{\pi}\frac{1}{1+x^2}\der x=\frac{1}{\pi}\arctan(x)\big|_1^\infty=1/4. 
+            \]
+        \end{enumerate}
+        \item \begin{enumerate}[(i)]
+            \item For a location family: $F(x|\mu)=F(x-\mu)$. If $\mu_1>\mu_2$, then $x-\mu_1<x-\mu_2$, 
+            \[
+                F(x|\mu_1)<F(x|\mu_2). 
+            \]
+            So, it is stochastically increasing. 
+            \item For a location family: $F(x|\sigma)=1/\sigma F(x/\sigma)$. If $\sigma_1>\sigma_2$, then $1/\sigma_1<1/\sigma_2$, 
+            \[
+                F(x|\sigma_1)<F(x|\sigma_2). 
+            \]
+            So, it is stochastically increasing, too. 
+        \end{enumerate}
+    \end{enumerate}
+\end{solution}
+
 \begin{exercise}
     We saw the following result in class (an adaptation of Theorem 1.6.4 in Bickel and Doksum \((2002)\), p. 60\()\).
     
@@ -62,7 +113,7 @@
 
     \prop{2} Let \(C\) be an open, convex set, and consider \(f: C \rightarrow \mathbb{R}\). If \(f\) is strictly convex and differentiable on \(C\), then \(f^{\prime}\) is strictly monotone.
 
-    On a related note, it can be shown that the converse to Proposition \(0.2\) is also true.
+    On a related note, it can be shown that the converse to Proposition \(2.2\) is also true.
 \end{exercise}
 
 \begin{exercise}
@@ -211,3 +262,23 @@
     \end{enumerate}
 \end{exercise}
 
+
+% \begin{solution}
+%     \begin{enumerate}
+%         \item A Table: 
+        
+%         \begin{mytable}[nofloat]{Table}
+%             \small
+%             \begin{tabular}{|l|lll|lll|}
+%                 \hline
+%                 Method      &                               & Gender                      &                   &                               & CIRSTTL                      &                   \\ \cline{2-7} 
+%                             & \multicolumn{1}{l|}{Estimate} & \multicolumn{1}{l|}{SE}     & P-value           & \multicolumn{1}{l|}{Estimate} & \multicolumn{1}{l|}{SE}      & P-value           \\ \hline
+%                 Pooled Data & \multicolumn{1}{l|}{-2.2414}  & \multicolumn{1}{l|}{0.3652} & \textless{}0.0001 & \multicolumn{1}{l|}{0.7239}   & \multicolumn{1}{l|}{0.0588}  & \textless{}0.0001 \\ \hline
+%                 GEE(Ind)    & \multicolumn{1}{l|}{-2.2414}  & \multicolumn{1}{l|}{0.5793} & 0.0001            & \multicolumn{1}{l|}{0.7239}   & \multicolumn{1}{l|}{0.1017}  & \textless{}0.0001 \\ \hline
+%                 GEE(Exch)   & \multicolumn{1}{l|}{-2.0592}  & \multicolumn{1}{l|}{0.5925} & 0.0005            & \multicolumn{1}{l|}{0.558}    & \multicolumn{1}{l|}{0.08676} & \textless{}0.0001 \\ \hline
+%                 GEE(AR1)    & \multicolumn{1}{l|}{-2.3067}  & \multicolumn{1}{l|}{0.5796} & \textless{}0.0001 & \multicolumn{1}{l|}{0.6334}   & \multicolumn{1}{l|}{0.0911}  & \textless{}0.0001 \\ \hline
+%                 \end{tabular}            
+%         \end{mytable}
+%     \end{enumerate}
+    
+% \end{solution}

@@ -38,15 +38,15 @@
     For the sample \(\{X_i\}_{i=1}^n\), 
     \[
         \begin{aligned}
-            \bar{X}=\mu_1=E(X_i)&=\sum_{k=0}^\infty k\cdot (1-p)^{k-1}p=\frac{1-p}{p}
+            \bar{X}=\mu_1=E(X_i)&=\sum_{k=1}^\infty k\cdot (1-p)^{k-1}p=\frac{1}{p}
         \end{aligned}
     \]
     So, the method of moments estimator of $p$ is 
     \[
-        \hat{\mu}_1=\frac{1}{n}\sum_{i=1}^nX_i=\frac{1-p}{p}
+        \hat{\mu}_1=\frac{1}{n}\sum_{i=1}^nX_i=\frac{1}{p}
     \]
     \[
-        \hat{p}=\frac{1}{\hat{\mu}_1+1}. 
+        \hat{p}=\frac{1}{\hat{\mu}_1}. 
     \]
 \end{solution}
     
@@ -343,11 +343,10 @@ ParametricPlot3D[{t, t^2, t^3}, {t, 0, 1}, {ViewPoint -> {1.3, -2.4, 2.}}]
             \mathbb{P}_{T}(B)&=\int_{\mathbb{R}^{n}} 1_{B}(T( x)) \exp \{\langle W(\theta), T( x)\rangle-B(\theta)\} G_{*}(\der  x)\\
             &=\int_{\mathbb{R}^m}1_{B}(t) \exp \{\langle W(\theta), t\rangle-B(\theta)\}( TG_{*})(\der t)\\
             &=\int_{\mathbb{R}^m}1_{B}(t) \exp \{\langle W(\theta), t\rangle-B(\theta)\}G_*(\der T^{-1}(t))\\
-            &=\int_{\mathbb{R}^m}1_{B}(t) \exp \{\langle W(\theta), t\rangle-B(\theta)\}\frac{h(T^{-1}(t))}{\|T'(T^{-1}(t))\|}G(\der t)\\
-            &=h^*(t)\exp \{\langle W(\theta), t\rangle-B(\theta)\}, 
+            &=\int_{\mathbb{R}^m}1_{B}(t) \exp \{\langle W(\theta), t\rangle-B(\theta)\}\frac{h(T^{-1}(t))}{\|T'(T^{-1}(t))\|}G(\der t), 
         \end{aligned}
     \]
-    where $|\cdot|$ denotes the Jacobian matrix. So, the distribution of $T(x)$ is also a $k$-parameter exponential family. 
+    where $\|\cdot\|$ denotes the Jacobian matrix. So, the distribution of $T(x)$ is also a $k$-parameter exponential family. 
 \end{solution}
 
 \begin{exercise}
@@ -370,7 +369,7 @@ ParametricPlot3D[{t, t^2, t^3}, {t, 0, 1}, {ViewPoint -> {1.3, -2.4, 2.}}]
 \begin{solution}
     \begin{enumerate}[(a)]
         \item \[\mathbb{P}_{\eta_0}(A)=\int1_{A}(x)h(x)\exp\left\{\eta_0T(x)-A(\eta_0)\right\}\mu(\der x)=0\]
-        We can know $1_{A}(x)$, $h(x)$, $\exp\left\{\eta_0T(x)-A(\eta_0)\right\}$ are all nonzero. So, $\mu(\{x:x\in A\})=0$. 
+        If $\mathbf{P}_{\eta_0}(A)=0$, because $\exp\left\{\eta_0T(x)-A(\eta_0)\right\}$ is all nonzero. So, $h(x)=0$, that means $\forall \eta$, $\mathbf{P}_{\eta}(A)=0$. 
         \item If there is some $\eta_1$, such that $\mathbb{P}_{\eta_1}(A)=1$, then $A=\mathcal{S}$, which means event $A$ is the whole space. But it is impossible because $\mathbb{P}_{\eta_0}(A)<1$. 
     \end{enumerate}
 \end{solution}
@@ -384,7 +383,34 @@ ParametricPlot3D[{t, t^2, t^3}, {t, 0, 1}, {ViewPoint -> {1.3, -2.4, 2.}}]
     Conclude that the natural parameter space does not have to be an open set.
 \end{exercise}
 
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item \begin{align*}
+            &\int h(x)\exp(<T(x), \eta>)G(\der x)\\
+            =&{}\int e^{-|x|}e^{\eta x}\der x\\
+            =&{}\int_{-\infty}^0 e^{(\eta+1) x}\der x+ \int_{0}^\infty e^{(\eta-1) x}\der x\\
+            =&{}\frac{1}{\eta+1}e^{(\eta+1) x}\big|_{-\infty}^0+\frac{1}{\eta-1}e^{(\eta-1)x}\big|_0^{\infty}
+        \end{align*}
+        $\eta+1>0$, $\eta-1<0\Rightarrow -1<\eta<1$. In addition, $\eta$ can be $1$ and $-1$. So, $-1\leqslant\eta\leqslant1$. 
+        \item \begin{align*}
+            &\int h(x)\exp(<T(x), \eta>)G(\der x)\\
+            =&{}\int \frac{e^{-|x|}}{1+x^2}e^{\eta x}\der x\\
+            =&{}\int_{-\infty}^0 \frac{e^{(\eta+1) x}}{1+x^2}\der x+ \int_{0}^\infty \frac{e^{(\eta-1) x}}{1+x^2}\der x, 
+        \end{align*}
+        If $\eta+1>0$, $\eta-1<0$. So, the natural parameter space is also $[-1,1]$. 
+    \end{enumerate}
+\end{solution}
+
 
 \begin{exercise}
     Consider a classical linear regression, i.e., assume we have a sample \(Y_{1}, \ldots, Y_{n}\) of independent random variables such that, for \(i=1, \ldots, n, Y_{i} \sim \mathcal{N}\left(\mu_{i}, \sigma^{2}\right), \mu_{i}=\beta_{1}+\beta_{2} z_{i}, \sigma^{2}>0, \beta_{1} \in \mathbb{R}\), \(\beta_{2} \in \mathbb{R}\). Show that this forms a canonical exponential family with natural parameter space \(\mathcal{E}=\mathbb{R} \times \mathbb{R} \times(-\infty, 0)\) up to a permutation of the latter three components.
 \end{exercise}
+
+\begin{solution}
+    Knowing that $\mu_i=\beta_1+\beta_2+z_i$, 
+    \begin{align*}
+        f(y_i|\mu_i,\sigma)&=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(y_i-(\beta_1+\beta_2z_i))^2}{2\sigma^2}\right)\\
+        &=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{1}{2\sigma^2}y_i^2+\frac{\beta_1}{\sigma^2}y_i+\frac{\beta_2z_i}{\sigma^2}y_i-\frac{(\beta_1+\beta_2z_i)^2}{\sigma^2}\right). 
+    \end{align*}
+    $\eta=(\frac{\beta_1}{\sigma^2}, \frac{\beta_2z_i}{\sigma^2}, -\frac{1}{\sqrt{2\pi}\sigma})$, $\mathcal{E}=\mathbb{R}\times\mathbb{R}\times(-\infty,0)$. 
+\end{solution}

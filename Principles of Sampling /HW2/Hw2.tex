@@ -1,0 +1,268 @@
+\documentclass[12pt]{article}
+
+\newcommand{\CN}{Principles of Sampling}
+\newcommand{\Ti}{Homework 2}
+\newcommand{\Pf}{Dr. Li}
+\newcommand{\FN}{Zehao}
+\newcommand{\LN}{Wang}
+
+\input{settings.tex}
+\usepackage{longtable}
+
+\begin{document}
+% \maketitle
+\input{title.tex}
+    
+    \section{Homework 2}
+
+    % Levy_5.1, Levy_5.2, Levy_5.3, Levy_5.4
+
+    \begin{exercise}[Levy-5.1]
+        From a simple random serological sample of $1000$ runners selected from $10,000$ who completed the $2007$ Chicago Marathon, $35$ were found to be positive for steroids and other performance-enhancing drugs. When categorized by completion time, the results were as follows: 
+        \begin{center}
+            \begin{tabular}{cccc}
+                \hline
+                \begin{tabular}[c]{@{}c@{}}Completion\\ Time (h)\end{tabular} &
+                  \begin{tabular}[c]{@{}c@{}}No. in\\ Sample\end{tabular} &
+                  \begin{tabular}[c]{@{}c@{}}No. Positive\\ for Drugs\end{tabular} &
+                  \begin{tabular}[c]{@{}c@{}}Percentage\\ Positive\end{tabular} \\ \hline
+                Under 2.5 & 100  & 25 & 25.00 \\
+                2.5-4.0   & 500  & 7  & 1.40  \\
+                Over 4.0  & 400  & 3  & 0.75  \\ \hline
+                Total     & 1000 & 35 & 3.50  \\ \hline
+            \end{tabular}
+        \end{center}
+        \begin{enumerate}[a.]
+            \item What is the standard error of the estimated proportion positive? 
+            \item From inspection (without making calculations) of the rates given above, would you feel that stratification may have resulted in a substantially better estimate? Why or why not? 
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[a. ]
+            \item Let $\hat{p}=0.035$, 
+            \[
+                Var(\hat{p})=(1-1000/10000)\times\frac{0.035\times(1-0.035)}{1000-1}=0.005516152. 
+            \]
+            \item Yes, the above rates show that the positive percentage in the group under 2.5h is much higher than the other two groups. 
+        \end{enumerate}
+    \end{solution}
+
+    \begin{exercise}[Levy-5.2]
+        Suppose that in the situation of Exercise 5.1, of the 10,000 completing the marathon, 2000 completed the event in less than 2.5 h, 6000 completed the event in 2.5-4.0 h, and 2000 completed the event in more than 4 h. Comment on the results of the sampling as given in Exercise 5.1. 
+    \end{exercise}
+
+    \begin{solution}
+        Let $\hat{p}_1=0.25$, $\hat{p}_2=0.014$, $\hat{p}_3=0.0075$, 
+        \[
+            Var(\hat{p}_1)=(1-100/2000)\times\frac{0.25\times(1-0.25)}{100-1}=0.0017992, 
+        \]
+        \[
+            Var(\hat{p}_2)=(1-500/6000)\times\frac{0.014\times(1-0.014)}{500-1}=0.000025358, 
+        \]
+        \[
+            Var(\hat{p}_3)=(1-400/2000)\times\frac{0.0075\times(1-0.0075)}{400-1}=0.000014925, 
+        \]
+        % \[
+        %     Var(\hat{p})=Var(\hat{p}_1)+Var(\hat{p}_2)+Var(\hat{p}_3)=0.001839525, 
+        % \]
+        % \[
+        %     SE(\hat{p})=\sqrt{Var(\hat{{p}})}=0.04288
+        % \]
+        The variance for group under 2.5h is much higher than the other two groups. So, the result for first group is not precision. 
+    \end{solution}
+
+    \begin{exercise}[Levy-5.3]
+        If a stratified random sample of 333 persons in each of the three groups had been taken, what would likely be the resulting estimated percentage positive? 
+    \end{exercise}
+
+    \begin{solution}
+        \[
+            \hat{p}=\sum_{i=1}^3\frac{N_i}{N}\hat{p}_i=0.2\times 0.25+0.6\times 0.014+0.2\times0.0075=0.0599
+        \]
+    \end{solution}
+
+    \begin{exercise}[Levy-5.4]
+        An additional 2000 runners entered the race but did not complete it. Of these runners, a mail questionnaire was sent to a random sample of 600 and completed by 500. One of the items in this questionnaire asked the respondent to estimate the average number of miles run weekly during the 8 weeks preceding the marathon. The mean $\bar{x}$ of the number of miles run was $32.4$ with standard deviation $s_x$ equal to $7.3$. A simple random sample of 500 of the 10,000 runners completing the marathon yielded 400 respondents who averaged 46.8 miles weekly with standard deviation equal to $6.2$ miles. What is the estimated weekly miles run in that period among all those who entered the marathon? 
+    \end{exercise}
+
+    \begin{solution}
+        $\bar{x}_1=32.4$, $\bar{x}_2=46.8$, 
+        \[
+            \bar{x}_{str}=\frac{2000\times32.4+10000\times46.8}{12000}=44.4. 
+        \]
+    \end{solution}
+
+    \begin{table}[ht]
+        \begin{longtable}[c]{lllllllllll}
+            \hline
+            Worker & Exposure & Fvc & Popsize & Wtl &  & Worker & Exposure & Fvc & Popsize & Wtl \\ \hline
+            \endfirsthead
+            %
+            \endhead
+            %
+            \hline
+            \endfoot
+            %
+            \endlastfoot
+            %
+            1      & 3        & 81  & 1200    & 30  &  & 21     & 2        & 70  & 1200    & 30  \\
+            2      & 3        & 64  & 1200    & 30  &  & 22     & 1        & 64  & 1200    & 30  \\
+            3      & 2        & 85  & 1200    & 30  &  & 23     & 3        & 72  & 1200    & 30  \\
+            4      & 2        & 91  & 1200    & 30  &  & 24     & 2        & 72  & 1200    & 30  \\
+            5      & 3        & 60  & 1200    & 30  &  & 25     & 3        & 95  & 1200    & 30  \\
+            6      & 1        & 97  & 1200    & 30  &  & 26     & 3        & 96  & 1200    & 30  \\
+            7      & 1        & 82  & 1200    & 30  &  & 27     & 3        & 62  & 1200    & 30  \\
+            8      & 1        & 99  & 1200    & 30  &  & 28     & 3        & 67  & 1200    & 30  \\
+            9      & 3        & 96  & 1200    & 30  &  & 29     & 3        & 95  & 1200    & 30  \\
+            10     & 3        & 91  & 1200    & 30  &  & 30     & 1        & 87  & 1200    & 30  \\
+            11     & 1        & 71  & 1200    & 30  &  & 31     & 3        & 84  & 1200    & 30  \\
+            12     & 3        & 88  & 1200    & 30  &  & 32     & 3        & 89  & 1200    & 30  \\
+            13     & 2        & 84  & 1200    & 30  &  & 33     & 3        & 89  & 1200    & 30  \\
+            14     & 3        & 85  & 1200    & 30  &  & 34     & 3        & 65  & 1200    & 30  \\
+            15     & 3        & 77  & 1200    & 30  &  & 35     & 3        & 67  & 1200    & 30  \\
+            16     & 3        & 76  & 1200    & 30  &  & 36     & 3        & 69  & 1200    & 30  \\
+            17     & 3        & 62  & 1200    & 30  &  & 37     & 3        & 80  & 1200    & 30  \\
+            18     & 3        & 67  & 1200    & 30  &  & 38     & 3        & 98  & 1200    & 30  \\
+            19     & 3        & 91  & 1200    & 30  &  & 39     & 3        & 65  & 1200    & 30  \\
+            20     & 2        & 99  & 1200    & 30  &  & 40     & 3        & 84  & 1200    & 30  \\ \hline
+        \end{longtable}
+    \end{table}
+    
+
+    \begin{exercise}[Levy-6.2]
+        Let us suppose that the data from Table 3.8 were obtained from a stratified random sample of the 1200 workers in the plant in which the workforce was stratified according to pulmonary stressors (high, medium, low) and that proportional allocation was used to allocate the sample. 
+        \begin{enumerate}[a. ]
+            \item How many workers are there in each stratum? 
+            \item Estimate the mean forced vital capacity among the workers in the plant.
+            How does this estimate differ from the mean that would have been obtained if the sample had been taken by simple random sampling? 
+            \item Obtain a $95\%$ confidence interval for the population mean.
+            \item What is the gain from stratified random sampling over what would have been obtained from simple random sampling?
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[a.]
+            \item \[
+                n_{low}=6/40\times1200=180. 
+            \]
+            \[
+                n_{medium}=6/40\times1200=180. 
+            \]
+            \[
+                n_{high}=28/40\times1200=840. 
+            \]
+            \item \[
+                \hat{x}_{fvc}=\sum_{i=1}^3\frac{n_i}{40}\bar{x}_i=0.15\times83.33+0.15\times83.5+0.7\times79.10714=80.4. 
+            \]
+            They are the same. 
+            \item \[
+            \begin{aligned}
+                SE(\bar{x}_{str})&=\sqrt{\sum_{i=1}^3(N_i/N)^2\frac{s_i^2}{n_i}\left(\frac{N_i-n_i}{N_i}\right)}\\
+                &=\sqrt{0.15^2\frac{194.6667}{6}\left(1-\frac{6}{180}\right)+0.15^2\frac{122.7}{6}\left(1-\frac{6}{180}\right)+0.7^2\frac{157.8029}{28}\left(1-\frac{28}{840}\right)}\\
+                &=1.95447. 
+            \end{aligned}
+            \]
+            So, the confidence interval is 
+            \[
+                [\hat{x}-1.96\times SE(\hat{x}), \hat{x}+1.96\times SE(\hat{x})]=[76.56924, 84.23076]. 
+            \]
+            \item  The variance of the results from the stratified sampling even increased slightly, indicating that the variance between the strata of the original data did not change significantly. 
+        \end{enumerate}
+    \end{solution}
+
+    \begin{exercise}[Levy-6.3]
+        Let us suppose that a household survey is to be taken for the purpose of estimating  characteristics of families having female household heads. Since it is not known in advance of the survey which families have female household heads, the sample households will be screened and those sample households with female heads will be given a detailed interview. It is anticipated that the cost of screening a household is \$10.00 and of interviewing a household having a female head is \$50.00. The population is stratified into three strata according to the latest census information on the proportion of households having female heads. The strata are shown in the accompanying table. Assume that the variance of the characteristics being measured is the same in each stratum and that a total budget of \$10,000 is allowed for the field work. How many households in each stratum should be sampled?
+        \begin{center}
+            \begin{tabular}{ccc}
+                \hline
+                Stratum & No. of Households & \begin{tabular}[c]{@{}c@{}}Percentage of Households\\ Having Female Head\end{tabular} \\ \hline
+                1 & 10000 & 25 \\
+                2 & 20000 & 15 \\
+                3 & 5000  & 10 \\ \hline
+            \end{tabular}
+        \end{center}
+    \end{exercise}
+
+    \begin{solution}
+        The expected cost for screening and interviewing a household in Stratum 1 is $c_1=10+50\times0.25=22.5$; for Stratum 2, it is $c_2=10+50\times0.15=17.5$; and for Stratum 3, it's $c_3=10+50\times0.1=15$. 
+        \[
+            \sum_{i=1}^3S\frac{N_i}{\sqrt{c_i}}=8180.094S. 
+        \]
+        \[
+            \pi_1=\frac{10000/\sqrt{22.5}}{8180.094}=0.2577214, 
+        \]
+        \[
+            \pi_2=\frac{10000/\sqrt{17.5}}{8180.094}=0.5844572, 
+        \]
+        \[
+            \pi_3=\frac{10000/\sqrt{15}}{8180.094}=0.1578215. 
+        \]
+        Suppose we totally sample $n$ households. Then 
+        \[
+            (0.2577214\times22.5+0.5844572\times17.5+0.1578215\times15)n\leqslant10000, 
+        \]
+        \[
+            n\leqslant543.654
+        \]
+        \[
+            n_1=543.654\pi_1=140.1113, 
+        \]
+        \[
+            n_2=543.654\pi_2=317.7425, 
+        \]
+        \[
+            n_3=543.654\pi_3=85.80027. 
+        \]
+        So, $n_1=139$, $n_2=318$, $n_3=86$. 
+    \end{solution}
+
+    \begin{exercise}[Levy-6.4]
+        Consider the 40 workers presented in Table 3.8 to be a simple random sample from the 1200 workers in the plant. 
+        \begin{enumerate}[a.]
+            \item Compute a $90\%$ confidence interval for the population mean forced vital capacity. 
+            \item Suppose it is known, prior to analyzing the data, that the 1200 workers were distributed as follows: 
+            
+            \qquad $N_1=1000$ (number with high exposure)
+
+            \qquad $N_2=100$ (number with medium exposure)
+
+            \qquad $N_3=100$ (number with low exposure)
+
+            Post stratify the original sample of Table 3.8 and construct a $90\%$ confidence interval for the population mean forced vital capacity. 
+            \item Compare the intervals of parts (a) and (b). Which is larger? Why? 
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[a.]
+            \item $Var(\hat{\bar{x}})=(1-40/1200)s^2/40=3.720179$, $SE(\hat{\bar{x}})=1.928777$. So, the $90\%$ confidence intervals is
+            \[
+                [80.4-1.645\times1.928777, 80.4+1.645\times1.928777]=[77.22716, 83.57284].
+            \]
+            \item $\hat{\bar{y}}_1=83.33333$, $\hat{\bar{y}}_2=83.5$, $\hat{\bar{y}}_3=79.10714$, and we have
+            \[
+                \bar{y}_{post}=100/1200\times(83.33333+85)+1000/1200\times79.10714=79.8254. 
+            \]
+            \[
+                \begin{aligned}
+                    Var(\bar{y}_{post})&\approx (1-n/N)\sum_{i=1}^3\frac{N_i}{N}\frac{s_i^2}{n}\\
+                    &=(1-40/1200)\left(\frac{100}{1200}\frac{194.6667}{6}+\frac{100}{1200}\frac{122.7000}{6}+\frac{1000}{1200}\frac{157.8029}{28}\right)\\
+                    &=9.104386\times0.9666667\\
+                    &=8.800906. 
+                \end{aligned}
+            \]
+            \[
+                SE(\bar{y}_{post})=2.966632. 
+            \]
+            So, the $90\%$ confidence intervals is
+            \[
+                [79.8254-1.645\times2.966632, 79.8254+1.645\times2.966632]=[74.94529, 84.70551].
+            \]
+            \item The interval in (b) is larger! Because it uses post stratifying, it may not correspond to the actual situation. 
+        \end{enumerate}
+    \end{solution}
+
+
+    % \printbibliography
+\end{document}
