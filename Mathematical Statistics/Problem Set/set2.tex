@@ -116,6 +116,30 @@
     On a related note, it can be shown that the converse to Proposition \(2.2\) is also true.
 \end{exercise}
 
+\begin{solution}
+    \emph{First, prove propositions 2.1: }
+
+    If $F$ is not injective, then $\exists\, x_1\neq x_2$, s.t. $F(x_1)=F(x_2)$. So, $F$ is not strictly monotone. And we get a contradiction, i.e. $F$ must be injective. 
+
+    \emph{Propositions 2.2 is the definition of convex function. }
+
+    \emph{$v\to iv$: }
+
+    Because $\eta$ is open set, and $f:\,\eta\to A(\eta)$ is strictly convex, then $A'(\eta)$ is strictly monotone, and is an injective mapping. 
+
+    \emph{$iii\to v$: }
+
+    $Var_\eta(T)>0$, i.e. $A''(\eta)>0$, then $A(\eta)$ is strictly convex. 
+
+    \emph{$iv\to ii$: }
+
+    If $\exists\,\eta_1\neq\eta_2$, s.t. $f(x|\eta_1)=f(x|\eta_2)$. Then 
+    \[
+        A'(\eta_1)=E_{\eta_1}(T(X))=E_{\eta_2}(T(X))=A'(\eta_2). 
+    \]
+    So, we ge the contradiction. i.e. $\eta$ is identifiable. 
+\end{solution}
+
 \begin{exercise}
     Let \(X \sim \mathcal{N}\left(\mu, \sigma^{2}\right)\). Consider any \(g \in C^{1}(\mathbb{R})\) such that \(\mathbb{E}_{\eta}\left|g^{\prime}(X)\right|<\infty\). 
     \begin{enumerate}[(a)]
@@ -135,9 +159,79 @@
     \end{enumerate}
 \end{exercise}
 
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item First, $\mu=0$, $\sigma^2=1$. Then 
+        \[
+            \phi(z)=\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{z^2}{2}\right). 
+        \]
+        \[
+            \phi'(z)=-z\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{z^2}{2}\right)=-z\phi(z). 
+        \]
+        Then 
+        \[
+            \begin{aligned}
+                E[g'(Z)]&=\int_{-\infty}^\infty g'(z)\phi(z)\der z\\
+                &=\int_{-\infty}^0 g'(z)\phi(z)\der z + \int_{0}^\infty g'(z)\phi(z)\der z\\
+                &=\int_{-\infty}^0 g'(z)\phi(z)\der z + \int_{0}^\infty g'(z)\int_z^\infty -\phi'(t)\der t \der z\\
+                &=\int_{-\infty}^0 g'(z)\phi(z)\der z + \int_{0}^\infty g'(z)\int_z^\infty t\phi(t)\der t \der z\\
+                &=\int_{-\infty}^0 g'(z)\phi(z)\der z + \int_{0}^\infty\int_z^\infty g'(z) t\phi(t)\der t \der z\\
+                &=\int_{-\infty}^0 g'(z)\phi(z)\der z + \int_{0}^\infty\int_0^t g'(z) t\phi(t)\der z \der t\\
+                &=\int_{-\infty}^0 g'(z)\phi(z)\der z + \int_{0}^\infty (g(t)-g(0))t\phi(t)\der t\\
+                &=\int_{-\infty}^0 (g(t)-g(0))t\phi(t)\der t + \int_{0}^\infty (g(t)-g(0))t\phi(t)\der t\\
+                &=E[z(g(z)-g(0))]=E[zg(z)-zg(0)]=E[zg(z)]. 
+            \end{aligned}
+        \]
+        Let $g(x)=\phi\left(\frac{x-\mu}{\sigma}\right)$, then
+        \[
+            E[g'(x)]=E\left[\frac{1}{\sigma}\phi'\left(\frac{x-\mu}{\sigma}\right)\right]=\frac{1}{\sigma}E\left[\frac{x-\mu}{\sigma}\phi\left(\frac{x-\mu}{\sigma}\right)\right]=\frac{1}{\sigma}E\left[\frac{x-\mu}{\sigma}g(x)\right]
+        \]
+        For normal distribution: 
+        \[
+            \begin{aligned}
+            \phi(x)&=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\\
+            &=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{1}{2\sigma^2}x^2+\frac{\mu}{\sigma^2}x-\frac{\mu^2}{2\sigma^2}\right)
+            \end{aligned}
+        \]
+        $h'(x)=0$, and $T'_1(x)=x$, $T'_2(x)=1$, $\eta=(-1/\sigma^2, \mu/\sigma^2)$. 
+        \[
+            \begin{aligned}
+                &\quad E\left(\left(\frac{h^{\prime}(X)}{h(X)}+\sum_{i=1}^{k} \eta_{i} T_{i}^{\prime}(X)\right) g(X)\right)\\
+                &=E\left(\left(-\frac{1}{\sigma^2}x+\frac{\mu}{\sigma^2}\right) g(X)\right)\\
+                &=E\left(\frac{\mu-x}{\sigma^2} g(X)\right)\\
+                &=-\frac{1}{\sigma} E\left(\frac{x-\mu}{\sigma} g(X)\right)\\
+                &=-E(g'(x)). 
+            \end{aligned}
+        \]
+        \item We can know that \[
+            \frac{1}{\sigma} E\left(\frac{x-\mu}{\sigma} g(X)\right)=E(g'(x)), 
+        \]
+        then let $g(x)=x^2$, 
+        \[
+            E\left(\frac{x-\mu}{\sigma^2}x^2\right)=2\mu, \Rightarrow E(x^3)=3\mu\sigma^2+\mu^3. 
+        \]
+        Let $g(x)=x^3$, then
+        \[
+            E\left(\frac{x-\mu}{\sigma^2}x^3\right)=3(\sigma^2+\mu^2), \Rightarrow E(x^4)=6\mu^2\sigma^2+\mu^4+3\sigma^4. 
+        \]
+    \end{enumerate}
+\end{solution}
+
 \begin{exercise}
     Prove that any (measurable) injective function of a minimal sufficient statistic is a minimal sufficient statistic. 
 \end{exercise}
+
+\begin{solution}
+    Let $T(X)$ be a minimal sufficient statistic, $T^*(X)=f(T(X))$, $g(T^*(X))=T(X)$. Because $T(X)$ is minimal, there is another sufficient statistic $G(X)$ and a measurable function $h$, s.t. 
+    \[
+        h(G(X))=T(X), 
+    \]
+    then
+    \[
+        (f\circ h)(G(X))=f(T(X))=T^*(X). 
+    \]
+    So, $T^*(X)$ is also minimal. 
+\end{solution}
 
 \begin{exercise}
     Prove that, for any two statistics \(T, T^{*}\),
@@ -149,6 +243,21 @@
     T(\mathbf{X})=f\left[T^{*}(\mathbf{X})\right], \quad T^{*}(\mathbf{X})=g[T(\mathbf{X})] \quad \mathcal{P}-a.s.
     \]
 \end{exercise}
+
+\begin{solution}
+    $\Rightarrow: $
+
+    If $T^*(X)=T^*(Y)$, then
+    \[
+        T^*(X)=T^*(Y)\rightarrow f(T^*(X))=f(T^*(Y))\rightarrow T(X)=T(Y). 
+    \]
+    $\Leftarrow: $
+
+    If $T(X)=T(Y)$, then
+    \[
+        T(X)=T(Y)\rightarrow g(T(X))=g(T(Y))\rightarrow T^*(X)=T^*(Y). 
+    \]
+\end{solution}
 
 \begin{exercise}
     Establish the following claims. 
@@ -165,6 +274,15 @@
     \end{enumerate}
 \end{exercise}
 
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item We know that $T$ is $\sigma(T^*)-$measurable and $T^*$ is also $\sigma(T)-$measurable. So, $\sigma(T)=\sigma(T^*)$. 
+        
+        On the other hand, because $\sigma(T)=\sigma(T^*)$, there are $f$ and $g$, s.t. $T=f(T^*)$, $T^*=g(T)$. 
+        \item 
+    \end{enumerate}
+\end{solution}
+
 \begin{exercise}
     Let \(\mathcal{P}=\{f(\mathbf{x} \mid \theta)\}_{\theta \in \Theta}\) be a parametric family. 
     \begin{enumerate}[(a)]
@@ -172,6 +290,13 @@
         \item In addition, suppose \(\mathcal{P}\) corresponds to an i.i.d. sample. Prove that \(\left(X_{(1)}, \ldots, X_{(n)}\right)^T\) is sufficient for \(\theta\). 
     \end{enumerate}
 \end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item $\prod_{i=1}^nf(x_i|\theta)$, $h(X)=1$, $g(T(X), \theta)=g(X,\theta)=\prod_{i=1}^nf(x_i|\theta)$. So, $X$ is sufficient. 
+        \item $\prod_{i=1}^nf(x_{(i)}|\theta)$, $h(X)=1$, $g(T(X), \theta)=g((X_{(1)}, \cdots,X_{(n)})^T,\theta)=\prod_{i=1}^nf(x_{(i)}|\theta)$. So, $(X_{(1)}, \cdots,X_{(n)})^T$ is sufficient. 
+    \end{enumerate}
+\end{solution}
 
 \begin{exercise}
     Let \(f\) be a positive integrable function over \((0, \infty)\), and let \(p(x \mid \theta)\) be the probability density function over \((0, \theta)\) the density defined by
@@ -184,6 +309,13 @@
     If \(X_{1}, \ldots, X_{n}\) are i.i.d. with density \(p(\cdot \mid \theta)\), show that \(X_{(n)}\) is sufficient for \(\theta\). 
 \end{exercise}
 
+\begin{solution}
+    \[
+        \prod_{i=1}^n c(\theta)f(x_i)\mathbf{1}_{x_i<\theta}=c^n(\theta)\prod_{i=1}^nf(x_i)\mathbf{1}_{x_{(n)}<\theta}, 
+    \]
+    $h(x)=\prod_{i=1}^nf(x_i)$, $g(T(X),\theta)=c^n(\theta)\mathbf{1}_{x_{(n)}<\theta}$. So, $X_{(n)}$ is sufficient. 
+\end{solution}
+
 \begin{exercise}
     Let \(f\) be a positive integrable function over \(\mathbb{R}\), and let \(p(x \mid \xi, \eta)\) be the probability density function defined by
     \[
@@ -195,11 +327,20 @@
     If \(X_{1}, \cdots, X_{n}\) are i.i.d. with density \(p(\cdot \mid \xi, \eta)\), show that \(\left(X_{(1)}, X_{(n)}\right)\) is sufficient for \((\xi, \eta)\).
 \end{exercise}
 
+
+\begin{solution}
+    \[
+        \prod_{i=1}^np(x_i|\xi, \eta)=\prod_{i=1}^nc(\xi, \eta) f(x_i)\mathbf{1}_{\xi<X_{(1)}, X_{(n)}<\eta}, 
+    \]
+    $h(x)=\prod_{i=1}^nf(x_i)$, $g(T(X),\xi,\eta)=c^n(\xi,\eta)\mathbf{1}_{\xi<X_{(1)}, X_{(n)}<\eta}$. So, $X_{(1)}, X_{(n)}$ is sufficient for $\xi,\eta$. 
+\end{solution}
+
+
 \begin{exercise}
     \begin{enumerate}[(a)]
         \item Prove that, if \(\mathbf{x}=\left(x_{1}, \ldots, x_{n}\right)\) and \(\mathbf{y}=\left(y_{1}, \ldots, y_{n}\right)\) have the same elementary symmetric functions
         \[
-            \sum_{i} x_{i}=\sum_{i} y_{i}, \quad \sum_{i \neq j} x_{i} x_{j}=\sum_{i \neq j} y_{i} y_{j}, \quad \ldots, \quad \Pi_{i} x_{i}=\Pi_{i} y_{i}
+            \sum_{i} x_{i}=\sum_{i} y_{i}, \quad \sum_{i \neq j} x_{i} x_{j}=\sum_{i \neq j} y_{i} y_{j}, \quad \ldots, \quad \prod_{i} x_{i}=\prod_{i} y_{i}
         \]
         then \(\mathbf{y}\) is a permutation of \(\mathbf{x}\). 
         \item Consider a family \(\mathcal{P}=\{f(\cdot \mid \theta)\}_{\theta \in \Theta}\), where \(f(\cdot \mid \theta)\) is an a.c. density for an i.i.d. sample for all \(\theta\), and set
@@ -208,11 +349,42 @@
         \]
         Now consider \(U=\left(U_{1}(X), \ldots, U_{n}(X)\right)^T\), where
         \[
-            U_{1}(X)=\sum_{i} X_{i}, \quad U_{2}(X)=\sum_{i \neq j} X_{i} X_{j}, \quad \ldots, \quad U_{n}(X)=\Pi_{i} X_{i} .
+            U_{1}(X)=\sum_{i} X_{i}, \quad U_{2}(X)=\sum_{i \neq j} X_{i} X_{j}, \quad \ldots, \quad U_{n}(X)=\prod_{i} X_{i} .
         \]
         Conclude that \(U\) and \(T\) are equivalent. 
     \end{enumerate}
 \end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item We know that elementary symmetric function $e_i(\cdot)$ is the coefficients for the expansion of the following polynomial: 
+        \[
+            \prod_{i=1}^n(\lambda-X_i)=\sum_{j=0}^n(-1)^je_j(X_1,\cdots,X_n)\lambda^{n-j}, 
+        \]
+        $e_0(\cdot)=1$. So, we can get that 
+        \[
+            \sum_{j=0}^n(-1)^je_j(X_1,\cdots,X_n)\lambda^{n-j}=\sum_{j=0}^n(-1)^je_j(Y_1,\cdots,Y_n)\lambda^{n-j}
+        \]
+        \[
+            \Rightarrow \prod_{i=1}^n(\lambda-X_i)=\prod_{i=1}^n(\lambda-Y_i). 
+        \]
+        From the multiplicative exchange law, we know that \(\mathbf{y}\) is a permutation of \(\mathbf{x}\). 
+        \item 
+        \[
+            f_1(U(X))=\sum_iX_i=\sum_iX_{(i)}=g_1(T(X)), 
+        \]
+        \[
+            f_2(U(X))=\sum_{i<j}X_iX_j=\sum_{i<j}X_{(i)}X_{(j)}=g_2(T(X)), 
+        \]
+        \[
+            \cdots\cdots
+        \]
+        \[
+            f_n(U(X))=\prod_{i}X_i=\prod_{i}X_{(i)}=g_n(T(X)). 
+        \]
+        So, $T(X)=(g_1^{-1}\circ f_1,\cdots,g_n^{-1}\circ f_n)(U(X))$, $U(X)=(f_1^{-1}\circ g_1,\cdots,f_n^{-1}\circ g_n)(T(X))$, they are equivalent. 
+    \end{enumerate}
+\end{solution}
 
 \begin{exercise}
     Show that the order statistics are minimal sufficient for the location family
@@ -226,6 +398,17 @@
     i.e., Cauchy \((0,1)\). 
 \end{exercise}
 
+\begin{solution}
+    \[
+        P(X|\theta)=\prod_{i=1}^nf(x_i-\theta)=\pi^{-n}\prod_{i=1}^n(1+(x_i-\theta)^2)^{-1}, 
+    \]
+    If $x\neq y$, 
+    \[
+        \frac{P(X|\theta)}{P(Y|\theta)}=\frac{\prod_{i=1}^n(1+(x_i-\theta)^2)^{-1}}{\prod_{i=1}^n(1+(y_i-\theta)^2)^{-1}}, 
+    \]
+    this ratio must be dependent on $\theta$. So, when $x$ is a permutation of $y$, it is independent on $\theta$. And in this case, $x_{(1)}=y_{(1)}, \cdots, y_{(n)}=y_{(n)}$. 
+\end{solution}
+
 \begin{exercise}
     Consider the curved exponential family \(\{n \text { i.i.d. } \mathcal{N}(\theta, \theta)\}_{\theta>0}\). Show that the sufficient statistic
     \[
@@ -233,6 +416,19 @@
     \]
     is not minimal. 
 \end{exercise}
+
+\begin{solution}
+    \[
+        \begin{aligned} 
+            \prod_{i=1}^{n} f\left(x_{i} \mid \theta\right) &=\prod_{i=1}^{n} \frac{1}{\sqrt{2 \pi \theta}} \exp^{-\frac{\left(x_{i}-\theta\right)^{2}}{2 \theta}} \\ &=(2 \pi \theta)^{-\frac{n}{2}} \prod_{i=1}^{n} \exp \left\{-\frac{1}{2 \theta}\left(x_{i}^{2}-2 \theta x_{i}+\theta^{2}\right)\right\} \\ &=(2 \pi \theta)^{-\frac{n}{2}} \exp \left\{-\frac{1}{2 \theta}\left(\sum_{i=1}^{n} x_{i}^{2}-2 \theta \sum_{i=1}^{n} x_{i}+n \theta^{2}\right)\right\} \\ &=(2 \pi \theta)^{-\frac{n}{2}} \exp \left\{\sum_{i=1}^{n} x_{i}\right\} \exp \left\{-\frac{1}{2 \theta} \sum_{i=1}^{n} x_{i}^{2}\right\} \exp \left\{-\frac{n \theta}{2}\right\}, 
+        \end{aligned}
+    \]
+    So, $T^*(X)=\sum_{i=1}^nx_i^2$ is another sufficient statistic. Let $f(x_1,x_2)=x_2$, then 
+    \[
+        f(T(X))=\sum_{i=1}^nx_i^2 = T^*(X). 
+    \]
+    But we can not find a function s.t. $g(T^*(X))=T(X)$. Thus, $T(X)$ is not minimal. 
+\end{solution}
 
 \begin{exercise}
     Let \(\{f(\mathbf{x} \mid \theta)\}_{\theta \in \mathbb{R}}\) the parametric family corresponding to i.i.d. random variables with joint density function
@@ -249,6 +445,28 @@
     is a minimal sufficient statistic. 
 \end{exercise}
 
+\begin{solution}
+    \begin{align}
+        \begin{aligned}
+        \frac{f(\mathrm{x} \mid \theta)}{f(\mathrm{y} \mid \theta)}=& \exp \left\{4 \theta^{3}\left(\sum_{i=1}^{n} x_{i}-\sum_{i=1}^{n} y_{i}\right)-6 \theta^{2}\left(\sum_{i=1}^{n} x_{i}^{2}-\sum_{i=1}^{n} y_{i}^{2}\right)\right.\\
+        &\left.+4 \theta\left(\sum_{i=1}^{n} x_{i}^{3}-\sum_{i=1}^{n} y_{i}^{3}\right)-\left(\sum_{i=1}^{n} x_{i}^{4}-\sum_{i=1}^{n} y_{i}^{4}\right)\right\}, 
+        \end{aligned}
+    \end{align}
+    if we want $\frac{f(\mathrm{x} \mid \theta)}{f(\mathrm{y} \mid \theta)}$ is independent on $\theta$, then we have
+    \[
+        \left\{\begin{array} { l } 
+            { \sum _ { i = 1 } ^ { n } x _ { i } - \sum _ { i = 1 } ^ { n } y _ { i } = 0 } \\
+            { \sum _ { i = 1 } ^ { n } x _ { i } ^ { 2 } - \sum _ { i = 1 } ^ { n } y _ { i } ^ { 2 } = 0 } \\
+            { \sum _ { i = 1 } ^ { n } x _ { i } ^ { 3 } - \sum _ { i = 1 } ^ { n } y _ { i } ^ { 3 } = 0 }
+        \end{array}\right. \quad \Leftrightarrow \quad \left\{\begin{array}{l}
+            \sum_{i=1}^{n} x_{i}=\sum_{i=1}^{n} y_{i} \\
+            \sum_{i=1}^{n} x_{i}^{2}=\sum_{i=1}^{n} y_{i}^{2} \\
+            \sum_{i=1}^{n} x_{i}^{3}=\sum_{i=1}^{n} y_{i}^{3}
+        \end{array}\right.
+    \]
+    So, $T(X)$ must be minimal. 
+\end{solution}
+
 \begin{exercise}
     Consider an i.i.d. Poisson family with parameter \(\lambda \in(0, \infty)\), i.e.,
     \[
@@ -262,23 +480,22 @@
     \end{enumerate}
 \end{exercise}
 
-
-% \begin{solution}
-%     \begin{enumerate}
-%         \item A Table: 
-        
-%         \begin{mytable}[nofloat]{Table}
-%             \small
-%             \begin{tabular}{|l|lll|lll|}
-%                 \hline
-%                 Method      &                               & Gender                      &                   &                               & CIRSTTL                      &                   \\ \cline{2-7} 
-%                             & \multicolumn{1}{l|}{Estimate} & \multicolumn{1}{l|}{SE}     & P-value           & \multicolumn{1}{l|}{Estimate} & \multicolumn{1}{l|}{SE}      & P-value           \\ \hline
-%                 Pooled Data & \multicolumn{1}{l|}{-2.2414}  & \multicolumn{1}{l|}{0.3652} & \textless{}0.0001 & \multicolumn{1}{l|}{0.7239}   & \multicolumn{1}{l|}{0.0588}  & \textless{}0.0001 \\ \hline
-%                 GEE(Ind)    & \multicolumn{1}{l|}{-2.2414}  & \multicolumn{1}{l|}{0.5793} & 0.0001            & \multicolumn{1}{l|}{0.7239}   & \multicolumn{1}{l|}{0.1017}  & \textless{}0.0001 \\ \hline
-%                 GEE(Exch)   & \multicolumn{1}{l|}{-2.0592}  & \multicolumn{1}{l|}{0.5925} & 0.0005            & \multicolumn{1}{l|}{0.558}    & \multicolumn{1}{l|}{0.08676} & \textless{}0.0001 \\ \hline
-%                 GEE(AR1)    & \multicolumn{1}{l|}{-2.3067}  & \multicolumn{1}{l|}{0.5796} & \textless{}0.0001 & \multicolumn{1}{l|}{0.6334}   & \multicolumn{1}{l|}{0.0911}  & \textless{}0.0001 \\ \hline
-%                 \end{tabular}            
-%         \end{mytable}
-%     \end{enumerate}
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item \[
+                f(x|\lambda)=\frac{1}{(\prod_{i=1}^nx_i!)^{-1}}\exp\left(\log{\lambda} \sum_{i=1}^nx_i-n\lambda\right). 
+            \]
+            So, it is generated by $\langle \sum_{i=1}^nx, (\prod_{i=1}^nx_i!)^{-1} \rangle$. And 
+            \[
+                \frac{f(x|\theta)}{f(y|\theta)} = \frac{\prod_{i=1}^ny_i!}{\prod_{i=1}^nx_i!}\exp\left(\log\lambda\left(\sum_{i=1}^n x_i-\sum_{i=1}^n y_i\right)\right). 
+            \]
+            So, $\sum_{i=1}^n x_i=\sum_{i=1}^n y_i$. $T(x)=\sum_{i=1}^n x_i$ is minimal statistic. 
+        \item \[
+            f(x|\lambda)=\frac{1}{(\prod_{i=1}^nx_i!)^{-1}}\exp\left(\log{\lambda} (\alpha T_1(X)+(1-\alpha)T_2(X)) - n\lambda\right). 
+        \]
+        So ,let $\eta=(\alpha\log\lambda, (1-\alpha)\log\lambda)$, then we get the same results. 
+        \item $\alpha\in\mathbb{R}$, $\log\lambda\in\mathbb{R}$. So, $\eta\in\mathbb{R}^2$. Similarly, $(T_1(X),T_2(X))$ is also minimal statistic. 
+        \item No, $T(X)$ is minimal for $\lambda$; $(T_1(X), T_2(X))$ is minimal for $(\lambda, \alpha)$. 
+    \end{enumerate}
     
-% \end{solution}
+\end{solution}
