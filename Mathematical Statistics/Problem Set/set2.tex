@@ -245,18 +245,19 @@
 \end{exercise}
 
 \begin{solution}
-    $\Rightarrow: $
+    $\Leftarrow: $
 
-    If $T^*(X)=T^*(Y)$, then
+    If $T^*(X)=T^*(Y)\Leftrightarrow T(X)=T(Y)$, then
     \[
         T^*(X)=T^*(Y)\rightarrow f(T^*(X))=f(T^*(Y))\rightarrow T(X)=T(Y). 
     \]
-    $\Leftarrow: $
 
     If $T(X)=T(Y)$, then
     \[
         T(X)=T(Y)\rightarrow g(T(X))=g(T(Y))\rightarrow T^*(X)=T^*(Y). 
     \]
+
+    $\Rightarrow: $
 \end{solution}
 
 \begin{exercise}
@@ -406,7 +407,7 @@
     \[
         \frac{P(X|\theta)}{P(Y|\theta)}=\frac{\prod_{i=1}^n(1+(x_i-\theta)^2)^{-1}}{\prod_{i=1}^n(1+(y_i-\theta)^2)^{-1}}, 
     \]
-    this ratio must be dependent on $\theta$. So, when $x$ is a permutation of $y$, it is independent on $\theta$. And in this case, $x_{(1)}=y_{(1)}, \cdots, y_{(n)}=y_{(n)}$. 
+    this ratio must be dependent on $\theta$. So, when $x$ is a permutation of $y$, it is independent on $\theta$. And in this case, $x_{(1)}=y_{(1)}, \cdots, y_{(n)}=y_{(n)}$. Then, $(X_{(1)}, \cdots, X_{(n)})$ is minimal sufficient statistic. 
 \end{solution}
 
 \begin{exercise}

@@ -78,7 +78,7 @@
 
     \begin{solution}
         \[
-            \hat{p}=\sum_{i=1}^3\frac{N_i}{N}\hat{p}_i=0.2\times 0.25+0.6\times 0.014+0.2\times0.0075=0.0599
+            \hat{p}=\sum_{i=1}^3\frac{N_i}{N}\hat{p}_i=0.2\times 0.25+0.6\times 0.014+0.2\times0.0075=0.0599. 
         \]
     \end{solution}
 
@@ -193,10 +193,10 @@
             \pi_1=\frac{10000/\sqrt{22.5}}{8180.094}=0.2577214, 
         \]
         \[
-            \pi_2=\frac{10000/\sqrt{17.5}}{8180.094}=0.5844572, 
+            \pi_2=\frac{20000/\sqrt{17.5}}{8180.094}=0.5844572, 
         \]
         \[
-            \pi_3=\frac{10000/\sqrt{15}}{8180.094}=0.1578215. 
+            \pi_3=\frac{5000/\sqrt{15}}{8180.094}=0.1578215. 
         \]
         Suppose we totally sample $n$ households. Then 
         \[
@@ -246,18 +246,18 @@
             \]
             \[
                 \begin{aligned}
-                    Var(\bar{y}_{post})&\approx (1-n/N)\sum_{i=1}^3\frac{N_i}{N}\frac{s_i^2}{n}\\
-                    &=(1-40/1200)\left(\frac{100}{1200}\frac{194.6667}{6}+\frac{100}{1200}\frac{122.7000}{6}+\frac{1000}{1200}\frac{157.8029}{28}\right)\\
-                    &=9.104386\times0.9666667\\
-                    &=8.800906. 
+                    Var(\bar{y}_{post})&= 1/n(1-n/N)\sum_{i=1}^3\frac{N_i}{N}s_i^2+1/n^2\sum_{i=1}^3s_i^2\frac{N-n_i}{N}\\
+                    &=1/40(1-40/1200)\left(\frac{100}{1200}194.6667+\frac{100}{1200}122.7000+\frac{1000}{1200}157.8029\right)\\
+                    &\quad+1/40^2\left(194.6667\frac{1200-6}{1200}+122.7000\frac{1200-6}{1200}+157.8029\frac{1200-28}{1200}\right)\\
+                    &=4.110804. 
                 \end{aligned}
             \]
             \[
-                SE(\bar{y}_{post})=2.966632. 
+                SE(\bar{y}_{post})=2.027512. 
             \]
             So, the $90\%$ confidence intervals is
             \[
-                [79.8254-1.645\times2.966632, 79.8254+1.645\times2.966632]=[74.94529, 84.70551].
+                [79.8254-1.645\times2.027512, 79.8254+1.645\times2.027512]=[76.49014, 83.16065].
             \]
             \item The interval in (b) is larger! Because it uses post stratifying, it may not correspond to the actual situation. 
         \end{enumerate}

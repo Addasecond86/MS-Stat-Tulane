@@ -39,11 +39,31 @@
     \section*{\Ti}
 
     \begin{exercise}
-        
+        Let \(\mathcal{P}\) be a family of probability measures. If \(T\) is complete for \(\mathcal{P}\) and \(U\) is equivalent to \(T\), show that \(U\) is complete for \(\mathcal{P}\). 
     \end{exercise}
-
-    \begin{proof}
+    
+    \begin{solution}
+        For $T$, if it is complete, then for some function $g(T)$, 
+        \[
+            \int g(t)f(t)\der t=0 \Rightarrow \Pr(g(t)=0)=1. 
+        \]
+        Now, $T=h(U)$, and let $l(u)=g\circ h(u)$, we can get that 
+        \[
+            \int l(u)f(u)\der u=0 \Rightarrow \Pr(l(u)=0)=1. 
+        \]
+        So, $U$ is also complete. 
+    \end{solution}
+    
+    \begin{exercise}
+        Let \(X_{1}, \ldots, X_{n} \stackrel{i.i.d. }{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right)\), \(\mu \in \mathbb{R}, \sigma^{2}>0 .\) Show that \(\bar{X}\) and \(S^{2}\) are independent. 
         
-    \end{proof}
+        (\rmk{2}: this classical result can be shown by means of characteristic functions. However, in the context of our course, a much shorter proof can be provided). 
+    \end{exercise}
+    
+    \begin{solution}
+        We know that $(\bar{X}, S^2)$ are sufficient. And $\bar{X}\sim N(\mu,\sigma^2/n)$. So, $\bar{X}$ is complete for $\mu$ (Because $N(\mu,\sigma^2/n)$ is full rank exponential family). 
+        
+        And $S^2$ only depends on $\sigma^2$ (Because $\frac{(n-1)S^2}{\sigma^2}=\sum_{i=1}^n(\frac{X-\bar{X}}{\sigma})^2\sim\chi_n^2$), it is an ancillary statistic. So, from Basu's theorem, they are independent. 
+    \end{solution}
     % \printbibliography
 \end{document}
