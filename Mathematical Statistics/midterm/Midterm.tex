@@ -1,0 +1,102 @@
+\documentclass[en]{elegantpaper}
+
+\begin{document}
+\section*{1}
+\noindent Because $\mu_i=\beta_1+\beta_2z_i$, then
+\begin{align*}
+    f(y_i|\mu_i,\sigma)&=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(y_i-(\beta_1+\beta_2z_i))^2}{2\sigma^2}\right)\\
+    &=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{1}{2\sigma^2}y_i^2+\frac{\beta_1}{\sigma^2}y_i+\frac{\beta_2z_i}{\sigma^2}y_i-\frac{(\beta_1+\beta_2z_i)^2}{\sigma^2}\right). 
+\end{align*}
+$\eta=(\frac{\beta_1}{\sigma^2}, \frac{\beta_2z_i}{\sigma^2}, -\frac{1}{\sqrt{2\pi}\sigma})$. So, $\mathcal{E}=\mathbb{R}\times\mathbb{R}\times(-\infty,0)$. 
+\section*{2}
+    \noindent Because normal distribution is exponential family, $\bar{X}, S^2$ is the sufficient and complete (because the interior of the natural parameter space is not empty) statistics for $\mu$ and $\sigma^2$. And $\bar{X}\sim N(\mu, \sigma^2/n)$, 
+    \[
+        Var(\bar{X})=\mathbb{E}(\bar{X}^2)-(\mathbb{E}X)^2, 
+    \]
+    \[
+        \mathbb{E}(\bar{X}^2)=\mu^2+\frac{\sigma^2}{n}. 
+    \]
+    So, \[
+        \mathbb{E}\left(\bar{X}^2-\frac{S^2}{n}\right)=\mu^2. 
+    \]
+    From \emph{Lehman-Scheffe theorem}, we can know that $T(X)=\bar{X}^2-S^2/n$ is UMVU of $\mu^2$. 
+    \section*{3}
+    \noindent For Beta($\alpha. \alpha$), 
+    \[
+        f(x|\alpha)=\mathbf{1}_{0<x<1}\exp\left((\alpha-1)\log(x(1-x))-\log\left(\frac{\Gamma^2(\alpha)}{\Gamma(2\alpha)}\right)\right). 
+    \]
+    Let $\eta=\alpha-1$, then $A(\eta)=\log\frac{\Gamma^2(\eta+1)}{\Gamma(2\eta+2)}$. And we know that $T(X)=\log(X(1-X))$ is a sufficient statistics. So, 
+    \[
+        \begin{aligned}
+            \mathbb{E}(T(X))=A'(\eta){}&=\log(\Gamma^2(\eta+1))-\log(\Gamma(2\eta+2))\\&=\frac{2\Gamma(\eta+1)\Gamma'(\eta+1)}{\Gamma^2(\eta+1)}-\frac{2\Gamma'(2\eta+2)}{\Gamma(2\eta+2)}\\
+            &=\frac{2\Gamma(\alpha)\Gamma'(\alpha)}{\Gamma^2(\alpha)}-\frac{2\Gamma'(2\alpha)}{\Gamma(2\alpha)}
+        \end{aligned}
+    \]
+    where $\Gamma'(n)=(n-1)!\left(\sum_{i=1}^{n-1}\frac{1}{i}-\gamma\right)$, $\gamma$ is Euler's constant. 
+    \section*{4}
+    \noindent For Gamma distribution, 
+    \[
+        f(\mathbf{x}|\alpha_0, \lambda)=\frac{\prod{x_i}^{\alpha_0-1}}{\Gamma^n(\alpha_0)}\exp\left(-\lambda\sum^n x_i+n\alpha_0\log(\lambda)\right). 
+    \]
+    So, $T(X)=\bar{X}$ is a sufficient and complete statistics for $\lambda$. Next, we need to prove that $X_1/\bar{X}$ is an ancillary statistics. 
+
+    Let $Z\sim\Gamma(\alpha_0, 1)$, then 
+    \[
+        X\sim\lambda^{\alpha_0}e^{-\lambda}Z, \quad \bar{X}\sim \lambda^{\alpha_0}e^{-\lambda}\bar{Z}. 
+    \]
+    So, 
+    \[
+        \frac{X_1}{\bar{X}}\sim\frac{\lambda^{\alpha_0}e^{-\lambda}Z_1}{\lambda^{\alpha_0}e^{-\lambda}\bar{Z}}=\frac{Z_1}{\bar{Z}}. 
+    \]
+    This ratio is independent on $\lambda$, i.e., it is an ancillary statistics. So, from \emph{Basu theorem}, $X_1/\bar{X}$ is independent with $\bar{X}$. 
+    \section*{5}
+    \noindent When $\eta=1$, 
+    \[
+        f(\mathbf{x})=1\Big/\prod(x_i)\exp\left(\log\theta\sum_{i=1}^nx_i-n\theta\right), 
+    \]
+    for $\mathbf{y}\neq\mathbf{x}$, 
+    \[
+        \frac{f(\mathbf{x})}{f(\mathbf{y})}=\frac{\prod y_i}{\prod x_i}\exp\left(\log\theta \left(\sum_{i=1}^nx_i-\sum_{i=1}^ny_i\right)\right). 
+    \]
+    So, $T_1(X)=\sum_{i=1}^nX_i$ is the minimal sufficient statistic for $\theta$. 
+    
+    \, 
+
+    \noindent When $\eta=2$, 
+    \[
+        f(\mathbf(x))=\theta^{\sum x_i}(1-\theta)^{n-\sum x_i}, 
+    \]
+    for $\mathbf{y}\neq\mathbf{x}$, 
+    \[
+        \frac{f(\mathbf{x})}{f(\mathbf{y})}=\theta^{\sum x_i-\sum y_i}(1-\theta)^{\sum y_i-\sum x_i}. 
+    \]
+    So, $T_2(X)=\sum_{i=1}^nX_i$ is a minimal sufficient statistic for $\theta$. 
+
+    \,
+
+    \noindent Overall, $T(X)=\sum_{i=1}^{n}X_i$ is the minimal sufficient statistic for $(\theta, \eta)$. 
+    \section*{6}
+    \noindent  For Poisson distribution, 
+    \[
+        f(x=k|\lambda)=\frac{\lambda^k}{k!}e^{-\lambda}=1/k!\exp\left(k\log\lambda-\lambda\right), 
+    \]
+    \[
+        f(X=K|\lambda)=1\Big/\prod k_i!\exp\left(\log\lambda\sum_{i=1}^n(k_i)-n\lambda\right). 
+    \]
+    So, \(T(X)=\sum_{i=1}^{n} X_{i}\) is sufficient and complete for \(\lambda\). Let $\log\lambda=\theta$, 
+    \[
+        \mathbb{E}(T)=\left(ne^\theta\right)'=n\lambda. 
+    \]
+    Hence, UMVU for $\lambda$ is $T/n$. Let $h(t)$ be UMVU for $\lambda^r$, then
+    \[
+        \mathbb{E}(h(T))=\sum_{i=0}^\infty\frac{h(i)n^i}{i!}\lambda^i=e^{n\lambda}\lambda^r=\sum_{i=0}^\infty\frac{(n\lambda)^i}{i!}\lambda^r. 
+    \]
+    Then, compare the coefficients for both sides, when $t<r$, 
+    \[
+        h(t)=0. 
+    \]
+    But when $t\geqslant r$, 
+    \[
+        h(t)=\frac{t!}{n^r(t-r)!}. 
+    \]
+\end{document}

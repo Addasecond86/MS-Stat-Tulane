@@ -1,0 +1,94 @@
+---
+title: "Regression Analysis Homework 3"
+author: "Zehao Wang"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+Environment Information. 
+
+```{r warning=FALSE}
+sessionInfo()
+```
+
+
+## 1. 
+In a crime rate study, several variables have been measured (see data in the attached file “HW3_data.txt”), including: 
+
+- Year: "Year"
+- fertil: "Fertility Rate per 1000"
+- labor: "Labor Force Participation Rate per 1000"
+- postsec:  "Post Secondary Degree Rate per 1000"
+- findict:  "Female Indictable-Offense Conviction Rate per 100,000"
+- ftheft:  "Female Theft Conviction Rate per 100,000"
+- mindict:  "Male Indictable-Offense Conviction Rate per 100,000"
+- mtheft: "Male Theft Conviction Rate per 100,000"
+
+The investigators were interested in “ftheft” (Y), and effects by the other factors (X’s) including fertile, labor, postsec, and mtheft. Linear regression analysis is conducted. 
+
+### A. Based on the bivariate plots between ftheft and a particular predictor, indicate the potential relationships between ftheft and the predictors. 
+
+```{r message=FALSE, warning=FALSE}
+data <- read_table("HW3_data.txt")
+```
+
+```{r fig.height=3, fig.width=4}
+data %>%
+    ggplot(mapping = aes(fertil, ftheft)) +
+    geom_point() +
+    theme_bw()
+
+data %>%
+    ggplot(mapping = aes(labor, ftheft)) +
+    geom_point() +
+    theme_bw()
+
+data %>%
+    ggplot(mapping = aes(postsec, ftheft)) +
+    geom_point() +
+    theme_bw()
+
+data %>%
+    ggplot(mapping = aes(mtheft, ftheft)) +
+    geom_point() +
+    theme_bw()
+```
+
+From these plots, `labor` and `postsec` have a positive linear relationship with `ftheft`. And other two variables seem to have no linear relationship with `ftheft`. 
+
+### B. When all four X factors are in the model, create the plot between residuals and “year”. Any hints for violation of regression assumptions?
+
+```{r}
+lm_1 <- lm(ftheft ~ fertil + labor + postsec + mtheft, data)
+```
+
+```{r}
+plot(lm_1)
+```
+
+
+```{r fig.height=3, fig.width=4}
+tibble(x = data$year, y = lm_1$residuals) %>%
+    ggplot(mapping = aes(x, y)) +
+    geom_point() +
+    theme_bw()
+```
+
+The distribution of the residuals appears to be random, so that no violation of the assumptions can be seen. 
+
+### C. Conduct influence analysis for the data set. Any outliers/influence points? Explain. 
+
+
+
+
+
+
+

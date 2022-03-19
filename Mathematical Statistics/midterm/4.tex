@@ -1,0 +1,20 @@
+\documentclass[en,12pt]{elegantpaper}
+
+\begin{document}
+    \section*{4}
+    \noindent For Gamma distribution, 
+    \[
+        f(\mathbf{x}|\alpha_0, \lambda)=\frac{\prod{x_i}^{\alpha_0-1}}{\Gamma^n(\alpha_0)}\exp\left(-\lambda\sum^n x_i+n\alpha_0\log(\lambda)\right). 
+    \]
+    So, $T(X)=\bar{X}$ is a sufficient and complete statistics for $\lambda$. Next, we need to prove that $X_1/\bar{X}$ is an ancillary statistics. 
+
+    Let $Z\sim\Gamma(\alpha_0, 1)$, then 
+    \[
+        X\sim\lambda^{\alpha_0}e^{-\lambda}Z, \quad \bar{X}\sim \lambda^{\alpha_0}e^{-\lambda}\bar{Z}. 
+    \]
+    So, 
+    \[
+        \frac{X_1}{\bar{X}}\sim\frac{\lambda^{\alpha_0}e^{-\lambda}Z_1}{\lambda^{\alpha_0}e^{-\lambda}\bar{Z}}=\frac{Z_1}{\bar{Z}}. 
+    \]
+    This ratio is independent on $\lambda$, i.e., it is an ancillary statistics. So, from \emph{Basu theorem}, $X_1/\bar{X}$ is independent with $\bar{X}$. 
+\end{document}

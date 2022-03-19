@@ -1,0 +1,17 @@
+\documentclass[en,12pt]{elegantpaper}
+
+\begin{document}
+    \section*{2}
+    \noindent Because normal distribution is exponential family, $\bar{X}, S^2$ is the sufficient and complete (because the interior of the natural parameter space is not empty) statistics for $\mu$ and $\sigma^2$. And $\bar{X}\sim N(\mu, \sigma^2/n)$, 
+    \[
+        Var(\bar{X})=\mathbb{E}(\bar{X}^2)-(\mathbb{E}X)^2, 
+    \]
+    \[
+        \mathbb{E}(\bar{X}^2)=\mu^2+\frac{\sigma^2}{n}. 
+    \]
+    So, \[
+        \mathbb{E}\left(\bar{X}^2-\frac{S^2}{n}\right)=\mu^2. 
+    \]
+    From \emph{Lehman-Scheffe theorem}, we can know that $T(X)=\bar{X}^2-S^2/n$ is UMVU of $\mu^2$. 
+
+\end{document}

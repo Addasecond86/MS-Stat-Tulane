@@ -38,20 +38,20 @@
 
     \section*{\Ti}
 
-    \begin{exercise}
-        Let \(\mathcal{P}\) be a family of probability measures. If \(T\) is complete for \(\mathcal{P}\) and \(U\) is equivalent to \(T\), show that \(U\) is complete for \(\mathcal{P}\). 
-    \end{exercise}
-    
     \begin{solution}
-        For $T$, if it is complete, then for some function $g(T)$, 
+        Let $f(t)$ be the distribution of $T$ and $T=m(U)$. Then $f^*(u)=f(m(U))m'(U)$. For $T$, if it is complete, then for any function $g(T)$, 
         \[
             \int g(t)f(t)\der t=0 \Rightarrow \Pr(g(t)=0)=1. 
         \]
-        Now, $T=h(U)$, and let $l(u)=g\circ h(u)$, we can get that 
+        Substitute $t$ with $m(u)$. Then, 
         \[
-            \int l(u)f(u)\der u=0 \Rightarrow \Pr(l(u)=0)=1. 
+            \begin{aligned}
+                &\quad\,\int g(m(u))f(m(u))\der (m(u))\\
+                &=\int g(m(u))f(m(u))m'(u)\der u\\
+                &=\int g(m(u))f^*(u)\der u=0\Rightarrow \Pr(g(m(u))=0)=1. 
+            \end{aligned}
         \]
-        So, $U$ is also complete. 
+        And because the arbitrary of $g$, $g(m(u))$ can be taken as any function of $u$. So, $U$ is also complete. 
     \end{solution}
     
     \begin{exercise}
@@ -62,7 +62,7 @@
     
     \begin{solution}
         We know that $(\bar{X}, S^2)$ are sufficient. And $\bar{X}\sim N(\mu,\sigma^2/n)$. So, $\bar{X}$ is complete for $\mu$ (Because $N(\mu,\sigma^2/n)$ is full rank exponential family). 
-        
+            
         And $S^2$ only depends on $\sigma^2$ (Because $\frac{(n-1)S^2}{\sigma^2}=\sum_{i=1}^n(\frac{X-\bar{X}}{\sigma})^2\sim\chi_n^2$), it is an ancillary statistic. So, from Basu's theorem, they are independent. 
     \end{solution}
     % \printbibliography

@@ -1,0 +1,28 @@
+\documentclass[en,12pt]{elegantpaper}
+
+\begin{document}
+    \section*{6}
+    \noindent  For Poisson distribution, 
+    \[
+        f(x=k|\lambda)=\frac{\lambda^k}{k!}e^{-\lambda}=1/k!\exp\left(k\log\lambda-\lambda\right), 
+    \]
+    \[
+        f(X=K|\lambda)=1\Big/\prod k_i!\exp\left(\log\lambda\sum_{i=1}^n(k_i)-n\lambda\right). 
+    \]
+    So, \(T(X)=\sum_{i=1}^{n} X_{i}\) is sufficient and complete for \(\lambda\). Let $\log\lambda=\theta$, 
+    \[
+        \mathbb{E}(T)=\left(ne^\theta\right)'=n\lambda. 
+    \]
+    Hence, UMVU for $\lambda$ is $T/n$. Let $h(t)$ be UMVU for $\lambda^r$, then
+    \[
+        \mathbb{E}(h(T))=\sum_{i=0}^\infty\frac{h(i)n^i}{i!}\lambda^i=e^{n\lambda}\lambda^r=\sum_{i=0}^\infty\frac{(n\lambda)^i}{i!}\lambda^r. 
+    \]
+    Then, compare the coefficients for both sides, when $t<r$, 
+    \[
+        h(t)=0. 
+    \]
+    But when $t\geqslant r$, 
+    \[
+        h(t)=\frac{t!}{n^r(t-r)!}. 
+    \]
+\end{document}

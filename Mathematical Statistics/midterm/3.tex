@@ -1,0 +1,17 @@
+\documentclass[en,12pt]{elegantpaper}
+
+\begin{document}
+    \section*{3}
+    \noindent For Beta($\alpha. \alpha$), 
+    \[
+        f(x|\alpha)=\mathbf{1}_{0<x<1}\exp\left((\alpha-1)\log(x(1-x))-\log\left(\frac{\Gamma^2(\alpha)}{\Gamma(2\alpha)}\right)\right). 
+    \]
+    Let $\eta=\alpha-1$, then $A(\eta)=\log\frac{\Gamma^2(\eta+1)}{\Gamma(2\eta+2)}$. And we know that $T(X)=\log(X(1-X))$ is a sufficient statistics. So, 
+    \[
+        \begin{aligned}
+            \mathbb{E}(T(X))=A'(\eta){}&=\log(\Gamma^2(\eta+1))-\log(\Gamma(2\eta+2))\\&=\frac{2\Gamma(\eta+1)\Gamma'(\eta+1)}{\Gamma^2(\eta+1)}-\frac{2\Gamma'(2\eta+2)}{\Gamma(2\eta+2)}\\
+            &=\frac{2\Gamma(\alpha)\Gamma'(\alpha)}{\Gamma^2(\alpha)}-\frac{2\Gamma'(2\alpha)}{\Gamma(2\alpha)}
+        \end{aligned}
+    \]
+    where $\Gamma'(n)=(n-1)!\left(\sum_{i=1}^{n-1}\frac{1}{i}-\gamma\right)$, $\gamma$ is Euler's constant. 
+\end{document}

@@ -1,0 +1,31 @@
+\documentclass[en,12pt]{elegantpaper}
+
+\begin{document}
+    \section*{5}
+    \noindent When $\eta=1$, 
+    \[
+        f(\mathbf{x})=1\Big/\prod(x_i)\exp\left(\log\theta\sum_{i=1}^nx_i-n\theta\right), 
+    \]
+    for $\mathbf{y}\neq\mathbf{x}$, 
+    \[
+        \frac{f(\mathbf{x})}{f(\mathbf{y})}=\frac{\prod y_i}{\prod x_i}\exp\left(\log\theta \left(\sum_{i=1}^nx_i-\sum_{i=1}^ny_i\right)\right). 
+    \]
+    So, $T_1(X)=\sum_{i=1}^nX_i$ is the minimal sufficient statistic for $\theta$. 
+    
+    \, 
+
+    \noindent When $\eta=2$, 
+    \[
+        f(\mathbf(x))=\theta^{\sum x_i}(1-\theta)^{n-\sum x_i}, 
+    \]
+    for $\mathbf{y}\neq\mathbf{x}$, 
+    \[
+        \frac{f(\mathbf{x})}{f(\mathbf{y})}=\theta^{\sum x_i-\sum y_i}(1-\theta)^{\sum y_i-\sum x_i}. 
+    \]
+    So, $T_2(X)=\sum_{i=1}^nX_i$ is a minimal sufficient statistic for $\theta$. 
+
+    \,
+
+    \noindent Overall, $T(X)=\sum_{i=1}^{n}X_i$ is the minimal sufficient statistic for $(\theta, \eta)$. 
+
+\end{document}

@@ -1,0 +1,11 @@
+\documentclass[en,12pt]{elegantpaper}
+
+\begin{document}
+    \section*{1}
+    \noindent Because $\mu_i=\beta_1+\beta_2z_i$, then
+    \begin{align*}
+        f(y_i|\mu_i,\sigma)&=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(y_i-(\beta_1+\beta_2z_i))^2}{2\sigma^2}\right)\\
+        &=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{1}{2\sigma^2}y_i^2+\frac{\beta_1}{\sigma^2}y_i+\frac{\beta_2z_i}{\sigma^2}y_i-\frac{(\beta_1+\beta_2z_i)^2}{\sigma^2}\right). 
+    \end{align*}
+    $\eta=(\frac{\beta_1}{\sigma^2}, \frac{\beta_2z_i}{\sigma^2}, -\frac{1}{\sqrt{2\pi}\sigma})$. So, $\mathcal{E}=\mathbb{R}\times\mathbb{R}\times(-\infty,0)$. 
+\end{document}

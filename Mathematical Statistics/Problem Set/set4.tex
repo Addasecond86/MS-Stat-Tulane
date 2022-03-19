@@ -1,0 +1,39 @@
+\section{Problem Set \#4}
+
+\begin{exercise}
+    Let \(\left\{\mathbb{P}_{\theta}\right\}_{\theta \in \Theta}, \Theta \subseteq \mathbb{R}\), be an identifiable parametric family of distributions with common support, where card \((\Theta) \geq 2\). Consider the family of estimators \(\Delta=\left\{\delta(\mathbf{X}): \mathbb{E}_{\theta} \delta^{2}<\infty, \theta \in\right.\) \(\Theta\}\) and the loss function \(L(\theta, a)=(\theta-a)^{2}\). Prove that there does not exist an estimator \(\delta(\mathbf{X})\) for which \(R(\theta, \delta)=0, \theta \in \Theta\).
+\end{exercise}
+
+\begin{solution}
+    solution
+\end{solution}
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. If \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma_{0}^{2}\right), \mu \in \mathbb{R}\), where \(\sigma_{0}^{2}\) is known, let \(\delta(\mathbf{X})=\sum_{i=1}^{n} c_{i} X_{i}\) be any linear estimator of \(\mu\). Show that, if \(\delta\) is biased, then the quadratic risk \(\mathbb{E}_{\mu}(\delta-\mu)^{2}\) is unbounded.
+3. Let \(\mathcal{P}=\left\{\mathbb{P}_{\theta}\right\}_{\theta \in \Theta}\) be a parametric family and let \(g\) be a measurable function. Suppose \(g(\theta)\) is \(U\)-estimable, i.e., there exists an estimator \(\delta_{0}(\mathbf{X})\) such that \(\mathbb{E}_{\theta} \delta_{0}(\mathbf{X})=g(\theta), \theta \in \Theta\). Show that the class of unbiased estimators of \(g(\theta)\) is given by
+\(\left\{\delta(\mathbf{X}): \delta(\mathbf{X})=\delta_{0}(\mathbf{X})-U_{\delta}(\mathbf{X})\right.\) for some unbiased estimator \(U_{\delta}(\mathbf{X})\) of zero \(\}\).
+4. Let \(G(d \mathbf{x})\) be a \(\sigma\)-finite measure, and let \(\mathcal{P}=\{f(\mathbf{x} \mid \theta) G(d \mathbf{x})\}_{\theta \in \Theta}\) be a family of distributions with associated measurements \(\mathbf{X}\). Recall that the likelihood function is given by
+\[
+\mathcal{L}(\theta \mid \mathbf{X}):=f(\mathbf{X} \mid \theta)
+\]
+In particular, for any given \(\theta, \mathcal{L}(\theta \mid \mathbf{X})\) is a random variable. Note that the definition of likelihood function simply entails a change of perspective with respect to the generalized joint density: instead of fixing \(\theta\), we now fix the sample \(\mathbf{X}\). So, starting from a sample \(\mathbf{X}\), further recall that the maximum likelihood estimator is defined by
+\[
+\widehat{\theta}_{\mathrm{ML}}=\operatorname{argmax}_{\theta \in \Theta} \mathcal{L}(\theta \mid \mathbf{X}) .
+\]
+Find the maximum likelihood estimator of the following parameters under each parametric family.
+(a) \(\widehat{\lambda}_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \operatorname{Poi}(\lambda), \lambda>0\).
+(b) \(\widehat{\lambda}_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \exp (\lambda), \lambda>0\).
+% (c) \(\left(\widehat{\mu}_{\mathrm{ML}}, \widehat{\sigma^{2}} \mathrm{ML}\right)\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right), \mu, \sigma^{2} \in \mathbb{R} \times(0, \infty)\) (hint: first solve for \left.\(\widehat{\mu}_{\mathrm{ML}}\right)\).
+(d) \(\widehat{\theta}_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} U[0, \theta], \theta>0\).
+(e) \(\widehat{\mu^{2}}{ }_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}(\mu, 1), \mu \in \mathbb{R}\).
