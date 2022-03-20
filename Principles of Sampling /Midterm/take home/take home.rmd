@@ -86,9 +86,9 @@ Based on ratio of pages for each stratum, we should design the stratification in
 
 Vowels: 5 pages, $x_1$:  18 15 20 19 17, $y_1$: 16 12 12 14 14. 
 
-s, t, m, n, b, c, d: 9pages, $x_2$: 14 15 14 15 15 20 18 14, $y_2$: 9 12  9 13 11 12 10 12. 
+s, t, m, n, b, c, d: 8 pages, $x_2$: 14 15 14 15 15 20 18 14, $y_2$: 9 12  9 13 11 12 10 12. 
 
-x, y, z, q: 1 page, $x_3$: 15  14, $y_3$: 11  8. 
+x, y, z, q: 2 page, $x_3$: 15  14, $y_3$: 11  8. 
 
 Others: 5 pages, $x_4$: 18 18 19 20 18, $y_4$: 11 11 17 17 15. 
 
