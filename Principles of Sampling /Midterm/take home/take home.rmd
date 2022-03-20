@@ -1,0 +1,138 @@
+---
+title: "Midterm-Take Home"
+author: "Zehao Wang"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+## A: 
+
+$x:$ 17 14 16 14 20 15 20 19 15 18 15 20 15 20 20 16 15 14 17 19. 
+
+$y:$ 15 11 13  9 13 11 13 17  9 11 10 16 10 13 16 13 12  9 14 12. 
+```{r}
+x <- c(17, 14, 16, 14, 20, 15, 20, 19, 15, 18, 15, 20, 15, 20, 20, 16, 15, 14, 17, 19)
+y <- c(15, 11, 13,  9, 13, 11, 13, 17,  9, 11, 10, 16, 10, 13, 16, 13, 12,  9, 14, 12)
+```
+
+This dictionary has 679 pages, and the total number of words is
+
+```{r}
+as.integer(x_t <- 679 / 20 * (sum(x)))
+```
+
+```{r}
+679 * sqrt((679 - 20) / 679) * sqrt(var(x)) / sqrt(20)
+```
+
+
+\[SE(x')=N\sqrt{\frac{N-n}{N}}(s_x/\sqrt{n})=348.1761. \]
+
+
+The number of words that I know is
+
+```{r}
+as.integer(mean(y) * 679)
+```
+
+
+```{r}
+679 * sqrt((679 - 20) / 679) * sqrt(var(y)) / sqrt(20)
+```
+
+\[SE(y')=N\sqrt{\frac{N-n}{N}}(s_y/\sqrt{n})=360.7989. \]
+
+The percentage of words that I know is: 
+
+```{r}
+mean(y / x)
+```
+```{r}
+sqrt((679 - 20) / 679) * sqrt(0.7278202 * (1 - 0.7278202) / 19)
+```
+
+\[SE(p_y)=\sqrt{\frac{N-n}{N}}\sqrt{\frac{p_y(1-p_y)}{n-1}}=0.1005938. \]
+
+Because the dictionary is arranged by the first letter, there is only two page starting with vowel. The number of words starting with vowels is: 
+
+
+```{r}
+x_1 <- rep(0, 20)
+x_1[c(2, 5)] <- x[c(2, 5)]
+as.integer(sum(x_1) * 679 / 20)
+```
+
+```{r}
+679 * sqrt((679 - 20) / 679) * sqrt(var(x_1)) / sqrt(20)
+```
+
+\[SE(x_1')=N\sqrt{\frac{N-n}{N}}(s_{x_1}/\sqrt{n})=796.0817. \]
+
+And CI is: 
+
+```{r}
+sum(x_1) * 679 / 20 + 1.96 * 679 * sqrt((679 - 20) / 679) * sqrt(var(x_1)) / sqrt(20)
+```
+
+\[[x_1'-1.96\times SE(x_1'), x_1'+1.96\times SE(x_1')]=[0, 2714.62]. \]
+
+## B: 
+
+Based on ratio of pages for each stratum, we should design the stratification in this way: 
+
+Vowels: 5 pages, $x_1$:  18 15 20 19 17, $y_1$: 16 12 12 14 14. 
+
+s, t, m, n, b, c, d: 9pages, $x_2$: 14 15 14 15 15 20 18 14, $y_2$: 9 12  9 13 11 12 10 12. 
+
+x, y, z, q: 1 page, $x_3$: 15  14, $y_3$: 11  8. 
+
+Others: 5 pages, $x_4$: 18 18 19 20 18, $y_4$: 11 11 17 17 15. 
+
+So, 
+```{r}
+x__1 <- c(18, 15, 20, 19, 17)
+x__2 <- c(14, 15, 14, 15, 15, 20, 18, 14)
+x__3 <- c(15, 14)
+x__4 <- c(18, 18, 19, 20, 18)
+y__1 <- c(16, 12, 12, 14, 14)
+y__2 <- c(9, 12,  9, 13, 11, 12, 10, 12)
+y__3 <- c(11,  8)
+y__4 <- c(11, 11, 17, 17, 15)
+```
+
+The estimator for percentage of words that I know is 
+
+```{r}
+P_i <-
+    c(mean(y__1 / x__1),
+      mean(y__2 / x__2),
+      mean(y__3 / x__3),
+      mean(y__4 / x__4))
+
+n_h <- c(5, 8, 2, 5)
+
+N <-  679
+
+N_h <- c(167, 272, 66, 174)
+
+sum(N_h * P_i) / N
+
+sqrt(sum((N_h / N) ^ 2 * P_i * (1 - P_i) / (n_h - 1) * (N_h - n_h) / N_h))
+
+```
+
+\[\hat{p}=\frac{\sum H_hP_h}{N}=0.7328699, \]
+
+\[SE(\hat{p})=\sqrt{\sum (N_h/N)^2\frac{p_h(1-p_h)}{n_h-1}\frac{N_h-n_h}{N_h}}=0.1102027, \]
+
+
+CI is: 
+```{r}
+0.7328699+1.96*0.1102027
+```
+
+\[[0.7328699-1.96\times 0.1102027, 0.7328699+1.96\times 0.1102027]=[0.5168726, 0.9488672]. \]

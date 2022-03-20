@@ -1,0 +1,234 @@
+---
+title: "Midterm-Take Home"
+author: "Zehao Wang"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+data_1 <- read_csv("ForestFireInfo.csv")
+```
+
+
+## a)
+
+The distribution of area looks like as following: 
+
+```{r fig.height=3, fig.width=4}
+ggplot(data_1) +
+    geom_histogram(aes(area)) +
+    theme_bw()
+```
+
+```{r}
+summary(data_1[,13])
+```
+
+As you can see, the area ranges from 0 to 1090.84. And the median is only 0.52, which means that most of the data are very small. Therefore, we should conduct a log transformation on it. 
+
+## b)
+
+The area distributions corresponding to each predictor variable and the sum of the area are plotted as following:  
+
+```{r}
+m <- min(log(data_1$area[data_1$area != 0]))
+data_1 <- data_1 %>%
+    transmute(
+        X,
+        Y,
+        wind,
+        rain,
+        RH,
+        temp,
+        month = factor(
+            month,
+            levels = c(
+                "jan",
+                "feb",
+                "mar",
+                "apr",
+                "may",
+                "jun",
+                "jul",
+                "aug",
+                "sep",
+                "oct",
+                "nov",
+                "dec"
+            )
+        ),
+        area = ifelse(area == 0, 0, log(area) - m + 0.1)
+    )
+
+# data_1 %>%
+#     group_by(X) %>% 
+#     summarise(area = sum(area)) %>% 
+#     ggplot() +
+#     geom_point(aes(X, area)) +
+#     theme_bw()
+```
+
+
+```{r fig.height=3, fig.width=4}
+pairs(data_1[-7])
+```
+
+
+
+```{r fig.height=3, fig.width=4}
+data_1 %>%
+    ggplot() +
+    geom_point(aes(X, area)) +
+    theme_bw()
+
+data_1 %>%
+    group_by(X) %>% 
+    summarise(area = sum(area)) %>% 
+    ggplot() +
+    geom_col(aes(X, area)) +
+    theme_bw()
+```
+
+
+```{r fig.height=3, fig.width=4}
+data_1 %>%
+    ggplot() +
+    geom_point(aes(Y, area)) +
+    theme_bw()
+
+data_1 %>%
+    group_by(Y) %>% 
+    summarise(area = sum(area)) %>% 
+    ggplot() +
+    geom_col(aes(Y, area)) +
+    theme_bw()
+```
+
+
+```{r fig.height=3, fig.width=4}
+data_1 %>%
+    ggplot() +
+    geom_point(aes(X, Y, size = area)) +
+    theme_bw()
+
+data_1 %>%
+    group_by(X, Y) %>% 
+    summarise(area = sum(area)) %>% 
+    ggplot() +
+    geom_point(aes(X, Y, size = area)) +
+    theme_bw()
+```
+
+X, Y seem to have no relationship with area. 
+
+```{r fig.height=3, fig.width=4}
+data_1 %>%
+    ggplot() +
+    geom_point(aes(wind, area)) +
+    theme_bw()
+
+data_1 %>%
+    group_by(wind) %>% 
+    summarise(area = sum(area)) %>% 
+    ggplot() +
+    geom_col(aes(wind, area)) +
+    theme_bw()
+```
+
+For wind, the total area of fires in this range seems to be significantly larger than in other ranges. 
+
+```{r fig.height=3, fig.width=4}
+data_1 %>%
+    ggplot() +
+    geom_point(aes(rain, area)) +
+    theme_bw()
+
+data_1 %>%
+    group_by(rain) %>% 
+    summarise(area = sum(area)) %>% 
+    ggplot() +
+    geom_col(aes(rain, area)) +
+    theme_bw()
+```
+
+Almost all of these fires occur when there is no rainfall, but when there is no rainfall, the area of the fire can be large or small, so they are not very relevant. 
+
+```{r fig.height=3, fig.width=4}
+data_1 %>%
+    ggplot() +
+    geom_point(aes(RH, area)) +
+    theme_bw()
+
+data_1 %>%
+    group_by(RH) %>% 
+    summarise(area = sum(area)) %>% 
+    ggplot() +
+    geom_col(aes(RH, area)) +
+    theme_bw()
+```
+
+Similarly, for RH, the total area of fires in some range seems to be significantly larger than in other ranges. 
+```{r fig.height=3, fig.width=4}
+data_1 %>%
+    ggplot() +
+    geom_point(aes(temp, area)) +
+    theme_bw()
+
+data_1 %>%
+    group_by(temp) %>% 
+    summarise(area = sum(area)) %>% 
+    ggplot() +
+    geom_col(aes(temp, area)) +
+    theme_bw()
+```
+
+Total area of fire are larger from 15 degree to 30 degree. 
+
+```{r fig.height=3, fig.width=4}
+data_1 %>%
+    ggplot() +
+    geom_point(aes(month, area)) +
+    theme_bw()
+
+data_1 %>%
+    group_by(month) %>% 
+    summarise(area = sum(area)) %>% 
+    ggplot() +
+    geom_col(aes(month, area)) +
+    theme_bw()
+```
+
+In Aug and Sep, the total area of fire is much higher than other months'. 
+
+## e) 
+
+```{r}
+lm_1 <- lm(area ~ rain + temp, data_1)
+summary(lm_1)
+```
+```{r}
+quater <- c(1:517)
+q1 <- data_1$month == "jan" | data_1$month == "feb" | data_1$month == "mar"
+quater[q1] <-  1
+
+q1 <- data_1$month == "apr" | data_1$month == "may" | data_1$month == "jun"
+quater[q1] <-  2
+
+q1 <- data_1$month == "jul" | data_1$month == "aug" | data_1$month == "sep"
+quater[q1] <-  3
+
+q1 <- data_1$month == "oct" | data_1$month == "nov" | data_1$month == "dec"
+quater[q1] <-  4
+
+data_1["quater"] <- quater
+```
+
+```{r}
+lm_2 <- lm(area ~ quater, data_1)
+summary(lm_2)
+```
+
+So, the quater is significant. 
+
+
