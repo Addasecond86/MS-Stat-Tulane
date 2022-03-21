@@ -21,6 +21,7 @@ sessionInfo()
 
 
 ## 1. 
+
 In a crime rate study, several variables have been measured (see data in the attached file “HW3_data.txt”), including: 
 
 - Year: "Year"
@@ -38,28 +39,7 @@ The investigators were interested in “ftheft” (Y), and effects by the other 
 
 ```{r message=FALSE, warning=FALSE}
 data <- read_table("HW3_data.txt")
-```
-
-```{r fig.height=3, fig.width=4}
-data %>%
-    ggplot(mapping = aes(fertil, ftheft)) +
-    geom_point() +
-    theme_bw()
-
-data %>%
-    ggplot(mapping = aes(labor, ftheft)) +
-    geom_point() +
-    theme_bw()
-
-data %>%
-    ggplot(mapping = aes(postsec, ftheft)) +
-    geom_point() +
-    theme_bw()
-
-data %>%
-    ggplot(mapping = aes(mtheft, ftheft)) +
-    geom_point() +
-    theme_bw()
+pairs(data)
 ```
 
 From these plots, `labor` and `postsec` have a positive linear relationship with `ftheft`. And other two variables seem to have no linear relationship with `ftheft`. 
@@ -70,25 +50,52 @@ From these plots, `labor` and `postsec` have a positive linear relationship with
 lm_1 <- lm(ftheft ~ fertil + labor + postsec + mtheft, data)
 ```
 
-```{r}
-plot(lm_1)
-```
-
-
 ```{r fig.height=3, fig.width=4}
-tibble(x = data$year, y = lm_1$residuals) %>%
-    ggplot(mapping = aes(x, y)) +
-    geom_point() +
-    theme_bw()
+ggplot(tibble(year = data$year, res = lm_1$residuals)) +
+    geom_point(aes(year, res)) +
+    theme_classic()
 ```
 
 The distribution of the residuals appears to be random, so that no violation of the assumptions can be seen. 
 
 ### C. Conduct influence analysis for the data set. Any outliers/influence points? Explain. 
+```{r}
+library(olsrr)
+```
 
 
+```{r fig.height=3, fig.width=4}
+ols_plot_cooksd_chart(lm_1)
+```
 
+The larger Cook Distance for the 10th, 11th, 19th, 32nd, and 34th samples suggests that they may be outliers. 
 
+```{r}
+ols_plot_dfbetas(lm_1)
+```
 
+```{r fig.height=3, fig.width=4}
+ols_plot_resid_pot(lm_1)
+```
 
+### Conduct both Durbin-Watson and runs tests for residuals in C. 
 
+*DW test: *
+
+```{r}
+library(car)
+
+durbinWatsonTest(lm_1)
+```
+
+It is significant, so we can reject that $\rho=0$. 
+
+*Runs test: *
+
+```{r}
+library(snpar)
+
+runs.test(lm_1$residuals)
+```
+
+We can say that the residuals are random. 
