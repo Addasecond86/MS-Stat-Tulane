@@ -4,36 +4,387 @@
     Let \(\left\{\mathbb{P}_{\theta}\right\}_{\theta \in \Theta}, \Theta \subseteq \mathbb{R}\), be an identifiable parametric family of distributions with common support, where card \((\Theta) \geq 2\). Consider the family of estimators \(\Delta=\left\{\delta(\mathbf{X}): \mathbb{E}_{\theta} \delta^{2}<\infty, \theta \in\right.\) \(\Theta\}\) and the loss function \(L(\theta, a)=(\theta-a)^{2}\). Prove that there does not exist an estimator \(\delta(\mathbf{X})\) for which \(R(\theta, \delta)=0, \theta \in \Theta\).
 \end{exercise}
 
+\begin{proof}
+    \[
+        \begin{aligned}
+            R(\theta, \delta)&=EL(\theta, \delta)\\
+            &=E(\theta^2-2\theta\delta(X)+\delta^2(X))\\
+            &=\theta^2-2\theta E(\delta(X))+E(\delta(X))^2\\
+            &=\theta^2-2\theta E(\delta(X))+Var(\delta(X))+(E(\delta(X)))^2\\
+            &=(\theta-E(\delta(X)))^2+Var(\delta(X))\\
+            &\geqslant Var(\delta(X))>0. 
+        \end{aligned}
+    \]
+    So, $\forall \theta \in \Theta$, $R(\theta, \delta)>0$. 
+\end{proof}
+
+\begin{exercise}
+    If \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma_{0}^{2}\right), \mu \in \mathbb{R}\), where \(\sigma_{0}^{2}\) is known, let \(\delta(\mathbf{X})=\sum_{i=1}^{n} c_{i} X_{i}\) be any linear estimator of \(\mu\). Show that, if \(\delta\) is biased, then the quadratic risk \(\mathbb{E}_{\mu}(\delta-\mu)^{2}\) is unbounded. 
+\end{exercise}
+
+\begin{proof}
+    For $\delta(X)$, 
+    \[
+        E(\delta(X))=\sum_{i=1}^nc_i E(X_i)=\mu\sum_{i=1}^nc_i. 
+    \]
+    Hence, if $\sum c_i\neq 1$, $\delta(X)$ is biased. Then, 
+    \[
+        \begin{aligned}
+            E(\delta-\mu)^2&=E\left(\sum c_iX_i\right)^2-2\mu^2\sum c_i+\mu^2\\
+            &=Var\left(\sum c_iX_i\right)+\left(\mu\sum c_i\right)^2-2\mu^2\sum c_i+\mu^2\\
+            &=\sigma_0^2\sum c_i+\mu^2\left(\sum c_i-1\right)^2. 
+        \end{aligned}
+    \] 
+    If $\sum c_i\neq 1$, then $\left(\sum c_i-1\right)^2>0$. And $E(\delta-\mu)^2\to\infty$, when $\left(\sum c_i-1\right)^2\to \infty$. 
+\end{proof}
+
+\begin{exercise}
+    Let \(\mathcal{P}=\left\{\mathbb{P}_{\theta}\right\}_{\theta \in \Theta}\) be a parametric family and let \(g\) be a measurable function. Suppose \(g(\theta)\) is \(U\)-estimable, i.e., there exists an estimator \(\delta_{0}(\mathbf{X})\) such that \(\mathbb{E}_{\theta} \delta_{0}(\mathbf{X})=g(\theta), \theta \in \Theta\). Show that the class of unbiased estimators of \(g(\theta)\) is given by
+    \(\left\{\delta(\mathbf{X}): \delta(\mathbf{X})=\delta_{0}(\mathbf{X})-U_{\delta}(\mathbf{X})\right.\) for some unbiased estimator \(U_{\delta}(\mathbf{X})\) of zero \(\}\).
+\end{exercise}
+
+\begin{proof}
+    What we need to prove is $E(\delta(X))=g(\theta)$. Then, 
+    \[
+        \begin{aligned}
+            E(\delta(X))&=E(\delta_0(X))-E(U_\delta(X))\\
+            &=g(\theta). 
+        \end{aligned}
+    \]
+    ???
+\end{proof}
+
+\begin{exercise}
+    Let \(G(d \mathbf{x})\) be a \(\sigma\)-finite measure, and let \(\mathcal{P}=\{f(\mathbf{x} \mid \theta) G(d \mathbf{x})\}_{\theta \in \Theta}\) be a family of distributions with associated measurements \(\mathbf{X}\). Recall that the likelihood function is given by
+    \[
+    \mathcal{L}(\theta \mid \mathbf{X}):=f(\mathbf{X} \mid \theta)
+    \]
+    In particular, for any given \(\theta, \mathcal{L}(\theta \mid \mathbf{X})\) is a random variable. Note that the definition of likelihood function simply entails a change of perspective with respect to the generalized joint density: instead of fixing \(\theta\), we now fix the sample \(\mathbf{X}\). So, starting from a sample \(\mathbf{X}\), further recall that the maximum likelihood estimator is defined by
+    \[
+        \widehat{\theta}_{\mathrm{ML}}=\operatorname{argmax}_{\theta \in \Theta} \mathcal{L}(\theta \mid \mathbf{X}) .
+    \]
+    Find the maximum likelihood estimator of the following parameters under each parametric family. 
+    \begin{enumerate}[(a)]
+        \item \(\widehat{\lambda}_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \operatorname{Poi}(\lambda), \lambda>0\). 
+        \item \(\widehat{\lambda}_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \exp (\lambda), \lambda>0\). 
+        \item \(\left(\widehat{\mu}_{\mathrm{ML}}, \widehat{\sigma^{2}}_\mathrm{ML}\right)\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right), \mu, \sigma^{2} \in \mathbb{R} \times(0, \infty)\) (hint: first solve for \(\widehat{\mu}_{\mathrm{ML}}\).
+        \item \(\widehat{\theta}_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} U[0, \theta], \theta>0\). 
+        \item \(\widehat{\mu^{2}}{ }_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}(\mu, 1), \mu \in \mathbb{R}\). 
+    \end{enumerate}
+\end{exercise}
+
 \begin{solution}
-    solution
+    \begin{enumerate}[(a)]
+        \item The likelihood function is 
+        \[
+            f(\lambda|X)=\frac{\exp(-n\lambda)\lambda^{\sum x_i}}{\prod x_i!}, 
+        \]
+        Then, 
+        \[
+            \mathcal{L}(\lambda)=\log(\lambda)\sum x_i-n\lambda-\sum \log(x_i!). 
+        \]
+        \[
+            \mathcal{L}'(\lambda)=\frac{\sum x_i}{\lambda}-n=0, 
+        \]
+        Therefore, 
+        \[
+            \hat{\lambda}_{ML}=\bar{X}. 
+        \]
+        \item The likelihood function is 
+        \[
+            f(\lambda|X)=\lambda^n\exp\left(-\lambda\sum x_i\right), 
+        \]
+        Then, 
+        \[
+            \mathcal{L}(\lambda)=n\log(\lambda)-\lambda\sum x_i, 
+        \]
+        \[
+            \mathcal{L}'(\lambda)=\frac{n}{\lambda}-\sum x_i=0, 
+        \]
+        Therefore, 
+        \[
+            \hat{\lambda}_{ML}=\frac{1}{\bar{X}}. 
+        \]
+        \item The likelihood function is 
+        \[
+            f(\mu, \sigma^2|X)=(2\pi\sigma^2)^{-n/2}\exp\left(-\frac{1}{2\sigma^2}\sum(x_i-\mu)^2\right)
+        \]
+        Then, 
+        \[
+            \mathcal{L}(\mu, \sigma^2) = -\frac{n\log(2\pi)}{2}-\frac{n}{2}\log(\sigma^2)-\frac{\sum x_i^2}{2\sigma^2}+\frac{\mu\sum x_i}{\sigma^2}-\frac{n\mu^2}{2\sigma^2}. 
+        \]
+        \[
+            \mathcal{L}'(\mu)=\frac{\sum x_i}{\sigma^2}-\frac{n\mu}{\sigma^2}=0, \qquad \hat{\mu}_{ML}=\bar{X}. 
+        \]
+        \[
+            \mathcal{L}'(\sigma^2)=-\frac{n}{2}\frac{1}{\sigma^2}+\frac{1}{(\sigma^2)^2}\left(\frac{\sum x_i^2}{2}-\mu\sum x_i+\frac{n\mu^2}{2}\right)=0, 
+        \]
+        \[
+            \widehat{\sigma^2}_{ML}=\frac{\sum x_i^2-2\mu\sum x_i+n\mu^2}{n}=\frac{\sum x_i^2}{n}-\bar{X}^2. 
+        \]
+        \item The likelihood function is 
+        \[
+            f(\theta|X)=\frac{1}{\theta^n}\mathbf{1}_{0\leqslant x_{(1)}, x_{(n)}\leqslant\theta}, 
+        \]
+        Then, 
+        \[
+            \mathcal{L}(\theta)=-n\log(\theta), 
+        \]
+        \[
+            \mathcal{L}'(\lambda)=\frac{-n}{\theta}<0, 
+        \]
+        Therefore, 
+        \[
+            \hat{\theta}_{ML}=X_{(n)}. 
+        \]
+        \item Maximum likelihood estimator has unvari
+        \[
+            \mathcal{L}(\mu) = -\frac{n\log(2\pi)}{2}-\frac{\sum x_i^2}{2}+\mu\sum x_i-\frac{n\mu^2}{2}. 
+        \]
+        Let $t=\mu^2$, $\mu=\pm\sqrt{t}$. When $\mu>0$, 
+        \[
+            \mathcal{L}'(t)=\frac{1}{2}t^{-1/2}\sum x_i-\frac{n}{2}=0, \qquad \widehat{\mu^2}_{ML}=\bar{X}^2. 
+        \]
+        When $\mu<0$, 
+        \[
+            \mathcal{L}'(t)=-\frac{1}{2}t^{-1/2}\sum x_i-\frac{n}{2}=0, \qquad \widehat{\mu^2}_{ML}=\bar{X}^2. 
+        \]
+        Always positive? 
+        \item Because the invariability of ML, \[
+            \widehat{\sigma}_{ML}=\sqrt{\widehat{\sigma^2}_{ML}}=\sqrt{Var(X)}. 
+        \] 
+    \end{enumerate}
 \end{solution}
 
+\begin{exercise}
+    Let \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma_{0}^{2}\right), \mu \in \mathbb{R}\). 
+    \begin{enumerate}[(a)]
+        \item If \(\sigma_{0}^{2}\) is known, find the UMVU estimators of \(\mu^{2}, \mu^{3}\) and \(\mu^{4}\) (suggestion: consider \(\bar{X}=Y+\mu, Y \sim \mathcal{N}\left(0, \sigma^{2} / n\right)\), and expand \(\left.\mathbb{E}(Y+\mu)^{k}, k \in \mathbb{N}\right)\). 
+        \item Solve the preceding problem when \(\sigma\) is unknown. 
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item \begin{itemize}
+            \item $\mu^2$: 
+            \[
+                \begin{aligned}
+                    E(\bar{X})^2&=E(Y)^2+2\mu E(Y)+\mu^2\\
+                    &=Var(Y)+(E(Y))^2+\mu^2\\
+                    &=\frac{\sigma_0^2}{n}+\mu^2, 
+                \end{aligned}
+            \]
+            So, $E(\bar{X}^2-\sigma_0^2/n)=\mu^2$. And $T(X)=\bar{X}^2-\sigma_0^2/n$ is UMVU for $\mu^2$. 
+            \item $\mu^3$: 
+            \[
+                \begin{aligned}
+                    E(\bar{X}^3)&=E(Y^3)+3\mu E(Y^2)+3\mu^2E(Y)+\mu^3\\
+                    &=3\mu\frac{\sigma^2_0}{n}+\mu^3, 
+                \end{aligned}
+            \]
+            So, $E(\bar{X}^3-3\bar{X}\sigma_0^2/n)=\mu^3$. $T(X)=\bar{X}^3-3\bar{X}\sigma_0^2/n$ is UMVU for $\mu^3$. 
+            \item $\mu^4$: 
+            \[
+                \begin{aligned}
+                    E(\bar{X}^4)&=E(Y^4)+4\mu E(Y^3)+6\mu^2E(Y^2)+4\mu^3E(Y)+\mu^4\\
+                    &=3\left(\frac{\sigma_0^2}{n}\right)^4+6\mu^2\left(\frac{\sigma_0^2}{n}\right)+\mu^4, 
+                \end{aligned}
+            \]
+            So, $E(\bar{X}^4-6(\bar{X}^2-\sigma_0^2/n)\sigma_0^2/n-3(\sigma_0^2/n)^4)=\mu^4$. $T(X)=\bar{X}^4-6(\bar{X}^2-\sigma_0^2/n)\sigma_0^2/n-3(\sigma_0^2/n)^4$ is UMVU for $\mu^4$. 
+        \end{itemize}
+        \item Because $S^2$ is UMVU for $\sigma_0^2$, replacing $\sigma_0^2$ with $S^2$ can get the results. 
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    If \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right)\), where one of the parameters is known, and the estimator is a polynomial in \(\mu\) or \(\sigma\). Then, clearly, the UMVU estimator is a polynomial in \(\bar{X}\) or \(S_{*}^{2}:=\sum_{i=1}^{n}\left(X_{i}-\mu\right)^{2}\). The variance of any such polynomial can be estimated if one knows the moments \(\mathbb{E}\left(\bar{X}^{k}\right)\) and \(\mathbb{E}\left(S_{*}^{k}\right), k \in \mathbb{N}\). To determine \(\mathbb{E}\left(\bar{X}^{k}\right)\), write \(\bar{X}=Y+\mu\), where \(Y \sim \mathcal{N}\left(0, \sigma^{2} / n\right) .\)
+    \begin{enumerate}[(a)]
+        \item Show that
+        \[
+        \mathbb{E}\left(\bar{X}^{k}\right)=\sum_{r=0}^{k}\left(\begin{array}{l}
+        k \\
+        r
+        \end{array}\right) \mu^{k-r} E\left(Y^{r}\right)
+        \]
+        with
+        \[
+        \mathbb{E}\left(Y^{r}\right)=\left\{\begin{array}{cc}
+        (r-1)(r-3) \ldots(3)(1)\left(\sigma^{2} / n\right)^{r / 2}, & r \geq 2 \text { is even } \\
+        0, & r \text { is odd. }
+        \end{array}\right.
+        \]
+        \item As an example, consider the UMVU estimator \(S_{*}^{2} / n\) of \(\sigma^{2}\). Show that \(\mathbb{E}\left(S_{*}^{4}\right)=\) \(n(n+2) \sigma^{4}\) and \(\operatorname{Var}\left(S_{*}^{2} / n\right)=2 \sigma^{4} / n\), and that the UMVU estimator of this variance is \(2 S_{*}^{4} / n^{2}(n+2)\).
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    
+\end{solution}
+
+\begin{exercise}
+    Let \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right)\), where both parameters are unknown. 
+    \begin{enumerate}[(a)]
+        \item Show that the UMVU estimator of \(\mu^{2}\) is given by
+        \[
+        \delta(\mathbf{X})=\bar{X}^{2}-\frac{S^{2}}{n}; 
+        \]
+        \item Determine \(Var\delta(\mathbf{X})\); 
+        \item Find the UMVU estimator of \(Var \delta(\mathbf{X})\). 
+    \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+    If \(X \sim \mathcal{N}\left(\mu, \sigma^{2}\right.\)) (i.e., \(n=1\)), show that no unbiased estimator \(\delta\) of \(\sigma^{2}\) exists when \(\mu\) in unknown (suggestion: for fixed \(\sigma=\sigma_{0}, X\) is a complete and sufficient statistic for \(\mu\). Now consider \(\mathbb{E} \delta(X)=\sigma_{0}^{2}\), and conclude that \(\delta(X)\) is a constant a.s.)
+\end{exercise}
+
+\begin{exercise}
+    Let \(X \sim \mathcal{N}\left(\mu, \sigma^{2}\right)\) (i.e., \(n=1\)), where both parameters are unknown. Fix \(u \in \mathbb{R}\). Show that the UMVU estimator of
+    \[
+    p:=\mathbb{P}(X \leq u)
+    \]
+    is \(1_{\{X \leq u\}}\). 
+\end{exercise}
+
+\begin{exercise}
+    Consider two independent samples \(X_{1}, \ldots, X_{m} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu_{1}, \sigma_{1}^{2}\right), Y_{1}, \ldots, Y_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu_{2}, \sigma_{2}^{2}\right)\). 
+    \begin{enumerate}[(a)]
+        \item Assume \(\sigma_{1}^{2}=\sigma_{2}^{2}=: \sigma^{2}\) (unknown). Determine the UMVU estimators of \(\sigma^{2}\) and \(\left(\mu_{2}-\mu_{1}\right) / \sigma\). 
+        \item Now assume \(\mu_{1}=\mu_{2}\) (unknown), and \(\sigma_{1}^{2} / \sigma_{2}^{2}=\gamma\), where \(\gamma\) is known. Prove that: 
+        \begin{enumerate}[(i)]
+            \item \(T^{\prime}(\mathbf{X}, \mathbf{Y})=\left(\sum X_{i}^{2}+\gamma \sum Y_{j}^{2}, \sum X_{i}+\gamma \sum Y_{j}\right)\) is a complete and sufficient statistic. 
+            \item The estimator
+            \[
+                \delta_{\gamma}(\mathbf{X}, \mathbf{Y})=\alpha \bar{X}+(1-\alpha) \bar{Y}, \quad \alpha=\frac{\sigma_{2}^{2} / n}{\sigma_{1}^{2} / m+\sigma_{2}^{2} / n}
+            \]
+            is UMVU for \(\mu\). 
+        \end{enumerate}
+        \item Now assume \(\mu_{1}=\mu_{2}\) (unknown), and \(\sigma_{1}^{2} / \sigma_{2}^{2}=\gamma\) is also unknown. We want to prove that the UMVU estimator of \(\mu\) does not exist. 
+        \begin{enumerate}[(i)]
+            \item Fix two parameter values \(\gamma_{1}\) and \(\gamma_{2}\). Define the estimators
+            \[
+            \delta_{\gamma_{i}}(\mathbf{X}, \mathbf{Y})=\alpha_{i} \bar{X}+\left(1-\alpha_{i}\right) \bar{Y}, \quad \alpha_{i}=\frac{1 / n}{\gamma_{i} / m+1 / n}, \quad i=1,2,
+            \]
+            where \(\alpha_{1}\) and \(\alpha_{2}\) are regarded as fixed constants. Let \(\xi_{1}(\mathbf{X}, \mathbf{Y}), \xi_{2}(\mathbf{X}, \mathbf{Y})\) be unbiased estimators of \(\mu\) which are not a.s.-equal to \(\delta_{\gamma_{1}}\) and \(\delta_{\gamma_{2}}\), respectively. Conclude that
+            \[
+            \begin{array}{ll}
+            \operatorname{Var}_{\mu_{1}, \gamma_{1}}\left(\delta_{\gamma_{1}}\right)<\operatorname{Var}_{\mu_{1}, \gamma_{1}}\left(\xi_{1}\right), & \exists \mu_{1} \in \mathbb{R} \\
+            \operatorname{Var}_{\mu_{2}, \gamma_{2}}\left(\delta_{\gamma_{2}}\right)<\operatorname{Var}_{\mu_{2}, \gamma_{2}}\left(\xi_{2}\right), & \exists \mu_{2} \in \mathbb{R}. 
+            \end{array}
+            \]
+            \item Prove that \(\delta_{\gamma_{1}}\) and \(\delta_{\gamma_{2}}\) are not a.s.-equal estimators for every pair \(\mu, \gamma\). Conclude that the UMVU estimator of \(\mu\) does not exist. 
+        \end{enumerate}
+        \item Still assuming that \(\mu_{1}=\mu_{2}\) (unknown), and that \(\sigma_{1}^{2} / \sigma_{2}^{2}=\gamma\) is also unknown, prove that the estimator \(\widehat{\mu}:=\widehat{\alpha} \bar{X}+(1-\widehat{\alpha}) \bar{Y}\), where \(\widehat{\alpha}\) is a function only of \(S_{X}^{2}\) and \(S_{Y}^{2}\), is unbiased for \(\mu\). 
+    \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+    Let \(\left(X_{1}, Y_{1}\right), \ldots,\left(X_{n}, Y_{n}\right) \stackrel{\text { i.i.d. }}{\sim} N_{2}(\mu, \Sigma)\), i.e., 
+    \[
+    \begin{gathered}
+    f(\mathbf{x}, \mathbf{y} \mid \theta)=f(\mathbf{x}, \mathbf{y} \mid \mu, \Sigma)=\left(\frac{1}{2 \pi \sigma_{1} \sigma_{2} \sqrt{1-\rho^{2}}}\right)^{n} \\
+    \exp \left(-\frac{1}{2\left(1-\rho^{2}\right)}\left(\frac{1}{\sigma_{1}^{2}} \sum_{i=1}^{n}\left(X_{i}-\mu_{1}\right)^{2}+\frac{1}{\sigma_{2}^{2}} \sum_{i=1}^{n}\left(Y_{i}-\mu_{2}\right)^{2}-\frac{2 \rho}{\sigma_{1} \sigma_{2}} \sum_{i=1}^{n}\left(X_{i}-\mu_{1}\right)\left(Y_{i}-\mu_{2}\right)\right)\right), \\
+    \left(\mu, \sigma^{2}, \rho\right) \in \mathbb{R} \times(0, \infty) \times(-1,1) .
+    \end{gathered}
+    \]
+    \begin{enumerate}
+        \item Conclude that \(T(\mathbf{X}, \mathbf{Y})=\left(\bar{X}, \bar{Y}, S_{X}^{2}, S_{Y}^{2}, S_{X Y}\right)\) is a complete and sufficient statistic. 
+        \item Conclude that \(S_{X Y}\) is UMVU for \(\operatorname{Cov}\left(X_{1}, Y_{1}\right)\). 
+    \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+    Let \(X_{1}, \ldots, X_{n}\) be an i.i.d. sample from the (nonparametric) family \(\mathcal{P}\) which encompasses all a.c. distributions in \(\mathbb{R}\). Show that the order statistics are complete. (hint: establish the following facts. 
+    \begin{enumerate}[(i)]
+        \item Let \(\mathcal{P}_{0} \subseteq \mathcal{P}_{1}\) be two families of distributions such that, for a Borel set \(B\),
+        \[
+        \mathbb{P}_{\theta}(B)=0, \quad \theta \in \mathcal{P}_{0} \Rightarrow \mathbb{P}_{\theta}(B)=0, \quad \theta \in \mathcal{P}_{1} .
+        \]
+        If a statistic \(T\) is complete for \(\mathcal{P}_{0}\), then it is also complete for \(\mathcal{P}_{1}\); 
+        \item note that \(\mathcal{P}\) in the statement of the problem includes the a.c. canonical exponential family
+        \[
+        q(\mathbf{x} \mid \eta)=h(\mathbf{x}) \exp \left\{\eta_{1} \sum_{i=1}^{n} x_{i}+\eta_{2} \sum_{i=1}^{n} x_{i}^{2}+\ldots+\eta_{n} \sum_{i=1}^{n} x_{i}^{n}-A(\boldsymbol{\eta})\right\}
+        \]
+        where \(h(\mathbf{x})>0\) has fast enough decay at \(\|\mathbf{x}\| \rightarrow \infty\). Now show that
+        \[
+        \left(\sum_{i=1}^{n} x_{i}, \sum_{i=1}^{n} x_{i}^{2}, \ldots, \sum_{i=1}^{n} x_{i}^{n}\right)
+        \]
+        is equivalent to the vector of order statistics). 
+    \end{enumerate}
+\end{exercise}
 
 
+\begin{exercise}
+    We say that an estimator \(\delta(\mathbf{X})=\delta\left(X_{1}, \ldots, X_{n}\right)\) is symmetric in its \(n\) arguments if
+    \[
+    \delta\left(X_{1}, \ldots, X_{n}\right)=\delta\left(X_{\pi_{1}}, \ldots, X_{\pi_{n}}\right)
+    \]
+    for any permutation \(\pi=\left(\pi_{1}, \ldots, \pi_{n}\right)\) of its indices \(1, \ldots, n(\) e.g., \(\delta(\mathbf{X})=\bar{X})\). 
+
+    Let \(\mathcal{P}=\{F\}\) be a (nonparametric) family of distributions for which the order statistics \(X_{(1)} \leq \ldots \leq X_{(n)}\) are complete and sufficient. Let \(g(F)\) be a \(U\)-estimable quantity and assume that the symmetric estimator \(\delta(\mathbf{X})\) is such that \(\mathbb{E}_{F} \delta(\mathbf{X})=g(F)\). Prove that \(\delta(\mathbf{X})\) is UMVU for \(g(F)\). 
+\end{exercise}
 
 
+\begin{exercise}
+    Let \(\mathcal{P}=\{F\}\) be a (nonparametric) family of distributions in \(\mathbb{R}\) which includes all a.c. distributions, and consider \(g(F)=\mathbb{P}(X \leq a)=F(a)\), \(a\) being a known constant. Let \(X_{1}, \ldots, X_{n}\) be an i.i.d. sample, where \(X_{1} \sim F\), and define the estimator
+    \[
+    \widehat{F}_{n}(a):=\frac{\#\left\{i: X_{i} \leq a\right\}}{n}
+    \]
+    (as a function of \(a \in \mathbb{R}, \widehat{F}_{n}(a)\) is called the empirical distribution function). 
+    \begin{enumerate}[(a)]
+        \item Show that \(\widehat{F}_{n}(a)\) is unbiased for \(\mathbb{P}(X \leq a)\). 
+        \item Show that \(\widehat{F}_{n}(a)\) is a symmetric estimator. 
+        \item Conclude that \(\widehat{F}_{n}(a)\) is UMVU for \(\mathbb{P}(X \leq a)\). 
+    \end{enumerate}
+\end{exercise}
 
 
+\begin{exercise}
+    Consider the (nonparametric) family
+    \(\mathcal{P}=\left\{\right.\) i.i.d. sample \(X_{1}, \ldots, X_{n}\) from a d.f. \(F\) with a.c. density \(f\) and finite fourth moment \(\} .\)
+    Let
+    \[
+    g(F)=\mathbb{E} X_{1}, \quad h(F)=\operatorname{Var} X_{1}
+    \]
+    be two estimators. 
+    \begin{enumerate}
+        \item Prove that \(\mathbb{E}\left(X_{1} \mid X_{(1)}, \ldots, X_{(n)}\right)\) is UMVU for \(g(F)\). 
+        \item Prove that \(\bar{X}\) is UMVU for \(g(F)\). 
+        \item Conclude that \(\mathbb{E}\left(X_{1} \mid X_{(1)}, \ldots, X_{(n)}\right)=\bar{X} \mathcal{P}\)-a.s. 
+        \item Prove that \(S^{2}\) is UMVU for \(h(F)\). 
+    \end{enumerate}
+\end{exercise}
 
 
+\begin{exercise}
+    Let \(\mathcal{P}\) be the nonparametric family \((0.1)\), and let \(g(F)\) be an estimator. 
+    \begin{enumerate}
+        \item For \(r \leq n\), let \(\delta\left(X_{i_{1}}, \ldots, X_{i_{r}}\right) \in \Delta\) be an unbiased estimator for \(g(F)\). Show that there exists a symmetric, unbiased estimator for \(g(F)\). Conclude that we can assume without loss of generality that \(\delta\left(X_{i_{1}}, \ldots, X_{i_{r}}\right)\) is symmetric. 
+        \item The random variable
+        \[
+        U(\mathbf{X})=\left(\begin{array}{l}
+        n \\
+        r
+        \end{array}\right)^{-1} \sum_{1 \leq i_{1}<\ldots<i_{r} \leq n} \delta\left(X_{i_{1}}, \ldots, X_{i_{r}}\right)
+        \]
+        is called an \(r\)-degree \(U\)-statistic for \(g(F)\). Prove that \(U(\mathbf{X})\) is UMVU for \(g(F)\). 
+    \end{enumerate}
+\end{exercise}
 
 
+\begin{exercise}
+    Let \(\mathcal{P}\) be the nonparametric family \((0.1)\), and let \(g(F)=\mu^{2}\) be the estimator, where \(\mathbb{E} X_{1}=\mu\). 
+    \begin{enumerate}
+        \item Prove that \(\mathbb{E}\left(X_{1} X_{2} \mid X_{(1)}, \ldots, X_{(n)}\right)\) is UMVU for \(\mu^{2}\). 
+        \item Compute the conditional probability
+        \[
+        \mathbb{P}\left(X_{1} X_{2}=x_{(i)} x_{(j)} \mid X_{(1)}=x_{(1)}, \ldots, X_{(n)}=x_{(n)}\right), \quad i \neq j
+        \]
+        and conclude that
+        \[
+        \widehat{\mu^{2}} \mathrm{UMVU}=\frac{1}{n(n-1)} \sum_{i \neq j} X_{i} X_{j}. 
+        \]
+        \item Conclude that the \(\widehat{\mu^{2}}\) UMVU is a \(U\)-statistic and find its degree. 
+    \end{enumerate}
+\end{exercise}
 
-
-2. If \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma_{0}^{2}\right), \mu \in \mathbb{R}\), where \(\sigma_{0}^{2}\) is known, let \(\delta(\mathbf{X})=\sum_{i=1}^{n} c_{i} X_{i}\) be any linear estimator of \(\mu\). Show that, if \(\delta\) is biased, then the quadratic risk \(\mathbb{E}_{\mu}(\delta-\mu)^{2}\) is unbounded.
-3. Let \(\mathcal{P}=\left\{\mathbb{P}_{\theta}\right\}_{\theta \in \Theta}\) be a parametric family and let \(g\) be a measurable function. Suppose \(g(\theta)\) is \(U\)-estimable, i.e., there exists an estimator \(\delta_{0}(\mathbf{X})\) such that \(\mathbb{E}_{\theta} \delta_{0}(\mathbf{X})=g(\theta), \theta \in \Theta\). Show that the class of unbiased estimators of \(g(\theta)\) is given by
-\(\left\{\delta(\mathbf{X}): \delta(\mathbf{X})=\delta_{0}(\mathbf{X})-U_{\delta}(\mathbf{X})\right.\) for some unbiased estimator \(U_{\delta}(\mathbf{X})\) of zero \(\}\).
-4. Let \(G(d \mathbf{x})\) be a \(\sigma\)-finite measure, and let \(\mathcal{P}=\{f(\mathbf{x} \mid \theta) G(d \mathbf{x})\}_{\theta \in \Theta}\) be a family of distributions with associated measurements \(\mathbf{X}\). Recall that the likelihood function is given by
-\[
-\mathcal{L}(\theta \mid \mathbf{X}):=f(\mathbf{X} \mid \theta)
-\]
-In particular, for any given \(\theta, \mathcal{L}(\theta \mid \mathbf{X})\) is a random variable. Note that the definition of likelihood function simply entails a change of perspective with respect to the generalized joint density: instead of fixing \(\theta\), we now fix the sample \(\mathbf{X}\). So, starting from a sample \(\mathbf{X}\), further recall that the maximum likelihood estimator is defined by
-\[
-\widehat{\theta}_{\mathrm{ML}}=\operatorname{argmax}_{\theta \in \Theta} \mathcal{L}(\theta \mid \mathbf{X}) .
-\]
-Find the maximum likelihood estimator of the following parameters under each parametric family.
-(a) \(\widehat{\lambda}_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \operatorname{Poi}(\lambda), \lambda>0\).
-(b) \(\widehat{\lambda}_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \exp (\lambda), \lambda>0\).
-% (c) \(\left(\widehat{\mu}_{\mathrm{ML}}, \widehat{\sigma^{2}} \mathrm{ML}\right)\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right), \mu, \sigma^{2} \in \mathbb{R} \times(0, \infty)\) (hint: first solve for \left.\(\widehat{\mu}_{\mathrm{ML}}\right)\).
-(d) \(\widehat{\theta}_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} U[0, \theta], \theta>0\).
-(e) \(\widehat{\mu^{2}}{ }_{\mathrm{ML}}\) when \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}(\mu, 1), \mu \in \mathbb{R}\).
