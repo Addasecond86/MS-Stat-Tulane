@@ -1,20 +1,5 @@
-\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
-
-\title{\textsc{\Ti}}
-\author{\textsc{\LN, \FN}}
-\date{\emph{\today}}
-
-
-\usepackage{tcolorbox}
-\tcbuselibrary{breakable}
-\usepackage{amsfonts} 
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{newtxmath}
-\usepackage{enumerate}
 \usepackage{minted}
 \usepackage{fancyhdr}
-
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -23,48 +8,16 @@
 \chead{\textsc{\Ti}}
 \rfoot{\thepage}
 
-
-\linespread{1.3}
-\setlength{\parskip}{3mm}
-\setlength{\parindent}{2em}
-
-% \usepackage[backend=biber]{biblatex}
-% \addbibresource{my.bib}
-
-\numberwithin{equation}{section}
-
-% Problem 
-
-\newcounter{exercise}[section]
-
-\newenvironment{exercise}[1][\thesection.\refstepcounter{exercise}\theexercise]{\begin{tcolorbox}[colback=black!15, colframe=black!80, breakable, title=#1]}{\end{tcolorbox}}
-
-% Proof
-
-\newenvironment{proof}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Proof. ]\setlength{\parskip}{0.8em}}{\hfill $\blacksquare$ \end{tcolorbox}}
-
-\newenvironment{solution}{\begin{tcolorbox}[colback=white, colframe=black!50, breakable, title=Solution. ]\setlength{\parskip}{0.8em}}{\end{tcolorbox}}
+\newcommand{\CN}{Mathematical Statistics}
+\newcommand{\Ti}{Problem Set}
+\newcommand{\Pf}{Dr. Didier}
+\newcommand{\FN}{Zehao}
+\newcommand{\LN}{Wang}
 
 \newcommand{\pder}{\partial\,}
-
 \newcommand{\der}{\,\mathbf{d}\,}
 
-
-\newcommand\define[1]{\emph{\bfseries Definition \the\value{section}.#1}} 
-\newcommand\thm[1]{\emph{\bfseries Theorem \the\value{section}.#1}}
-\newcommand\rmk[1]{\emph{\bfseries Remark \the\value{section}.#1}}
-\newcommand\prop[1]{\emph{\bfseries Propositions \the\value{section}.#1}}
-
-\usepackage{titlesec}
-
-\titleformat{\section}{\bfseries\Large}{}{0em}{}
-
-\AddToHook{cmd/section/before}{\clearpage}
-
-\usepackage{hyperref}
-
-\newtcolorbox[blend into=figures]{myfigure}[2][]{float=htb, capture=hbox,
-blend before title=dash hang,title={#2},every float=\centering,#1}
-
-\newtcolorbox[blend into=tables]{mytable}[2][]{float=htb, capture=hbox,
-blend before title=dash hang,title={#2},every float=\centering,#1}
+\newcommand\define[1]{\noindent\emph{\bfseries Definition \the\value{chapter}.#1}} 
+\newcommand\thm[1]{\noindent\emph{\bfseries Theorem \the\value{chapter}.#1}}
+\newcommand\rmk[1]{\noindent\emph{\bfseries Remark \the\value{chapter}.#1}}
+\newcommand\prop[1]{\noindent\emph{\bfseries Propositions \the\value{chapter}.#1}}
