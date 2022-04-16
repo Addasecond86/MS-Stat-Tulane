@@ -40,7 +40,7 @@
     \begin{enumerate}[(a)]
         \item Prove that
         \[
-        \tau(\theta):=\mathbb{E}_{\theta} T(\mathbf{X})=\frac{B^{\prime}(\theta)}{H^{\prime}(\theta)}, \quad \operatorname{Var}_{\theta} T(\mathbf{X})=\frac{B^{\prime \prime}(\theta)}{\left(H^{\prime}(\theta)\right)^{2}}-\frac{\eta^{\prime \prime}(\theta) B^{\prime}(\theta)}{\left(H^{\prime}(\theta)\right)^{3}}=\frac{B^{\prime \prime}(\theta)-\eta^{\prime \prime}(\theta) \tau(\theta)}{\left(\eta^{\prime}(\theta)\right)^{2}}
+        \tau(\theta):=\mathbb{E}_{\theta} T(\mathbf{X})=\frac{B^{\prime}(\theta)}{H^{\prime}(\theta)}, \quad  Var_{\theta} T(\mathbf{X})=\frac{B^{\prime \prime}(\theta)}{\left(H^{\prime}(\theta)\right)^{2}}-\frac{\eta^{\prime \prime}(\theta) B^{\prime}(\theta)}{\left(H^{\prime}(\theta)\right)^{3}}=\frac{B^{\prime \prime}(\theta)-\eta^{\prime \prime}(\theta) \tau(\theta)}{\left(\eta^{\prime}(\theta)\right)^{2}}
         \]
         You may assume that
         \[
@@ -51,7 +51,7 @@
         \]
         \item Conclude that \(Var_{\theta} T(\mathbf{X})\) attains the CRLB, i.e.,
         \[
-        \operatorname{Var}_{\theta} T(\mathbf{X})=\frac{1}{I(\tau(\theta))}
+         Var_{\theta} T(\mathbf{X})=\frac{1}{I(\tau(\theta))}
         \]
         Also conclude that, almost surely, it is the only unbiased estimator of \(\tau(\theta)\) to do so.
     \end{enumerate}
@@ -76,9 +76,10 @@
             I(\theta)=Var_\theta\left(\frac{f'(\mathbf{x|\theta})}{f(\mathbf{x|\theta})}\right)=Var_{\theta}(\eta'(\theta)T(\mathbf{x})-B'(\theta))=Var_\theta(T(\mathbf{x}))(\eta'(\theta))^2. 
         \]
         Then from Exercise \ref{ex:5.1}, 
-        \[
-            I(\tau(\theta))=\frac{I(\theta)}{(\tau'(\theta))^2}=\left[\frac{\eta'(\theta)}{\tau'(\theta)}\right]^2Var_\theta T(\mathbf{x})
-        \]
+        \begin{equation}
+            I(\tau(\theta))=\frac{I(\theta)}{(\tau'(\theta))^2}=\left[\frac{\eta'(\theta)}{\tau'(\theta)}\right]^2Var_\theta T(\mathbf{x}). 
+            \label{eq:5.2.1}
+        \end{equation}
         And from Exercise \ref{ex:5.2} \ref{ex:5.2.a},
         \[
             Var_\theta T(X)=\frac{B''(\theta)-\eta''(\theta)\tau(\theta)}{(\eta'(\theta))^2}, \qquad \tau(\theta)=\frac{B'(\theta)}{\eta'(\theta)}. 
@@ -93,6 +94,11 @@
         \[
             I(\tau(\theta))=\left[\frac{\eta'(\theta)}{\tau'(\theta)}\right]^2Var_\theta T(\mathbf{x})=\frac{\tau'(\theta)}{\eta'(\theta)}=\frac{1}{Var_\theta T(\mathbf{x})}. 
         \]
+        If a statistic $\delta$ can attain the lower bond, then it is like following form: 
+        \[
+           \delta=a\left(\eta'(\theta)T(X)-B'(\theta)\right)+b.
+        \]
+        And if $\mathbb{E}(\delta)=T(X)$, $Var_\theta(\delta)=\frac{(\tau'(\theta))^2}{I(\theta)}$. Solve them, we can get that $a=1/H'(\theta)$, $b=\tau(\theta)$. So, the statistic can only be $T(X)$. 
     \end{enumerate}
 \end{solution}
 
@@ -111,3 +117,492 @@
             \end{tabular}
     \end{center}
 \end{ex}
+
+\begin{solution}
+    In order to simplify the problem, we only calculate the 1-dimension case: 
+    \begin{itemize}
+        \item \[
+            p_\mu(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-1/2\sigma^2(x^2-2\mu x+\mu^2)\right), 
+        \]
+        Then 
+        \[
+            h(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-x^2/2\sigma^2\right), \eta(\mu) T(x)-B(\mu)=\frac{\mu}{\sigma^2}x-\frac{\mu^2}{2\sigma^2}. 
+        \] 
+        So, if $h(\mu)=\mu$, from \ref{eq:5.2.1}, 
+        \[
+            I(\mu)=\left(\frac{\eta'(\mu)}{h'(\mu)}\right)^2Var(T(X))=\frac{1}{\sigma^4}\sigma^2=1/\sigma^2. 
+        \]
+        \item \[
+        \begin{aligned}
+            \mathcal{L}_\sigma&=\log\left(\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-1/2\sigma^2(x-\mu)^2\right)\right)\\
+            &=-\frac{1}{2}\left(x-\mu\right)^2\sigma^{-2}-\log(\sqrt{2\pi}\sigma)
+        \end{aligned}
+        \]
+        \[
+            \mathcal{L}'_\sigma = \left(x-\mu\right)^2\sigma^{-3}-\sigma^{-1}, 
+        \]
+        \[
+            \mathcal{L}''_\sigma = -3\left(x-\mu\right)^2\sigma^{-4}+\sigma^{-2}, 
+        \]
+        Then $E(X)=\mu$, $E(X^2)=Var(X)-(EX)^2=\sigma^2-\mu^2$, 
+        \[
+            I(\sigma)=-E(\mathcal{L''_\sigma})=2\sigma^{-2}. 
+        \]
+        \[
+            I(\sigma^2)=\frac{I(\sigma)}{(2\sigma)^2}=\frac{1}{2\sigma^4}. 
+        \]
+        \item \[
+            f_p(x)=\binom{n}{x}p^x(1-p)^{n-x}=\binom{n}{x}\exp\left(x\log(p)-x\log(1-p)+n\log(1-p)\right), 
+        \]
+        $\eta(p)T(x)-B(p)=\log\frac{p}{1-p}x-n\log\frac{1}{1-p}$, 
+        \[
+            I(np)=\left(\frac{\eta'(p)}{n}\right)^2Var(T(X))=\left(\frac{1}{np(1-p)}\right)^2np(1-p)=\frac{1}{np(1-p)}. 
+        \]
+        \[
+            I(p)=\frac{I(np)}{1/n^2}=\frac{n}{p(1-p)}. 
+        \]
+        \item For Poisson distribution, $\eta(\lambda)=\log \lambda$, $T(x)=x$, $E(x)=Var(x)=\lambda$. So, 
+        \[
+            I(\lambda)=\frac{1}{\lambda^2}\lambda=1/\lambda. 
+        \]
+        \item For Gamma distribution, $\eta(\lambda)=-\lambda$, $T(x)=x$, $E(x)=\alpha/\lambda$, $Var(x)=\alpha/\lambda^2$. So,
+        \[
+            I(\alpha\beta)=\left(\frac{1}{-\alpha/\lambda^2}\right)^2\frac{\alpha}{\lambda^2}=\lambda^2/\alpha=\frac{1}{\alpha\beta^2}, 
+        \]
+        So, \[
+            I(\beta)=\frac{I(\alpha\beta)}{(1/\alpha)^2}=\frac{\alpha}{\beta^2}. 
+        \]
+    \end{itemize}
+\end{solution}
+
+\begin{ex}
+    Let $X\sim \Gamma(\alpha_0, \lambda)$, $\lambda>0$, where $\alpha_0$ is known. We see in the class that $I(\alpha_0/\lambda)=\lambda^2/\alpha_0$. Use this result to find $I(1/\lambda)$. 
+\end{ex}
+
+\begin{solution}
+    Let $\xi=\alpha_0/\lambda$, $\theta=H(\xi)=\frac{1}{\alpha_0}\xi=1/\lambda$. Then
+    \[
+        I(1/\lambda)=I(\theta)=\frac{I(\xi)}{(H'(\xi))^2}=\frac{\lambda^2}{\alpha_0}\alpha_0^2=\alpha_0\lambda^2. 
+    \]
+\end{solution}
+
+\begin{ex}
+    Let \(X \sim \mathcal{N}\left(\mu, \sigma_{0}^{2}\right), \mu>0\), where \(\sigma_{0}^{2}>0\) is known. 
+    \begin{enumerate}[(a)]
+        \item Find \(I\left(\mu / \sigma_{0}^{2}\right)\) (hint: no calculations needed). 
+        \item Use the result in (a) to compute \(I\left(\mu^{2}\right)\). 
+    \end{enumerate}
+\end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item From previous problem, $\eta(\mu)=\mu$, $T(X)=x/\sigma^2$. And $E(T(X))=\mu/\sigma^2$, $Var(T(X))=1/\sigma^2$. So, 
+        \[
+            I(\mu/\sigma^2)=\left(\frac{1}{1/\sigma^4}\right)1/\sigma^2=\sigma^2. 
+        \]
+        \item Let $\theta=\mu/\sigma^2$, $h(\theta)=\sigma^4\theta^2=\mu^2$. So, 
+        \[
+            I(h(\theta))=\frac{I(\theta)}{(h'(\theta))^2}=\frac{\sigma^2}{4\sigma^4\mu^2}=\frac{1}{4\sigma^2\mu^2}. 
+        \]
+    \end{enumerate}
+\end{solution}
+
+\begin{ex}
+    Prove the lemma stated in class. 
+    \begin{enumerate}[(i)]
+        \item Suppose that the conditions A-(a),(b),(c) hold, and that
+        \[
+        \frac{\partial}{\partial \theta} \int_{\mathbb{R}^{n}} f(\boldsymbol{x} \mid \theta) G(d \boldsymbol{x})=\int_{\mathbb{R}^{n}} \frac{\partial}{\partial \theta} f(\boldsymbol{x} \mid \theta) G(d \boldsymbol{x}), \quad \theta \in \Theta .
+        \]
+        Then,
+        \[
+        \mathbb{E}_{\theta}\left(\frac{\partial}{\partial \theta} \log f(\boldsymbol{X} \mid \theta)\right)=0, \quad I(\theta)= Var_{\theta}\left(\frac{\partial}{\partial \theta} \log f(\boldsymbol{X} \mid \theta)\right). 
+        \]
+        \item If, in addition,
+        \[
+        \begin{gathered}
+        \exists \frac{\partial^{2}}{\partial \theta^{2}} \log f(\boldsymbol{x} \mid \theta), \quad x \in \operatorname{supp} f(\boldsymbol{x} \mid \theta), \\
+        \frac{\partial^{2}}{\partial \theta^{2}} \int_{\mathbb{R}^{n}} f(\boldsymbol{x} \mid \theta) G(d \boldsymbol{x})=\int_{\mathbb{R}^{n}} \frac{\partial^{2}}{\partial \theta^{2}} f(\boldsymbol{x} \mid \theta) G(d \boldsymbol{x}),
+        \end{gathered}
+        \]
+        for \(\theta \in \Theta\), then,
+        \[
+        I(\theta)=-\mathbb{E}_{\theta}\left(\frac{\partial^{2}}{\partial \theta^{2}} \log f(\boldsymbol{X} \mid \theta)\right). 
+        \]
+    \end{enumerate}
+\end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(i)]
+        \item \[
+            \begin{aligned}
+                E  \left[\left.{\frac {\partial }{\partial \theta }}\log f(X|\theta )\right|\theta \right]={}&\int _{\mathbb {R} }{\frac {{\frac {\partial }{\partial \theta }}f(X|\theta )}{f(X|\theta )}}f(X|\theta )\der x\\[3pt]={}&{\frac {\partial }{\partial \theta }}\int _{\mathbb {R} }f(X|\theta )\der x\\[3pt]={}&{\frac {\partial }{\partial \theta }}1=0.
+            \end{aligned}
+        \]
+        \[
+            \begin{aligned}
+                I(\theta)&=E\left(\frac{\pder}{\pder \theta}\log f(X|\theta)\right)^2\\
+                &=E\left(\frac{\pder}{\pder \theta}\log f(X|\theta)- E  \left[{\frac {\partial }{\partial \theta }}\log f(X|\theta )\right]\right)^2\\
+                &=Var\left(\frac{\pder}{\pder \theta}\log f(X|\theta)\right)
+            \end{aligned}
+        \]
+        \item \[
+            \begin{aligned}
+                \frac {\partial ^{2}}{\partial \theta ^{2}}\log f(X|\theta )&=\frac{\pder}{\pder \theta}\left(\frac{f'(X|\theta)}{f(X|\theta)}\right)\\
+                &=\frac{\frac{\pder^2}{\pder\theta^2}f(X|\theta)}{f(X|\theta)}-\left(\frac{\pder}{\pder \theta}\log f(X|\theta)\right)^2
+            \end{aligned}
+        \]
+        and
+        \[
+            E \left[{\frac {{\frac {\partial ^{2}}{\partial \theta ^{2}}}f(X|\theta )}{f(X|\theta )}}\right]=\int_{\mathbb{R}}{\frac {{\frac {\partial ^{2}}{\partial \theta ^{2}}}f(X|\theta )}{f(X|\theta )}}f(X|\theta )\der x={\frac {\partial ^{2}}{\partial \theta ^{2}}}\int _{\mathbb {R} }f(X|\theta )\der x=0. 
+        \]
+        So, \[
+            \frac {\partial ^{2}}{\partial \theta ^{2}}\log f(X|\theta )=-\left(\frac{\pder}{\pder \theta}\log f(X|\theta)\right)^2, 
+        \]
+        \[
+            E\left(\frac{\pder}{\pder \theta}\log f(X|\theta)\right)^2=-E\left(\frac {\partial ^{2}}{\partial \theta ^{2}}\log f(X|\theta )\right). 
+        \]
+    \end{enumerate}
+\end{solution}
+
+\begin{ex}
+    Consider the following lemma. Assume that 
+    \begin{enumerate}[(a)]
+        \item \(\Theta\) is an open interval; 
+        \item  \(A:=\{x ; f(x \mid \theta)>0\}\) is independent of \(\theta\); 
+        \item \(\delta(X) \in \Delta\). 
+    \end{enumerate}
+    Let \(\psi(x \mid \theta)=\frac{\partial}{\partial \theta} \log f(x \mid \theta)\), assumed to exist at every pair \(x, \theta\). For some \(\varepsilon>0\), let \(b_{\theta}\) be a function that satisfies
+    \[
+    \begin{aligned}
+    \mathbb{E}_{\theta} b_{\theta}^{2}(X) &<\infty \\
+    \left|\frac{1}{\Delta} \frac{f(x \mid \theta+\Delta)-f(x \mid \theta)}{f(x \mid \theta)}\right| & \leq b_{\theta}(x) \quad \text { if }|\Delta|<\varepsilon .
+    \end{aligned}
+    \]
+    Then,
+    \[
+    \mathbb{E}_{\theta} \psi(X, \theta)=0
+    \]
+    and
+    \[
+    \frac{\partial}{\partial \theta} \mathbb{E}_{\theta} \delta(X)=\mathbb{E}_{\theta}(\delta(X) \psi(X, \theta))= Cov_{\theta}(\delta, \psi)=\int \delta(x) \frac{\partial}{\partial \theta} \log f(x \mid \theta) G(d x)
+    \]
+    (and thus the \(C R L B\) is \(\left(\frac{\partial}{\partial \theta} \mathbb{E}_{\theta}(\delta)\right)^{2} / I(\theta)\)).
+
+    Assume \(f\) is the density of a Cauchy \((0,1)\) random variable, and consider the location family associated with
+    \[
+    f(x-\theta)=\frac{1}{\pi} \frac{1}{1+(x-\theta)^{2}}, \quad \theta \in \mathbb{R} .
+    \]
+    Use the above lemma to establish the information inequality for the family \(\{f(x-\theta)\}_{\theta \in \mathbb{R}}\). 
+    
+    (suggestion: however clumsy the technical condition looks, this is an easy problem. For this location family, just show that
+    \[
+    \left|\frac{1}{\Delta} \frac{f(x \mid \theta+\Delta)-f(x \mid \theta)}{f(x \mid \theta)}\right| \leq 2+\varepsilon
+    \]
+    This can be done by expanding the left-hand side of the inequality. Now define
+    \[
+    b_{\theta}(X):=2+\varepsilon,
+    \]
+    and note that
+    \[
+    \mathbb{E}_{\theta} b_{\theta}^{2}(X)<\infty
+    \]
+    By using the lemma above, conclude that the information inequality holds for any estimator \(\delta(X)\) such that \(\left.\mathbb{E}_{\theta} \delta^{2}(X)<\infty\right)\)
+\end{ex}
+
+\begin{solution}
+    For Cauchy$(0,1)$, 
+    \begin{align*}
+        &\quad\,\left|\frac{1}{\Delta} \frac{f(x \mid \theta+\Delta)-f(x \mid \theta)}{f(x \mid \theta)}\right|  \\
+        &= \left|\frac{1}{\Delta} \frac{1+(x-\theta)^2-1-(x-\Delta-\theta)^2}{1+(x-\Delta-\theta)^2}\right|\\
+        &= \left|\frac{1}{\Delta} \frac{2\Delta(x-\theta)-\Delta^2}{1+(x-\Delta-\theta)^2}\right|\\
+        &= \left|2\frac{x-\theta}{1+(x-\Delta-\theta)^2}-\frac{\Delta}{1+(x-\Delta-\theta)^2}\right|\\
+        &= \left|2\frac{x-\Delta-\theta}{1+(x-\Delta-\theta)^2}+\frac{\Delta}{1+(x-\Delta-\theta)^2}\right|\\
+        &\leqslant2\frac{|x-\Delta-\theta|}{1+(x-\Delta-\theta)^2}+\frac{|\Delta|}{1+(x-\Delta-\theta)^2}\\
+        &\leqslant2+\varepsilon. 
+    \end{align*}
+    Because $|x|<1+x^2$. Let $b(X)=2+\varepsilon$, then $\mathbb{E}b^2<\infty$. So, the information inequality holds for any estimator $\delta(X)$ with $\mathbb{E}_{\theta} \delta^{2}(X)<\infty$.
+    \[
+        \mathcal{L}'=\frac{\pder}{\pder \theta}\log f(x)=-\frac{2(x-\theta)}{1+(x-\theta)^2}, 
+    \]
+    \[
+        \begin{aligned}
+            E\left(\mathcal{L}'\right)^2&=4E\left(\frac{x-\theta}{1+(x-\theta)^2}\right)^2, 
+        \end{aligned}
+    \]
+    \[
+        \begin{aligned}
+            E_{\theta}\left[\frac{X-\theta}{1+(X-\theta)^2}\right]^2
+            &=\frac{1}{\pi}\int_{\mathbb R}\left[\frac{x-\theta}{1+(x-\theta)^2}\right]^2\frac{1}{1+(x-\theta)^2}\der x
+            \\&=\frac{1}{\pi}\int_{\mathbb R}\frac{(x-\theta)^2}{(1+(x-\theta)^2)^3}\der x\\&=\frac{2}{\pi}\int_0^\infty\frac{t^2}{(1+t^2)^3}\der t
+            \\&=\frac{1}{\pi}\int_0^\infty\frac{\sqrt u}{(1+u)^3}\der u
+            \\&=\frac{1}{\pi}B\left(\frac{3}{2},\frac{3}{2}\right)
+            \\&=\frac{1}{8}
+        \end{aligned}
+    \]
+    So, $I(\theta)=1/2$, 
+    \[
+        Var(\delta)\geqslant2
+    \]
+\end{solution}
+
+\begin{ex}
+    The following theorem establishes a bound for the variance of an unbiased estimator in a multiparameter setting. 
+
+    Suppose the following conditions hold. 
+    \begin{enumerate}[(i)]
+        \item \(\delta(\boldsymbol{X}) \in \Delta\) : an \(\mathbb{R}\)-valued unbiased estimator; 
+        \item \(\boldsymbol{\Psi}(\boldsymbol{X} \mid \theta)\) : an \(\mathbb{R}^{r}\)-valued function with finite second moments; 
+        \item \[
+        \begin{aligned}
+            \mathbb{R}^{r} \ni \gamma(\theta) &= Cov_{\theta}(\delta(\boldsymbol{X}), \boldsymbol{\Psi}(\boldsymbol{X} \mid \theta))\\
+            &:=\mathbb{E}_{\theta}\left\{\left(\delta(\boldsymbol{X})-\mathbb{E}_{\theta} \delta(\boldsymbol{X})\right)\left(\boldsymbol{\Psi}(\boldsymbol{X} \mid \theta)-\mathbb{E}_{\theta}(\boldsymbol{\Psi}(\boldsymbol{X} \mid \theta))\right)\right\};
+        \end{aligned}
+        \]
+        \item \[
+            \begin{aligned}
+                C(\theta) &= Cov_{\theta}(\boldsymbol{\Psi}(\boldsymbol{X} \mid \theta), \boldsymbol{\Psi}(\boldsymbol{X} \mid \theta))\\
+                &:=\mathbb{E}_{\theta}\left\{\boldsymbol{\Psi}(\boldsymbol{X} \mid \theta)-\mathbb{E}_{\theta}(\boldsymbol{X} \mid \theta)\right\}\left\{\boldsymbol{\Psi}(\boldsymbol{X} \mid \theta)-\mathbb{E}_{\theta} \boldsymbol{\Psi}(\boldsymbol{X} \mid \theta)\right\}^T; 
+            \end{aligned}
+        \]
+    \end{enumerate}
+    Then,
+        \[
+            Var_{\theta} \delta(\boldsymbol{X}) \geq \gamma^T(\theta) C^{-1}(\theta) \gamma(\theta)
+        \]
+    We will break up its proof into simple steps. 
+        \begin{enumerate}[(a)]
+            \item Let \(\mathbf{a} \in \mathbb{R}^{r}\). Show that 
+            \[
+                Var_{\theta} \delta(\mathbf{X}) \geq \frac{\left[ Cov_{\theta}\left(\delta(\mathbf{X}), \mathbf{a}^T \boldsymbol{\Psi}(\mathbf{X} \mid \theta)\right)\right]^{2}}{ Var_{\theta}\left(\mathbf{a}^T \boldsymbol{\Psi}(\mathbf{X})\right)}; 
+            \]
+            \item Conclude that
+            \[
+                Var_{\theta} \delta(\mathbf{X}) \geq \sup _{\mathbf{a} \in \mathbb{R}^{n}} \frac{\left(\mathbf{a}^T \gamma(\theta)\right)^{2}}{\mathbf{a}^T C(\theta) \mathbf{a}}. 
+            \]
+            \item Consider the following result. 
+            Let \(p\) be a \(r \times 1\) column vector, let \(P=p p^T\), and let \(Q\) be an \(r \times r\) real matrix. Then
+            \[
+            \sup _{\mathbf{a} \in \mathbb{R}^{r}} \frac{\mathbf{a}^T P \mathbf{a}}{\mathbf{a}^T Q \mathbf{a}}=\text { largest eigenvalue of } Q^{-1} P=p^T Q^{-1} p. 
+            \]
+            Use the lemma to conclude that
+            \[
+             Var_{\theta} \delta(\mathbf{X}) \geq \gamma^T(\theta) C^{-1}(\theta) \gamma(\theta). 
+            \]
+        \end{enumerate}
+\end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item From Cauchy-Schwarz inequality, 
+        \[
+            [Cov(X,Y)]^2\leqslant Var(X) Var(Y). 
+        \]
+        So, \[
+            Var(\delta(X))\geqslant \frac{[Cov(\delta(X), a^T\psi(X))]^2}{Var(a^T\psi(X))}. 
+        \]
+        \item $Cov(\delta(X), a^T\psi(X))=a^TCov(\delta(X), \psi(X))$, $Var(a^T\psi(X))=a^T\psi(T(X))a$. So, 
+        \[
+            Var(\delta(X))\geqslant \max_a\frac{[a^T\gamma(\theta)]^2}{a^TC(\theta)a}. 
+        \]
+        \item Using the lemma, $P=\gamma\gamma^T$
+        \[
+            Var(\delta(X))\geqslant \gamma^T(\theta)C^{-1}(\theta) \gamma(\theta). 
+        \]
+    \end{enumerate}
+\end{solution}
+
+\begin{ex}
+    Consider the following set of assumptions. 
+    \begin{enumerate}[(a)]
+        \item \(\Theta \subseteq \mathbb{R}^{r}\) is an open rectangle; 
+        \item the set
+        \(
+            A=\{\mathbf{x}: f(\mathbf{x} \mid \theta)>0\}
+        \)
+        is independent of \(\theta\); 
+        \item \(\frac{\partial}{\partial \theta} f(\mathbf{x} \mid \theta)\) exists for all \(\theta \in \Theta\). 
+    \end{enumerate}
+    For \(\theta \in \mathbb{R}^{r}\), define the information matrix at \(\theta\) by
+    \[
+        I(\theta)=\mathbb{E}_{\theta}\left(\frac{\partial}{\partial \theta} \log f(\mathbf{X} \mid \theta)\right)\left(\frac{\partial}{\partial \theta} \log f(\mathbf{X} \mid \theta)\right)^T. 
+    \]
+    Prove the following theorem (a particular case of Theorem 2.6.6 in Lehmann \& Casella \((1998)\), p. 127). 
+
+    \thm{1} (multiparameter information inequality) 
+    
+    Suppose the following assumptions hold. 
+    \begin{enumerate}[(i)]
+        \item \(\{f(x \mid \theta)\}_{\theta}\) is a family of generalized densities with respect to the \(\sigma\)-finite measure \(G(d x)\); 
+        \item \(\mathrm{A}-(\mathrm{a}),(\mathrm{b}),(\mathrm{c})\); 
+        \item \(\mathbb{E}_{\theta} \nabla_{\theta} \log f(\boldsymbol{X} \mid \theta)=0, \theta \in \Theta\);  
+        \item \(I(\theta)\) is nonsingular, \(\theta \in \Theta\); 
+        \item \(\mathbb{E}_{\theta} \delta^{2}(\boldsymbol{X})<\infty, \theta \in \Theta\); 
+        \item \(\nabla_{\theta} \mathbb{E}_{\theta} \delta(\boldsymbol{X})=\int \delta(\boldsymbol{x}) \frac{\partial}{\partial \theta} f(\boldsymbol{x} \mid \theta) G(d \boldsymbol{x})\). 
+    \end{enumerate}
+    Then,
+    \[
+         Var_{\theta} \delta(\boldsymbol{X}) \geq \nabla_{\theta} \mathbb{E}_{\theta} \delta(\boldsymbol{X}) I(\theta)^{-1} \nabla_{\theta} \mathbb{E}_{\theta} \delta(\boldsymbol{X})^T, \quad \theta \in \Theta
+    \]
+    (hint: use the previous problem).
+\end{ex}
+
+\begin{solution}
+    In previous problem, let $\psi(X)=\frac{\pder }{\pder \theta}\log f(x)$, then
+    \[
+        C=I(\theta); 
+    \]
+    \[
+        \begin{aligned}
+            \nabla_\theta E(\delta)^T&=\frac{\partial}{\partial \theta}\int \delta(X)f(X)\der x\\
+            &=\int\delta(X)f'(X)\der x\\
+            &=\int\delta(X)\frac{\pder}{\pder \theta}\log(f(X))f(X)\der x\\
+            &=\int\delta(X)\psi(X)f(X)\der x\\
+            &=E\left(\delta(X)-E(\delta(X))\right)\left(\psi(X)-E(\psi(X))\right)\\
+            &=Cov(\delta, \psi)\\
+            &=\gamma. 
+        \end{aligned}
+    \]
+    Hence, we finish the proof. 
+\end{solution}
+
+\begin{ex}
+    Let \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right), \mu \in \mathbb{R}, \sigma^{2}>0\). 
+    \begin{enumerate}[(a)]
+        \item Prove that
+        \[
+        I\left(\mu, \sigma^{2}\right)=\left(\begin{array}{cc}
+        \frac{n}{\sigma^{2}} & 0 \\
+        0 & \frac{n}{2 \sigma^{4}}
+        \end{array}\right)
+        \]
+        Here you can use the equality
+        \[
+        \mathbb{E}_{\theta} \frac{\partial}{\partial \theta} \log f(\mathbf{X} \mid \theta) \frac{\partial}{\partial \theta} \log f(\mathbf{X} \mid \theta)^T=-\mathbb{E}_{\theta} \frac{\partial^{2}}{\partial \theta \partial \theta^T} \log f(\mathbf{X} \mid \theta). 
+        \]
+        \item Conclude that the variance of an UMVU estimator does not necessarily attain the CRLB. 
+    \end{enumerate}
+\end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item Knowing that 
+        \[
+            I(\theta;\mathbf{X})=nI(\theta;X), 
+        \]
+        \[
+            I(\mu)=\frac{n}{\sigma^2}. 
+        \]
+        \[
+            I(\sigma^2)=\frac{n}{2\sigma^4}. 
+        \]
+        \[
+            \frac{\pder}{\pder \mu \,\pder \sigma}\log(f(x))=\frac{\pder}{\pder \sigma \,\pder \mu}\log(f(x))=-2(x-\mu)\sigma^{-3}, 
+        \]
+        \[
+            E\left(-2(x-\mu)\sigma^{-3}\right)=0. 
+        \]
+        So, 
+        \[
+            E\left(\frac{\pder}{\pder \mu \,\pder \sigma^2}\log(f(x))\right)=E\left(\frac{\pder}{\pder \sigma^2 \,\pder \mu}\log(f(x))\right)=0.
+        \]
+        \item Consider $\frac{(n-1)S^2}{\sigma^2}\sim \chi(n-1)$, 
+        \[
+            Var\left(\frac{\sigma^2}{n-1}\frac{(n-1)S^2}{\sigma^2}\right)=\frac{\sigma^4}{(n-1)^2}2(n-1)=\frac{2\sigma^4}{n-1}>\frac{2\sigma^4}{n}. 
+        \]
+    \end{enumerate}
+\end{solution}
+
+\begin{ex}
+    (n.b.: the purpose of this exercise is to provide a simple 1-dimensional example where the variance of the UMVU estimator does not attain the CRLB) 
+    
+    Let \(X \sim \operatorname{Poi}(\lambda), \lambda>0\), and let
+    \[
+        \delta(X):= \begin{cases}1, & \text { if } X=0 \\ 0, & \text { otherwise }\end{cases}. 
+    \]
+    \begin{enumerate}[(a)]
+        \item Conclude that \(\delta(X)\) is UMVU for \(\mathbb{E}_{\lambda} \delta(X)\). 
+        \item Find \(\mathbb{E}_{\lambda} \delta(X)\) and \(\operatorname{Var}_{\lambda} \delta(X)\). 
+        \item Find the CRLB for \(\operatorname{Var}_{\lambda} \delta(X)\) (hint: use the formula for the change of variables in the information function). 
+        \item Conclude that the CRLB cannot be met. 
+        \item Why doesn't this contradict the result we showed in class on the attainment of the CRLB in exponential families? (see problem \#2 in this Problem set.)
+    \end{enumerate}
+\end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item $\delta(X)$ is unbiased, and $X$ is a sufficient statistic. So, $\delta(X)$ is UMVU. 
+        \item \[
+            E(\delta(X))=1\cdot e^{-\lambda}=e^{-\lambda}, \ Var(\delta(X))=E(\delta(X))^2-(E\delta(X))^2=\frac{e^\lambda-1}{e^{2\lambda}}. 
+        \]
+        \item \[
+            Var(\delta)\geqslant\frac{\left(-e^{-\lambda}\right)^2}{I(\lambda)}=\frac{\lambda}{e^{2\lambda}}.
+        \]
+        \item When $\lambda>0$, $e^{\lambda}-1>\lambda$. Hence, CRLB cannot be met. 
+        \item Because $\delta(X)$ is not $C^1$. 
+    \end{enumerate}
+\end{solution}
+
+\begin{ex}
+    Let \(\mathbf{X}\) and \(\mathbf{Y}\) be independent random vectors, where \(\mathbf{X} \sim f(\mathbf{x} \mid \theta), \mathbf{Y} \sim g(\mathbf{y} \mid \theta), \theta \in \Theta\), where \(f\) and \(g\) are generalized densities. Assume the following conditions hold. 
+    \begin{enumerate}[(i)]
+        \item A-(a),(b), (c); 
+        \item \[
+            \mathbb{E}_{\theta}\left(\frac{\partial}{\partial \theta} \log f(\mathbf{X} \mid \theta)\right)=0=\mathbb{E}_{\theta}\left(\frac{\partial}{\partial \theta} \log g(\mathbf{X} \mid \theta)\right), \quad \theta \in \Theta. 
+        \]
+    \end{enumerate}
+    \begin{enumerate}[(a)]
+        \item Show that \(I_{\mathbf{X}, \mathbf{Y}}(\theta)=I_{\mathbf{X}}(\theta)+I_{\mathbf{Y}}(\theta)\), namely, the information contained in each subsample adds up to the information in the whole sample. 
+        \item Use (a) to rewrite the CRLB for an i.i.d. sample \(X_{1}, \ldots, X_{n}\). 
+    \end{enumerate}
+\end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item Let $\psi(X)=\frac{\pder }{\pder \theta}\log f(X; \theta)$, then 
+        \[
+            \begin{aligned}
+                I_{X,Y}(\theta)&=E\left(\frac{\pder}{\pder \theta}\log f(X|\theta)f(Y;\theta)\right)^2\\
+                &=E\left(\frac{\pder}{\pder \theta}\log f(X|\theta)+\frac{\pder}{\pder \theta}\log f(X|\theta)\right)^2\\
+                &=E\left(\frac{\pder}{\pder \theta}\log f(X|\theta)\right)^2+E\left(\frac{\pder}{\pder \theta}\log f(Y;\theta)\right)^2\\
+                &=I_X(\theta)+I_Y(\theta)
+            \end{aligned}
+        \]
+        \item Let $\delta(X)$ be an unbiased statistics for $\theta$, 
+        \[
+            I_X(\theta)=\sum_{i=1}^nI_{X_i}(\theta)=nI_x(\theta). 
+        \]
+        \[
+            Var_\theta(\delta(X))\geqslant\frac{1}{nI_x(\theta)}. 
+        \]
+    \end{enumerate}
+\end{solution}
+
+
+\begin{ex}
+    Consider an estimator \(\delta(\mathbf{X}) \in \Delta\) under a parametric family \(\mathbf{X} \sim \mathcal{P}=\{f(\mathbf{x} \mid \theta)\}_{\theta \in \Theta}\), where \(f(\mathbf{x} \mid \theta)\) is a generalized density. Suppose, in addition, that the following conditions hold. 
+    \begin{enumerate}[(i)]
+        \item \(\mathbb{E}_{\theta} \delta(\mathbf{X})=g(\theta), \theta \in \Theta\), where the function \(g(\cdot)\) is differentiable; 
+        \item the estimator can be explicitly written as
+        \[
+        \delta(\mathbf{x})=g(\theta)+\frac{g^{\prime}(\theta)}{I(\theta)} \frac{\partial}{\partial \theta} \log f(\mathbf{x} \mid \theta), \quad I(\theta)>0, \quad \theta \in \Theta. 
+        \]
+        \item \[
+            \frac{\partial}{\partial \theta} \int_{\mathbb{R}^{n}} f(\mathbf{x} \mid \theta) G(d \mathbf{x})=\int_{\mathbb{R}^{n}} \frac{\partial}{\partial \theta} f(\mathbf{x} \mid \theta) G(d \mathbf{x}), \quad \theta \in \Theta .
+        \]
+        Show that \(\operatorname{Var}_{\theta} \delta(\mathbf{X})\) attains the CRLB. 
+    \end{enumerate}
+\end{ex}
+
+\begin{solution}
+    \begin{align*}
+        Var(\delta(X))&=E(\delta(X)-E\delta(X))^2\\
+        &=E\left(\frac{g'(\theta)}{I(\theta)}\frac{\pder}{\pder \theta}\log f(X|\theta)\right)^2\\
+        &=\left(\frac{g'(\theta)}{I(\theta)}\right)^2E\left(\frac{\pder}{\pder \theta}\log f(X|\theta)\right)^2\\
+        &=\left(\frac{g'(\theta)}{I(\theta)}\right)^2I(\theta)\\
+        &=\frac{(g'(\theta))^2}{I(\theta)}\\
+        &=\frac{\left(\frac{\pder}{\pder \theta}E(\delta(X))\right)^2}{I(\theta)}\\
+        &=CRLB. 
+    \end{align*}
+\end{solution}
+
