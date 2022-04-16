@@ -1,0 +1,261 @@
+\chapter{}
+
+\rmk{1} As a reminder, for a canonical exponential family
+\[
+f(\mathbf{x} \mid \eta)=h(\mathbf{x}) \exp \{\langle\eta, T(\mathbf{x})\rangle-A(\eta)\}, \quad \eta \in \operatorname{int}(\mathcal{E}) \neq \emptyset
+\]
+it is true that
+\[
+\frac{\partial^{k}}{\partial \eta^{k}} \int f(\mathbf{x} \mid \eta) G(d \mathbf{x})=\int \frac{\partial^{k}}{\partial \eta^{k}} f(\mathbf{x} \mid \eta) G(d \mathbf{x}), \quad k \in \mathbb{N}
+\]
+where \(\frac{\partial^{k}}{\partial \eta^{k}}\) represents the vector derivative with respect to \(\eta\).
+
+\rmk{2} As another reminder, the application of the theorem on asymptotic efficiency essentially boils down to verifying the conditions
+\begin{enumerate}[(a)]
+    \item \(\int f\left(x_{1} \mid \theta\right) G\left(d x_{1}\right)\) can be differentiated twice under the integral sign; 
+    \item the third derivative of \(\log f\left(x_{1} \mid \theta\right)\) is uniformly bounded by an integrable random variable (i.e., \(M\left(X_{1}\right)\) such that \(\left.\mathbb{E}_{\theta}\left|M\left(X_{1}\right)\right|<\infty\right)\). 
+\end{enumerate}
+In all problems where \(\theta\) appears, it denotes the parameter or vector of parameters, accordingly. 
+
+\begin{ex}
+    Let \(\left\{X_{n}\right\}_{n \in \mathbb{N}} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}(\theta, 1), \theta \in \mathbb{R}\). Recall that the Hodges estimator is defined by
+\[
+\delta(\mathbf{X})=\left\{\begin{array}{cl}
+\bar{X}, & \text { if }|\bar{X}| \geq n^{-1 / 4} \\
+a \bar{X}, & \text { if }|\bar{X}|<n^{-1 / 4}
+\end{array}\right.
+\]
+where \(0<a<1\). For \(g(\theta)=\theta\), prove that
+\[
+\sqrt{n}(\delta(\mathbf{X})-g(\theta)) \stackrel{d}{\rightarrow} \mathcal{N}(0, v(\theta)), \quad n \rightarrow \infty
+\]
+where
+\[
+v(\theta)=\left\{\begin{array}{cc}
+1, & \text { if } \theta \neq 0 \\
+a^{2}, & \text { if } \theta=0
+\end{array}\right.
+\]
+(suggestion: for the case \(\theta \neq 0\), break up
+\[
+\sqrt{n}(\delta(\mathbf{X})-\theta)=\sqrt{n}(\bar{X}-\theta) 1_{\left\{|\bar{X}| \geq n^{-1 / 4}\right\}}+a \sqrt{n}(\bar{X}-\theta) 1_{\left\{|\bar{X}|<n^{-1 / 4}\right\}}+(a-1) \theta \sqrt{n} 1_{\left\{|\bar{X}|<n^{-1 / 4}\right\}} .
+\]
+Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow 0\) as \(\left.n \rightarrow \infty\right)\).
+\end{ex}
+
+\begin{ex}
+    Determine whether or not the location families based on the following densities have unique roots. 
+    \begin{enumerate}[(a)]
+        \item \(f(x)=\frac{1}{\sqrt{2 \pi}} \exp \left\{-\frac{1}{2} x^{2}\right\}, x \in \mathbb{R}\); 
+        \item \(f(x)=\frac{e^{-x}}{\left(1+e^{-x}\right)^{2}}, x \in \mathbb{R}\). 
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    Consider a sample \(X_{1}, \cdots, X_{n}\) from a Poisson distribution conditioned to be positive, i.e.,
+    \[
+        \mathbb{P}\left(X_{1}=x\right)=\frac{\theta^{x} e^{-\theta}}{x !\left(1-e^{-\theta}\right)} . \quad x \in \mathbb{N} .
+    \]
+    Show that the likelihood equation has a unique root for all values of \(x\). 
+\end{ex}
+
+
+\begin{ex}
+    The so-called digamma function \(\Gamma^{\prime}(\alpha) / \Gamma(\alpha), \alpha>0\), is an increasing function of \(\alpha\). Use this fact to prove that, for a sample \(X_{1}, \cdots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \Gamma(\alpha, 1)\), the likelihood equation has a unique root. Can we arrive at the same conclusion by using a general result for canonical exponential families?
+\end{ex}
+
+\begin{ex}
+    Let \(\left\{Y_{n}\right\}_{n \in \mathbb{N}}\) be a random sequence defined on a probability space \((\Omega, \mathcal{F}, \mathbb{P})\). This sequence is said to be bounded in probability (or tight) if
+    \[
+        \forall \varepsilon>0, \exists m(\varepsilon)>0 \text { such that } \mathbb{P}\left(\left|Y_{n}\right|>m(\varepsilon)\right)<\varepsilon, \quad n \in \mathbb{N} .
+    \]
+    Notation: \(Y_{n}=O_{\mathbb{P}}(1)\). 
+    \begin{enumerate}
+        \item Let \(\left\{M\left(X_{n}\right)\right\}_{n \in \mathbb{N}}\) be an i.i.d. sequence, \(\mathbb{E}\left|M\left(X_{1}\right)\right|<\infty\). Prove that
+        \[
+        Y_{n}:=\frac{1}{n} \sum_{i=1}^{n} M\left(X_{i}\right)
+        \]
+        is bounded in probability. 
+        \item Let \(\left\{Y_{n}\right\}_{n \in \mathbb{N}}\) and \(\left\{Z_{n}\right\}_{n \in \mathbb{N}}\) be random sequences such that \(Y_{n}=O_{\mathbb{P}}(1)\) and \(Z_{n}=o_{\mathbb{P}}(1)\) (i.e., \(\left\{Z_{n}\right\}_{n \in \mathbb{N}}\) converges to zero in probability). Prove that \(Y_{n} Z_{n}=o_{\mathbb{P}}(1)\). 
+    \end{enumerate}
+\end{ex}
+
+
+\begin{ex}
+    (this problem revisits the key steps of the proof of asymptotic efficiency of a consistent sequence of roots)
+
+    For some \(\theta, \theta_{0} \in \Theta=(\underline{\theta}, \bar{\theta})\) (without loss of generality, \(\left.\theta>\theta_{0}\right)\), if the likelihood function is smooth enough (more specifically, three times differentiable in \(\theta\) over \(\Theta\) ), then we can use the Taylor expansion (with Lagrange residual)
+    \[
+    \ell^{\prime}(\theta)=\ell^{\prime}\left(\theta_{0}\right)+\left(\widehat{\theta}_{n}-\theta_{0}\right) \ell^{\prime \prime}\left(\theta_{0}\right)+\frac{1}{2}\left(\widehat{\theta}_{n}-\theta_{0}\right)^{2} \ell^{\prime \prime \prime}\left(\theta^{*}\right)
+    \]
+    where \(\theta^{*} \in\left(\theta_{0}, \theta\right)\) and the derivatives are all with respect to \(\theta\). 
+    \begin{enumerate}[(a)]
+        \item If \(\theta\) is a root of the likelihood equation, conclude that
+        \[
+            \sqrt{n}\left(\theta-\theta_{0}\right)=\frac{(1 / \sqrt{n}) \ell^{\prime}(\theta)}{-(1 / n) \ell^{\prime \prime}\left(\theta_{0}\right)-(1 / 2 n)\left(\theta-\theta_{0}\right) \ell^{\prime \prime \prime}\left(\theta^{*}\right)}. 
+        \]
+        \item  Prove that
+        \[
+            \frac{1}{\sqrt{n}} \ell^{\prime}\left(\theta_{0}\right) \stackrel{d}{\rightarrow} \mathcal{N}\left(0, I\left(\theta_{0}\right)\right), \quad n \rightarrow \infty. 
+        \]
+        \item Prove that
+        \[
+            -\frac{1}{n} \ell^{\prime \prime}\left(\theta_{0}\right) \stackrel{\mathbb{P}}{\rightarrow} I\left(\theta_{0}\right), \quad n \rightarrow \infty. 
+        \]
+        \item In expression \((0.2)\), assume \(\theta\) is replaced by a consistent sequence of roots \(\left\{\hat{\theta}_{n}\right\}\). Show that
+        \[
+        \frac{1}{n} \ell^{\prime \prime \prime}\left(\theta_{n}^{*}\right)
+        \]
+        is bounded in probability. Use this fact and the previous parts to show that the sequence of roots \(\left\{\widehat{\theta}_{n}\right\}\) is asymptotically efficient. 
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    (this problem is about casting new light on a well-known result) 
+
+    Consider an i.i.d. sample \(X_{1}, \cdots, X_{n}\) from the location family \(f(x-\mu), \mu \in \mathbb{R}\), where
+    \[
+        f(x)=\frac{1}{\sqrt{2 \pi} \sigma_{0}} \exp \left\{-\frac{1}{2 \sigma_{0}^{2}} x^{2}\right\}
+    \]
+    and \(\sigma_{0}\) is known. 
+    \begin{enumerate}[(a)]
+        \item Show that the likelihood equation has a unique root. Is it related to the ML estimator? 
+        \item Conclude that the sequence of roots thus obtained is consistent. 
+        \item Conclude that such sequence is asymptotically efficient. Calculate the asymptotic variance. 
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    Let \(X_{1}, \cdots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \operatorname{NegBin}(m, p)\), i.e.,
+    \[
+        \mathbb{P}\left(X_{1}=x\right)=\left(\begin{array}{c}
+        m+x-1 \\
+        m-1
+        \end{array}\right) p^{m}(1-p)^{x}, \quad x=0,1,2, \cdots
+    \]
+    Find an EL estimator of \(p\). 
+\end{ex}
+
+
+\begin{ex}
+    Let \(X_{1}, \cdots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\theta, a \theta^{2}\right), \theta>0\), and \(a>0\) is known. Find an explicit expression for an EL estimator of \(\theta\). 
+\end{ex}
+
+\begin{ex}
+    We now extend the theorem on efficient likelihood (EL) estimators for canonical exponential families to the multiparameter case. 
+
+    Let \(X_{1}, \cdots, X_{n}\) be an i.i.d. sample from a multiparameter canonical exponential family. Under assumptions analogous to those for the univariate case, with probability \(\rightarrow 1\) as \(n \rightarrow \infty\) there exist solutions
+    \[
+        \widehat{\theta}_{n}=\hat{\theta}_{n}(\mathbf{X})
+    \]
+    of the likelihood equations such that 
+    \begin{enumerate}[(i)]
+        \item \(\hat{\theta}_{j n} \stackrel{\mathbb{P}}{\rightarrow} \theta_{j}, n \rightarrow \infty\); 
+        \item \(\sqrt{n}\left(\widehat{\theta}_{n}-\theta\right) \stackrel{d}{\rightarrow} \mathcal{N}\left(0, I(\theta)^{-1}\right), n \rightarrow \infty\); 
+        \item \(\widehat{\theta}_{j n}\) is asymptotically efficient in the sense that
+        \[
+            \sqrt{n}\left(\hat{\theta}_{j n}-\theta_{j}\right) \stackrel{d}{\rightarrow} \mathcal{N}\left(0,\left(I(\theta)^{-1}\right)_{j j}\right), \quad n \rightarrow \infty. 
+        \]
+    \end{enumerate}
+    Here, we define
+    \[
+        I(\theta)=\mathbb{E}_{\theta}\left[\left(\frac{\partial}{\partial \theta} \log f(x \mid \theta)\right)\left(\frac{\partial}{\partial \theta} \log f(x \mid \theta)\right)^{\top}\right]
+    \]
+    As before, under smoothness we have
+    \[
+        I(\theta)=-\mathbb{E}\left(\frac{\partial^{2}}{\partial \theta \partial \theta^{\top}} \log f(x \mid \theta)\right)
+    \]
+    So, let \(X_{1}, \cdots, X_{n}\) be an i.i.d. sample from a multiparameter canonical exponential family
+    \[
+        f(x \mid \boldsymbol{\eta})=h(x) \exp \{\langle\boldsymbol{\eta}, T(x)\rangle-A(\boldsymbol{\eta})\}
+    \]
+    Assume that \(\mathcal{E} \neq \emptyset, \mathcal{E} \subseteq \mathbb{R}^{k}\), is open and that identifiability holds. 
+    \begin{enumerate}[(a)]
+        \item Conclude that, with probability \(\rightarrow 1\) as \(n \rightarrow \infty, \widehat{\boldsymbol{\eta}}_{\mathrm{ML}}\) exists and is unique, and find its expression. 
+        \item Conclude that
+        \[
+            \sqrt{n}\left(\widehat{\boldsymbol{\eta}}_{\mathrm{ML}}-\boldsymbol{\eta}\right) \stackrel{d}{\rightarrow} \mathcal{N}\left(0, \frac{1}{Var_{\boldsymbol{\eta}}(T)}\right), \quad n \rightarrow \infty
+        \]
+        i.e., \(\widehat{\boldsymbol{\eta}}_{\mathrm{ML}}\) is an EL estimator of \(\boldsymbol{\eta}\).
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    An estimator \(\delta_{n}(\mathbf{X})\) is called \(\sqrt{n}\)-consistent to \(\theta\) if \(\sqrt{n}\left(\delta_{n}(\mathbf{X})-\theta\right)\) is bounded in probability. Let \(\left\{X_{n}\right\}_{n \in \mathbb{N}}\) be an i.i.d. sequence such that \(\mathbb{E} X_{1}^{2}<\infty\). Show that \(\bar{X}_{n}\) is \(\sqrt{n}\)-consistent to \(\mu:=\mathbb{E} X_{1}\). 
+    
+    (hint: Prohorov's theorem ensures that boundedness in probability is equivalent to the existence of a subsequence that converges weakly). 
+\end{ex}
+
+\begin{ex}
+    Let \(\tilde{\theta}_{n}(\mathbf{X})\) be a \(\sqrt{n}\)-consistent estimator of \(\theta\) under the log-likelihood \(\ell(\theta \mid \mathbf{X})\). Under the conditions of the asymptotic normality theorem for EL estimators, it can be shown that the estimator
+\[
+\delta_{n}(\mathbf{X}):=\tilde{\theta}_{n}(\mathbf{X})-\frac{\ell^{\prime}\left(\tilde{\theta}_{n}(\mathbf{X})\right)}{\ell^{\prime \prime}\left(\tilde{\theta}_{n}(\mathbf{X})\right)}
+\]
+is also asymptotically efficient (Theorem 6.4.3 in Lehmann and Casella (1998)).
+Let \(\{f(x-\theta)\}_{\theta \in \Theta}\) be a location family based on the symmetric (around zero) and a.c. density \(f\) with finite second moments. Assume that the likelihood equation
+\[
+\frac{\partial}{\partial \theta} \log f(\mathbf{x} \mid \theta)=0
+\]
+has potentially multiple roots. Use \((0.3)\) to find an asymptotically efficient estimator for \(\theta\) 
+
+(hint: look at the previous problem). 
+
+\rmk{3} It is clear that the expression (0.3) stems from one step of Newton-Raphson's method.
+\end{ex}
+
+
+\begin{ex}
+    Let \(\left\{X_{n}\right\}_{n \in \mathbb{N}} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right), \mu \in \mathbb{R}, \sigma^{2}>0\), and let \(h(x)=x^{2}\). 
+    \begin{enumerate}[(a)]
+        \item Construct asymptotic approximations to \(\mathbb{E}_{\theta} h(\bar{X})\) and \(Var_{\theta} h(\bar{X})\). 
+        \item Based on the properties of Gaussian distributions, compute \(\mathbb{E}_{\theta} h(\bar{X})\) and \(Var_{\theta} h(\bar{X})\) explicitly and compare the expressions with the approximations obtained in (a). Do the approximations orders match? 
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    Consider the following setup. 
+    \begin{itemize}
+        \item \(\left\{X_{n}\right\}_{n \in \mathbb{N}}\) : i.i.d. sequence, \(X_{1} \sim \mathcal{P}=\left\{\mathbb{P}_{\theta}\right\}_{\theta \in \Theta}\); 
+        \item \(\mathbb{E}_{\theta} X_{1}=\mu, Var_{\theta} X_{1}=\sigma^{2}>0, \mathbb{E}_{\theta} X_{1}^{4}<\infty\); 
+        \item \(h: I \rightarrow \mathbb{R}\) is a 4-times differentiable function, where \(\mathbb{P}_{\theta}\left(X_{1} \in I\right)=1, \theta \in \Theta\); 
+        \item \(\left|h^{(i v)}(x)\right| \leq M<\infty, x \in I\); 
+        \item \(c_{n}=1+\frac{a}{n}+O\left(\frac{1}{n^{2}}\right), n \in \mathbb{N}, a \in \mathbb{R}\). 
+    \end{itemize}
+    Consider the estimator \(\delta_{n}(\bar{X})=h\left(c_{n} \bar{X}\right)\). Show that
+    \[
+        Var_{\theta} \delta_{n}(\bar{X})=\frac{\sigma^{2}}{n}\left[h^{\prime}(\mu)\right]^{2}+O\left(\frac{1}{n^{2}}\right) .
+    \]
+\end{ex}
+
+
+
+\begin{ex}
+    Let \(\left\{X_{n}\right\}_{n \in \mathbb{N}} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right), \mu \in \mathbb{R}, \sigma^{2}>0\), and let \(h(x)=e^{x^{4}}\). It is clear that all moments of \(X\) and all derivatives of \(h\) exist. 
+    \begin{enumerate}[(a)]
+        \item Show that \(\mathbb{E}\left|h\left(\bar{X}_{n}\right)\right|=\infty, n \in \mathbb{N}\). Conclude that
+        \[
+            \mathbb{E}_{\theta} \sqrt{n}\left[h\left(\bar{X}_{n}\right)-h(\mu)\right]^{2}=\infty, \quad n \in \mathbb{N} .
+        \]
+        \item By contrast, assuming \(\mu \neq 0\), show that \(\sqrt{n}\left[h\left(\bar{X}_{n}\right)-h(\mu)\right]\) has a normal limit distribution with finite variance. 
+        \item Conclude that the theorem seen in class on the approximation of moments does require bounded derivatives. 
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    The Hardy-Weinberg principle from population genetics describes an idealized situation where there are no evolutionary influences. 
+    
+    Assume that two alleles \(A\) and \(a\) appear in a population's gene pool with frequencies \(\theta\) and \(1-\theta, 0<\theta<1\), respectively. The principle states that, in equilibrium, the frequencies of the genotypes \(A A, A a\) and \(a a\) will remain constant from generation to generation at
+    \[
+    p_{1}(\theta)=\theta^{2}, \quad p_{2}(\theta)=2 \theta(1-\theta), \quad p_{3}(\theta)=(1-\theta)^{2},
+    \]
+    respectively.
+    
+    Assume that a sample \(\mathbf{X}=\left(X_{1}, X_{2}, X_{3}\right)\) is drawn. If the population is very large, then we can suppose that the sampling was done with replacement, whence
+    \[
+    \mathbb{P}(\mathbf{X}=\mathbf{x} \mid \theta)=\frac{n !}{x_{1} ! x_{2} ! x_{3} !} p_{1}(\theta)^{x_{1}} p_{2}(\theta)^{x_{2}} p_{3}(\theta)^{x_{3}}, \quad \sum_{i=1}^{3} x_{i}=n .
+    \]
+    What is the probability that \(\widehat{\theta}_{\mathrm{ML}}\) exists, and how does it behave as \(n \rightarrow \infty\) ?
+\end{ex}
+
+
+

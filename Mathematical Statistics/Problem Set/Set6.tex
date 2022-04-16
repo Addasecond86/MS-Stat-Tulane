@@ -1,0 +1,155 @@
+\chapter{}
+
+
+\begin{ex}[Delta method]
+    Let \(\left\{T_{n}\right\}\) be a sequence of random variables such that
+    \[
+        \sqrt{n}\left(T_{n}-\theta\right) \stackrel{d}{\rightarrow} \mathcal{N}\left(0, \tau^{2}\right), \quad n \rightarrow \infty. 
+    \]
+    Let \(h\) be a twice differentiable function such that \(h^{\prime}(\theta)=0\) and \(h^{\prime \prime}(\theta) \neq 0\). Show that
+    \[
+        n\left(h\left(T_{n}\right)-h(\theta)\right) \stackrel{d}{\rightarrow} \frac{1}{2} \tau^{2} h^{\prime \prime}(\theta) \chi_{1}^{2}, \quad n \rightarrow \infty. 
+    \]
+\end{ex}
+
+\begin{ex}
+    Let \(X_{1}, \ldots, X_{n}\) be i.i.d. with \(\mathbb{E} X_{1}=\mu\) and \(Var\left(X_{1}\right)=\sigma^{2}\). Consider a sequence of constants \(c_{n}\) such that
+    \[
+        c_{n}=1+\frac{a}{n}+O\left(\frac{1}{n^{2}}\right) .
+    \]
+    \begin{enumerate}[(a)]
+        \item Suppose that a function \(h\) is differentiable with \(h^{\prime}(\mu) \neq 0\). Prove that
+        \[
+            \sqrt{n}\left(h\left(c_{n} \bar{X}\right)-h(\mu)\right) \stackrel{d}{\rightarrow} \mathcal{N}\left(0, \sigma^{2}\left(h^{\prime}(\mu)\right)^{2}\right), \quad n \rightarrow \infty. 
+        \]
+        \item Suppose that the function \(h\) is twice differentiable, that \(h^{\prime}(\mu)=0\), but \(h^{\prime \prime}(\mu) \neq 0\). Prove that
+        \[
+            n\left(h\left(c_{n} \bar{X}\right)-h(\mu)\right) \stackrel{d}{\rightarrow} \frac{1}{2} \sigma^{2} h^{\prime \prime}(\mu) \chi_{1}^{2}, \quad n \rightarrow \infty. 
+        \]
+    \end{enumerate}
+\end{ex}
+
+
+\begin{ex}
+    Let \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} B(1, p)\), and let \(T_{n}:=\frac{1}{n} \sum_{i=1}^{n} X_{i}\). 
+    \begin{enumerate}[(a)]
+        \item Conclude that
+        \[
+            \sqrt{n}\left(T_{n}-p\right) \stackrel{d}{\rightarrow} \mathcal{N}(0, p(1-p)), \quad n \rightarrow \infty. 
+        \]
+        \item We now look at the large sample behavior of \(\widehat{\sigma}^{2}:=T_{n}\left(1-T_{n}\right)\). 
+        \begin{enumerate}[(i)]
+            \item Assume \(p \neq 1 / 2\). Prove that
+            \[
+                \sqrt{n}\left(\widehat{\sigma}^{2}-p(1-p)\right) \stackrel{d}{\rightarrow} \mathcal{N}\left(0,(1-2 p)^{2} p(1-p)\right). 
+            \]
+            \item Assume \(p=1 / 2\). Prove that
+            \[
+            n\left(\widehat{\sigma}^{2}-\frac{1}{4}\right) \stackrel{d}{\rightarrow}-\frac{1}{4} \chi_{1}^{2}. 
+            \]
+            \item Justify the negative sign in the limiting distribution in (0.4) by proving that
+            \[
+                \widehat{\sigma}^{2} \leq \frac{1}{4} \quad \text { a.s. }
+            \]
+        \end{enumerate}
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    Please answer the following questions. 
+    \begin{enumerate}[(a)]
+        \item Let \(\left\{X_{n}\right\}_{n \in \mathbb{N}}, X\) be Gaussian random variables. Assuming that \(X_{n} \stackrel{d}{\rightarrow} X\), show that
+        \[
+            \mathbb{E} X_{n} \rightarrow \mathbb{E} X, \quad Var X_{n} \rightarrow Var X, \quad n \rightarrow \infty
+        \]
+        (hint: use the Helly-Bray theorem). 
+        \item Recall that a characteristic function \(\phi\) is analytic when there exists a sequence \(\left\{a_{k}\right\}_{k \in \mathbb{N} \cup\{0\}}\) and a constant \(\delta_{0}>0\) such that \(\phi(t)=\sum_{k=0}^{\infty} a_{k} t^{k}\) for \(|t|<\delta\). So, let \(\left\{X_{n}\right\}_{n \in \mathbb{N}}, X\) be random variables such that \(X_{n} \stackrel{d}{\rightarrow} X\) as \(n \rightarrow \infty\). In addition, assume their respective characteristic functions \(\left\{\phi_{n}\right\}_{n \in \mathbb{N}}, \phi\) are analytic. Prove that, for all \(k \in \mathbb{N}, \lim _{n \rightarrow \infty} \mathbb{E} X_{n}^{k}=\mathbb{E} X^{k}\) (n.b.: this exercise generalizes (a)).
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    Let \(\delta_{n}(\mathbf{X})\) be an estimator of \(g(\theta)\) with \(\operatorname{MSE} R\left(g(\theta), \delta_{n}(\mathbf{X})\right)=\mathbb{E}\left(\delta_{n}(\mathbf{X})-g(\theta)\right)^{2}\). 
+    \begin{enumerate}[(a)]
+        \item If
+        \[
+            \mathbb{E}_{\theta}\left(\delta_{n}(\mathbf{X})-g(\theta)\right)^{2} \rightarrow 0, \quad \theta \in \Theta
+        \]
+        as \(n \rightarrow \infty\), prove that \(\delta_{n}(\mathbf{X})\) is consistent for estimating \(g(\theta)\). 
+        \item Conclude that, if
+        \[
+            Bias_{\theta}\left(\delta_{n}(\mathbf{X})\right) \rightarrow 0, \quad Var_{\theta}\left(\delta_{n}(\mathbf{X})\right) \rightarrow 0, \quad \theta \in \Theta
+        \]
+        as \(n \rightarrow \infty\), then \(\delta_{n}(\mathbf{X})\) is consistent for estimating \(g(\theta)\). 
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    In maximum likelihood estimation, we often observe that
+    \[
+        Bias_{\theta}\left(\widehat{\theta}_{n}(\mathbf{X})\right)=\frac{\beta(\theta)}{n}+O\left(\frac{1}{n^{2}}\right) \quad\left(" b i a s \text { of order } \frac{1}{n} "\right)
+    \]
+    where \(\beta(\theta)\) is some known and measurable function of \(\theta\). So, suppose \(\beta\) is twice differentiable with bounded second derivative and that \(Var_{\theta}\left(\sqrt{n}\left(\widehat{\theta}_{n}(\mathbf{X})-\theta\right)\right) \leq C, n \in \mathbb{N}\), which are mild conditions in practice. Show that the (bias-corrected) estimator
+    \[
+        \widehat{\widehat{\theta}}_{n}(\mathbf{X}):=\widehat{\theta}_{n}(\mathbf{X})-\frac{\beta\left(\widehat{\theta}_{n}(\mathbf{X})\right)}{n}
+    \]
+    has bias of order \(1 / n^{2}\). 
+\end{ex}
+
+
+\begin{ex}
+    Let \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} U[0, \theta]\). We know that
+    \[
+        \widehat{\theta}_{\mathrm{ML}}(\mathbf{X})=X_{(n)}, \quad \delta_{n}:=\widehat{\theta}_{\mathrm{UMVU}}(\mathbf{X})=\frac{n+1}{n} X_{(n)}. 
+    \]
+    \begin{enumerate}[(a)]
+        \item Determine the limit distributions of
+        \[
+            n\left(\theta-X_{(n)}\right), \quad n\left(\theta-\delta_{n}(\mathbf{X})\right). 
+        \]
+        \item Is \(X_{(n)}\) asymptotically unbiased? Is \(X_{(n)}\) unbiased in the limit? 
+        \item Calculate the MSEs of \(X_{(n)}\) and \(\delta_{n}(\mathbf{X})\) as estimators of \(\theta\) and show that
+        \[
+            \lim _{n \rightarrow \infty} \frac{\mathbb{E}_{\theta}\left(X_{(n)}-\theta\right)^{2}}{\mathbb{E}_{\theta}\left(\delta_{n}-\theta\right)^{2}}=2, \quad \theta>0. 
+        \]
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    Let \(X_{1}, \ldots, X_{n}\) be an i.i.d. sample from a distribution with mean \(\mu \neq 0\) and variance \(\sigma^{2}\). 
+    \begin{enumerate}[(a)]
+        \item Prove that
+        \[
+            \sqrt{n}\left(\frac{1}{\bar{X}}-\frac{1}{\mu}\right) \stackrel{d}{\rightarrow} \mathcal{N}\left(0,\left(\frac{1}{\mu}\right)^{4} \sigma^{2}\right), \quad n \rightarrow \infty. 
+        \]
+        \item Note that the limiting distribution in (0.5) depends on \(\mu\) and \(\sigma^{2}\), both of which are unknown (and thus, the limit above is not good enough for inference purposes). To "fix" this, prove that
+        \[
+            \sqrt{n} \frac{\left(\frac{1}{\bar{X}}-\frac{1}{\mu}\right)}{\left(\frac{1}{\bar{X}}\right)^{2} S} \stackrel{d}{\rightarrow} \mathcal{N}(0,1), \quad n \rightarrow \infty. 
+        \]
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    Let \(\left\{X_{n}\right\}_{n \in \mathbb{N}}\) be an i.i.d. sample, where \(\operatorname{Var} X_{1}=\sigma^{2}\) and \(\mathbb{E} X_{1}^{4}<\infty\). Prove that \(S^{r}\) is asymptotically unbiased for \(\sigma^{r}\) (remark: note that this is not about showing that \(\lim _{n \rightarrow \infty} \mathbb{E} S^{r}=\sigma^{r} ;\) suggestion: you may want to try \(r=2\) first). 
+\end{ex}
+
+\begin{ex}
+    Let \(\delta_{n}(\mathbf{X})\) be an estimator with asymptotic variance \(\tau^{2}(\theta)\). A function \(h(\cdot)\) is variancestabilizing when the estimator \(h\left(\delta_{n}(\mathbf{X})\right)\) has asymptotic variance
+    \begin{equation}
+        \label{eq:6.12}
+        \tau^{2}(\theta)\left[h^{\prime}(\theta)\right]^{2}=c
+    \end{equation}
+    where \(c\) is a constant independent of \(\theta\). For each of the following cases, find the asymptotic distribution of the transformed statistic and show that it is variance stabilizing. 
+    \begin{enumerate}[(a)]
+        \item \(\left\{X_{n}\right\}_{n \in \mathbb{N}} \stackrel{\text { i.i.d. }}{\sim} \operatorname{Poi}(\lambda), \lambda>0, h\left(\bar{X}_{n}\right)=\sqrt{\bar{X}_{n}}\). 
+        \item \(\left\{X_{n}\right\}_{n \in \mathbb{N}} \stackrel{\text { i.i.d. }}{\sim} B(1, p), 0<p<1, h\left(\bar{X}_{n}\right)=\arcsin \sqrt{\bar{X}_{n}}\). 
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    (this problem is about the so-called Box-Cox transformations, which are widely used in Applied Statistics) 
+    
+    Starting from (\ref{eq:6.12}), consider the particular case \(\tau^{2}(\theta)=\theta^{n}, n \in \mathbb{N}\), and find a variance-stabilizing transformation \(h(\cdot)\). Be careful with the important case \(n=2\) (remark: this result can be extended to more general powers than \(n \in \mathbb{N}\) ).
+\end{ex}
+
+
+
