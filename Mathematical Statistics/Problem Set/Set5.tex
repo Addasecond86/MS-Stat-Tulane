@@ -67,7 +67,7 @@
             \begin{aligned}
                 Var_\theta T(X)&=A''(\eta)\\
                 &=\left(\frac{B'(H^{-1}(\eta))}{H'(H^{-1}(\eta))}\right)'\\
-                &=\frac{B''(H^{-1}(\eta))(H^{-1}(\eta))'}{H'(H^{-1}(\eta))}-B'(H^{-1}(\eta))\frac{B'(H^{-1}(\eta))H''(H^{-1}(\eta))(H^{-1}(\eta))'}{\left(H'(H^{-1}(\eta))\right)^2}\\
+                &=\frac{B''(H^{-1}(\eta))(H^{-1}(\eta))'}{H'(H^{-1}(\eta))}-\frac{B'(H^{-1}(\eta))H''(H^{-1}(\eta))(H^{-1}(\eta))'}{\left(H'(H^{-1}(\eta))\right)^2}\\
                 &=\frac{B''(\theta)}{(H'(\theta))^2}-\frac{B'(\theta)H''(\theta)}{(H'(\theta))^3}\\
                 &=\frac{B''(\theta)-\eta''(\theta)\tau(\theta)}{(\eta'(\theta))^2}. 
             \end{aligned}
@@ -506,7 +506,8 @@
         \[
             E\left(\frac{\pder}{\pder \mu \,\pder \sigma^2}\log(f(x))\right)=E\left(\frac{\pder}{\pder \sigma^2 \,\pder \mu}\log(f(x))\right)=0.
         \]
-        \item Consider $\frac{(n-1)S^2}{\sigma^2}\sim \chi(n-1)$, 
+        \item Consider $\frac{(n-1)S^2}{\sigma^2}\sim \chi^2
+        (n-1)$, 
         \[
             Var\left(\frac{\sigma^2}{n-1}\frac{(n-1)S^2}{\sigma^2}\right)=\frac{\sigma^4}{(n-1)^2}2(n-1)=\frac{2\sigma^4}{n-1}>\frac{2\sigma^4}{n}. 
         \]

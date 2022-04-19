@@ -1,5 +1,8 @@
 \chapter{}
 
+跳过了1, 2题. 8的(b), 9不会. 
+
+
 
 \begin{ex}[Delta method]
     Let \(\left\{T_{n}\right\}\) be a sequence of random variables such that
@@ -11,6 +14,18 @@
         n\left(h\left(T_{n}\right)-h(\theta)\right) \stackrel{d}{\rightarrow} \frac{1}{2} \tau^{2} h^{\prime \prime}(\theta) \chi_{1}^{2}, \quad n \rightarrow \infty. 
     \]
 \end{ex}
+
+\begin{solution}
+    Expand $T_n$ at $\theta$, 
+    \[
+            h(T_n)=h(\theta)+h'(\theta)(T_n-\theta)+\frac{1}{2}h''(\theta)(T_n-\theta)^2+R. 
+    \]
+    \[
+        \begin{aligned}
+            n(h(T_n)-h(\theta))&=\frac{1}{2}h''(\theta)\tau^2\left(\sqrt{n}\left(\frac{T_{n}-\theta}{\tau}\right)\right)^2\stackrel{d}{\rightarrow}\frac{1}{2}h''(\theta)\tau^2\chi^2(1). 
+        \end{aligned}
+    \]
+\end{solution}
 
 \begin{ex}
     Let \(X_{1}, \ldots, X_{n}\) be i.i.d. with \(\mathbb{E} X_{1}=\mu\) and \(Var\left(X_{1}\right)=\sigma^{2}\). Consider a sequence of constants \(c_{n}\) such that
@@ -29,6 +44,23 @@
     \end{enumerate}
 \end{ex}
 
+\begin{solution}
+    Let $g(\bar{X})=h(c_n\bar{X})$, 
+    \begin{enumerate}[(a)]
+        \item $\bar{X}-\mu\stackrel{d}{\rightarrow} \mathcal{N}(0, \sigma^2/n)$, 
+        \[
+            h(c_n\bar{X})=h(c_n\mu)+c_nh'(c_n\mu)(c_n\bar{X}-c_n\mu)+R.
+        \]
+        Let $n\to\infty$, 
+        \[
+            \begin{aligned}
+                \sqrt{n}(h(c_n\bar{X})-h(c_n\mu))&=\sqrt{n}(h(c_n\bar{X})-h(\mu))\\
+                &=\sqrt{n}h'(\mu)(\bar{X}-\mu)\stackrel{d}{\rightarrow} \mathcal{N}(0,\sigma^2(h'(\mu))^2). 
+            \end{aligned}
+        \]
+        \item Same as the Delta method. 
+    \end{enumerate}
+\end{solution}
 
 \begin{ex}
     Let \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} B(1, p)\), and let \(T_{n}:=\frac{1}{n} \sum_{i=1}^{n} X_{i}\). 
@@ -44,16 +76,43 @@
                 \sqrt{n}\left(\widehat{\sigma}^{2}-p(1-p)\right) \stackrel{d}{\rightarrow} \mathcal{N}\left(0,(1-2 p)^{2} p(1-p)\right). 
             \]
             \item Assume \(p=1 / 2\). Prove that
-            \[
-            n\left(\widehat{\sigma}^{2}-\frac{1}{4}\right) \stackrel{d}{\rightarrow}-\frac{1}{4} \chi_{1}^{2}. 
-            \]
-            \item Justify the negative sign in the limiting distribution in (0.4) by proving that
+            \begin{equation}
+                \label{eq:6.3.b.2}
+                n\left(\widehat{\sigma}^{2}-\frac{1}{4}\right) \stackrel{d}{\rightarrow}-\frac{1}{4} \chi_{1}^{2}. 
+            \end{equation}
+            \item Justify the negative sign in the limiting distribution in (\ref{eq:6.3.b.2}) by proving that
             \[
                 \widehat{\sigma}^{2} \leq \frac{1}{4} \quad \text { a.s. }
             \]
         \end{enumerate}
     \end{enumerate}
 \end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item $T_n=\bar{X}\sim\mathcal{N}(p, pq/n)$. So, 
+        \[
+            \sqrt{n}(T_n-p) \stackrel{d}{\rightarrow} \mathcal{N}(0, p(1-p)).
+        \]
+        \item $\sigma^2=h(\bar{X})=\bar{X}(1-\bar{X})$. Expand $h(\bar{X})$ at $p$, 
+        \[
+            h(\bar{X})=h(p)+h'(p)(\bar{X}-p)+\frac{1}{2}h''(p)(\bar{X}-p)^2+R. 
+        \]
+        \[
+            h(\bar{X})=p(1-p)+(1-2p)(\bar{X}-p)-(\bar{X}-p)^2+R. 
+        \]
+        \begin{enumerate}[(i)]
+            \item \[
+                \sqrt{n}\left(\widehat{\sigma}^{2}-p(1-p)\right)=\sqrt{n}(1-2p)(\bar{X}-p)\stackrel{d}{\to} \mathcal{N}(0,(1-2 p)^{2} p(1-p)).
+            \]
+            \item $p=1/2$, $h'(p)=0$. 
+            \[
+                n(h(\bar{X})-1/4) =-n(\bar{X}-p)^2=-\sigma^2\left(\sqrt{n}\frac{\bar{X}-p}{\sigma}\right)^2\stackrel{d}{\to} -\frac{1}{4} \chi_{1}^{2}.
+            \]
+            \item When $T_n=1-T_n$, $T_n(1-Tn)$ is maximum, i.e. $T_n=1/2$, $\widehat{\sigma}^2=1/4$. 
+        \end{enumerate}
+    \end{enumerate}
+\end{solution}
 
 \begin{ex}
     Please answer the following questions. 
@@ -66,6 +125,22 @@
         \item Recall that a characteristic function \(\phi\) is analytic when there exists a sequence \(\left\{a_{k}\right\}_{k \in \mathbb{N} \cup\{0\}}\) and a constant \(\delta_{0}>0\) such that \(\phi(t)=\sum_{k=0}^{\infty} a_{k} t^{k}\) for \(|t|<\delta\). So, let \(\left\{X_{n}\right\}_{n \in \mathbb{N}}, X\) be random variables such that \(X_{n} \stackrel{d}{\rightarrow} X\) as \(n \rightarrow \infty\). In addition, assume their respective characteristic functions \(\left\{\phi_{n}\right\}_{n \in \mathbb{N}}, \phi\) are analytic. Prove that, for all \(k \in \mathbb{N}, \lim _{n \rightarrow \infty} \mathbb{E} X_{n}^{k}=\mathbb{E} X^{k}\) (n.b.: this exercise generalizes (a)).
     \end{enumerate}
 \end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item \begin{align*}
+            EX_n =\int x f_n(x) \der x\to \int xf(x)\der x =EX. 
+        \end{align*}
+        \[
+            VarX_n=\int (x-\mu)^2 f_n(x) \der x\to \int (x-\mu)^2f(x)\der x =VarX.
+        \]
+        \item $X_n\stackrel{d}{\to}X$, then
+        \[
+            M_{X_n}(t)\stackrel{d}{\to}M_X(t), 
+        \]
+        \[EX_n^k=M_{X_n}^{(k)}(0)\stackrel{d}{\to}M_X{(k)}(0)=EX^k. \]
+    \end{enumerate}
+\end{solution}
 
 \begin{ex}
     Let \(\delta_{n}(\mathbf{X})\) be an estimator of \(g(\theta)\) with \(\operatorname{MSE} R\left(g(\theta), \delta_{n}(\mathbf{X})\right)=\mathbb{E}\left(\delta_{n}(\mathbf{X})-g(\theta)\right)^{2}\). 
@@ -83,10 +158,26 @@
     \end{enumerate}
 \end{ex}
 
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item \[
+            (E(\delta_n(X)-g(\theta)))^2\leqslant E(\delta_{n}(\mathbf{X})-g(\theta))^2\to 0. 
+        \]
+        So, $E(\delta_n(X)-g(\theta))\to0$. 
+        \item \begin{align*}
+            E(\delta_n(X)-g(\theta))^2&=E(\delta_{n}(X)-E(\delta_n(X))+E(\delta_n(X))-g(\theta))^2\\
+            &=E(\delta_{n}(X)-E(\delta_n(X)))^2+(E(\delta_n(X))-g(\theta))^2\\
+            &=Var(\delta_n(X))+(Bias(\delta_n(x))^2\to 0. 
+        \end{align*}
+        Hence, $E(\delta_n(X)-g(\theta))^2\to 0$, $E(\delta_n(X)-g(\theta))\to0$. 
+    \end{enumerate}
+    
+\end{solution}
+
 \begin{ex}
     In maximum likelihood estimation, we often observe that
     \[
-        Bias_{\theta}\left(\widehat{\theta}_{n}(\mathbf{X})\right)=\frac{\beta(\theta)}{n}+O\left(\frac{1}{n^{2}}\right) \quad\left(" b i a s \text { of order } \frac{1}{n} "\right)
+        Bias_{\theta}\left(\widehat{\theta}_{n}(\mathbf{X})\right)=\frac{\beta(\theta)}{n}+O\left(\frac{1}{n^{2}}\right) \quad\left(``b i a s \text { of order } \frac{1}{n} "\right)
     \]
     where \(\beta(\theta)\) is some known and measurable function of \(\theta\). So, suppose \(\beta\) is twice differentiable with bounded second derivative and that \(Var_{\theta}\left(\sqrt{n}\left(\widehat{\theta}_{n}(\mathbf{X})-\theta\right)\right) \leq C, n \in \mathbb{N}\), which are mild conditions in practice. Show that the (bias-corrected) estimator
     \[
@@ -94,6 +185,17 @@
     \]
     has bias of order \(1 / n^{2}\). 
 \end{ex}
+
+\begin{solution}
+    \begin{align*}
+        Bias\left(\hat{\theta}_n(X)-\frac{\beta(\hat{\theta}_n(X))}{n}\right)&=Bias(\hat{\theta}_n(X))-\frac{Bias(\beta(\hat{\theta}_n(X)))}{n}. 
+    \end{align*}
+    Let $D=E(\beta(\hat{\theta}_n(X)))$, expand $\beta$ at $D$, 
+    \[
+        E(\beta(\hat{\theta}_n(X))-\beta(D)=\frac{1}{2}\beta''(D)\left(\hat{\theta}_n(X)-D\right)^2+O(1/n^{2}). 
+    \]
+    So, $Bias(\hat{\hat{\theta}}_n(X))$ has $O(1/n^3)$, and hence is of order \(1/n^{2}\). 
+\end{solution}
 
 
 \begin{ex}
@@ -114,26 +216,67 @@
     \end{enumerate}
 \end{ex}
 
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item \[
+            F_{X_{(n)}}=\left(\frac{x}{\theta}\right)^n, \quad f(x_{(n)})=\frac{n}{\theta}\left(\frac{x}{\theta}\right)^{n-1}. 
+        \]
+        Let $Y=n(\theta-X_{(n)})$, $X_{(n)}=\theta-\frac{Y}{n}$. $X'_{(n)}=-1/n$. So, 
+        \[
+            f_{Y}=\frac{n}{\theta}\left(1-\frac{Y}{n\theta}\right)^{n-1}(1/n)\to \frac{e^{-Y/\theta}}{\theta}\text{ i.e. }Y\sim Exp(\theta)
+        \]
+        Same, Let $Z=n(\theta-(n+1)/n X_{(n)})=n\theta-(n+1)X_{(n)}$, $X_{(n)}=\frac{n}{n+1}\theta-\frac{Z}{n+1}$. $X'_{(n)}=-\frac{1}{n+1}$. 
+        \[
+            f_{Z}=\frac{n}{\theta}\left(\frac{n}{n+1}-\frac{Z/\theta}{n+1}\right)^{n-1}(1/(n+1))\to \frac{e^{-Z/\theta-1}}{\theta}. 
+        \]
+        \item $X_{(n)}$ is asymptotically biased but is unbiased in the limit. 
+        \item We know
+        \[E(X_{(n)})=\frac{n}{n+1}\theta, \quad E(X_{(n)})^2=\frac{n}{n+2}\theta^2. \]
+        Then, 
+        \[
+            E(X_{(n)}-\theta)^2=\frac{n}{n+1}\theta^2-\frac{2n}{n+1}\theta^2+\theta^2. 
+        \]
+        \[
+            E(\delta_n-\theta)^2=\left(\frac{n+1}{n}\right)^2\frac{n}{n+2}\theta^2-\theta^2. 
+        \]
+        So, 
+        \[
+            \frac{E(X_{(n)}-\theta)^2}{E(\delta_n-\theta)^2}=\frac{2n}{n+1}\to2. 
+        \]
+    \end{enumerate}
+\end{solution}
+
 \begin{ex}
     Let \(X_{1}, \ldots, X_{n}\) be an i.i.d. sample from a distribution with mean \(\mu \neq 0\) and variance \(\sigma^{2}\). 
     \begin{enumerate}[(a)]
         \item Prove that
-        \[
+        \item \begin{equation}
+            \label{eq:6.8.a}
             \sqrt{n}\left(\frac{1}{\bar{X}}-\frac{1}{\mu}\right) \stackrel{d}{\rightarrow} \mathcal{N}\left(0,\left(\frac{1}{\mu}\right)^{4} \sigma^{2}\right), \quad n \rightarrow \infty. 
-        \]
-        \item Note that the limiting distribution in (0.5) depends on \(\mu\) and \(\sigma^{2}\), both of which are unknown (and thus, the limit above is not good enough for inference purposes). To "fix" this, prove that
+        \end{equation}
+        \item Note that the limiting distribution in (\ref{eq:6.8.a}) depends on \(\mu\) and \(\sigma^{2}\), both of which are unknown (and thus, the limit above is not good enough for inference purposes). To "fix" this, prove that
         \[
             \sqrt{n} \frac{\left(\frac{1}{\bar{X}}-\frac{1}{\mu}\right)}{\left(\frac{1}{\bar{X}}\right)^{2} S} \stackrel{d}{\rightarrow} \mathcal{N}(0,1), \quad n \rightarrow \infty. 
         \]
     \end{enumerate}
 \end{ex}
 
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item $h(\bar{X})=1/\bar{X}$, \[
+            \sqrt{n}(h(\bar{X}) - h(\mu)) \stackrel{d}{\rightarrow} \mathcal{N}(0,\sigma^2(h'(\mu))^2)=\mathcal{N}\left(0,\sigma^2\left(\frac{1}{\mu^4}\right)\right).
+        \]
+        \item 
+    \end{enumerate}
+\end{solution}
+
 \begin{ex}
     Let \(\left\{X_{n}\right\}_{n \in \mathbb{N}}\) be an i.i.d. sample, where \(\operatorname{Var} X_{1}=\sigma^{2}\) and \(\mathbb{E} X_{1}^{4}<\infty\). Prove that \(S^{r}\) is asymptotically unbiased for \(\sigma^{r}\) (remark: note that this is not about showing that \(\lim _{n \rightarrow \infty} \mathbb{E} S^{r}=\sigma^{r} ;\) suggestion: you may want to try \(r=2\) first). 
 \end{ex}
 
+
 \begin{ex}
-    Let \(\delta_{n}(\mathbf{X})\) be an estimator with asymptotic variance \(\tau^{2}(\theta)\). A function \(h(\cdot)\) is variancestabilizing when the estimator \(h\left(\delta_{n}(\mathbf{X})\right)\) has asymptotic variance
+    Let \(\delta_{n}(\mathbf{X})\) be an estimator with asymptotic variance \(\tau^{2}(\theta)\). A function \(h(\cdot)\) is variance stabilizing when the estimator \(h\left(\delta_{n}(\mathbf{X})\right)\) has asymptotic variance
     \begin{equation}
         \label{eq:6.12}
         \tau^{2}(\theta)\left[h^{\prime}(\theta)\right]^{2}=c
@@ -145,11 +288,45 @@
     \end{enumerate}
 \end{ex}
 
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item \[
+            \sqrt{n}(\bar{X}-\lambda)\stackrel{d}{\to} \mathcal{N}(0, \lambda), 
+        \]
+        \[
+            \tau^2(\theta)(h'(\theta))^2=\lambda\left(\frac{1}{2}\lambda^{-1/2}\right)^2=1/4. 
+        \]
+        Hence, it is variance stabilizing. 
+        \item \[
+            \sqrt{n}(\bar{X}-p)\stackrel{d}{\to} \mathcal{N}(0, p(1-p)),
+        \]
+        \[
+            \tau^2(\theta)(h'(\theta))^2=p(1-p)\left(\frac{1}{\sqrt{1-p}}\right)^2\left(\frac{1}{2}p^{-1/2}\right)^2=1/4. 
+        \]
+        It is also variance stabilizing. 
+    \end{enumerate}
+\end{solution}
+
+
 \begin{ex}
     (this problem is about the so-called Box-Cox transformations, which are widely used in Applied Statistics) 
     
     Starting from (\ref{eq:6.12}), consider the particular case \(\tau^{2}(\theta)=\theta^{n}, n \in \mathbb{N}\), and find a variance-stabilizing transformation \(h(\cdot)\). Be careful with the important case \(n=2\) (remark: this result can be extended to more general powers than \(n \in \mathbb{N}\) ).
 \end{ex}
+
+\begin{solution}
+    If $n=2$, then
+    \[
+        h'(\theta)\propto 1/\theta. 
+    \]
+    So, $h(\theta)=\log \theta$. 
+
+    Otherwise, 
+    \[
+        h'(\theta)\propto \theta^{-n/2}, 
+    \]
+    $h(\theta)=\theta^{1-n/2}$. 
+\end{solution}
 
 
 
