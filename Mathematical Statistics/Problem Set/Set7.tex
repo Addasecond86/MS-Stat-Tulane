@@ -43,6 +43,26 @@ a^{2}, & \text { if } \theta=0
 Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow 0\) as \(\left.n \rightarrow \infty\right)\).
 \end{ex}
 
+\begin{solution}
+    For the case $\theta=0$, $P(|\bar{X}|\geqslant n^{-1/4})\to 0$, 
+    \begin{align*}
+        \sqrt{n}(\delta(\mathbf{X})-\theta)&=\sqrt{n}(\bar{X}-\theta) 1_{\left\{|\bar{X}| \geq n^{-1 / 4}\right\}}+\sqrt{n}(a\bar{X}-\theta) 1_{\{|\bar{X}|<n^{-1/4}\}}\\
+        &=a\sqrt{n}\bar{X}. 
+    \end{align*}
+    $Var(a\sqrt{n}\bar{X})=a^2. $
+
+    \noindent For the case $\theta\neq 0$, 
+    \[
+        \begin{aligned}
+            P(|\bar{X}|<n^{-1/4})&=P(\sqrt{n}|\bar{X}-\theta+\theta|<n^{1/4})=P(|Z+\sqrt{n}\theta|<n^{1/4})\\
+            &=\Phi(n^{1/4}-\sqrt{n}\theta)-\Phi(-n^{1/4}-\sqrt{n}\theta)\to 0. 
+        \end{aligned}
+    \]
+    So, $\sqrt{n}(\delta(X)-\theta)\to \sqrt{n}(\bar{X}-\theta)\to \mathcal{N}(0,1)$. 
+\end{solution}
+
+
+
 \begin{ex}
     Determine whether or not the location families based on the following densities have unique roots. 
     \begin{enumerate}[(a)]
@@ -50,6 +70,31 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
         \item \(f(x)=\frac{e^{-x}}{\left(1+e^{-x}\right)^{2}}, x \in \mathbb{R}\). 
     \end{enumerate}
 \end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item \[
+            f(\mathbf{x}, \theta)=(2\pi)^{-n/2} \exp\left(-\frac{1}{2}\sum_{i=1}^n(x_i-\theta)^2\right)
+        \]
+        \[
+            l(\theta)=-\frac{n}{2}\log 2\pi-\frac{1}{2}\left(\sum_{i=1}^n(x_i-\theta)^2\right). 
+        \]
+        \[
+            \frac{\pder l(\theta)}{\pder \theta}=\sum_{i=1}^nx_i-n\theta=0\Rightarrow \theta=\sum x_i/n. 
+        \]
+        So, it has the unique root. 
+        \item \[
+            f(\mathbf{x}, \theta)=\exp\left(-\sum_{i=1}^n x_i-n\theta\right)\prod_{i=1}^n(1+e^{-x_i-\theta})^{-2}. 
+        \]
+        \[
+            l(\theta)=-\sum_{i=1}^n x_i-n\theta-2\sum_{i=1}^n\log(1+e^{-x_i-\theta}). 
+        \]
+        \[
+            \frac{\pder l(\theta)}{\pder \theta}=-n+2\sum_{i=1}^n\frac{e^{-x_i-\theta}}{1+e^{-x_i-\theta}}
+        \]
+        This log likelihood function is monotone decreasing, and $l(\theta)\to n$, when $\theta\to-\infty$; $l(\theta)\to -n$, when $\theta\to\infty$. So, it must have a unique root. 
+    \end{enumerate}
+\end{solution}
 
 \begin{ex}
     Consider a sample \(X_{1}, \cdots, X_{n}\) from a Poisson distribution conditioned to be positive, i.e.,
@@ -59,10 +104,41 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
     Show that the likelihood equation has a unique root for all values of \(x\). 
 \end{ex}
 
+\begin{solution}
+    \[
+        f(X)=\frac{\theta^{\sum x_i} e^{-n\theta}}{\prod x_i! (1-e^{-\theta})^n}. 
+    \]
+    \[
+        l(\theta)=\sum x_i \log \theta-n\theta-\sum_{i=1}^n\log x_i!-n\log (1-e^{-\theta}). 
+    \]
+    \[
+        \frac{\partial}{\partial\theta}l(\theta)=\frac{\sum x_i}{\theta}-\frac{n}{1-e^{-\theta}}=0. 
+    \]
+    $\theta\to \infty$. 
+\end{solution}
 
 \begin{ex}
     The so-called digamma function \(\Gamma^{\prime}(\alpha) / \Gamma(\alpha), \alpha>0\), is an increasing function of \(\alpha\). Use this fact to prove that, for a sample \(X_{1}, \cdots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \Gamma(\alpha, 1)\), the likelihood equation has a unique root. Can we arrive at the same conclusion by using a general result for canonical exponential families?
 \end{ex}
+
+\begin{solution}
+    Let $\psi(\alpha)$ be digamma function. 
+    \[
+        f(X)=\frac{(\prod x_i)^{\alpha-1}e^{-\sum x_i}}{n\Gamma(\alpha)}. 
+    \]
+    \[
+        l(\theta)=(\alpha-1)\sum_{i=1}^n \log x_i-n\log (\Gamma(\alpha))-\sum_{i=1}^n x_i. 
+    \]
+    \[
+        \frac{\partial}{\partial\theta}l(\theta)=\sum_{i=1}^n\log x_i-n\psi(\alpha)=0. 
+    \]
+    \[
+        \psi(\alpha)=\frac{\sum_{i=1}^n \log x_i}{n}>0. 
+    \]
+    And because $\log (\alpha)-1/(2\alpha)>\psi(\alpha)>\log (\alpha)-1/\alpha$, we can find a $\alpha_0$, which satisfies the above equation. 
+
+    \noindent For canonical exponential families, $l'(\eta)/l(\eta)=\sum T(x_i)-nA'(\eta)$. Then, because $A(\eta)$ is convex, $A'(\eta)$ is increasing. And $E(T(X))=A'(\eta)$, we can also find a unique $\eta$ which satisfies $A'(\eta)=\sum T(x_i)/n$. 
+\end{solution}
 
 \begin{ex}
     Let \(\left\{Y_{n}\right\}_{n \in \mathbb{N}}\) be a random sequence defined on a probability space \((\Omega, \mathcal{F}, \mathbb{P})\). This sequence is said to be bounded in probability (or tight) if
@@ -70,7 +146,7 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
         \forall \varepsilon>0, \exists m(\varepsilon)>0 \text { such that } \mathbb{P}\left(\left|Y_{n}\right|>m(\varepsilon)\right)<\varepsilon, \quad n \in \mathbb{N} .
     \]
     Notation: \(Y_{n}=O_{\mathbb{P}}(1)\). 
-    \begin{enumerate}
+    \begin{enumerate}[(a)]
         \item Let \(\left\{M\left(X_{n}\right)\right\}_{n \in \mathbb{N}}\) be an i.i.d. sequence, \(\mathbb{E}\left|M\left(X_{1}\right)\right|<\infty\). Prove that
         \[
         Y_{n}:=\frac{1}{n} \sum_{i=1}^{n} M\left(X_{i}\right)

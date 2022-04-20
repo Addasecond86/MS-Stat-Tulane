@@ -139,8 +139,8 @@
     It is decreasing for $T(X)=\sum x_i$. So, this $H_0$ has UMP level $\alpha$ test: 
     \[
         \phi(X)=\left\{\begin{matrix}
-            1, & \text{if } T(X)>c\\
-            0, & \text{if } T(X)<c
+            1, & \text{if } T(X)<c\\
+            0, & \text{if } T(X)>c
         \end{matrix}\right.
     \]
     \[
@@ -151,7 +151,7 @@
         2n\lambda_0T(X)\sim \chi^2(2n). 
     \]
     \[
-        P(2n\lambda_0T(X)>2n\lambda_0c)=\alpha\Rightarrow c=\chi^2_{1-\alpha}(2n)/(2n\lambda_0). 
+        P(2n\lambda_0T(X)<2n\lambda_0c)=\alpha\Rightarrow c=\chi^2_{\alpha}(2n)/(2n\lambda_0). 
     \]
 \end{solution}
 
@@ -204,7 +204,7 @@
 
 \begin{solution}
     \begin{enumerate}[(a)]
-        \item \[\alpha=E_0(\psi(x))\leqslant E_1(\psi(x))\leqslant\pi(\theta_1). \]
+        \item \[\alpha=E_0(\psi(x))< E_1(\psi(x))\leqslant\pi(\theta_1). \]
         and $\pi(\theta)=\alpha$. So, $\alpha\leqslant\pi(\theta)$. 
         \item If $\alpha=\pi(\theta_1)$, and because $\alpha=\sup_{\theta\in\Theta_0}\pi(\theta)$, which means no other test has large power than $\psi$, i.e., $\psi$ is MP. Then, $E_0(\psi)=E_1(\psi)\Rightarrow p_0=p_1$. Here we get the contradiction. 
     \end{enumerate}
