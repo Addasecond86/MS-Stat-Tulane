@@ -64,9 +64,10 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
 
 
 \begin{ex}
+    \label{ex:7.2}
     Determine whether or not the location families based on the following densities have unique roots. 
     \begin{enumerate}[(a)]
-        \item \(f(x)=\frac{1}{\sqrt{2 \pi}} \exp \left\{-\frac{1}{2} x^{2}\right\}, x \in \mathbb{R}\); 
+        \item \label{ex:7.2.a} \(f(x)=\frac{1}{\sqrt{2 \pi}} \exp \left\{-\frac{1}{2} x^{2}\right\}, x \in \mathbb{R}\); 
         \item \(f(x)=\frac{e^{-x}}{\left(1+e^{-x}\right)^{2}}, x \in \mathbb{R}\). 
     \end{enumerate}
 \end{ex}
@@ -114,7 +115,10 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
     \[
         \frac{\partial}{\partial\theta}l(\theta)=\frac{\sum x_i}{\theta}-\frac{n}{1-e^{-\theta}}=0. 
     \]
-    $\theta\to \infty$. 
+    \[
+        \frac{\theta}{1-e^{-\theta}}=\bar{X}. 
+    \]
+    The range of left side is $(1, \infty)$ and the left side is monotone increasing. So, unless $\bar{X}=1$, $\theta$ has a unique root. 
 \end{solution}
 
 \begin{ex}
@@ -156,19 +160,43 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
     \end{enumerate}
 \end{ex}
 
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item Because $Y_n\sim \mathcal{N}(\mu, \sigma^2)$. $\forall\ \varepsilon$, we can find a $A$ that satisfies: 
+        \[
+            \begin{aligned}
+                P(|Y_n|>A)&=P(Y_n>A)+P(Y_n<-A)\\
+                &=P\left(\frac{A-\mu}{\sigma}<Z_n\right)+P\left(Z_n<\frac{-A-\mu}{\sigma}\right)\\
+                &=1-\Phi\left(\frac{A-\mu}{\sigma}\right)+\Phi\left(\frac{-A-\mu}{\sigma}\right)<\varepsilon. 
+            \end{aligned}
+        \]
+        So, $Y_n$ is bounded in probability. 
+        \item $\forall\ \varepsilon>0$, let $M$ satisfies $P(|Y_n|>M)<\varepsilon$, 
+        \begin{align*}
+            P(|Y_nZ_n|>\varepsilon)&=P(|Y_nZ_n|>\varepsilon, |Y_n|>M)+P(|Y_nZ_n|>\varepsilon, |Y_n|<M)\\
+            &\leqslant \varepsilon +P(|Z_n|>\varepsilon/M)\\
+            &\leqslant \varepsilon+\frac{\varepsilon}{M}=\varepsilon'. 
+        \end{align*}
+        $\forall\ \varepsilon>0$, $\exists\ m(\varepsilon)=M\varepsilon/(M+1)$, such that 
+        \[
+            P(|Y_nZ_n|>m(\varepsilon))<\varepsilon. 
+        \]
+    \end{enumerate}
+\end{solution}
 
 \begin{ex}
     (this problem revisits the key steps of the proof of asymptotic efficiency of a consistent sequence of roots)
 
     For some \(\theta, \theta_{0} \in \Theta=(\underline{\theta}, \bar{\theta})\) (without loss of generality, \(\left.\theta>\theta_{0}\right)\), if the likelihood function is smooth enough (more specifically, three times differentiable in \(\theta\) over \(\Theta\) ), then we can use the Taylor expansion (with Lagrange residual)
-    \[
-    \ell^{\prime}(\theta)=\ell^{\prime}\left(\theta_{0}\right)+\left(\widehat{\theta}_{n}-\theta_{0}\right) \ell^{\prime \prime}\left(\theta_{0}\right)+\frac{1}{2}\left(\widehat{\theta}_{n}-\theta_{0}\right)^{2} \ell^{\prime \prime \prime}\left(\theta^{*}\right)
-    \]
+    \begin{equation}
+        \label{eq:7.6}
+        \ell^{\prime}(\hat{\theta}_n)=\ell^{\prime}\left(\theta_{0}\right)+\left(\widehat{\theta}_{n}-\theta_{0}\right) \ell^{\prime \prime}\left(\theta_{0}\right)+\frac{1}{2}\left(\widehat{\theta}_{n}-\theta_{0}\right)^{2} \ell^{\prime \prime \prime}\left(\theta^{*}\right)
+    \end{equation}
     where \(\theta^{*} \in\left(\theta_{0}, \theta\right)\) and the derivatives are all with respect to \(\theta\). 
     \begin{enumerate}[(a)]
         \item If \(\theta\) is a root of the likelihood equation, conclude that
         \[
-            \sqrt{n}\left(\theta-\theta_{0}\right)=\frac{(1 / \sqrt{n}) \ell^{\prime}(\theta)}{-(1 / n) \ell^{\prime \prime}\left(\theta_{0}\right)-(1 / 2 n)\left(\theta-\theta_{0}\right) \ell^{\prime \prime \prime}\left(\theta^{*}\right)}. 
+            \sqrt{n}\left(\theta-\theta_{0}\right)=\frac{(1 / \sqrt{n}) \ell^{\prime}(\theta_0)}{-(1 / n) \ell^{\prime \prime}\left(\theta_{0}\right)-(1 / 2 n)\left(\theta-\theta_{0}\right) \ell^{\prime \prime \prime}\left(\theta^{*}\right)}. 
         \]
         \item  Prove that
         \[
@@ -178,13 +206,46 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
         \[
             -\frac{1}{n} \ell^{\prime \prime}\left(\theta_{0}\right) \stackrel{\mathbb{P}}{\rightarrow} I\left(\theta_{0}\right), \quad n \rightarrow \infty. 
         \]
-        \item In expression \((0.2)\), assume \(\theta\) is replaced by a consistent sequence of roots \(\left\{\hat{\theta}_{n}\right\}\). Show that
+        \item In expression (\ref{eq:7.6}), assume \(\theta\) is replaced by a consistent sequence of roots \(\left\{\hat{\theta}_{n}\right\}\). Show that
         \[
         \frac{1}{n} \ell^{\prime \prime \prime}\left(\theta_{n}^{*}\right)
         \]
         is bounded in probability. Use this fact and the previous parts to show that the sequence of roots \(\left\{\widehat{\theta}_{n}\right\}\) is asymptotically efficient. 
     \end{enumerate}
 \end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item Here, $\ell(\theta)$ is log-likelihood function. $\theta$ is root, 
+        \[
+            \ell^{\prime}\left(\theta_{0}\right)+\left(\theta-\theta_{0}\right) \ell^{\prime \prime}\left(\theta_{0}\right)+\frac{1}{2}\left(\theta-\theta_{0}\right)^{2} \ell^{\prime \prime \prime}\left(\theta^{*}\right)=0, 
+        \]
+        \[
+            \left(\theta-\theta_{0}\right)=\frac{\ell^{\prime}\left(\theta_{0}\right)}{-\ell^{\prime \prime}\left(\theta_{0}\right)-\frac{1}{2}\left(\theta-\theta_{0}\right) \ell^{\prime \prime \prime}\left(\theta^{*}\right)}, 
+        \]
+        \[
+            \sqrt{n}\left(\theta-\theta_{0}\right)=\frac{(1/\sqrt{n})\ell^{\prime}\left(\theta_{0}\right)}{-(1/n)\ell^{\prime \prime}\left(\theta_{0}\right)-\frac{1}{2n}\left(\theta-\theta_{0}\right) \ell^{\prime \prime \prime}\left(\theta^{*}\right)}. 
+        \]
+        \item \begin{align*}
+            \frac{1}{\sqrt{n}} \ell^{\prime}\left(\theta_{0}\right) =\sqrt{n}/n \sum\left(\log'(f(X_i|\theta_0))\right)
+        \end{align*}
+        Noticing that $E(\log'(f(X_i|\theta_0)))=0$, $Var(\log'(f(X_i|\theta_0)))=I(\theta_0)$, $E(\log'(f(X_i|\theta_0)))\stackrel{d}{\to}\mathcal{N}(0, I(\theta_0)/n)$. So, 
+        \[
+            \frac{1}{\sqrt{n}} \ell^{\prime}\left(\theta_{0}\right) =\sqrt{n}/n \sum\left(\log'(f(X_i|\theta_0))\right)\stackrel{d}{\to}\mathcal{N}(0, I(\theta_0)). 
+        \]
+        \item \[
+            -\frac{1}{n}l''(\theta_0)=\frac{1}{n} \sum\frac{f'^2(X_i|\theta_0)-f(X_i|\theta_0)f''(X_i|\theta_0)}{f^2(X_i|\theta_0)}\stackrel{P}{\to}I(\theta_0)+E(\log''(f(X_i|\theta_0)))=I(\theta_0). 
+        \]
+        \item Because $\ell'''(X_i, \theta)<M(X_i)$,  let $M(X)=\max (M(X_1), \cdots, M(X_n))$. \[
+            \frac{1}{n} \ell^{\prime \prime \prime}\left(\theta_{n}^{*}\right)=\frac{1}{n}\sum \ell'''(X_i|\theta)<M(X)\to E(M(X)). 
+        \]
+        So, $\frac{1}{n} \ell^{\prime \prime \prime}\left(\theta_{n}^{*}\right)$ is a bound in probability. 
+
+        Finally, $n\to\infty$, $\widehat{\theta}_n\to\theta_0$, \[
+            \sqrt{n}(\widehat{\theta}_n-\theta)\sim\frac{\mathcal{N}(0, I(\theta))}{I(\theta)}=\mathcal{N}\left((0, {\frac{1}{I(\theta)}}\right). 
+        \]
+    \end{enumerate}
+\end{solution}
 
 \begin{ex}
     (this problem is about casting new light on a well-known result) 
@@ -201,6 +262,21 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
     \end{enumerate}
 \end{ex}
 
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item Same as (\ref{ex:7.2}.\ref{ex:7.2.a}). It is MLE. 
+        \item $\mu=\sum x_i/n$. From LLN, 
+        \[
+            \delta(X)=\frac{\sum_{i=1}^nX_i}{n}\to\bar{X}=\mu. 
+        \]
+        So, it is consistent. 
+        \item \[
+            \bar{X}\sim\mathcal{N}(\mu,\sigma_0^2/n)\Rightarrow\sqrt{n}(\delta-\mu)\to \mathcal{N}\left(0, \sigma_0^2\right). 
+        \]
+        Because $I(\mu)=1/\sigma^2$, $\delta$ is asymptotically efficient. 
+    \end{enumerate}
+\end{solution}
+
 \begin{ex}
     Let \(X_{1}, \cdots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \operatorname{NegBin}(m, p)\), i.e.,
     \[
@@ -212,10 +288,30 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
     Find an EL estimator of \(p\). 
 \end{ex}
 
+\begin{solution}
+    Assume $m$ is known. 
+    \[
+        \ell'(p)=\frac{nmp^{nm-1}(1-p)^{\sum x_i}+p^{nm}\sum x_i(1-p)^{\sum x_i-1}}{p^{nm}(1-p)^{\sum x_i}}=\frac{nm(1-p)+p\sum x_i}{p(1-p)}.
+    \]
+    $p\neq 0$ or $1$, $\ell'(p)=0$ has the unique root $\hat{p}=\frac{nm}{nm-\sum x_i}$. So, it is also the efficient likelihood estimator. 
+\end{solution}
 
 \begin{ex}
     Let \(X_{1}, \cdots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\theta, a \theta^{2}\right), \theta>0\), and \(a>0\) is known. Find an explicit expression for an EL estimator of \(\theta\). 
 \end{ex}
+
+\begin{solution}
+    \[
+        \ell(\theta)=-\frac{n}{2}\log\left(2\pi a\theta^2\right)-\frac{1}{2a\theta^2}\sum(x_i-\theta)^2.
+    \]
+    \[
+        \ell'(\theta)=-\frac{n}{\theta}+\frac{\sum(x_i-\theta)^2}{a\theta^3}+\frac{\sum(x_i-\theta)}{a\theta^2}= 0. 
+    \]
+    \[
+        \hat{\theta}=\frac{2\sum x_i}{1\pm\sqrt{1+4an}}. 
+    \]
+    Because $\theta>0$, the root is unique, i.e., $\hat{\theta}=\frac{2\sum x_i}{1+\sqrt{1+4an}}$. 
+\end{solution}
 
 \begin{ex}
     We now extend the theorem on efficient likelihood (EL) estimators for canonical exponential families to the multiparameter case. 
@@ -235,11 +331,11 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
     \end{enumerate}
     Here, we define
     \[
-        I(\theta)=\mathbb{E}_{\theta}\left[\left(\frac{\partial}{\partial \theta} \log f(x \mid \theta)\right)\left(\frac{\partial}{\partial \theta} \log f(x \mid \theta)\right)^{\top}\right]
+        I(\theta)=\mathbb{E}_{\theta}\left[\left(\frac{\partial}{\partial \theta} \log f(x \mid \theta)\right)\left(\frac{\partial}{\partial \theta} \log f(x \mid \theta)\right)^T\right]
     \]
     As before, under smoothness we have
     \[
-        I(\theta)=-\mathbb{E}\left(\frac{\partial^{2}}{\partial \theta \partial \theta^{\top}} \log f(x \mid \theta)\right)
+        I(\theta)=-\mathbb{E}\left(\frac{\partial^{2}}{\partial \theta \partial \theta^T} \log f(x \mid \theta)\right)
     \]
     So, let \(X_{1}, \cdots, X_{n}\) be an i.i.d. sample from a multiparameter canonical exponential family
     \[
@@ -256,29 +352,45 @@ Now show that \(\mathbb{P}_{\theta}\left(|\bar{X}|<n^{-1 / 4}\right) \rightarrow
     \end{enumerate}
 \end{ex}
 
+\begin{solution}
+    多参数的情况不写了, 不可能考. 
+\end{solution}
+
 \begin{ex}
     An estimator \(\delta_{n}(\mathbf{X})\) is called \(\sqrt{n}\)-consistent to \(\theta\) if \(\sqrt{n}\left(\delta_{n}(\mathbf{X})-\theta\right)\) is bounded in probability. Let \(\left\{X_{n}\right\}_{n \in \mathbb{N}}\) be an i.i.d. sequence such that \(\mathbb{E} X_{1}^{2}<\infty\). Show that \(\bar{X}_{n}\) is \(\sqrt{n}\)-consistent to \(\mu:=\mathbb{E} X_{1}\). 
     
     (hint: Prohorov's theorem ensures that boundedness in probability is equivalent to the existence of a subsequence that converges weakly). 
 \end{ex}
 
+\begin{solution}
+    这题和上面那个有啥区别吗? 
+\end{solution}
+
 \begin{ex}
     Let \(\tilde{\theta}_{n}(\mathbf{X})\) be a \(\sqrt{n}\)-consistent estimator of \(\theta\) under the log-likelihood \(\ell(\theta \mid \mathbf{X})\). Under the conditions of the asymptotic normality theorem for EL estimators, it can be shown that the estimator
-\[
-\delta_{n}(\mathbf{X}):=\tilde{\theta}_{n}(\mathbf{X})-\frac{\ell^{\prime}\left(\tilde{\theta}_{n}(\mathbf{X})\right)}{\ell^{\prime \prime}\left(\tilde{\theta}_{n}(\mathbf{X})\right)}
-\]
-is also asymptotically efficient (Theorem 6.4.3 in Lehmann and Casella (1998)).
-Let \(\{f(x-\theta)\}_{\theta \in \Theta}\) be a location family based on the symmetric (around zero) and a.c. density \(f\) with finite second moments. Assume that the likelihood equation
-\[
-\frac{\partial}{\partial \theta} \log f(\mathbf{x} \mid \theta)=0
-\]
-has potentially multiple roots. Use \((0.3)\) to find an asymptotically efficient estimator for \(\theta\) 
+    \begin{equation}
+        \label{eq:7.12}
+        \delta_{n}(\mathbf{X}):=\tilde{\theta}_{n}(\mathbf{X})-\frac{\ell^{\prime}\left(\tilde{\theta}_{n}(\mathbf{X})\right)}{\ell^{\prime \prime}\left(\tilde{\theta}_{n}(\mathbf{X})\right)}
+    \end{equation}
+    is also asymptotically efficient (Theorem 6.4.3 in Lehmann and Casella (1998)).
+    Let \(\{f(x-\theta)\}_{\theta \in \Theta}\) be a location family based on the symmetric (around zero) and a.c. density \(f\) with finite second moments. Assume that the likelihood equation
+    \[
+    \frac{\partial}{\partial \theta} \log f(\mathbf{x} \mid \theta)=0
+    \]
+    has potentially multiple roots. Use (\ref{eq:7.12}) to find an asymptotically efficient estimator for \(\theta\) 
 
-(hint: look at the previous problem). 
+    (hint: look at the previous problem). 
 
-\rmk{3} It is clear that the expression (0.3) stems from one step of Newton-Raphson's method.
+    \rmk{3} It is clear that the expression (0.3) stems from one step of Newton-Raphson's method.
 \end{ex}
 
+\begin{solution}
+    We know that $\sqrt{n}(\bar{X}-\theta)$ is bounded in probability, so we can use Theorem 6.4.3 to find an asymptotically efficient estimator for $\theta$: 
+    \[
+        \delta_n(X)=\bar{X}-\frac{\ell'(\bar{X})}{\ell''(\bar{X})}. 
+    \]
+    吐了, 这题到底在干啥. 
+\end{solution}
 
 \begin{ex}
     Let \(\left\{X_{n}\right\}_{n \in \mathbb{N}} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right), \mu \in \mathbb{R}, \sigma^{2}>0\), and let \(h(x)=x^{2}\). 
@@ -287,6 +399,21 @@ has potentially multiple roots. Use \((0.3)\) to find an asymptotically efficien
         \item Based on the properties of Gaussian distributions, compute \(\mathbb{E}_{\theta} h(\bar{X})\) and \(Var_{\theta} h(\bar{X})\) explicitly and compare the expressions with the approximations obtained in (a). Do the approximations orders match? 
     \end{enumerate}
 \end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item $\hat{x}_{ML}=\bar{X}$. From Delta method, take $T(X)=\bar{X}$, $h(x)=x^2$.
+        \[
+            n(\bar{X}^2-\mu^2)\stackrel{d}{\to}1/2 \sigma^2 2 \chi_1^2=\sigma^2\chi_1^2. 
+        \]
+        $E(\bar{X}^2): \mu^2+\sigma^2/n$, $Var(\bar{X}^2): \frac{2\sigma^4}{n^2}$. 
+        \item $\bar{X}\sim \mathcal{N}(\mu,\sigma^2/n)$. 
+        \[
+            E(\bar{X}^2)=\sigma^2/n+\mu^2, \quad Var(\bar{X}^2)=\mu^4+6\mu^2\sigma^2/n+3\sigma^4/n^2.
+        \]
+        The order is match. 
+    \end{enumerate}
+\end{solution}
 
 \begin{ex}
     Consider the following setup. 
@@ -303,7 +430,9 @@ has potentially multiple roots. Use \((0.3)\) to find an asymptotically efficien
     \]
 \end{ex}
 
-
+\begin{solution}
+    6.2.a. 
+\end{solution}
 
 \begin{ex}
     Let \(\left\{X_{n}\right\}_{n \in \mathbb{N}} \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\mu, \sigma^{2}\right), \mu \in \mathbb{R}, \sigma^{2}>0\), and let \(h(x)=e^{x^{4}}\). It is clear that all moments of \(X\) and all derivatives of \(h\) exist. 
@@ -316,6 +445,21 @@ has potentially multiple roots. Use \((0.3)\) to find an asymptotically efficien
         \item Conclude that the theorem seen in class on the approximation of moments does require bounded derivatives. 
     \end{enumerate}
 \end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item \[
+            E\left(e^{x^4}\right)=\int A\exp\left(B(x-\mu)^2+x^4\right)\der x
+        \]
+        $x\to\infty$, $A\exp\left(B(x-\mu)^2+x^4\right)\to\infty$. So, $E\left(e^{x^4}\right)\to\infty$. Samilarly, 
+        \[
+            E(e^{2x^4})=\infty. 
+        \]
+        So, $E(\sqrt{n}(h(\bar{X}_n)-h(\mu))^2)=\infty$. 
+        \item $Var(\bar{X})=\sigma^2/n<\infty$. From Delta method, it has a normal limit distribution with finite variance. 
+        \item 
+    \end{enumerate}
+\end{solution}
 
 \begin{ex}
     The Hardy-Weinberg principle from population genetics describes an idealized situation where there are no evolutionary influences. 

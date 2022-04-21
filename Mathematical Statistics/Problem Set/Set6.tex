@@ -1,6 +1,6 @@
 \chapter{}
 
-跳过了1, 2题. 8的(b), 9不会. 
+跳过了1, 2题. 9不会. 
 
 
 
@@ -54,8 +54,9 @@
         Let $n\to\infty$, 
         \[
             \begin{aligned}
-                \sqrt{n}(h(c_n\bar{X})-h(c_n\mu))&=\sqrt{n}(h(c_n\bar{X})-h(\mu))\\
-                &=\sqrt{n}h'(\mu)(\bar{X}-\mu)\stackrel{d}{\rightarrow} \mathcal{N}(0,\sigma^2(h'(\mu))^2). 
+                \sqrt{n}(h(c_n\bar{X})-h(\mu))&=\sqrt{n}(h(c_n\mu)-h(\mu))+\sqrt{n}h'(\mu)(\bar{X}-\mu)c_n^2\\
+                & =\sqrt{n}h'(\mu)\sigma/\sqrt{n}\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}+O(1/n)\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\\
+                &\stackrel{d}{\rightarrow} \mathcal{N}(0,\sigma^2(h'(\mu))^2+O(1/n^2))\to \mathcal{N}(0,\sigma^2(h'(\mu))^2). 
             \end{aligned}
         \]
         \item Same as the Delta method. 
@@ -266,7 +267,16 @@
         \item $h(\bar{X})=1/\bar{X}$, \[
             \sqrt{n}(h(\bar{X}) - h(\mu)) \stackrel{d}{\rightarrow} \mathcal{N}(0,\sigma^2(h'(\mu))^2)=\mathcal{N}\left(0,\sigma^2\left(\frac{1}{\mu^4}\right)\right).
         \]
-        \item 
+        \item $\bar{X}$ and $S^2$ are both consistent, we can use Slutsky's theorem: 
+        \[
+            Var(h(x))=Var(h(\mu)+h'(\mu)(X-\mu))=(h'(\mu))^2Var(X). 
+        \]
+        \[
+            Var(1/\bar{X})\approx (-1/\mu^2)^2S^2. 
+        \]
+        So, \[
+            \sqrt{n} \frac{\left(\frac{1}{\bar{X}}-\frac{1}{\mu}\right)}{\left(\frac{1}{\bar{X}}\right)^{2} S} \stackrel{d}{\rightarrow} \mathcal{N}(0,1), \quad n \rightarrow \infty. 
+        \]
     \end{enumerate}
 \end{solution}
 
