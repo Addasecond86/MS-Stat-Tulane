@@ -1,0 +1,48 @@
+\documentclass[cn, 14pt, black, mode=geye, screen]{elegantnote}
+
+\author{王泽昊}
+\title{数理统计复习}
+\date{\zhtoday}
+\newcommand{\Var}[1]{\textbf{Var}\left(#1\right)}
+\newcommand{\E}[1]{\textbf{E}\left(#1\right)}
+\newcommand{\Pder}[2]{\frac{\partial #1}{\partial #2}}
+\usepackage{amsmath}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+
+    \newpage
+    \section{Fisher信息}
+    \begin{definition}[Fisher Information]
+        $X\sim f(x|\theta)$, 对于$\theta$的一个估计$\delta(X)$, 可以定义Fisher Information为: 
+        \begin{equation}
+            I(\theta)=\Var{\Pder{\log(f(x|\theta))}{\theta}}=\E{\Pder{\log(f(x|\theta))}{\theta}}^2=-\E{\frac{\partial^2\log(f(x|\theta))}{\partial\theta^2}}. 
+        \end{equation}
+    \end{definition}
+
+    \begin{theorem}[Fisher Inequality]
+        $X\sim f(x|\theta)$, 对于$h(\theta)$的一个估计$\delta(X)$, 其方差
+        \begin{equation}
+            \Var{\delta(X)}\geq \frac{\left(\Pder{}{\theta}\E{\delta(X)}\right)^2}{I(\theta)}. 
+        \end{equation}
+    \end{theorem}
+
+    \begin{example}
+        已知$\theta$的Fisher信息$I(\theta)$, 则可以求出$h(\theta)$的Fisher信息: 
+        \begin{equation}
+            I(h(\theta))=\frac{I(\theta)}{(h'(\theta))^2}. 
+        \end{equation}
+    \end{example}
+
+    对于指数族的概率分布, $f(x|\theta)=h(x)\exp\left(\eta(\theta)T(X)-B(\theta)\right)$. 若已知$T(X)$的期望与方差, 则可以求出其Fisher信息:
+    \begin{equation}
+        I(\theta)=\Var{\frac{f'(x|\theta)}{f(x|\theta)}}=\Var{\eta'(\theta)T(X)-B(\theta)}=(\eta'(\theta))^2\Var{T(X)}
+    \end{equation}
+
+    
+    
+    \section{渐进估计}
+
+    \section{假设检验}
+\end{document}
