@@ -1,0 +1,147 @@
+---
+title: "Homework 4"
+author: "Zehao Wang"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE}
+library(tidyverse)
+library(MASS)
+```
+
+## 1. In a study for shortleaf pines, the diameter (x, in inches) and volume (y, in cubic feet) of the pines were collected. The investigators wanted to build a regression model between the two variables. Use appropriate tools/approaches to answer the following questions: 
+
+```{r}
+data <- read_table("HW4_data.txt")
+```
+
+## 1.1 Fit a simple regression model and visually inspect the data/results to see whether there is evidence for potential issues. 
+
+```{r}
+lm1 <- lm(Vol ~ Diam, data)
+summary(lm1)
+```
+
+```{r fig.height=3, fig.width=4}
+data1 <- tibble(x = data$Diam,
+                 y_t = data$Vol,
+                 y_p = lm1$fitted.values)
+ggplot(data1) +
+    geom_point(mapping = aes(x, y_t, color = "True values")) +
+    geom_line(mapping = aes(x, y_p, color = "Predict values")) +
+    theme_bw() +
+    xlab("Diam") +
+    ylab("Vol")
+```
+
+```{r fig.height=2.5, fig.width=3.5}
+plot(lm1)
+```
+
+From these plot, we could see that the residuals V.S. fitted values shows the relationship between them may be quadratic. And the scale-location plot shows that the different sample points may have different variance. And the Leverage plot shows that there are some influential points. 
+
+
+
+
+## 1.2 Conduct a Box-Cox transformation for the volume. Visually inspect the data/results to see whether there is evidence for potential issues. 
+
+```{r fig.height=3, fig.width=4}
+bc <- boxcox(data$Vol ~ data$Diam)
+(lambda <- bc$x[which.max(bc$y)])
+```
+
+```{r}
+data2 <-
+    tibble(x = data$Diam,
+           Vol = (data$Vol ^ lambda - 1) / lambda)
+
+lm2 <- lm(Vol ~ x, data2)
+
+summary(lm2)
+
+data2 <- tibble(data2, y_p = lm2$fitted.values)
+```
+
+```{r fig.height=3, fig.width=4}
+ggplot(data2) +
+    geom_point(mapping = aes(x, Vol, color = "True values")) +
+    geom_line(mapping = aes(x, y_p, color = "Predict values")) +
+    theme_bw() +
+    xlab("Diam") +
+    ylab("Vol")
+```
+
+```{r fig.height=2.5, fig.width=3.5}
+plot(lm2)
+```
+
+These plots suggest there is no issue in the model with Box-Cox transformation. 
+
+
+
+## 1.3 Conduct a log-transformation for diameter alone. Visually inspect the data/results to see whether there is evidence for potential issues. 
+
+```{r}
+data3 <- tibble(x = log(data$Diam), Vol = data$Vol)
+
+lm3 <- lm(Vol ~ x, data3)
+
+summary(lm3)
+
+data3 <- tibble(data3, y_p=lm3$fitted.values)
+```
+
+```{r fig.height=3, fig.width=4}
+ggplot(data3) +
+    geom_point(mapping = aes(x, Vol, color = "True values")) +
+    geom_line(mapping = aes(x, y_p, color = "Predict values")) +
+    theme_bw() +
+    xlab("Diam") +
+    ylab("Vol")
+```
+
+```{r fig.height=2.5, fig.width=3.5}
+plot(lm3)
+```
+
+The model with log transformation for $X$ is worse than the above two. So, it is not appropriate to have log transformation for $X$. 
+
+
+
+## 1.4 Conduct transformation on both volume and diameter. Inspect the data/results and compare them with results from a-c to see whether fitting has been improved. 
+
+```{r}
+data4 <- tibble(x=log(data$Diam), Vol=data2$Vol)
+
+lm4 <- lm(Vol~x, data4)
+
+summary(lm4)
+```
+
+```{r}
+data4 <- tibble(data4, y_p=lm4$fitted.values)
+```
+
+```{r fig.height=3, fig.width=4}
+ggplot(data4) +
+    geom_point(mapping = aes(x, Vol, color = "True values")) +
+    geom_line(mapping = aes(x, y_p, color = "Predict values")) +
+    theme_bw() +
+    xlab("Diam") +
+    ylab("Vol")
+```
+
+
+
+```{r fig.height=2.5, fig.width=3.5}
+plot(lm4)
+```
+
+The fitting result in (b) is best among the four models. 
+
+

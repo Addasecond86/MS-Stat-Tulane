@@ -1,0 +1,212 @@
+---
+title: "Homework 3"
+author: "Zehao Wang"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+## 16. 
+
+```{r}
+
+```
+
+
+## 31. IPUMS exercise. 
+
+```{r message=FALSE}
+data <- read_csv("ipums.csv")
+```
+
+
+### a), Use the file ipums.csv to select a two-stage stratified cluster sample from the population. Select two psus from each stratum, with probability proportional to size. Then take a simple random sample of persons from each selected psu; use the same subsampling size within each psu. Your final sample should have about 1200 persons. 
+
+```{r}
+Size <- data %>% select(c(1, 2)) %>%
+    group_by(stratum, psu) %>%
+    summarise(n = n())
+```
+
+So, first, we need to decide which psu should be selected out. 
+
+```{r}
+select_psu <- function(i) {
+    sample(Size$psu[(10 * (i - 1) + 1):(10 * i)], 2,
+           prob = Size$n[(10 * (i - 1) + 1):(10 * i)] /
+               sum(Size$n[(10 * (i - 1) + 1):(10 * i)]))
+}
+
+s1 <- select_psu(1)
+s2 <- select_psu(2)
+s3 <- select_psu(3)
+s4 <- select_psu(4)
+s5 <- select_psu(5)
+s6 <- select_psu(6)
+s7 <- select_psu(7)
+s8 <- select_psu(8)
+s9 <- select_psu(9)
+```
+
+Subsample from selected psu. 
+
+```{r}
+sample_1_1 <- sample(1:Size$n[s1[1]],  67)
+sample_1_2 <- sample(1:Size$n[s1[2]],  67)
+sample_2_1 <- sample(1:Size$n[s2[1]],  67)
+sample_2_2 <- sample(1:Size$n[s2[2]],  67)
+sample_3_1 <- sample(1:Size$n[s3[1]],  67)
+sample_3_2 <- sample(1:Size$n[s3[2]],  67)
+sample_4_1 <- sample(1:Size$n[s4[1]],  67)
+sample_4_2 <- sample(1:Size$n[s4[2]],  67)
+sample_5_1 <- sample(1:Size$n[s5[1]],  67)
+sample_5_2 <- sample(1:Size$n[s5[2]],  67)
+sample_6_1 <- sample(1:Size$n[s6[1]],  67)
+sample_6_2 <- sample(1:Size$n[s6[2]],  67)
+sample_7_1 <- sample(1:Size$n[s7[1]],  67)
+sample_7_2 <- sample(1:Size$n[s7[2]],  67)
+sample_8_1 <- sample(1:Size$n[s8[1]],  67)
+sample_8_2 <- sample(1:Size$n[s8[2]],  67)
+sample_9_1 <- sample(1:Size$n[s9[1]],  67)
+sample_9_2 <- sample(1:Size$n[s9[2]],  67)
+```
+
+Abtain the sample: 
+
+```{r message=FALSE}
+(sample_data <- data %>% filter(psu == s1[1]) %>%
+    slice(sample_1_1) %>%
+    full_join(data %>% filter(psu == s1[2]) %>%
+                  slice(sample_1_2)) %>%
+    full_join(data %>% filter(psu == s2[1]) %>%
+                  slice(sample_2_1)) %>%
+    full_join(data %>% filter(psu == s2[2]) %>%
+                  slice(sample_2_2)) %>%
+    full_join(data %>% filter(psu == s3[1]) %>%
+                  slice(sample_3_1)) %>%
+    full_join(data %>% filter(psu == s3[2]) %>%
+                  slice(sample_3_2)) %>%
+    full_join(data %>% filter(psu == s4[1]) %>%
+                  slice(sample_4_1)) %>%
+    full_join(data %>% filter(psu == s4[2]) %>%
+                  slice(sample_4_2)) %>%
+    full_join(data %>% filter(psu == s5[1]) %>%
+                  slice(sample_5_1)) %>%
+    full_join(data %>% filter(psu == s5[2]) %>%
+                  slice(sample_5_2)) %>%
+    full_join(data %>% filter(psu == s6[1]) %>%
+                  slice(sample_6_1)) %>%
+    full_join(data %>% filter(psu == s6[2]) %>%
+                  slice(sample_6_2)) %>%
+    full_join(data %>% filter(psu == s7[1]) %>%
+                  slice(sample_7_1)) %>%
+    full_join(data %>% filter(psu == s7[2]) %>%
+                  slice(sample_7_2)) %>%
+    full_join(data %>% filter(psu == s8[1]) %>%
+                  slice(sample_8_1)) %>%
+    full_join(data %>% filter(psu == s8[2]) %>%
+                  slice(sample_8_2)) %>%
+    full_join(data %>% filter(psu == s9[1]) %>%
+                  slice(sample_9_1)) %>%
+    full_join(data %>% filter(psu == s9[2]) %>%
+                  slice(sample_9_2)))
+```
+
+## b), Construct the column of sampling weights for your sample. 
+
+```{r}
+(weight <- Size %>% mutate(
+    pro = n / sum(n),
+    pro_2 = 67 / n,
+    weight = 1 / (pro * pro_2)
+) %>% 
+    group_by(stratum) %>% 
+    summarise(weight = max(weight)))
+```
+## c), Draw a histogram of the variable inctot for your sample, using the weights.
+
+```{r}
+sample_data %>%
+    mutate(weighted_inctot = sample_data$inctot * rep(weight$weight, 1, each = 134) /
+               sum(weight$weight)) %>% 
+    ggplot() +
+    geom_histogram(aes(weighted_inctot))
+```
+
+## d), Construct side-by-side box-plots of the variable inctot for each level of maritalstatus (variable marstat). 
+
+```{r}
+sample_data["marstat"]<- factor(sample_data$marstat)
+
+sample_data %>%
+    mutate(weighted_inctot = sample_data$inctot * rep(weight$weight, 1, each = 134) /
+               sum(weight$weight)) %>% 
+    ggplot(aes(x=marstat, y=weighted_inctot))+
+    geom_boxplot()
+```
+
+## e), Draw two of the scatter plots that incorporate weights, for y variable inctot and x variable age. How do these differ from scatterplots that do not use the weights? 
+
+```{r}
+sample_data %>%
+    mutate(weighted_inctot = sample_data$inctot * rep(weight$weight, 1, each = 134) /
+               sum(weight$weight)) %>%
+    ggplot(aes(x = age, y = weighted_inctot)) +
+    geom_point()
+
+sample_data %>%
+    ggplot(aes(x=age, y=inctot))+
+    geom_point()
+```
+
+## f), Using the sample you selected, estimate the population mean of inctot and give the standard error of your estimate. Also estimate the population total of inctot and give its standard error. 
+
+\[\hat{\bar{y}}=\frac{\sum w_i\cdot y_i}{\sum w_i}. \]
+
+```{r}
+sum(sample_data$inctot * rep(weight$weight, 1, each = 134)) /
+    (sum(weight$weight) * 134)
+```
+
+\[\hat{S}^2=\frac{N}{N-1}\left[\sum y^2 f(y)-\left(\sum y f(y)\right)^2\right]. \]
+\[SE(\hat{\bar{y}})=\sqrt{S^2}. \]
+
+```{r}
+sqrt(1206 / (1206 - 1) * (sum(
+    sample_data$inctot ^ 2 * rep(weight$weight, 1, each = 134)
+) /
+    (sum(weight$weight) * 134) - (
+        sum(sample_data$inctot * rep(weight$weight, 1, each = 134)) /
+            (sum(weight$weight) * 134)
+    ) ^ 2))
+```
+
+## g), Compare your results with those from an SRS with the same number of persons. Find the design effect of your response (the ratio of your variance from the unequal- probability sample to the variance from the SRS). 
+
+Calculate the variance of SRS. 
+
+```{r}
+1206 / (1206 - 1) * (sum(sample_data$inctot ^ 2 * 1/1206) - (sum(sample_data$inctot * 1/1206) ^ 2))
+```
+
+So, deff is 
+```{r}
+1206 / (1206 - 1) * 
+    (sum(sample_data$inctot ^ 2 * 
+             rep(weight$weight, 1, each = 134)) /
+        (sum(weight$weight) * 134) - 
+        (sum(sample_data$inctot * rep(weight$weight, 1, each = 134)) /
+        (sum(weight$weight) * 134)) ^ 2) / (1206 / (1206 - 1) *
+        (sum(sample_data$inctot ^ 2 * 1 /1206) - 
+        (sum(sample_data$inctot * 1 / 1206) ^ 2)))
+```
+
+
+

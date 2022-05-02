@@ -1,0 +1,59 @@
+\chapter{}
+
+\rmk{1} In general, for any sampling distribution, there is a natural family of prior distributions, called the conjugate family. For a class of distributions \(\mathcal{P}=\{f(\mathbf{x} \mid \theta)\}_{\theta \in \Theta}\), a class \(\Pi\) of priors is called a conjugate family for \(\mathcal{P}\) if the posterior is in the class \(\Pi\) for any \(\theta \in \Theta\), all priors in \(\Pi\) and all \(x \in \mathcal{X}\).
+
+\begin{ex}
+    An experiment consists in flipping a coin independently \(n\) times, i.e., the total number of successes \(X\) follows a \(B(n, \theta)\) distribution. Suppose \(\theta \sim U[0,1]\) is our prior distribution (which is quite uninformative/conservative). Show that
+    \[
+        \theta \mid x \sim \operatorname{Beta}(x+1, n-x+1). 
+    \]
+\end{ex}
+
+\begin{solution}
+    From Bayes' theorem, 
+    \begin{align*}
+        p(\theta|x) &= \frac{p(x|\theta)p(\theta)}{\int p(x|\theta) \der x} \\
+        &\propto p(x|\theta)p(\theta) \\
+        &\propto \binom{n}{x} \theta^x(1-\theta)^{n-x}\\
+        &\propto \theta^x(1-\theta)^{n-x}. 
+    \end{align*}
+    So, $\theta|x\sim Beta(x+1, n-x+1)$. 
+\end{solution}
+
+\begin{ex}
+    Suppose we collect a sample \(X_{1}, \ldots, X_{n} \stackrel{\text { i.i.d. }}{\sim} \operatorname{Poi}(\lambda), \lambda>0\). Develop the posterior distribution \(\lambda \mid \mathbf{x}\) when the prior is given by \(\lambda \sim \Gamma(\alpha, \nu)\), i.e.,
+    \[
+        \pi(\lambda)=\frac{\nu^{\alpha}}{\Gamma(\alpha)} \lambda^{\alpha-1} e^{-\nu \lambda}. 
+    \]
+\end{ex}
+
+\begin{solution}
+    Because $x_i\sim Poi(\lambda)$, 
+    \[
+        f(\mathbf{x}|\lambda) = \frac{e^{-n\lambda}\lambda^{\sum x_i}}{\prod x_i!}. 
+    \]
+    \begin{align*}
+        p(\theta|x) &= \frac{p(x|\theta)p(\theta)}{\int p(x|\theta) \der x} \\
+        &\propto p(x|\theta)p(\theta) \\
+        &\propto \frac{e^{-n\lambda}\lambda^{\sum x_i}}{\prod x_i!} \frac{\lambda^{\alpha-1}v^\alpha e^{-v\lambda}}{\Gamma(\alpha)} \\
+        &\propto \lambda^{\sum x_i+\alpha-1} e^{-\lambda (n+v)}.
+    \end{align*}
+    So, $\lambda|\mathbf{x}\sim \Gamma(\sum x_i +\alpha, n+v)$. 
+\end{solution}
+
+3. We saw in class the following example. Suppose \(\Theta=\mathcal{A}=\mathbb{R}, L(\theta, a)=(\theta-a)^{2}\) and \(X \mid \theta=t \sim \mathcal{N}(t, 1)(n=1\) observation \() .\) Then, it is clear that the decision rule \(d_{\mathrm{ML}}(X)=X\) is the ML estimator of \(\theta\). In this problem, we show that \(d_{\mathrm{ML}}(X)\) is not a Bayes rule, irrespective of the prior. By contradiction, suppose it is.
+(a) Show that
+\[
+r\left(\pi, d_{\mathrm{ML}}(X)\right)<\infty
+\]
+(b) Conclude that \(d_{\mathrm{ML}}(X)=\mathbb{E}(\theta \mid X)\).
+(c) On one hand, show that
+\[
+\mathbb{E}\left[\theta d_{\mathrm{ML}}(X)\right]=\mathbb{E} d_{\mathrm{ML}}^{2}(X)
+\]
+(hint: condition on \(X\) ).
+(d) On the other hand, show that
+\[
+\mathbb{E}\left[\theta d_{\mathrm{ML}}(X)\right]=\mathbb{E} \theta^{2}
+\]
+(hint: condition on \(\theta\) ).
