@@ -41,19 +41,66 @@
     So, $\lambda|\mathbf{x}\sim \Gamma(\sum x_i +\alpha, n+v)$. 
 \end{solution}
 
-3. We saw in class the following example. Suppose \(\Theta=\mathcal{A}=\mathbb{R}, L(\theta, a)=(\theta-a)^{2}\) and \(X \mid \theta=t \sim \mathcal{N}(t, 1)(n=1\) observation \() .\) Then, it is clear that the decision rule \(d_{\mathrm{ML}}(X)=X\) is the ML estimator of \(\theta\). In this problem, we show that \(d_{\mathrm{ML}}(X)\) is not a Bayes rule, irrespective of the prior. By contradiction, suppose it is.
-(a) Show that
+\begin{ex}
+    We saw in class the following example. Suppose \(\Theta=\mathcal{A}=\mathbb{R}, L(\theta, a)=(\theta-a)^{2}\) and \(X \mid \theta=t \sim \mathcal{N}(t, 1)(n=1\) observation \() .\) Then, it is clear that the decision rule \(d_{\mathrm{ML}}(X)=X\) is the ML estimator of \(\theta\). In this problem, we show that \(d_{\mathrm{ML}}(X)\) is not a Bayes rule, irrespective of the prior. By contradiction, suppose it is. 
+    \begin{enumerate}[(a)]
+        \item Show that
+        \[
+            r\left(\pi, d_{\mathrm{ML}}(X)\right)<\infty
+        \]
+        \item Conclude that \(d_{\mathrm{ML}}(X)=\mathbb{E}(\theta \mid X)\). 
+        \item On one hand, show that
+        \[
+        \mathbb{E}\left[\theta d_{\mathrm{ML}}(X)\right]=\mathbb{E} d_{\mathrm{ML}}^{2}(X)
+        \]
+        (hint: condition on \(X\) ). 
+        \item  On the other hand, show that
+        \[
+        \mathbb{E}\left[\theta d_{\mathrm{ML}}(X)\right]=\mathbb{E} \theta^{2}
+        \]
+        (hint: condition on \(\theta\) ).
+    \end{enumerate}
+\end{ex}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item From the definition, for some prior distribution $\pi$, $r(\pi, d_{\mathbf{ML}})$ is bayes risk. So, 
+        \[
+            r(\pi, d_{\mathrm{ML}}(X)) = \inf_{d\in D^\star} r(\pi, d)<\infty. 
+        \]
+        \item 
+    \end{enumerate}
+\end{solution}
+
+
+\begin{ex}
+    Let \(\mathbf{X} \sim f_{X}(\mathbf{x} \mid \theta), \pi(d \theta)=\pi(\theta) d \theta\) be a.c. distributions, and let \(T\) be a sufficient statistic for \(\theta\) with a.c. density function \(g(t \mid \theta) d t\) and a.c. marginal density \(f_{T}(t)\). Suppose the factorization theorem holds. Show that
 \[
-r\left(\pi, d_{\mathrm{ML}}(X)\right)<\infty
+\pi(\theta \mid \mathbf{x})=\pi(\theta \mid t)=\frac{\pi(\theta) g(t \mid \theta)}{f_{T}(t)}
 \]
-(b) Conclude that \(d_{\mathrm{ML}}(X)=\mathbb{E}(\theta \mid X)\).
-(c) On one hand, show that
+(n.b.: the reason for determining \(\pi(\theta \mid \mathbf{x})\) from a sufficient statistic is that \(g(t \mid \theta)\) and \(f_{T}(t)\) are usually easier to handle than \(f_{X}(\mathbf{x} \mid \theta)\) and the marginal \(f_{\mathbf{X}}(\mathbf{x})\) - see next problem).
+\end{ex}
+
+
+5. Assume \(\mathbf{X}=\left(X_{1}, \ldots, X_{n}\right) \stackrel{\text { i.i.d. }}{\sim} \mathcal{N}\left(\theta, \sigma^{2}\right)\), where \(\theta\) is unknown but \(\sigma^{2}\) is known. Let the prior distribution \(\pi(\theta)\) be a \(\mathcal{N}\left(\mu, \tau^{2}\right)\) density, where \(\mu\) and \(\tau^{2}\) are known. Show that
 \[
-\mathbb{E}\left[\theta d_{\mathrm{ML}}(X)\right]=\mathbb{E} d_{\mathrm{ML}}^{2}(X)
+\theta \mid \mathbf{x} \sim \mathcal{N}\left(\mu(\mathbf{x}), \rho^{-1}\right)
 \]
-(hint: condition on \(X\) ).
-(d) On the other hand, show that
+where
 \[
-\mathbb{E}\left[\theta d_{\mathrm{ML}}(X)\right]=\mathbb{E} \theta^{2}
+\rho=\frac{n \tau^{2}+\sigma^{2}}{\tau^{2} \sigma^{2}}, \quad \mu(\mathbf{x})=\frac{\sigma^{2} / n}{\tau^{2}+\sigma^{2} / n} \mu+\frac{\tau^{2}}{\tau^{2}+\sigma^{2} / n} \bar{x}
 \]
-(hint: condition on \(\theta\) ).
+(hint: use the previous problem and show that
+\[
+\frac{(\theta-\mu)^{2}}{\tau^{2}}+\frac{(t-\theta)^{2}}{\sigma^{2} / n}=\rho\left[\theta-\frac{1}{\rho}\left(\frac{\mu}{\tau^{2}}+\frac{t}{\sigma^{2} / n}\right)\right]^{2}+\frac{(\mu-t)^{2}}{\left(\sigma^{2} / n+\tau^{2}\right)}
+\]
+Note that \(f_{T}(t)\) plays no role in determining the nature of \(\left.\pi(\theta \mid \mathbf{x})\right)\).
+6. If \(S^{2}\) is the sample variance based on sample of size \(n\) from a Normal population, we know that \(\frac{(n-1) S^{2}}{\sigma^{2}} \sim \chi_{n-1}^{2}\). The conjugate prior for \(\sigma^{2}\) is the inverse Gamma distribution \(I G(\alpha, \lambda)\), which is given by
+\[
+\pi\left(\sigma^{2} \mid \alpha, \lambda\right)=\frac{\lambda^{\alpha}}{\Gamma(\alpha)}\left(\sigma^{2}\right)^{-\alpha-1} e^{-\lambda / \sigma^{2}} 1_{\left\{0<\sigma^{2}<\infty\right\}}, \quad \alpha, \lambda>0
+\]
+(a) Show that the posterior distribution of \(\sigma^{2}\) is \(I G\left(\alpha+\frac{n-1}{2}, \frac{(n-1) S^{2}}{2}+\lambda\right)\).
+(b) Find the Bayes estimator of \(\sigma^{2}\) assuming quadratic error loss.
+7. Please answer the following questions.
+(a) Show that \(\operatorname{Beta}(\alpha, \beta)\) is a conjugate family for \(B(n, p)\). In other words, if \(X \sim B(n, p)\) and we assume a prior distribution \(p \sim \operatorname{Beta}(\alpha, \beta)\), then \(p \mid X\) also follows a Beta distribution.
+(b) In the situation described in (a), compute the Bayes rule (estimator of \(p\) ) assuming a quadratic loss function.
