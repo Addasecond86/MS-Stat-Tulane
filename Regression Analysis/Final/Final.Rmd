@@ -1,0 +1,147 @@
+---
+title: "Final"
+author: "Zehao Wang"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+---
+```{r message=FALSE}
+library(tidyverse)
+library(reshape2)
+library(MASS)
+library(glmnet)
+library(regclass)
+
+data <- read_csv("boston_house_sale_prices.csv")
+```
+
+
+# 1. 
+
+Evaluation whether multicollinearity exists for the data. 
+
+```{r}
+data[, -14] %>% 
+    cor() %>%
+    abs() %>%
+    melt() %>%
+    ggplot(aes(x = Var1, y = Var2, fill = value)) +
+    geom_tile() +
+    geom_text(aes(label = round(value, digits = 2)))
+```
+
+From this plot, we can see that the correlation coefficient between the variable TAX, which represents the tax rate, and the variable RAD, which represents the number of roads, is $0.91$, which is much higher than the correlation coefficient between other variables. So there may be multicollinearity between these two variables. 
+
+# 2. 
+
+Conduct a multiple linear regression with model selection. 
+
+```{r}
+data$CHAS <- as.character(data$CHAS)
+```
+
+## Forward: 
+
+```{r}
+intercept_model <- lm(MEDV ~ 1, data)
+
+all <- lm(MEDV ~ ., data)
+
+forward_model <- step(
+    intercept_model,
+    direction = "forward",
+    scope = formula(all),
+    trace = FALSE
+)
+
+forward_model$anova
+
+forward_model$coefficients
+```
+
+## Backward
+
+```{r}
+backward_model <- step(
+    all,
+    direction = "backward",
+    scope = formula(all),
+    trace = FALSE
+)
+
+backward_model$anova
+
+backward_model$coefficients
+```
+
+
+# 3. 
+
+Conduct a ridge regression, and compare the resulted model with the model obtained in 2. 
+
+```{r}
+x <- model.matrix(MEDV ~ ., data)
+ridge_cv <- cv.glmnet(x, data$MEDV, alpha = 0)
+
+lambda <- ridge_cv$lambda.1se
+
+best_model <-
+    glmnet(data[,-14], data$MEDV, alpha = 0, lambda = lambda)
+coef(best_model)
+```
+
+Compare with the model in (2): 
+
+| Variables 	| Coefficients 	|
+|:---:	|:---:	|
+| Intercept 	| 36.34 	|
+| CRIM 	| -0.11 	|
+| ZH 	| 0.05 	|
+| CHAS 	| 2.72 	|
+| NOX 	| -17.38 	|
+| RM 	| 3.80 	|
+| DIS 	| -1.49 	|
+| RAD 	| 0.30 	|
+| TAX 	| -0.01 	|
+| PTRATIO 	| -0.95 	|
+| B 	| 0.01 	|
+| LSTAT 	| -0.52 	|
+
+If we consider all coefficients with absolute values less than $0.1$ as insignificant variables, then the model obtained by ridge regression is: 
+
+\[Y=17.97+2.73X_{CHAS}-5.18X_{NOX}+3.56X_{RM}-0.49X_{DIS}-0.66X_{PTRATIO}-0.34X_{LSTAT}. \]
+
+And the model in 2 is : 
+\[Y=36.34-0.11X_{CRIM}+2.72X_{CHAS}-17.38X_{NOX}+3.80X_{RM}-1.49X_{DIS}+0.3X_{RAD}-0.95X_{PTRATIO}-0.52X_{LSTAT}. \]
+
+Ridge regression greatly reduces the complexity of the model. 
+
+# 4.
+
+Use appropriate technique to evaluate whether tract bounding river (CHAS) has any impact on the relationship between the house price (MEDV) and crime rate (CRIM). 
+
+
+```{r}
+ggplot(mapping = aes(CHAS, CRIM), data)+
+    geom_violin()
+
+ggplot(mapping = aes(CHAS, MEDV), data)+
+    geom_violin()
+```
+
+As you can see from the plots, if the house is close to the river, the crime rate is much lower; at the same time, the price of the house will increase accordingly. Next we compare the results of the model including CHAS and the model not including CHAS. 
+
+```{r}
+lm_not_chas <- lm(MEDV ~ CRIM, data)
+summary(lm_not_chas)
+lm_chas <- lm(MEDV ~ CRIM + CHAS, data)
+summary(lm_chas)
+```
+
+It can be seen that the adjusted-$R^2$ of the model with CHAS included is much higher than that of the model without it. Therefore, it can be seen that CHAS has a significant effect on the relationship between MEDV and CRIM. 
+
+```{r}
+anova(lm_not_chas, lm_chas)
+```
+
+The same results are obtained for the hypothesis testing of both models. 

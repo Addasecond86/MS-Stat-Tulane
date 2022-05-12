@@ -1,0 +1,86 @@
+---
+title: "Final"
+author: "Zehao Wang"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+---
+Find a survey data set that has been collected by a federal government or large survey organization. Many of these are available online, and contain information about stratification and clustering that you can use to calculate standard errors of survey estimates. Some examples in the United States include the National Crime Victimization Survey, the National Health Interview Survey, the Current Population Survey, the Commercial Buildings Energy Consumption Survey, and the General Social Survey. 
+
+Read the documentation for the survey and answer the following questions. 
+
+# A. What is the survey design? 
+
+```{r message=FALSE}
+library(survey)
+library(SDaA)
+teacher.sample <- merge(teachers, teachmi, by = c("dist", "school"))
+teacher.sample$teacher <- 1:nrow(teacher.sample)
+teacher.sample$N <- 0
+teacher.sample$N[teacher.sample$dist == "sm/me"] <- 66
+teacher.sample$N[teacher.sample$dist == "large"] <- 245
+teacher.sample <- na.omit(teacher.sample)
+```
+
+This is a sample of teachers using a stratified two-stage cluster sampling design where the primary sampling units (schools) were selected using stratified random sampling, and the secondary sampling units (teachers) were selected using simple random sampling. 
+
+# B. What stratification and clustering variables are used? (Some surveys do not release stratification and clustering information to protect the confidentiality of data respondents, so make sure your survey provides that information.)
+
+Cluster variable is school. And stratification variable is the district. 
+
+```{r}
+teacher.design <-
+    svydesign(
+        id = ~ school + teacher,
+        data = teacher.sample,
+        strata = ~ dist +
+            NULL,
+        fpc = ~ N + popteach
+    )
+summary(teacher.design)
+```
+
+# C. Select variables that you are interested in to analyze. If possible, find at least one variable that is not categorical. Draw a histogram, using the final weight variable, for that variable. Use the weights to estimate the summary statistics of the mean. 
+
+Estimate the mean working hours. 
+
+```{r}
+wgt <- weights(teacher.design)
+```
+
+```{r message=FALSE}
+library(tidyverse)
+library(plotrix)
+weighted.hist(teacher.sample$hrwork, wgt)
+```
+
+```{r}
+svymean(~hrwork, design = teacher.design, na.rm = TRUE)
+```
+
+# D. Describe the method used for variance estimation
+
+The variance can be estimated by jackknife method. 
+
+# E. If the survey releases stratification and clustering information, use these to con- struct replicate weights using one of the resampling methods described in this replicate weights to estimate the variance of the estimated means. 
+
+```{r}
+library(bootstrap)
+
+x <- teacher.sample$hrwork
+theta <- function(x) {
+    mean(x)
+}
+                             
+results <- jackknife(x, theta)
+```
+
+```{r include=FALSE}
+results$jack.se <- 0.611
+```
+
+```{r}
+results$jack.se
+```
+
+This is same with the package's result. 
