@@ -1,0 +1,113 @@
+\documentclass[12pt]{elegantbook}
+
+\newcommand{\CN}{BIOS 7040\\[0.5cm] Statistical Inference I}
+\newcommand{\Ti}{Homework 1}
+\newcommand{\Pf}{Dr. Srivastav}
+\newcommand{\FN}{Zehao}
+\newcommand{\LN}{Wang}
+
+\usepackage{enumitem}
+\renewcommand{\chaptername}{Homework}
+\begin{document}
+\include{title.tex}
+\chapter{}
+
+\setcounter{exer}{1}
+\begin{exercise}
+    Verify the following identities. 
+    \begin{enumerate}[(a)]
+        \item $A\backslash B=A\backslash (A\cap B)=A\cap B^c$
+        \item $B=(B\cap A)\cup (B\cap A^c)$
+        \item $B\backslash A=B\cap A^c$
+        \item $A\cup B=A\cup (B\cap A^c)$
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item $A\backslash B \Leftrightarrow \{x: x\in A, x\notin B\}\Leftrightarrow \{x:x\in A, x\notin A\cap B\}\Leftrightarrow A\backslash (A\cap B)$. 
+        
+        $A\backslash B \Leftrightarrow \{x: x\in A, x\notin B\}\Leftrightarrow\{x:x\in A, x\in B^c\}\Leftrightarrow A\cap B^c$. 
+        \item From distributive property, 
+        \[
+            (B\cap A)\cup (B\cap A^c) \Leftrightarrow B\cap (A\cup A^c)\Leftrightarrow B. 
+        \]
+        \item Same with (a). Just exchange $A$ and $B$. 
+        \item Using (b), \[
+            A\cup B\Leftrightarrow A\cup (B\cap A)\cup (B\cap A^c)\Leftrightarrow (A\cup B\cap A)\cup (B\cap A^c)\Leftrightarrow A\cup (B\cap A^c). 
+        \]
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    Finish the proof of Theorem 1.1.4. For any events $A$, $B$ and $C$ defined on a sample space $S$, show that
+    \begin{enumerate}[(a)]
+        \item $A\cup B=B\cup A$ and $A\cap B=B\cap A$. 
+        \item $A\cup (B\cup C)=(A\cup B)\cup C$ and $A\cap (B\cap C)=(A\cap B)\cap C$. 
+        \item $(A\cup B)^c=A^c\cup B^c$ and $(A\cap B)^c=A^c\cup B^c$. 
+    \end{enumerate}
+\end{exercise}
+
+
+\begin{exercise}
+    For events $A$ and $B$, find formulas for the probabilities of the following events in terms of the quantities $P(A)$, $P(B)$ and $P(A\cap B)$. 
+    \begin{enumerate}[(a)]
+        \item either $A$ or $B$ or both. 
+        \item either $A$ or $B$ but not both. 
+        \item at least one of $A$ and $B$.
+        \item at most one of $A$ and $B$.
+    \end{enumerate}
+\end{exercise}
+
+\setcounter{exer}{10}
+\begin{exercise}
+    Let $S$ be a sample space. 
+    \begin{enumerate}[(a)]
+        \item show that the collection $\mathcal{B}=\{\varnothing, S\}$ is a sigma algebra. 
+        \item Let $\mathcal{B}=\{\text{all subsets of $S$, including $S$ itself}\}$. Show that $\mathcal{B}$ is a sigma algebra. 
+        \item Show that the intersection of two sigma algebra is a sigma algebra.
+    \end{enumerate}
+\end{exercise}
+
+\setcounter{exer}{12}
+\begin{exercise}
+    If $P(A)=1/3$ and $P(B^c)=1/4$, can $A$ and $B$ be disjoint? Explain. 
+\end{exercise}
+
+\setcounter{exer}{32}
+\begin{exercise}
+    Suppose that $5\%$ of men and $0.25\%$ of women are color-blind. A person is chosen at random and that person is color-blind. What is the probability that the person is male? (Assume males and females to be in equal numbers.)
+\end{exercise}
+
+\setcounter{exer}{34}
+\begin{exercise}
+    Prove that if $P(\cdot)$ is a legitimate probability function and $B$ is a set with $P(B)>0$, then $P(\cdot|B)$ also satisfied Kolmogorov's Axioms. 
+\end{exercise}
+
+\setcounter{exer}{37}
+\begin{exercise}
+    Prove each of the following statements. (Assume that any conditioning event has positive probability.)
+    \begin{enumerate}[(a)]
+        \item If $P(B)=1$, then $P(A|B)=P(A)$ for any $A$. 
+        \item If $A\subset B$, then $P(B|A)=1$ and $P(A|B)=P(A)/P(B)$. 
+        \item If $A$ and $B$ are mutually exclusive, then \[
+            P(A|A\cup B)=\frac{P(A)}{P(A)+P(B)}. 
+        \]
+        \item $P(A\cap B\cap C)=P(A|B\cap C)P(B|C)P(C)$. 
+    \end{enumerate}
+\end{exercise}
+
+\begin{exercise*}[2]
+    A set of $n$ items contains $k$ defective items, and $m$ are sampled randomly for inspection. How should the value of $m$ be chosen so that the probability that at least one defective item turns up is $0.90$? Apply your answer to 
+    \begin{enumerate}[(a)]
+        \item $n=1000$, $k=10$. 
+        \item $n=10000$, $k=100$.
+    \end{enumerate}
+    Hint: It's ok to derive an approximate answer by assuming $k$ is small compared to $n$. 
+\end{exercise*}
+
+\begin{exercise*}[3]
+    A group of $60$ second graders is to be randomly assigned to two classes of $30$ each. (The random assignment is ordered by the school district to ensure against any bias.) Five of the second graders, Marcelle, Sarah, Michelle, Katy, and Camerin, are close friends. What is the probability that they will all be in the same class? What is the probability that exactly four of them? 
+\end{exercise*}
+
+\end{document}
