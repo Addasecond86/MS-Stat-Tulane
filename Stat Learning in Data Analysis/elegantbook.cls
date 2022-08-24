@@ -1216,7 +1216,7 @@
 %页眉页脚
 \RequirePackage{fancyhdr}
 \fancyhf{}
-
+\fancyhead[c]{\textsc{Zehao Wang}}
 
 \fancyfoot[c]{\color{structurecolor}\small\thepage}
 \if@twoside
