@@ -1,0 +1,67 @@
+\documentclass[12pt]{elegantbook}
+
+\newcommand{\CN}{BIOS 7300\\[0.5cm] Survival Data Analysis}
+\newcommand{\Ti}{Homework 1}
+\newcommand{\Pf}{Dr. Tang}
+\newcommand{\FN}{Zehao}
+\newcommand{\LN}{Wang}
+\usepackage[fontsize=14pt]{fontsize}
+
+\usepackage{enumitem}
+\renewcommand{\chaptername}{Homework}
+\begin{document}
+\include{title.tex}
+\chapter{}
+
+    % \setcounter{exer}{1}
+    \begin{exercise}
+        Missing values due to drop out and loss of follow up is a common issue in clinical trials. For a breast cancer study, we are interested in how long it will take for a patient to drop out of the study. For this survival time, what is the starting time and the failure event? For each of the following individuals, what is the best you can say about the survival time?
+        \begin{enumerate}[(a)]
+            \item A patient stayed in the study for 144 days, and then dropped out of the study.
+            \item A patient stayed in the study for 144 days until death due to breast cancer.
+            \item A patient stayed in the study for 144 days until death due to a car accident.
+            \item A patient stayed in the study for 144 days until the end of the study.
+            \item A patient was found to have dropped out of the study after 144 days, but because of document loss, we don't know exactly when the patient dropped out of the study. 
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+    \end{solution}
+
+    \begin{exercise}
+        Kidney failure may be treated with dialysis or kidney transplant, and we are interested in the survival time from the transplant of kidney to death because of kidney failure. For this survival time, what is the starting time and the failure event? For each of the following individuals, identify if censoring or truncation occurred for the survival time, and if so, identify the type (left, right, or interval censoring or truncation). 
+        \begin{enumerate}[(a)]
+            \item Individual I: diagnosed with kidney failure on Jan. 1, 2010, registered for kidney transplant on Jan. 1, 2012, and received the kidney transplant surgery on Jan. 1, 2013, still alive.
+            \item Individual II: starting treatment of kidney failure at the current hospital on Jan. 1, 2010 with the diagnosis date unknown, registered for kidney transplant on Jan. 1, 2012, and died on Jan. 1, 2013 because of a car accident. 
+            \item Individual III: diagnosed with kidney failure on Jan. 1, 2010, registered for kidney transplant on Jan. 1, 2012, and received the kidney transplant surgery on Jan. 1, 2013, died of kidney failure on Jan. 1, 2014. 
+            \item Individual IV: diagnosed with kidney failure on Jan. 1, 2010, registered for kidney transplant on Jan. 1, 2012, and died of kidney failure on Jan. 1, 2013 before he
+            could accept a kidney. 
+            \item Individual V: diagnosed with kidney failure on Jan. 1, 2010, and died of kidney failure on Jan. 1, 2013. Not registered for kidney transplant.
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+    \end{solution}
+    
+    \begin{exercise}
+        Read the article “Cardiac Transplantation in Man, VI. Prognosis of Patients Selected for Cardiac Transplantation” in the “Reading Material” folder on the course canvas and answer the following questions: 
+        \begin{enumerate}[(a)]
+            \item How are the survival times in Figure 1 defined? Please clearly state the starting time point and the event.
+            \item Based on the study in the paper, do you agree the authors that “The present results of clinical cardiac transplantation at Stanford suggest that significant qualitative improvement in and prolongation of life is possible in certain selected patients with end-stage, irremediable heart disease”? Please explain why or why not you agree with it. 
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+    \end{solution}
+
+    \begin{exercise}
+        \begin{enumerate}[(a)]
+            \item The hazard function of a survival time is given by $h(t) = 1/2$ for $t > 0$. Find the survivor, density, and cumulative hazard functions of the survival time. 
+            \item The survivor function of a survival time is given by $S(t) = \exp(-2t)$ for $t > 0$. Find the density, hazard, and cumulative hazard functions of the survival time. 
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+    \end{solution}
+    
+\end{document}
