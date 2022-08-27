@@ -26,6 +26,17 @@
     \end{exercise}
 
     \begin{solution}
+
+        Starting time: the time patients enter into this experiment. 
+
+        Failure event: the patient was dropped out of the study because of the death or some else reasons. 
+        \begin{enumerate}[(a)]
+            \item This one is the best. 
+            \item The actual survival time is longer than 144 days. So it is a right censoring. 
+            \item The actual survival time is longer than 144 days, too. So it is a right censoring. 
+            \item The actual survival time is longer than 144 days. Right censoring. 
+            \item Then survival time is less than 144 days. But we lost this record. So, it is a left truncation. 
+        \end{enumerate}
     \end{solution}
 
     \begin{exercise}
@@ -41,10 +52,21 @@
     \end{exercise}
 
     \begin{solution}
+
+        Starting time: the time when transplant surgery completed. 
+
+        Failure event: the patient died of kidney failure. 
+        \begin{enumerate}[(a)]
+            \item Right censoring. 
+            \item Left truncation. 
+            \item No censoring or truncation. 
+            \item Left truncation. 
+            \item Left truncation. 
+        \end{enumerate}
     \end{solution}
     
     \begin{exercise}
-        Read the article “Cardiac Transplantation in Man, VI. Prognosis of Patients Selected for Cardiac Transplantation” in the “Reading Material” folder on the course canvas and answer the following questions: 
+        Read the article “Cardiac Transplantation in Man, VI. Prognosis of Patients Selected for Cardiac Transplantation" in the “Reading Material" folder on the course canvas and answer the following questions: 
         \begin{enumerate}[(a)]
             \item How are the survival times in Figure 1 defined? Please clearly state the starting time point and the event.
             \item Based on the study in the paper, do you agree the authors that “The present results of clinical cardiac transplantation at Stanford suggest that significant qualitative improvement in and prolongation of life is possible in certain selected patients with end-stage, irremediable heart disease”? Please explain why or why not you agree with it. 
@@ -52,6 +74,12 @@
     \end{exercise}
 
     \begin{solution}
+        \begin{enumerate}[(a)]
+            \item For transplanted patients, the survival time is calculated from the time of operation. Starting time: the time of operation. Failure event: the patient died of heart disease. 
+            
+            For nontransplanted patients, the survival time is calculated from the selection for transplantation. Starting time: the time of selection. Failure event: the patient died of heart disease. 
+            \item I tend to agree with this conclusion. Because Figure 1 shows a significant difference between the survival time of transplantation patients and nontransplanted patients. But the sample size seems a little small. 
+        \end{enumerate}
     \end{solution}
 
     \begin{exercise}
@@ -62,6 +90,17 @@
     \end{exercise}
 
     \begin{solution}
+        \begin{enumerate}[(a)]
+            \item  Knowing: 
+            \[h(t)=-\frac{d}{d x} \ln(S(t))=\frac{1}{2}, \]
+            we can get: 
+            \[\ln(S(t))=-\frac{1}{2}t,\quad S(t)=\exp\left(-\frac{t}{2}\right). \]
+            \[H(t)=-\ln(S(t))=\frac{t}{2}. \]
+            \[S(t)=1-F(t)=1-\int_0^t f(x) dx, \quad S'(t)=-f(t)=-\frac{1}{2}\exp\left(-\frac{t}{2}\right), \]
+            \[f(t)=\frac{1}{2}\exp\left(-\frac{t}{2}\right)\]
+            \item \[f(t)=-S'(t)=2\exp\left(-2t\right), \]
+            \[H(t)=-\ln(S(t))=2t, \quad h(t)=H'(t)=2. \]
+        \end{enumerate}
     \end{solution}
     
 \end{document}
