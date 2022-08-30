@@ -30,13 +30,8 @@
         Starting time: the time patients enter into this experiment. 
 
         Failure event: the patient was dropped out of the study because of the death or some else reasons. 
-        \begin{enumerate}[(a)]
-            \item This one is the best. 
-            \item The actual survival time is longer than 144 days. So it is a right censoring. 
-            \item The actual survival time is longer than 144 days, too. So it is a right censoring. 
-            \item The actual survival time is longer than 144 days. Right censoring. 
-            \item Then survival time is less than 144 days. But we lost this record. So, it is a left truncation. 
-        \end{enumerate}
+
+        (a) is the best one. (b) is a right censoring. (c) is a right censoring. (d) is right censoring. And (e) is a left truncation. 
     \end{solution}
 
     \begin{exercise}
@@ -78,7 +73,7 @@
             \item For transplanted patients, the survival time is calculated from the time of operation. Starting time: the time of operation. Failure event: the patient died of heart disease. 
             
             For nontransplanted patients, the survival time is calculated from the selection for transplantation. Starting time: the time of selection. Failure event: the patient died of heart disease. 
-            \item I tend to agree with this conclusion. Because Figure 1 shows a significant difference between the survival time of transplantation patients and nontransplanted patients. But the sample size seems a little small. 
+            \item I tend to agree with this conclusion. Because Figure 1 shows a significant difference between the survival time of transplantation patients and nontransplanted patients. 
         \end{enumerate}
     \end{solution}
 
