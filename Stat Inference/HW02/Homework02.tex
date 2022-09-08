@@ -112,7 +112,18 @@
                     -\alpha (\alpha + \beta - 1)^n  &{} \beta (\alpha + \beta - 1)^n  \\{}+ (\alpha + \beta - 1)^n + \alpha - 1 &{}- (\alpha + \beta - 1)^n + \alpha - 1
                 \end{bmatrix}
             \end{align*}
-            This result can be verified by using the formula:
+            So, if $n\to\infty$, we have:
+            \[\begin{bmatrix}
+                a&1-\beta\\
+                1-\alpha&\beta
+            \end{bmatrix}^\infty=\begin{bmatrix}
+                \frac{\beta-1}{\alpha+\beta-2}&\frac{\beta-1}{\alpha+\beta-2}\\
+                \frac{\alpha-1}{\alpha+\beta-2}&\frac{\alpha-1}{\alpha+\beta-2}
+            \end{bmatrix}\]
+            Hence, \[
+                \Pr(R_{i+\infty})=\frac{\beta-1}{\alpha+\beta-2}. 
+            \]
+            We can get the same results by using the formula:
             \[\Pr(R_{i+1})=\alpha \Pr(R_{i})+(1-\beta)\Pr(R_{i}^c)=\alpha \Pr(R_{i})+(1-\beta)(1-\Pr(R_{i})). \]
             Let $a_{n}=\Pr(R_{n})$, then we can rewrite the above formula as:
             \[a_{n+1}=\alpha a_n+(1-\beta)(1-a_n)=1-\beta+a_n(\alpha+\beta-1). \]
@@ -121,17 +132,8 @@
             And $a_0=p$, $b_0=p+\frac{1-\beta}{\alpha+\beta-2}$. So, 
             \[b_n=b_0(\alpha+\beta-1)^n\]
             \[\Pr(R_{n})=a_n=b_n-\frac{1-\beta}{\alpha+\beta-2}=\left(p+\frac{1-\beta}{\alpha+\beta-2}\right)(\alpha+\beta-1)^n+\frac{\beta-1}{\alpha+\beta-2}\]
-            So, if $n\to\infty$, we have:
-            \[\begin{bmatrix}
-                a&1-\beta\\
-                1-\alpha&\beta
-            \end{bmatrix}^n\\=\begin{bmatrix}
-                \frac{\beta-1}{\alpha+\beta-2}&\frac{\beta-1}{\alpha+\beta-2}\\
-                \frac{\alpha-1}{\alpha+\beta-2}&\frac{\alpha-1}{\alpha+\beta-2}
-            \end{bmatrix}\]
-            Hence, \[
-                \Pr(R_{i+\infty})=\frac{\beta-1}{\alpha+\beta-2}. 
-            \]
+            Let $n\to\infty$, we have:
+            \[\Pr(R_\infty)=\frac{\beta-1}{\alpha+\beta-2}. \]
         \end{enumerate}
     \end{solution}
     

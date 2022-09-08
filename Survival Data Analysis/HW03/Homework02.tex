@@ -159,4 +159,28 @@
             \includegraphics[width=\textwidth]{HW1_3.png}
         \end{figure}
     \end{solution}
+    
+    \begin{exercise*}[4]
+        The following table contains the KM estimate of the survival function ($S$) and its point-wise confidence intervals (LCL=lower limit and UCL=upper limit), where $c$ is the censoring indicator (0 means not censored, and 1 means censored). Based on the table, find the following quantities. If any of these quantities are undefined, explain. 
+        \begin{enumerate}[(a)]
+            \item The median survival time, and the $95\%$ confidence interval for the median.
+            \item The first and third quartiles, and the $95\%$ confidence intervals for these quartiles.
+            \item The SIQR. 
+        \end{enumerate}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=\textwidth]{HW1_4.png}
+        \end{figure}
+    \end{exercise*}
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item Median survival time is: 
+            \[t=\min\{t:S(t)\leq0.5\}=1092. \] 
+            With this same condition on LCL and UCL, we can get the $95\%$ confidence interval for the median is \[[t_{LCL},t_{UCL}]=[1086,1098]. \]
+            \item First quartile is: $t=\min\{t:S(t)\leq0.75\}=1053$. And the $95\%$ confidence interval for the first quartile is $[t_{LCL},t_{UCL}]=[1053,1060]$. 
+            
+            Third quartile is: $t=\min\{t:S(t)\leq0.25\}=1332$. The $95\%$ confidence interval for the third quartile is $[t_{LCL},t_{UCL}]=[1145,1352]$. 
+            \item \[SIQR=(t_{0.75}-t_{0.25})/2=139.5. \]
+        \end{enumerate}
+    \end{solution}
 \end{document}
