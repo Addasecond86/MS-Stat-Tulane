@@ -118,9 +118,9 @@
             \[a_{n+1}=\alpha a_n+(1-\beta)(1-a_n)=1-\beta+a_n(\alpha+\beta-1). \]
             Plus $\frac{1-\beta}{\alpha+\beta-2}$ for both sides, we have:
             \[b_{n+1}=a_{n+1}+\frac{1-\beta}{\alpha+\beta-2}=\left(a_n+\frac{1-\beta}{\alpha+\beta-2}\right)(\alpha+\beta-1)=b_n(\alpha+\beta-1). \]
-            And $a_0=p$, $b_0=\frac{1-\beta}{\alpha+\beta-2}$. So, 
+            And $a_0=p$, $b_0=p+\frac{1-\beta}{\alpha+\beta-2}$. So, 
             \[b_n=b_0(\alpha+\beta-1)^n\]
-            \[\Pr(R_{n})=a_n=b_n-\frac{1-\beta}{\alpha+\beta-2}=\frac{1-\beta}{\alpha+\beta-2}(\alpha+\beta-1)^n+\frac{\beta-1}{\alpha+\beta-2}\]
+            \[\Pr(R_{n})=a_n=b_n-\frac{1-\beta}{\alpha+\beta-2}=\left(p+\frac{1-\beta}{\alpha+\beta-2}\right)(\alpha+\beta-1)^n+\frac{\beta-1}{\alpha+\beta-2}\]
             So, if $n\to\infty$, we have:
             \[\begin{bmatrix}
                 a&1-\beta\\
