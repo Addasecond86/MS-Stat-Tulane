@@ -1,0 +1,113 @@
+\documentclass[14pt]{elegantbook}
+
+\newcommand{\CN}{BIOS 7040\\[0.5cm] Statistical Inference I}
+\newcommand{\Ti}{Homework 3}
+\newcommand{\Pf}{Dr. Srivastav}
+\newcommand{\FN}{Zehao}
+\newcommand{\LN}{Wang}
+\usepackage[fontsize=14pt]{fontsize}
+
+\usepackage{enumitem}
+\renewcommand{\chaptername}{Homework}
+\begin{document}
+\include{title.tex}
+\setcounter{chapter}{2}
+\chapter{}
+
+    \begin{exercise*}[1]
+        Four buses carrying 148 students from the same school arrive at a football stadium. The buses carry, respectively, 40, 33, 25, and 50 students. One of the students is randomly selected. Let $X$ denote the number of students that were on the bus carrying the randomly selected student. One of the 4 bus drivers is also randomly selected. Let $Y$ denote the number of students on her bus. 
+        \begin{enumerate}[(a)]
+            \item Which of $E[X]$ or $E[Y]$ do you think is larger? Why? 
+            \item Compute $E[X]$ and $E[Y]$. 
+        \end{enumerate}
+    \end{exercise*}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item I think $E[X]$ is larger. Because the probability of selecting a student from the bus carrying more students is larger than the bus carrying less students. So, the expected students number would be larger. 
+            \item \[E[X]=40\cdot\frac{40}{148}+33\cdot\frac{33}{148}+25\cdot\frac{25}{148}+50\cdot\frac{50}{148}\approx39.2838\]
+            \[E[Y]=(40+33+25+50)\cdot\frac{1}{4}=37\]
+        \end{enumerate}
+    \end{solution}
+
+    \begin{exercise*}[2]
+        One of the numbers 1 through 10 is randomly chosen. You are to try to guess the number chosen by asking questions with ``yes-no" answers. Compute the expected number of questions you will need to ask in each of the following two cases: 
+        \begin{enumerate}[(a)]
+            \item Your $i_{th}$ question is to be ``Is it $i$ ?'' $i = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10$. 
+            \item With each question you try to eliminate one half of the remaining numbers, as nearly 
+            as possible. 
+        \end{enumerate}
+    \end{exercise*}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item Let $K$ be the number of questions you need to ask. $K=1,\cdots,8$ means the number is $1, \cdots, 8$, respectively. And $K=9$ means the number is $9$ or $10$. So, you only need to ask $9$ questions at most.
+            Then, \[
+                \Pr(K=1)=\frac{1}{10}, \quad \cdots \quad \Pr(K=8)=\frac{1}{10}, \quad \Pr(K=9)=\frac{2}{10}. 
+            \]
+            So, 
+            \[
+                E[K]=\sum_{i=1}^8i\cdot\frac{1}{10}+9\cdot\frac{2}{10}=5.4. 
+            \]
+            \item Let $K$ be the number of questions you need to ask. $K=1$, remain $5$ numbers. $K=2$, remain $2$ or $3$ numbers. $K=3$, remain $1$ or $2$ numbers. So, for $6$ of ten numbers, we only need 3 questions to know the number. For the other $4$ of ten numbers, we need 4 questions to guess the number. 
+            \[E[K]=3\cdot\frac{6}{10}+4\cdot\frac{4}{10}=3.4. \]
+        \end{enumerate}
+    \end{solution}
+
+    \begin{exercise*}[3]
+        Let X be a binomial random variable with parameters $(n, p)$. What value of $p$ maximizes $P\{X = k\}$, $k = 0, 1, \cdots, n$? This is an example of a statistical method used to estimate $p$ when a binomial $(n, p)$ random variable is observed to equal $k$. If we assume that n is known, then we estimate $p$ by choosing that value of $p$ which maximizes $P\{X = k\}$. This is known as the method of maximum likelihood estimation. 
+    \end{exercise*}
+
+    \begin{solution}
+        \begin{align*}
+            P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}\propto p^k(1-p)^{n-k}, 
+        \end{align*}
+        We want to find $p$ to reach the maximum of $p^k(1-p)^{n-k}$, it is equivalent to find the $p$ to maximize $k\ln p+(n-k)\ln(1-p)$. 
+        \[\frac{\partial (k\ln p+(n-k)\ln(1-p))}{\partial p}=\frac{k}{p}-\frac{n-k}{1-p}\Rightarrow p=\frac{k}{n}. \]
+        And when $p>\frac{k}{n}$, $p^k(1-p)^{n-k}$ is decreasing. $p<\frac{k}{n}$, $p^k(1-p)^{n-k}$ is increasing. So, $p=\frac{k}{n}$ can maximize $P(X=k)$. 
+    \end{solution}
+
+    \begin{exercise*}[4]
+        Suppose that the number of events that occur in a specified time is a Poisson random variable with parameter $\lambda$. If each event is counted with probability $p$, independently of every other event, show that the number of events that are counted is a Poisson random variable with parameter $\lambda p$. Also, give an intuitive argument as to why this should be so. As an application of the preceding result, suppose that the number of distinct uranium deposits in a given area is a Poisson random variable with parameter $\lambda = 10$. If, in a fixed period of time, each deposit is discovered independently with probability  $1/50$, find the probability that 
+        \begin{enumerate}[(a)]
+            \item exactly $1$; 
+            \item at least $1$; 
+            \item at most $1$ deposit is discovered during that time.  
+        \end{enumerate}
+    \end{exercise*}
+
+    \begin{solution}
+        Let $X$ be the Poisson R.V. and $N$ be the number of counted. Then, 
+        \begin{align*}
+            \Pr(N=n)&=\sum_{i=0}^\infty \Pr(N=n|X=i)\Pr(X=i)\\
+            &=\sum_{i=n}^\infty \binom{i}{n}p^n(1-p)^{i-n}\frac{e^{-\lambda}\lambda^i}{i!}\\
+            &=\sum_{i=n}^\infty \binom{i}{n}p^n(1-p)^{i-n}\frac{e^{-\lambda}\lambda^i}{i!}\\
+            &=\sum_{i=n}^\infty \frac{1}{(i-n)!}\lambda^{i-n}(1-p)^{i-n}\frac{e^{-\lambda}(\lambda p)^{n}}{n!}\\
+            &=\sum_{i=n}^\infty \frac{(\lambda-\lambda p)^{i-n}}{(i-n)!}\frac{e^{-\lambda}(\lambda p)^{n}}{n!}
+        \end{align*}
+        And we know that $e^x=\sum_{i=0}^\infty\frac{x^i}{i!}$, So, 
+        \[
+            \Pr(N=n)=e^{\lambda p}\frac{(\lambda p)^n}{n!}\sim Poi(\lambda p). 
+        \]
+    \end{solution}
+
+    \begin{exercise*}[5]
+        Two boys play basketball in the following way. They take turns shooting and stop when a basket is made. Player $A$ goes first and has probability $p_1$ of making a basket on any throw. Player $B$, who shoots second, has probability $p_2$ of making a basket. The outcomes of the successive trials are assumed to be independent. Find the frequency function for the total number of attempts. 
+    \end{exercise*}
+
+    \begin{solution}
+        Let $N$ be the attempt times. Then, 
+        $P(N=1)=p_1$, $P(N=2)=(1-p_1)p_2$, $\cdots$, $P(2N-1)=(1-p_1)^{n-1}(1-p_2)^{n-1}p_1$, $P(2N)=(1-p_1)^n(1-p_2)^{n-1}p_2$. 
+
+        In general,
+        \[
+            P(N=n)=\left\{ \begin{matrix}
+                (1-p_1)^{(n-1)/2}(1-p_2)^{(n-1)/2}p_1, & n=2k+1, \\
+                (1-p_1)^{n/2}(1-p_2)^{(n-2)/2}p_2, & n=2k. 
+            \end{matrix} \right.
+        \]
+    \end{solution}
+
+    
+
+\end{document}
