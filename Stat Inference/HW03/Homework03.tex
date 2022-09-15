@@ -24,9 +24,9 @@
 
     \begin{solution}
         \begin{enumerate}[(a)]
-            \item I think $E[X]$ is larger. Because the probability of selecting a student from the bus carrying more students is larger than the bus carrying less students. So, the expected students number would be larger. 
+            \item I think $E[X]$ is larger. Because the probability of selecting a student from the bus carrying more students is larger than the bus carrying less students. So, the expected students number would be larger. For $E[Y]$, $4$ buses have a same probability to be selected. 
             \item \[E[X]=40\cdot\frac{40}{148}+33\cdot\frac{33}{148}+25\cdot\frac{25}{148}+50\cdot\frac{50}{148}\approx39.2838\]
-            \[E[Y]=(40+33+25+50)\cdot\frac{1}{4}=37\]
+            \[E[Y]=(40+33+25+50)\cdot\frac{1}{4}=37. \]
         \end{enumerate}
     \end{solution}
 
@@ -41,15 +41,22 @@
 
     \begin{solution}
         \begin{enumerate}[(a)]
-            \item Let $K$ be the number of questions you need to ask. $K=1,\cdots,8$ means the number is $1, \cdots, 8$, respectively. And $K=9$ means the number is $9$ or $10$. So, you only need to ask $9$ questions at most.
-            Then, \[
+            \item Let $K$ be the number of questions you need to ask. First of all, we only need 9 questions to know the correct number in 10 numbers. Because, if you have already asked 9 questions and still not get a ``yes'' answer, the right number can only be the one left, which means you needn't ask another question. So, $K=1,\cdots,8$ means the number is $1, \cdots, 8$, respectively. And $K=9$ means the number is $9$ or $10$. So, you only need to ask $9$ questions at most. 
+            Then, knowing the numbers are uniformly distributed, we have 
+            \[
                 \Pr(K=1)=\frac{1}{10}, \quad \cdots \quad \Pr(K=8)=\frac{1}{10}, \quad \Pr(K=9)=\frac{2}{10}. 
             \]
             So, 
             \[
                 E[K]=\sum_{i=1}^8i\cdot\frac{1}{10}+9\cdot\frac{2}{10}=5.4. 
             \]
-            \item Let $K$ be the number of questions you need to ask. $K=1$, remain $5$ numbers. $K=2$, remain $2$ or $3$ numbers. $K=3$, remain $1$ or $2$ numbers. So, for $6$ of ten numbers, we only need 3 questions to know the number. For the other $4$ of ten numbers, we need 4 questions to guess the number. 
+            \item Let $K$ be the number of questions you need to ask. 
+            \begin{itemize}
+                \item $K=1$, there are only $5$ numbers left. 
+                \item $K=2$, there are only $3$ or $2$ numbers left. 
+                \item $K=3$, there are only $2$ or $1$ numbers left. 
+            \end{itemize}
+            When there is only 1 number left, it is the correct number. So, with 3 steps, there are $2\times 2=4$ cases need one more step. Then, 
             \[E[K]=3\cdot\frac{6}{10}+4\cdot\frac{4}{10}=3.4. \]
         \end{enumerate}
     \end{solution}
@@ -60,10 +67,18 @@
 
     \begin{solution}
         \begin{align*}
-            P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}\propto p^k(1-p)^{n-k}, 
+            P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}, 
         \end{align*}
-        We want to find $p$ to reach the maximum of $p^k(1-p)^{n-k}$, it is equivalent to find the $p$ to maximize $k\ln p+(n-k)\ln(1-p)$. 
-        \[\frac{\partial (k\ln p+(n-k)\ln(1-p))}{\partial p}=\frac{k}{p}-\frac{n-k}{1-p}\Rightarrow p=\frac{k}{n}. \]
+        Maximizing $P(X=k)$ equals to maximizing $p^k(1-p)^{n-k}$, and because $\ln(p^k(1-p)^{n-k})$ has the same monotonicity with $p^k(1-p)^{n-k}$, 
+        finding a $p$ to reach the maximum of $p^k(1-p)^{n-k}$ is equivalent to finding the $p$ to maximize $k\ln p+(n-k)\ln(1-p)$. 
+        \[\frac{\partial (k\ln p+(n-k)\ln(1-p))}{\partial p}=\frac{k}{p}-\frac{n-k}{1-p}. \]
+        Let the above equation equals to $0$, i.e., 
+        \[
+            \frac{k}{p}-\frac{n-k}{1-p}=0\Rightarrow \frac{k}{p}=\frac{n-k}{1-p}p\Rightarrow\frac{1-p}{p}=\frac{n-k}{k}
+        \]
+        \[
+            \Rightarrow\frac{1}{p}-1=\frac{n}{k}-1\Rightarrow p=\frac{k}{n}.
+        \]
         And when $p>\frac{k}{n}$, $p^k(1-p)^{n-k}$ is decreasing. $p<\frac{k}{n}$, $p^k(1-p)^{n-k}$ is increasing. So, $p=\frac{k}{n}$ can maximize $P(X=k)$. 
     \end{solution}
 
@@ -79,16 +94,22 @@
     \begin{solution}
         Let $X$ be the Poisson R.V. and $N$ be the number of counted. Then, 
         \begin{align*}
-            \Pr(N=n)&=\sum_{i=0}^\infty \Pr(N=n|X=i)\Pr(X=i)\\
-            &=\sum_{i=n}^\infty \binom{i}{n}p^n(1-p)^{i-n}\frac{e^{-\lambda}\lambda^i}{i!}\\
-            &=\sum_{i=n}^\infty \binom{i}{n}p^n(1-p)^{i-n}\frac{e^{-\lambda}\lambda^i}{i!}\\
+            \Pr(N=n)&=\sum_{i=0, n\leq i}^\infty \Pr(N=n|X=i)\Pr(X=i)\\
+            &=\sum_{i=n}^\infty \binom{i}{n}p^n(1-p)^{i-n}\frac{e^{-\lambda}\lambda^i}{i!}, \text{ (when $i<n$, $\Pr(N=n|X=i)=0$.)}\\
+            &=\sum_{i=n}^\infty \frac{i!}{n!(i-n)!}p^n\lambda^{i-n}\lambda^{n-i}(1-p)^{i-n}\frac{e^{-\lambda}\lambda^{i}}{i!}\\
             &=\sum_{i=n}^\infty \frac{1}{(i-n)!}\lambda^{i-n}(1-p)^{i-n}\frac{e^{-\lambda}(\lambda p)^{n}}{n!}\\
             &=\sum_{i=n}^\infty \frac{(\lambda-\lambda p)^{i-n}}{(i-n)!}\frac{e^{-\lambda}(\lambda p)^{n}}{n!}
         \end{align*}
         And we know that $e^x=\sum_{i=0}^\infty\frac{x^i}{i!}$, So, 
         \[
-            \Pr(N=n)=e^{\lambda p}\frac{(\lambda p)^n}{n!}\sim Poi(\lambda p). 
+            \Pr(N=n)=e^{\lambda-\lambda p}e^{\lambda}\frac{(\lambda p)^n}{n!}=\frac{e^{-\lambda p}(\lambda p)^n}{n!}\sim Poi(\lambda p). 
         \]
+        $\lambda$ is the number of events in a specified time, and $p$ is the probability of counting each event. So, $\lambda p$ is the number of events that are counted. 
+        \begin{enumerate}[(a)]
+            \item $\Pr(N=1)=e^{-\lambda p}\frac{(\lambda p)^1}{1!}=e^{-0.2}\cdot 0.2=0.1637$. 
+            \item $\Pr(N\geq 1)=1-\Pr(N=0)=1-e^{-0.2}=0.1813$ . 
+            \item $\Pr(N\leq 1)=\Pr(N=0)+\Pr(N=1)=e^{-0.2}+e^{-0.2}\cdot 0.2=0.9825$.
+        \end{enumerate}
     \end{solution}
 
     \begin{exercise*}[5]
@@ -97,9 +118,9 @@
 
     \begin{solution}
         Let $N$ be the attempt times. Then, 
-        $P(N=1)=p_1$, $P(N=2)=(1-p_1)p_2$, $\cdots$, $P(2N-1)=(1-p_1)^{n-1}(1-p_2)^{n-1}p_1$, $P(2N)=(1-p_1)^n(1-p_2)^{n-1}p_2$. 
+        $P(N=1)=p_1$, $P(N=2)=(1-p_1)p_2$, $\cdots$, $P(N=2n-1)=(1-p_1)^{n-1}(1-p_2)^{n-1}p_1$, $P(N=2n)=(1-p_1)^n(1-p_2)^{n-1}p_2$. 
 
-        In general,
+        In general, for $k\in\mathbb{Z}^+$, 
         \[
             P(N=n)=\left\{ \begin{matrix}
                 (1-p_1)^{(n-1)/2}(1-p_2)^{(n-1)/2}p_1, & n=2k+1, \\
