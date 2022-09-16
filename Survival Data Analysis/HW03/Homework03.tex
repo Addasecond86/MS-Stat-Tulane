@@ -55,6 +55,41 @@
         \noindent Compute by hand the log-rank and generalized Wilcoxon tests for the equality of the two survivorship functions for the two groups. What conclusions can you make about the equality of the two survivorship functions? Which assumptions do you need for the computation? 
     \end{exercise*}
 
+    \begin{solution}
+    \begin{table}[H]
+        \centering
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{ccccccccccc}
+        \hline
+        Death time & $d_{1j}$ & $n_{1j}$ & $d_{2j}$ & $n_{2j}$ & $d_j$ & $n_j$ & $e_{1j}$ & $v_{1j}$ & $n_j(d_{1j}-\hat{e}_{1j})$ & $n_j^2\hat{v}_{1j}$ \\ \hline
+        3     & 1 & 12 & 1 & 8 & 2 & 20 & 1.2        & 0.45473684 & -4 & 181.894737 \\
+        5     & 1 & 9  & 0 & 7 & 1 & 16 & 0.5625     & 0.24609375 & 7  & 63         \\
+        10    & 1 & 8  & 0 & 6 & 1 & 14 & 0.57142857 & 0.24489796 & 6  & 48         \\
+        12    & 1 & 7  & 0 & 6 & 1 & 13 & 0.53846154 & 0.24852071 & 6  & 42         \\
+        18    & 0 & 6  & 1 & 6 & 1 & 12 & 0.5        & 0.25       & -6 & 36         \\
+        20    & 2 & 6  & 1 & 5 & 3 & 11 & 1.63636364 & 0.59504132 & 4  & 72         \\
+        21    & 1 & 4  & 0 & 4 & 1 & 8  & 0.5        & 0.25       & 4  & 16         \\
+        22    & 0 & 3  & 1 & 4 & 1 & 7  & 0.42857143 & 0.24489796 & -3 & 12         \\
+        23    & 0 & 3  & 1 & 2 & 1 & 5  & 0.6        & 0.24       & -3 & 6          \\
+        24    & 1 & 3  & 0 & 1 & 1 & 4  & 0.75       & 0.1875     & 1  & 3          \\
+        48    & 1 & 2  & 0 & 1 & 1 & 3  & 0.66666667 & 0.22222222 & 1  & 2          \\ \hline
+        Total & 9 &    &   &   &   &    & 7.95399184 & 3.18391077 & 13 & 481.894737 \\ \hline
+        \end{tabular}%
+        }
+    \end{table}
+    $\mathcal{H}_0$: two survivorship functions are equal. 
+    
+    $\mathcal{H}_1$: two survivorship functions are not equal. 
+
+    \noindent $U_L=9-7.954=1.046$, $V_L=3.184$. 
+    \[Q_L=\frac{U_L^2}{V_L}=0.3436, \quad p=1-\chi_1^2(0.3436)=0.5578. \]
+    $U_W=13$, $V_W=481.8947$, 
+    \[
+        Q_W=\frac{U_W^2}{V_W}=0.351, \quad p=1-\chi_1^2(0.351)=0.5535.
+    \]
+    Because the p-value in both methods are much larger than $0.05$, we cannot reject the null hypothesis. Assumption: $\mathcal{H}_0$ is true, and the censoring is independent. 
+    \end{solution}
+
     \begin{exercise*}[3]
         Information of survival times for liver transplant study is recorded in the file ``Time to death while waiting for a liver transplant.dat" in the data sets folder on canvas. Separate the patients into three age groups: age $\leq50$, $51-60$, and $> 60$. 
         \begin{enumerate}[(a)]
@@ -64,6 +99,59 @@
         \end{enumerate}
     \end{exercise*}
 
+    \begin{solution}
+        \begin{minted}[frame=lines,
+            framesep=2mm,
+            baselinestretch=1.2,
+            bgcolor=LightGray,
+            fontsize=\footnotesize,
+            linenos]{sas}
+DATA HW3_3;
+INFILE "Z:\Documents\GitHub\MS-Stat-Tulane
+\Survival Data Analysis\HW03
+\Time to death while waiting for a liver transplant.dat" FIRSTOBS=2;
+INPUT patient $ time status age gender bmi ukeld; 
+IF age<=50 THEN age_group=1; 
+ELSE IF 50<age<=60 THEN age_group=2; 
+ELSE IF age>60 THEN age_group=3; 
+RUN;
+        \end{minted}
+    \begin{enumerate}[(a)]
+        \item \label{pa}\begin{minted}[frame=lines,
+            framesep=2mm,
+            baselinestretch=1.2,
+            bgcolor=LightGray,
+            fontsize=\footnotesize]{sas}
+PROC LIFETEST DATA=HW3_3 METHOD=km ;
+TIME time*status(0);
+STRATA age_group;
+RUN;
+        \end{minted}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{HW3_3a.png}
+        \end{figure}
+        Log-rank test statistic: $14.6355$, $p=0.0007$; Wilcoxon test statistic: $13.6319$, $p=0.0011$. So, there is a significant difference in survival times across these three age groups. 
+        \item \label{pb}\begin{minted}[frame=lines,
+            framesep=2mm,
+            baselinestretch=1.2,
+            bgcolor=LightGray,
+            fontsize=\footnotesize]{sas}
+PROC LIFETEST DATA=HW3_3 method=km ; 
+TIME time*status(0);
+STRATA age_group/TREND;
+RUN;
+        \end{minted}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{HW3_3b.png}
+        \end{figure}
+        p-value of the trend test for both methods are very small, so we can reject the null hypothesis and get the conclusion that there is a trend in the survival time associated with the age. 
+        \item In \ref{pa}, we only focus on the difference between the different age groups, but ignore the order of the age groups. And in \ref{pb}, we consider the trend as a variable, and test the trend. 
+    \end{enumerate}
+        
+    \end{solution}
+
     \begin{exercise*}[4]
         Using the data set in the last problem. 
         \begin{enumerate}[(a)]
@@ -71,4 +159,38 @@
             \item Test if there are differences in survival times across age groups (ignoring the order of the age groups), controlling for gender (stratified by gender).
         \end{enumerate}
     \end{exercise*}
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item \begin{minted}[frame=lines,
+                framesep=2mm,
+                baselinestretch=1.2,
+                bgcolor=LightGray,
+                fontsize=\footnotesize]{sas}
+PROC LIFETEST DATA=HW3_3 method=km; 
+TIME time*status(0); 
+STRATA age_group / GROUP = gender; 
+RUN; 
+            \end{minted}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.55\textwidth]{HW3_4a.png}
+            \end{figure}
+            The p-value is larger than $0.05$, so we cannot reject the null hypothesis, i.e. there is no significant difference between male and female patients for survival time. 
+            \item \begin{minted}[frame=lines,
+                framesep=2mm,
+                baselinestretch=1.2,
+                bgcolor=LightGray,
+                fontsize=\footnotesize]{sas}
+PROC LIFETEST DATA=HW3_3 method=km;
+TIME time*status(0);
+STRATA gender / GROUP = age_group;
+RUN;
+            \end{minted}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.4\textwidth]{HW3_4b.png}
+            \end{figure}
+            Because p-value is very small, we know that there is a significant difference in survival time across age groups. 
+        \end{enumerate}
+    \end{solution}
 \end{document}
