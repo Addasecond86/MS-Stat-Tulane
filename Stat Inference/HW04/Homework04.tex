@@ -77,10 +77,14 @@
             \[
                 P(X<t)=\int_{-\infty}^t \frac{1}{2}\lambda e^{\lambda x} dx = \left.\frac{1}{2}e^{\lambda x}\right|_{-\infty}^t=\frac{1}{2}e^{\lambda t}.
             \]
-            And When $t\geq 0$, 
-            \[
-                P(X<t)=\int_{-\infty}^t \frac{1}{2}\lambda e^{-\lambda x} dx = \left.-\frac{1}{2}e^{-\lambda x}\right|_{0}^t+\frac{1}{2}=1-\frac{1}{2}e^{-\lambda t}.
-            \]
+            And when $t\geq 0$, 
+            \begin{align*}
+                P(X<t)&=\int_{-\infty}^t f(x) dx\\
+                &=\int_{-\infty}^0 \frac{1}{2}\lambda e^{\lambda x} dx+\int_0^t \frac{1}{2}\lambda e^{-\lambda x} dx\\
+                &=\left.\frac{1}{2}e^{\lambda x}\right|_{-\infty}^0+\left.\left(-\frac{1}{2}e^{-\lambda x}\right)\right|_0^t\\
+                &=\frac{1}{2}-\frac{1}{2}e^{-\lambda t}+\frac{1}{2}\\
+                &=1-\frac{1}{2}e^{-\lambda t}.
+            \end{align*}
             \item \begin{align*}
                 P(|X|<t)&=P(-t<X<t)\\
                 &=\int_{-t}^0\frac{1}{2}\lambda e^{\lambda x} dx+\int_0^t\frac{1}{2}\lambda e^{-\lambda x} dx\\
@@ -103,13 +107,17 @@
     \begin{solution}
         \begin{enumerate}[(a)]
             \item Because the third condition of Theorem 2.1.8 is not satisfied, we cannot apply the theorem directly. 
-            Using Example 2.1.7, we know the p.d.f. of $\ Y$ on $[-1,1]$ is: 
-            \[f_Y(y)=\frac{1}{2\sqrt{y}}(f_X(\sqrt{y})+f_X(-\sqrt{y}))=\frac{2}{9\sqrt{y}},\quad y\in (0, 1]. \]
+            Using Example 2.1.7, we know the p.d.f. of $\ X$ on $[-1,1]$ is: 
+            \[P(Y<y)=P(X^2<y)=P(-\sqrt{y}<X<\sqrt{y})=F_X(\sqrt{y})-F_X(-\sqrt{y})\]
+            \[f_Y(y)=\frac{1}{2\sqrt{y}}(f_X(\sqrt{y})+f_X(-\sqrt{y}))=\frac{1}{9\sqrt{y}}(1+\sqrt{y}+1-\sqrt{y})=\frac{2}{9\sqrt{y}},y\in (0, 1]. \]
             And for $x\in (1,2]$: 
-            \[F_Y(y)=P(Y<y)=P(1<X\leq y^{1/2})=\int_{1}^{y^{1/2}}f_X(x)dx\]
-            \[f_Y(y)=F_Y'(y)=\frac{1}{9}y^{1/2}+\frac{1}{9}, \quad y\in(1,4]. \]
-            \item \textcolor{red}{I found two version of this problem, the other one is: $A_1=(-1,1)$, $A_2=(1,2)$. But I think the first one is more reasonable, because $A_1, A_2$ contain $\mathcal{X}$. }
-            
+            \begin{align*}
+                F_Y(y)=P(Y<y)&=P(1<X\leq y^{1/2})=\int_{1}^{y^{1/2}}f_X(x)dx\\
+                &=\frac{1}{9}(x+1)^2|_1^{y^{1/2}}=\frac{1}{9}(y^{1/2}+1)^2-\frac{4}{9}
+            \end{align*}
+            \[f_Y(y)=F_Y'(y)=\frac{2}{9}(y^{1/2}+1)\frac{1}{2}y^{-1/2}=\frac{1}{9}+\frac{1}{9}y^{-1/2}, \quad y\in(1,4]. \]
+            \item 
+            %\textcolor{red}{I found two version of this problem, the other one is: $A_1=(-1,1)$, $A_2=(1,2)$. But I think the first one is more reasonable, because $A_1, A_2$ contain $\mathcal{X}$. }
             We define $f_X(x)$ as following: 
             \[
                 f_X(x)=\frac{2}{9}(x+1), \quad x\in [-1, 2], 
@@ -208,7 +216,7 @@
                 &=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty x^2e^{-x^2/2}dx\\
                 &=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty-xd(e^{-x^2/2})dx\\
                 &=\frac{1}{\sqrt{2\pi}}\left(\left.-xe^{-x^2/2}\right|_{-\infty}^\infty+\int_{-\infty}^\infty e^{-x^2/2}dx\right)\\
-                &=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-x^2/2}dx=1. \\
+                &=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-x^2/2}dx=1. 
             \end{align*}
             From 2.1.7, we know 
             \[f_Y(y)=\frac{1}{2\sqrt{y}}(f_X(\sqrt{y})+f_X(-\sqrt{y}))=\frac{1}{2\sqrt{y}}\frac{2}{\sqrt{2\pi}}e^{-y/2}=\frac{1}{\sqrt{2\pi}}\frac{e^{-y/2}}{\sqrt{y}}. \]
@@ -335,7 +343,7 @@
                 &=\frac{1}{2\sigma^2}(2t\sigma^2x-x^2+2\mu x-\mu^2)\\
                 &=-\frac{1}{2\sigma^2}(x^2-2(\mu+t\sigma^2)x+\mu^2)\\
                 &=-\frac{1}{2\sigma^2}((x-\mu-t\sigma^2)^2-(\mu+t\sigma^2)^2+\mu^2)\\
-                &=-\frac{1}{2\sigma^2}((x-\mu-t\sigma^2)^2-(2\mu t\sigma^2+t^2\sigma^4))\\
+                &=-\frac{1}{2\sigma^2}((x-\mu-t\sigma^2)^2-(2\mu t\sigma^2+t^2\sigma^4))
             \end{align*}
             \begin{align*}
                 M_X(t)&=\frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^\infty e^{tx-(x-\mu)^2/(2\sigma^2)}dx\\&=e^{(2\mu t\sigma^2+t^2\sigma^4)/(2\sigma^2)}\frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^\infty e^{-(x-\mu-t\sigma^2)^2/(2\sigma^2)}dx\\
