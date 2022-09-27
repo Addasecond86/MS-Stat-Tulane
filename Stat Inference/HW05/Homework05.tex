@@ -126,14 +126,21 @@
         In Section 3.2 it was claimed that the Poisson$(\lambda)$ distribution is the limit of the negative binomial$(r,p)$ distribution as $r\to +\infty$, $p \to1$, and $r(1-p)\to \lambda$. Show that under these conditions the m.g.f. of the negative binomial converges to that of the Poisson. 
     \end{exercise}
     \begin{solution}
-        For the negative binomial$(r,p)$, we know that it is the sum of $r$ Geometric distribution. And we have already calculated the m.g.f. of Geometric distribution and Poisson distribution in Homework4. So, the m.g.f. of the negative binomial$(r,p)$ is
-        \[M_X(t)=M_{\sum_{i=1}^{r}Geo(p)}(t)=\left(M_{Geo(p)}(t)\right)^r=\left(\frac{p}{1-(1-p)e^t}\right)^r. \]
+        We have already calculated the m.g.f. Poisson distribution in Homework4. So, the m.g.f. of the negative binomial$(r,p)$ is
+        \begin{align*}
+            M_X(t)&=\sum_{k=0}^{\infty}P(X=k)e^{tk}\\
+            &=\sum_{k=0}^{\infty}\binom{k+r-1}{r-1}p^r(1-p)^k e^{tk}\\
+            &=p^r\sum_{k=0}^{\infty}\binom{k+r-1}{r-1}((1-p)e^{t})^k\\
+            &=p^r\left(\frac{1}{1-(1-p)e^t}\right)^r\sum_{k=0}^{\infty}\binom{k+r-1}{r-1}((1-p)e^{t})^k(1-(1-p)e^t)^r\\
+            &=\left(\frac{p}{1-(1-p)e^t}\right)^r1\\
+            &=\left(\frac{p}{1-(1-p)e^t}\right)^r. 
+        \end{align*}
         Rewrite it as
         \begin{align*}
             M_X(t)&=\left(\frac{1-(1-p)e^t}{1-(1-p)e^t}+\frac{1}{r}\frac{r(1-p)(e^t-1)}{1-(1-p)e^t}\right)^r\\
             &=\left(1+\frac{1}{r}\frac{r(1-p)(e^t-1)}{1-(1-p)e^t}\right)^r\to\left(1+\frac{1}{r}\frac{\lambda(e^t-1)}{1-0}\right)^r=\left(1+\frac{\lambda (e^t-1)}{r}\right)^r
         \end{align*}
-        Let $e\to\infty$, with the definition of $e$, we have
+        Let $e\to\infty$, we have
         \[\lim_{r\to\infty}\left(1+\frac{\lambda (e^t-1)}{r}\right)^r=e^{\lambda(e^t-1)}\]
         And the moment generating function of the Poisson$(\lambda)$ is
         \[M_Y(t)=e^{\lambda e^{t}-1}. \]
