@@ -16,41 +16,124 @@
     \setcounter{chapter}{3}
     \setcounter{exer}{1}
     \begin{exercise}
-        exercise
+        A manufacturer receives a lot of 100 parts from a vendor. The lot will be unacceptable if more than five of the parts are defective. The manufacturer is going to select randomly $K$ parts from the lot for inspection and the lot will be accepted if no defective parts are found in the sample. 
+        \begin{enumerate}[(a)]
+            \item How large does $K$ have to be to ensure that the probability that the manufacturer accepts an unacceptable lot is less than $0.10$? 
+            \item Suppose the manufacturer decides to accept the lot if there is at most one defective in the sample. How large does $K$ have to be to ensure that the probability that the manufacturer accepts an unacceptable lot is less than $0.10$? 
+        \end{enumerate}
     \end{exercise}
+
     \begin{solution}
-        solution
+        \begin{enumerate}[(a)]
+            \item When there is no defective part in the selected $K$ parts. We can accept it. So, 
+            \[P(\text{accept an unacceptable lot})=\frac{\binom{6}{0}\binom{94}{K}}{\binom{100}{K}}=\frac{1\cdot\frac{94!}{K!(94-K)!}}{\frac{100!}{K!(100-K)!}}<0.1\]
+            \[\frac{(100-K)\times\cdots\times(95-K)}{100\times\cdots\times 95}<0.1\]
+            Let $K=32$, $P=0.09182<0.1$, $K=31$, $P=0.1006>0.1$. So, $K$ have to be $32$. 
+            \item When there is no more $1$ defective part in the $K$ selected parts, we can accept the lot. So,
+            \item \begin{align*}
+                &\quad\ P(\text{accept an unacceptable lot})\\&=P(\text{$0$ defective in $K$})+P(\text{$1$ defective in $K$})\\
+                &=\frac{\binom{6}{0}\binom{94}{K}}{\binom{100}{K}}+\frac{\binom{6}{1}\binom{94}{K-1}}{\binom{100}{K}}\\
+                &=\frac{1\cdot\frac{94!}{K!(94-K)!}}{\frac{100!}{K!(100-K)!}}+\frac{6\cdot\frac{94!}{(K-1)!(94-K+1)!}}{\frac{100!}{K!(100-K)!}}\\
+                &=\frac{(100-K)\times\cdots\times(95-K)}{100\times\cdots\times 95}+\frac{6K\times(100-K)\times\cdots\times(96-K)}{100\times\cdots\times 95}<0.1. 
+            \end{align*}
+            When $K=51$, $P=0.09331<0.1$, $K=50$, $P=0.1022>0.1$. So, $K$ should be at least $51$. 
+        \end{enumerate}
     \end{solution}
 
     \setcounter{exer}{6}
     \begin{exercise}
-        exercise
+        Let the number of chocolate chips in a certain type of cookie have a Poisson distribution. We want the probability that a randomly chosen cookie has at least two chocolate chips to be greater than $0.99$. Find the smallest value of the mean of the distribution that ensures this probability. 
     \end{exercise}
+
     \begin{solution}
-        solution
+        Suppose $X$ be the number of chips in a cookie. Then, $X\sim\text{Poi}_\lambda(X=k)=\frac{\lambda^k}{k!}e^{-\lambda}$. Then, 
+        \begin{align*}
+            P(\text{at least two chips})&=P(X\geq 2)\\
+            &=1-P(X\leq 1)\\
+            &=1-\sum_{k=0}^1\frac{\lambda^k}{k!}e^{-\lambda}\\ 
+            &=1-\frac{\lambda^0}{0!}e^{-\lambda}-\frac{\lambda^1}{1!}e^{-\lambda}\\
+            &=1-e^{-\lambda}(\lambda+1)>0.99\\
+            \frac{\lambda+1}{e^\lambda}&<0.01
+        \end{align*}
+        \[\left((\lambda+1)e^{-\lambda}\right)'=e^{-\lambda}-(\lambda+1)e^{-\lambda}=-\lambda e^{-\lambda}<0. \]
+        So, $\left((\lambda+1)e^{-\lambda}\right)$ is decreasing. $\lambda=6$, $\left((\lambda+1)e^{-\lambda}\right)=0.01735>0.01$, $\lambda=7$, $\left((\lambda+1)e^{-\lambda}\right)=0.007295<0.01$. Let $\lambda=6.5$, $\left((\lambda+1)e^{-\lambda}\right)=0.01128>0.01$. And by using this method, we can approach the accurate value of $\lambda$. Using software, we can get that $\lambda\approx 6.63835$. 
+
+        For Poisson distribution, $EX=\lambda$. So, the smallest value of the mean is $6.63835$.
     \end{solution}
 
     \setcounter{exer}{8}
     \begin{exercise}
-        exercise
+        Often, news stories that are reported as startling ``one-in-a-million" coincidences are actually, upon closer examination, not rare events and can even be expected to occur. A few years ago an elementary school in New York state reported that its incoming kindergarten class contained five sets of twins. This, of course, was reported throughout the state, with a quote from the principal that this was a "statistical impossibility". Was it? Or was it an instance of what Diaconis and Mosteller (1989) call the ``law of truly large numbers"? Let's do some calculations. 
+        \begin{enumerate}[(a)]
+            \item The probability of a twin birth is approximately $1/90$, and we can assume that an elementary school will have approximately $60$ children entering kindergarten (three classes of $20$ each). Explain how our ``statistically impossible" event can be thought of as the probability of $5$ or more successes from a binomial$(60, 1/90)$. Is this even rare enough to be newsworthy? 
+            \item Even if the probability in part (a) is rare enough to be newsworthy, consider that this could have happened in any school in the county, and in any county in the state, and it still would have been reported exactly the same. (The ``law of truly large numbers" is starting to come into play.) New York state has $62$ counties, and it is reasonable to assume that each county has five elementary schools. Does the event still qualify as a ``statistical impossibility", or is it becoming something that could be expected to occur? 
+            \item If the probability in part (b) still seems small, consider further that this event could have happened in any one of the $50$ states, during any of the last $10$ years, and still would have received the same news coverage. 
+        \end{enumerate}
     \end{exercise}
     \begin{solution}
-        solution
+        \begin{enumerate}[(a)]
+            \item \begin{align*}
+                &\quad\ P(\text{five or more twins})\\
+                &=P(X\geq 5)\\
+                &=1-P(X\leq 4)\\
+                &=1-\sum_{k=0}^4\binom{60}{k}\left(\frac{1}{90}\right)^k\left(1-\frac{1}{90}\right)^{60-k}\\
+                &=1-\left(\frac{89}{90}\right)^{60}-60\left(\frac{89}{90}\right)^{59}\left(\frac{1}{90}\right)+\frac{60\times59}{2}\left(\frac{89}{90}\right)^{58}\left(\frac{1}{90}\right)^2\\
+                &\quad -\frac{60\times59\times58}{3!}\left(\frac{89}{90}\right)^{57}\left(\frac{1}{90}\right)^3+\frac{60\times59\times58\times57}{4!}\left(\frac{89}{90}\right)^{56}\left(\frac{1}{90}\right)^4\\
+                &=1-0.999443\\
+                &=0.000557. 
+            \end{align*}
+            This probability is small enough to be newsworthy. 
+            \item Let $X$ be the number of schools in the state that have five or more twins. Then, $X\sim\text{Binom}(62\times 5=310, 0.000557)$. 
+            \begin{align*}
+                P(X\geq 1)&=1-P(X\leq 0)\\
+                &=1-\binom{310}{0}\left(0.000557\right)^0\left(1-0.000557\right)^{310}\\
+                &=1-0.999443^{310}\\
+                &=0.1586. 
+            \end{align*}
+            This probability is not small enough, and we can expect that this event will occur. 
+            \item Let $X$ be the number of schools in all $50$ states that have five or more twins. Then, $X\sim\text{Binom}(50, 0.1586)$. 
+            \begin{align*}
+                P(X\geq 1)&=1-P(X\leq 0)\\
+                &=1-\binom{50}{0}\left(0.1586\right)^0\left(1-0.1586\right)^{50}\\
+                &=1-(1-0.1586)^{50}\\
+                &=0.999822. 
+            \end{align*}
+            The probability is almost $1$ and it is almost certain that this event will occur.
+        \end{enumerate}
     \end{solution}
 
     \setcounter{exer}{11}
     \begin{exercise}
-        exercise
+        Suppose $X$ has a binomial$(n,p)$ distribution and let $Y$ have a negative binomial$(r,p)$ distribution. Show that $F_X(r - 1)= 1- F_Y(n - r)$. 
     \end{exercise}
     \begin{solution}
-        solution
+        $X\sim$ Binom$(n,p)$, So, $X$ is the number of successes in $n$ trials. $Y\sim NB(r,p)$, $Y$ is the number of failures before $r$ successes. 
+        With the definition, we have
+        \begin{align*}
+            &\quad\ F_X(r-1)\\
+            &=P(X\leq r-1)\\
+            &=P(\text{the number of successes in $n$ trials is $r-1$ or less})\\
+            &=P(\text{the number of failures in $n$ trials is greater than or equal to $n-r+1$})\\
+            &=P(\text{the number of failures before $r$ successes is greater than or equal to $n-r+1$})\\
+            &=P(Y\geq n-r+1)\\
+            &=1-P(Y\leq n-r)\\
+            &=1-F_Y(n-r). 
+        \end{align*}
     \end{solution}
 
     \setcounter{exer}{14}
     \begin{exercise}
-        exercise
+        In Section 3.2 it was claimed that the Poisson$(\lambda)$ distribution is the limit of the negative binomial$(r,p)$ distribution as $r\to +\infty$, $p \to1$, and $r(1-p)\to \lambda$. Show that under these conditions the m.g.f. of the negative binomial converges to that of the Poisson. 
     \end{exercise}
     \begin{solution}
-        solution
+        For the negative binomial$(r,p)$, we know that it is the sum of $r$ Geometric distribution. And we have already calculated the m.g.f. of Geometric distribution and Poisson distribution in Homework4. So, the m.g.f. of the negative binomial$(r,p)$ is
+        \[M_X(t)=M_{\sum_{i=1}^{r}Geo(p)}(t)=\left(M_{Geo(p)}(t)\right)^r=\left(\frac{p}{1-(1-p)e^t}\right)^r. \]
+        Rewrite it as
+        \[M_X(t)=\left(1+\frac{1}{r}\frac{r(1-p)(e^t-1)}{1-(1-p)e^t}\right)^r\to\left(1+\frac{1}{r}\frac{\lambda(e^t-1)}{1-0}\right)^r=\left(1+\frac{\lambda (e^t-1)}{r}\right)^r\]
+        Let $e\to\infty$, with the definition of $e$, we have
+        \[\lim_{r\to\infty}\left(1+\frac{\lambda (e^t-1)}{r}\right)^r=e^{\lambda(e^t-1)}\]
+        And the moment generating function of the Poisson$(\lambda)$ is
+        \[M_Y(t)=e^{\lambda e^{t}-1}. \]
+        So, under some certain conditions the m.g.f. of the negative binomial converges to that of the Poisson. 
     \end{solution}
 \end{document}
