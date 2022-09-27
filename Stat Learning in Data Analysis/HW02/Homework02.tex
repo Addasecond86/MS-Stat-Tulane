@@ -44,7 +44,7 @@
     \item Suppose that we have a set of observations, each with measurements on $p = 1$ feature, $X$. We assume that $X$ is uniformly (evenly) distributed on $[0, 1]$. Associated with each observation is a response value. Suppose that we wish to predict a test observation's response using only observations that are within $10\%$ of the range of $X$ closest to that test observation. For instance, in order to predict the response for a test observation with $X = 0.6$, we will use observations in the range $[0.55,0.65]$. On average, what fraction of the available observations will we use to make the prediction? 
     \item Now suppose that we have a set of observations, each with measurements on p = 2 features, X1 and X2. We assume that $(X1, X2)$ are uniformly distributed on $[0, 1] \times [0, 1]$. We wish to predict a test observation's response using only observations that are within $10 \%$ of the range of $X1$ and within $10 \% $ of the range of $X2$ closest to that test observation. For instance, in order to predict the response for a test observation with $X1 = 0.6$ and $X2 = 0.35$, we will use observations in the range $[0.55, 0.65]$ for $X1$ and in the range $[0.3,0.4]$ for $X2$. On average, what fraction of the available observations will we use to make the prediction? 
     \item Now suppose that we have a set of observations on $p = 100$ features. Again the observations are uniformly distributed on each feature, and again each feature ranges in value from $0$ to $1$. We wish to predict a test observation's response using observations within the $10 \%$ of each feature's range that is closest to that test observation. What fraction of the available observations will we use to make the prediction? 
-    \item Using your answers to parts (a)–(c), argue that a drawback of KNN when p is large is that there are very few training observations “near” any given test observation.
+    \item Using your answers to parts (a)-(c), argue that a drawback of KNN when p is large is that there are very few training observations “near” any given test observation.
     \item Now suppose that we wish to make a prediction for a test observation by creating a p-dimensional hypercube centered around the test observation that contains, on average, $10 \%$ of the training observations. For $p = 1,2$, and $100$, what is the length of each side of the hypercube? Comment on your answer. 
     
     Note: A hypercube is a generalization of a cube to an arbitrary number of dimensions. When $p = 1$, a hypercube is simply a line segment, when $p = 2$ it is a square, and when $p = 100$ it is a 100-dimensional cube. 
@@ -52,7 +52,13 @@
 \end{exercise*}
 
 \begin{solution}
-
+  \begin{enumerate}[(a)]
+    \item $10\%$. 
+    \item $10\%\times 10\%=1\%$. 
+    \item $(10\%)^{100}=(0.1)^{100}$. 
+    \item If $p=100$, the number of training observations is almost zero. So, even the total observations are large, the number of training observations near the test observation is small. 
+    \item The Length is $0.1$ when $p=1,2,100$. 
+  \end{enumerate}
 \end{solution}
 
 \begin{exercise*}[4.5]
@@ -60,13 +66,18 @@
   \begin{enumerate}[(a)]
     \item If the Bayes decision boundary is linear, do we expect LDA or QDA to perform better on the training set? On the test set? 
     \item If the Bayes decision boundary is non-linear, do we expect LDA or QDA to perform better on the training set? On the test set?
-    \item In general, as the sample size n increases, do we expect the test prediction accuracy of QDA relative to LDA to improve, decline, or be unchanged? Why?
+    \item In general, as the sample size $n$ increases, do we expect the test prediction accuracy of QDA relative to LDA to improve, decline, or be unchanged? Why?
     \item True or False: Even if the Bayes decision boundary for a given problem is linear, we will probably achieve a superior test error rate using QDA rather than LDA because QDA is flexible enough to model a linear decision boundary. Justify your answer. 
   \end{enumerate}
 \end{exercise*}
 
 \begin{solution}
-
+  \begin{enumerate}[(a)]
+    \item LDA performs better on the test set and QDA performs better on the training set. Because QDA will over-fit the training data.
+    \item When the Bayes decision boundary is non-linear, QDA performs better on the training set and test set.
+    \item If the Bayes decision boundary is linear, the accuracy of LDA relative to QDA will improve with $n$ increasing. If the Bayes decision boundary is non-linear, the accuracy of QDA will improve. 
+    \item False. For a linear decision boundary, LDA will perform better than QDA. 
+  \end{enumerate}
 \end{solution}
 
 \begin{exercise*}
@@ -81,5 +92,100 @@
     \item Compare the training error rates from KNN, logistic regression, LDA. 
   \end{enumerate}
 \end{exercise*}
+
+\begin{solution}
+  \begin{enumerate}
+    \item \begin{minted}[frame=lines,
+      framesep=2mm,
+      baselinestretch=1.2,
+      bgcolor=LightGray,
+      fontsize=\footnotesize]{R}
+library("tidyverse")
+library("class")
+
+set.seed(0927)
+
+gene_data <-
+  read_table(
+    "/Users/zehao/Documents/GitHub
+    /MS-Stat-Tulane/Stat Learning in Data Analysis
+    /HW02/HW1data.txt",
+    col_names = FALSE
+  )
+# X2 is Y
+
+p <- c()
+
+Y <- pull(gene_data, 2)
+
+for (i in 3:6832) {
+  X <- pull(gene_data, i)
+  single_p <-
+    summary(
+      glm(Y ~ X, family = binomial(link = "logit"))
+      )$coefficients[2, 4]
+  p = append(p, single_p)
+}
+
+gene_10 <- gene_data[, (order(p)[1:10] + 2)]
+    \end{minted}
+    \item \begin{minted}[frame=lines,
+      framesep=2mm,
+      baselinestretch=1.2,
+      bgcolor=LightGray,
+      fontsize=\footnotesize]{R}
+# Use all data as train data
+
+train_data <- gene_10
+
+train_data_label <- Y
+
+knn_15 <-
+  as.integer(as.character(
+    knn(
+      train = train_data,
+      test = train_data,
+      cl = train_data_label,
+      k = 15
+    )
+  ))
+
+Err_15 <- mean(abs(knn_15 - train_data_label))
+    \end{minted}
+    The error rate is $0.046875$, which is much smaller than the error rate in Homework 1 that the 10 gene is randomly selected. 
+    \item \begin{minted}[frame=lines,
+      framesep=2mm,
+      baselinestretch=1.2,
+      bgcolor=LightGray,
+      fontsize=\footnotesize]{R}
+logi <-
+  glm(Y ~ .,
+      family = binomial(link = "logit"),
+      data = cbind(Y, gene_10))
+
+predict_result <-
+  round(predict.glm(logi, gene_10, type = "response"), 2)
+
+mean(abs(Y - predict_result))
+    \end{minted}
+    The error rate for training is $0$. 
+    \item \begin{minted}[frame=lines,
+      framesep=2mm,
+      baselinestretch=1.2,
+      bgcolor=LightGray,
+      fontsize=\footnotesize]{R}
+library(MASS)
+
+lda_result <-
+  lda(Y ~ ., data = cbind(Y, gene_10))
+lda_result <-
+  predict(lda_result, gene_10)$class
+
+mean(abs(Y - (as.numeric(lda_result) - 1)))
+    \end{minted}
+    The LDA error rate for training is $0.03125$.
+    \item The error rate for KNN is $0.046875$, the error rate for logistic regression is $0$, and the error rate for LDA is $0.03125$. The error rate for logistic regression is the smallest, and the error rate for KNN is the largest.
+  \end{enumerate}
+\end{solution}
 
 \end{document}
