@@ -56,7 +56,15 @@
             \frac{\lambda+1}{e^\lambda}&<0.01
         \end{align*}
         \[\left((\lambda+1)e^{-\lambda}\right)'=e^{-\lambda}-(\lambda+1)e^{-\lambda}=-\lambda e^{-\lambda}<0. \]
-        So, $\left((\lambda+1)e^{-\lambda}\right)$ is decreasing. $\lambda=6$, $\left((\lambda+1)e^{-\lambda}\right)=0.01735>0.01$, $\lambda=7$, $\left((\lambda+1)e^{-\lambda}\right)=0.007295<0.01$. Let $\lambda=6.5$, $\left((\lambda+1)e^{-\lambda}\right)=0.01128>0.01$. And by using this method, we can approach the accurate value of $\lambda$. Using software, we can get that $\lambda\approx 6.63835$. 
+        So, $(\lambda+1)e^{-\lambda}$ is decreasing. 
+        
+        $\lambda=6$, $(\lambda+1)e^{-\lambda}=0.01735>0.01$, 
+        
+        $\lambda=7$, $(\lambda+1)e^{-\lambda}=0.007295<0.01$. 
+        
+        Let $\lambda=6.5$, $(\lambda+1)e^{-\lambda}=0.01128>0.01$. 
+        
+        And by using this method, we can approach the accurate value of $\lambda$. Using software, we can get that $\lambda\approx 6.63835$. 
 
         For Poisson distribution, $EX=\lambda$. So, the smallest value of the mean is $6.63835$.
     \end{solution}
@@ -72,7 +80,8 @@
     \end{exercise}
     \begin{solution}
         \begin{enumerate}[(a)]
-            \item \begin{align*}
+            \item Let $x$ be the number of twins. Then, $x\sim\text{Binom}(60, 1/90)$.
+            \begin{align*}
                 &\quad\ P(\text{five or more twins})\\
                 &=P(X\geq 5)\\
                 &=1-P(X\leq 4)\\
