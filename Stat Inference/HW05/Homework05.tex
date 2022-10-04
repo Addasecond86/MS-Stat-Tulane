@@ -91,12 +91,13 @@
                 &=0.1586. 
             \end{align*}
             This probability is not small enough, and we can expect that this event will occur. 
-            \item Let $X$ be the number of schools in all $50$ states that have five or more twins. Then, $X\sim\text{Binom}(50, 0.1586)$. 
+            \item Let $X$ be the number of state that have five or more twins in past $10$ years. Then, $X\sim\text{Binom}(500, 0.1586)$. 
             \begin{align*}
                 P(X\geq 1)&=1-P(X\leq 0)\\
-                &=1-\binom{50}{0}\left(0.1586\right)^0\left(1-0.1586\right)^{50}\\
-                &=1-(1-0.1586)^{50}\\
-                &=0.999822. 
+                &=1-\binom{500}{0}\left(0.1586\right)^0\left(1-0.1586\right)^{500}\\
+                &=1-(1-0.1586)^{500}\\
+                &=0.9999999999999999999999999999999999999682857941709\\
+                &\approx 1.
             \end{align*}
             The probability is almost $1$ and it is almost certain that this event will occur.
         \end{enumerate}
