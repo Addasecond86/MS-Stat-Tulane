@@ -56,7 +56,7 @@
             \end{align*}
             Switch to Polar coordinate system: \[x=r\cos\theta, \qquad y=r\sin\theta\]
             \[
-                H=\left|\begin{matrix}
+                |J|=\left|\begin{matrix}
                 \cos\theta & -r\sin\theta\\
                 \sin\theta & r\cos\theta
             \end{matrix}\right|=r
@@ -108,10 +108,10 @@
             \[Var(X)=EX^2-(EX)^2=\lambda^2+\lambda-\lambda^2=\lambda. \]
             \item \label{3.22.b} I think we can use the Theory of Exponential Family in 3.4. For negative binomial distribution, we have
             \begin{align*}
-                P(X=k)&=\frac{(k+r-1)!}{k!(r-1)!}p^r(1-p)^k\\
-                &=\frac{(k+r-1)!}{k!(r-1)!}p^r\exp\left(k\ln(1-p)\right). 
+                P(X=x)&=\frac{(x+r-1)!}{x!(r-1)!}p^r(1-p)^x\\
+                &=\frac{(x+r-1)!}{x!(r-1)!}p^r\exp\left(x\ln(1-p)\right). 
             \end{align*}
-            Then, $h(k)=\frac{(k+r-1)!}{k!(r-1)!}$, $c(p, r)=p^r$, and $w(p)=\ln(1-p)$, $t(k)=k$. Using the Theorem 3.4.2, we have
+            Then, $h(x)=\frac{(x+r-1)!}{x!(r-1)!}$, $c(p, r)=p^r$, and $w(p)=\ln(1-p)$, $t(x)=x$. Using the Theorem 3.4.2, we have
             \[
                 E\left(\sum_{i=1}^k\frac{\partial\,w_i(\theta)}{\partial\,\theta_j}t_i(X)\right)=-\frac{\partial}{\partial\,\theta_j}\log(c(\theta)).
             \]
