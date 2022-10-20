@@ -1,0 +1,130 @@
+\documentclass[14pt]{elegantbook}
+
+\newcommand{\CN}{BIOS 7040\\[0.5cm] Statistical Inference I}
+\newcommand{\Ti}{Homework 7}
+\newcommand{\Pf}{Dr. Srivastav}
+\newcommand{\FN}{Zehao}
+\newcommand{\LN}{Wang}
+\usepackage[fontsize=14pt]{fontsize}
+
+\usepackage{enumitem}
+\renewcommand{\chaptername}{Homework}
+
+\allowdisplaybreaks
+\begin{document}
+\include{title.tex}
+
+\setcounter{chapter}{6}
+
+\chapter{}
+    \setcounter{chapter}{3}
+    \setcounter{exer}{44}
+    \begin{exercise}
+        Let $X$ be a random variable with moment-generating function $M_X(t)$, $-h<t<h$. 
+        \begin{enumerate}[(a)]
+            \item \label{pa}Prove that $P(X\geq a)\leq e^{-at}M_X(t)$, $0<t<h$. 
+            \item Similarly, prove that $P(X\leq a)\leq e^{-at}M_X(t)$, $-h<t<0$. 
+            \item A special case of part~\ref{pa} is that $P(X\geq 0)\leq Ee^{tX}$ for all $t\geq 0$ for which the m.g.f. is defined. What are general conditions on a function $h(t, x)$ such that $P(X\geq 0)\leq Eh(t, X)$ for all $t\geq 0$ for which $Eh(t, X)$ exists? 
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item \begin{align*}
+                M_X(t) &= Ee^{tX} \\
+                &= \int_{-\infty}^{\infty} e^{tx}f_X(x)dx \\
+                &\geq \int_{a}^{\infty} e^{tx}f(x)dx \\
+                &\geq \int_{a}^{\infty} e^{at}f(x)dx, \quad \text{when $t>0$, $e^{tx}$ is increasing. }  \\
+                &= e^{at}\int_{a}^{\infty} f(x)dx \\
+                &= e^{at}P(X\geq a). 
+            \end{align*}
+            So, we get that $P(X\geq a)\leq e^{-at}M_X(t)$, $0<t<h$. 
+            \item Samilarly, we have
+            \begin{align*}
+                M_X(t) &= Ee^{tX} \\
+                &= \int_{-\infty}^{\infty} e^{tx}f_X(x)dx \\
+                &\geq \int_{-\infty}^{a} e^{tx}f(x)dx \\
+                &\geq \int_{-\infty}^{a} e^{at}f(x)dx, \quad \text{when $t<0$, $e^{tx}$ is decreasing. }  \\
+                &= e^{at}\int_{-\infty}^{a} f(x)dx \\
+                &= e^{at}P(X\leq a). 
+            \end{align*}
+            So, we get that $P(X\leq a)\leq e^{-at}M_X(t)$, $-h<t<0$.
+            \item If we want \[P(X\geq0)\leq Eh(t,X)\]
+            It equals to \[P(X\geq0)-Eh(t,X)\leq 0\]
+            So, \begin{align*}
+                &\int_{0}^{\infty}f(x)dx - \int_{-\infty}^{\infty} h(t,x)f(x)dx\\
+                =&\int_{0}^{\infty}f(x)dx - \int_{0}^{\infty} h(t,x)f(x)dx- \int_{-\infty}^{0} h(t,x)f(x)dx\\
+                =&\int_{0}^{\infty}(1-h(t, x))f(x)dx - \int_{-\infty}^{0} h(t,x)f(x)dx\leq 0
+            \end{align*}
+            The first item and the second should be both non-positive, i.e. 
+            \[1-h(t,x)\leq 0\]
+            \[h(t, x)\geq 0 \]
+            Hence, we get that 
+            \[h(t,x)\geq1 .\]
+        \end{enumerate}
+    \end{solution}
+
+    \setcounter{exer}{46}
+    \begin{exercise}
+        If $Z$ is a standard normal random variable, prove this companion to the inequality in Example 3.6.3: 
+        \[
+            P(|Z|\geq t)\geq\sqrt{\frac{2}{\pi}}\frac{t}{1+t^2}e^{-\frac{t^2}{2}}.
+        \]
+    \end{exercise}
+
+    \begin{solution}
+        From the proof of Example 3.6.3, we have
+        \begin{align*}
+            P(|Z|\geq t)=2P(Z\geq t)
+        \end{align*}
+        So, \begin{align*}
+            P(Z\geq t)&=\frac{1}{\sqrt{2\pi}}\int_{t}^{\infty}e^{-\frac{x^2}{2}}dx\\
+            &=\frac{1}{\sqrt{2\pi}}\int_{t}^{\infty}\frac{1+x^2}{1+x^2}e^{-\frac{x^2}{2}}dx\\
+            &=\frac{1}{\sqrt{2\pi}}\left(\int_{t}^{\infty}\frac{1}{1+x^2}e^{-\frac{x^2}{2}}dx+\int_{t}^{\infty}\frac{x^2}{1+x^2}e^{-\frac{x^2}{2}}dx\right)
+        \end{align*}
+        For the second item, 
+        \begin{align*}
+            \int_{t}^{\infty}\frac{x^2}{1+x^2}e^{-\frac{x^2}{2}}dx&=\int_{t}^{\infty}\frac{x}{1+x^2}\left(xe^{-\frac{x^2}{2}}\right)dx\\
+            &=\int_{t}^{\infty}\frac{x}{1+x^2}d\left(-e^{-\frac{x^2}{2}}\right)\\
+            &=\frac{x}{1+x^2}(-e^{-x^2/2})\Big |_t^\infty - \int_{t}^{\infty}\left(\frac{x}{1+x^2}\right)'(-e^{-\frac{x^2}{2}})dx\\
+            &=\frac{t}{1+t^2}e^{-\frac{t^2}{2}}+\int_t^\infty\frac{1-x^2}{(1+x^2)^2}e^{-\frac{x^2}{2}}dx
+        \end{align*}
+        So, \begin{align*}
+            P(Z\geq t)&=\frac{1}{\sqrt{2\pi}}\left(\int_{t}^{\infty}\frac{1}{1+x^2}e^{-\frac{x^2}{2}}dx+\int_{t}^{\infty}\frac{x^2}{1+x^2}e^{-\frac{x^2}{2}}dx\right)\\
+            &=\frac{1}{\sqrt{2\pi}}\left(\int_{t}^{\infty}\frac{1}{1+x^2}e^{-\frac{x^2}{2}}dx+\frac{t}{1+t^2}e^{-\frac{t^2}{2}}+\int_{t}^{\infty}\frac{1-x^2}{(1+x^2)^2}e^{-\frac{x^2}{2}}dx\right)\\
+            &=\frac{1}{\sqrt{2\pi}}\frac{t}{1+t^2}e^{-\frac{t^2}{2}}+\frac{1}{\sqrt{2\pi}}\left(\int_{t}^{\infty}\frac{2}{1+x^2}e^{-\frac{x^2}{2}}dx\right)
+        \end{align*}
+        And because $\frac{2}{1+x^2}e^{-\frac{x^2}{2}}>0$, we get that
+        \begin{align*}
+            P(Z\geq t)
+            &=\frac{1}{\sqrt{2\pi}}\frac{t}{1+t^2}e^{-\frac{t^2}{2}}+\frac{1}{\sqrt{2\pi}}\left(\int_{t}^{\infty}\frac{2}{1+x^2}e^{-\frac{x^2}{2}}dx\right)\\
+            &\geq\frac{1}{\sqrt{2\pi}}\frac{t}{1+t^2}e^{-\frac{t^2}{2}}+0\\
+            &=\frac{1}{\sqrt{2\pi}}\frac{t}{1+t^2}e^{-\frac{t^2}{2}}
+        \end{align*}
+        So, \[P(|Z|\geq t)=2P(Z\geq t)\geq\frac{2}{\sqrt{2\pi}}\frac{t}{1+t^2}e^{-\frac{t^2}{2}}= \sqrt{\frac{2}{\pi}}\frac{t}{1+t^2}e^{-\frac{t^2}{2}}\]
+
+    \end{solution}
+
+    \setcounter{exer}{49}
+    \begin{exercise}
+        Prove the identity for the negative binomial distribution given in Theorem 3.6.8, part (b). 
+    \end{exercise}
+
+    \begin{solution}
+        Part (b): 
+
+        If $X\sim $ negative binomial$(r,p)$, then 
+        \[E((1-p)g(X))=E\left(\frac{X}{r+X-1}g(X-1)\right). \]
+        \begin{align*}
+            E((1-p)g(X))&=(1-p)\sum_{x=0}^\infty g(x)\binom{r+x-1}{x}p^r(1-p)^x\\
+            &=(1-p)\sum_{y=1}^\infty g(y-1)\binom{r+y-2}{y-1}p^r(1-p)^{y-1},\quad \text{Let $x = y-1$}\\
+            &=\sum_{y=1}^\infty g(y-1)\binom{r+y-2}{y-1}p^r(1-p)^{y}\\
+            &=\sum_{y=1}^\infty g(y-1)\frac{(r+y-2)!}{(y-1)!(r-1)!}p^r(1-p)^{y}\\
+            &=\sum_{y=1}^\infty g(y-1)\frac{y}{r+y-1}\frac{(r+y-1)(r+y-2)!}{y(y-1)!(r-1)!}p^r(1-p)^{y}\\
+            &=\sum_{y=1}^\infty \frac{y}{r+y-1}g(y-1) \binom{r+y-1}{y}p^r(1-p)^{y}\\
+            &=\sum_{y=0}^\infty \frac{y}{r+y-1}g(y-1) \binom{r+y-1}{y}p^r(1-p)^{y},\quad \text{When $y=0$, it is $0$.}\\
+            &=E\left(\frac{Y}{r+Y-1}g(Y-1)\right)=E\left(\frac{X}{r+X-1}g(X-1)\right). 
+        \end{align*}
+    \end{solution}
+    
+\end{document}
