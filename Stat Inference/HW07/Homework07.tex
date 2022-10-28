@@ -54,7 +54,7 @@
             So, \begin{align*}
                 &\int_{0}^{\infty}f(x)dx - \int_{-\infty}^{\infty} h(t,x)f(x)dx\\
                 =&\int_{0}^{\infty}f(x)dx - \int_{0}^{\infty} h(t,x)f(x)dx- \int_{-\infty}^{0} h(t,x)f(x)dx\\
-                =&\int_{0}^{\infty}(1-h(t, x))f(x)dx - \int_{-\infty}^{0} h(t,x)f(x)dx\leq 0
+                =&\int_{0}^{\infty}(1-h(t, x))f(x)dx+\left( - \int_{-\infty}^{0} h(t,x)f(x)dx\right)\leq 0
             \end{align*}
             The first item and the second should be both non-positive, i.e. 
             \[1-h(t,x)\leq 0\]
