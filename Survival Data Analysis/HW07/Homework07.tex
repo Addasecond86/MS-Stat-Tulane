@@ -1,0 +1,163 @@
+\documentclass{elegantbook}
+
+\definecolor{LightGray}{gray}{0.9}
+\newcommand{\CN}{BIOS 7300\\[0.5cm] Survival Data Analysis}
+\newcommand{\Ti}{Homework 7}
+\newcommand{\Pf}{Dr.\ Tang}
+\newcommand{\FN}{Zehao}
+\newcommand{\LN}{Wang}
+\usepackage[fontsize=14pt]{fontsize}
+
+\usepackage{longtable}
+% \usepackage[table,xcdraw]{xcolor}
+
+\usepackage{minted}
+
+\usepackage{enumitem}
+\renewcommand{\chaptername}{Homework}
+\begin{document} 
+\include{title.tex}
+\setcounter{chapter}{6}
+\chapter{}
+\begin{exercise*}[1]
+    Use the data “Survival of liver transplant recipients.dat” and compare models with age as a variate, and gender as a factor. If only linear terms for age is considered, then there are a total of 8 possible models including possibly the interaction term. Find the optimal model among these $8$ models. Please clearly specify your criteria for the model selection and the final model you selected.
+\end{exercise*}
+
+\begin{solution}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{cc}
+    \hline
+    Variable                   & AIC                             \\
+    -                          & 3744.84                         \\
+    {\color[HTML]{FE0000} Age} & {\color[HTML]{FE0000} 3743.629} \\
+    Gender                     & 3746.698                        \\
+    Age*Gender                 & 3746.840                        \\
+    Age + Gender               & 3745.526                        \\
+    Age + Age*Gender           & 3745.542                        \\
+    Gender + Age*Gender        & 3746.628                        \\
+    Age + Gender + Age*Gender  & 3747.515                        \\ \hline
+    \end{tabular}
+    \end{table}
+    With AIC, the best model only contains Age. 
+\end{solution}
+
+\begin{exercise*}[2]
+    Use the data “Survival of liver transplant recipients.dat” again. Now we are developing models with age, gender, disease, and cof as predictors using model selection procedure. In the following we use $0.10$ as the removal threshold and $0.15$ for entry threshold for the p-values.
+    \begin{enumerate}[(a)]
+        \item Starting with the model with all two-way interactions and apply the backward eliminating procedure. 
+        \item Starting with the null model (no covariate) and apply the dynamic stepwise model selection. 
+        \item Compare the models you obtained in part (a) and (b).
+    \end{enumerate}
+\end{exercise*}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item \begin{minted}[frame=lines,
+            framesep=2mm,
+            baselinestretch=1.2,
+            bgcolor=LightGray,
+            fontsize=\footnotesize]{SAS}
+PROC PHREG data=HW7_1;
+CLASS gender disease cof; 
+MODEL time*status(0) = age|gender 
+                       age|disease 
+                       age|cof 
+                       gender|disease 
+                       gender|cof 
+                       disease|cof
+/SELECTION=backward SLENTRY=0.15 slstay=0.10 DETAILS;
+RUN;
+        \end{minted}
+        Remove these 3 terms: age*disease, gender*disease, gender*cof. 
+        And the AIC for final model is $2495.856$. 
+        \item \begin{minted}[frame=lines,
+            framesep=2mm,
+            baselinestretch=1.2,
+            bgcolor=LightGray,
+            fontsize=\footnotesize]{SAS}
+PROC PHREG data=HW7_1;
+CLASS gender disease cof; 
+MODEL time*status(0) = age|gender 
+                       age|disease 
+                       age|cof 
+                       gender|disease 
+                       gender|cof 
+                       disease|cof
+/SELECTION=stepwise START=0 SLENTRY=0.15 slstay=0.10 DETAILS;
+RUN;
+        \end{minted}
+        Enter these 3 terms: cof, disease, cof*disease.
+        The AIC for final model is $2494.731$.
+        \item AIC in model (b) is smaller than that in model (a). So model (b) is better.
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise*}[3]
+    In this problem, we perform the scale examination using the MFP method. Use the dataset “Survival of multiple myeloma patients.dat”, which contains the survival information (“time” and “status”, with 0 indicating censoring). Suppose that the variable “HB” is in the model, and we are examining the scale of “BUN”. 
+    For simplicity, suppose we are only considering fractional polynomial of degree 1, i.e., only one term, 1 of the 8 transformations, for “BUN”. If $0.05$ is used as the threshold for the p-value in the selection, which scale will you choose? More precisely, will you include the variable “BUN” at all and if you do, which transformation will you choose? 
+    (Hint: you may use the SAS macro “mfp8” and specify the degree “m=1”. If you are using software packages without the support of MFP selection, then you may need to fit the 8 models, each a main effect model with “HB” and one of the eight transformations of “BUN” as the covariates, record the deviances, and compute the p-values as described in the class).
+\end{exercise*}
+
+\begin{solution}
+    \begin{minted}[frame=lines,
+        framesep=2mm,
+        baselinestretch=1.2,
+        bgcolor=LightGray,
+        fontsize=\footnotesize]{R}
+library(mfp)
+data1 <-
+  read.table(
+    "/Users/zehao/Documents/GitHub/MS-Stat-Tulane/
+    Survival Data Analysis/HW07/Survival of multiple myeloma patients.dat",
+    header = TRUE
+  )
+f <-
+  mfp(
+    Surv(time, status) ~ hb + fp(bun, df = 1, select = 0.05),
+    family = cox,
+    data = data1
+  )
+
+print(f)
+    \end{minted}
+    And the Output is:
+    \begin{minted}[frame=lines,
+        framesep=2mm,
+        baselinestretch=1.2,
+        bgcolor=LightGray,
+        fontsize=\footnotesize]{text}
+Call:
+mfp(formula = Surv(time, status) ~ hb + fp(bun, df = 1, select = 0.05), 
+    data = data1, family = cox)
+
+
+Deviance table:
+ 		 Resid. Dev
+Null model   214.6785
+Linear model	 200.699
+Final model	 200.699
+
+Fractional polynomials:
+    df.initial select alpha df.final power1 power2
+bun          1   0.05  0.05        1      1      .
+hb           1   1.00  0.05        1      1      .
+
+
+Transformations of covariates:
+     formula
+hb        hb
+bun I(bun^1)
+
+          coef exp(coef) se(coef)      z        p
+bun.1  0.02004    1.0202 0.005816  3.446 0.000569
+hb.1  -0.13495    0.8738 0.061956 -2.178 0.029400
+
+Likelihood ratio test=13.98  on 2 df, p=0.0009213 n= 48 
+    \end{minted}
+    So, we can see that the final model should be linear. i.e. $BUN$ should be included in the model use $BUN^{1}$. 
+\end{solution}
+
+
+
+\end{document}
