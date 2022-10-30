@@ -1,0 +1,362 @@
+\documentclass[14pt]{elegantbook}
+
+\newcommand{\CN}{BIOS 7040\\[0.5cm] Statistical Inference I}
+\newcommand{\Ti}{Homework 8}
+\newcommand{\Pf}{Dr.\ Srivastav}
+\newcommand{\FN}{Zehao}
+\newcommand{\LN}{Wang}
+\usepackage[fontsize=14pt]{fontsize}
+
+\usepackage{multirow}
+\usepackage{longtable}
+
+\usepackage{enumitem}
+\renewcommand{\chaptername}{Homework}
+
+\allowdisplaybreaks
+\begin{document}
+\include{title.tex}
+
+\setcounter{chapter}{7}
+
+\chapter{}
+    \setcounter{chapter}{4}
+
+    \setcounter{exer}{0}
+    \begin{exercise}
+    A random point $(X, Y)$ is distributed uniformly on the square with vertices $(1, 1)$, $(1, -1)$, $(-1,1)$, and $(-1, -1)$. That is, the joint pdf is $f(x,y) = \frac{1}{4}$ on the square. Determine the probabilities of the following events. 
+    \begin{enumerate}[(a)]
+        \item $X^2+Y^2<1$
+        \item $2X-Y>0$
+        \item $|X+Y|<2$
+    \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item Because $X^2+Y^2=1$ is a circle, the probability is 
+            \[P(X^2+Y^2<1)=\frac{S_{X^2+Y^2<1}}{S_{square}}=\frac{\pi}{4}. \]
+            \item Because $2X-Y=0$ is a line pass through the origin $(0, 0)$, so it divide the square in two same area parts. The probability is 
+            \[P(2X-Y>0)=\frac{1}{2}. \]
+            \item $|X+Y|<2$ is a bigger square including the original smaller square. So, the probability is
+            \[P(|X+Y|<2)=1. \]
+        \end{enumerate}
+    \end{solution}
+
+    \setcounter{exer}{3}
+    \begin{exercise}
+        A p.d.f.\ is defined by 
+        \[
+            f(x,y)=\left\{
+                \begin{array}{ll}
+                    C(x+2y) & \text{if } 0<y<1\text{ and }0<x<2 \\
+                    0 & \text{otherwise. }
+                \end{array}
+            \right.
+        \]
+        \begin{enumerate}[(a)]
+            \item Find the value of $C$. 
+            \item Find the marginal distribution of $X$. 
+            \item Find the joint c.d.f. of $X$ and $Y$.
+            \item Find the p.d.f. of the random variable $Z=9/(X+1)^2$. 
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item We know that 
+            \begin{align*}
+                \int_0^1\int_0^2C(x+2y)dx dy&=1\\
+                C\int_0^1\left[\frac{1}{2}x^2+2yx\right]_0^2dy&=1\\
+                C\int_0^1(2+4y)dy&=1\\
+                C\left[2y+2y^2\right]_0^1&=1\\
+                4C&=1\\
+                C&=\frac{1}{4}.
+            \end{align*}
+            \item Marginal distribution of $X$ is
+            \begin{align*}
+                f(x)=\int_0^1f(x, y)dy&=\int_0^1\frac{1}{4}(x+2y)dy\\
+                &=\frac{1}{4}\left[xy+y^2\right]_0^1\\
+                &=\frac{1}{4}(x+1), \quad 0<x<2.\\
+                f(x)&=0, \quad \text{otherwise.}
+            \end{align*}
+            \item c.d.f. of $X$ and $Y$ is
+            \begin{align*}
+                P(X\leq x, Y\leq y)&=\int_0^y\int_0^xf(x, y)dx dy\\
+                &=\int_0^y\int_0^x\frac{1}{4}(x+2y)dx dy\\
+                &=\frac{1}{4}\int_0^y\left[\frac{1}{2}x^2+2xy\right]_0^xdy\\
+                &=\frac{1}{4}\int_0^y\frac{1}{2}x^2+2xydy\\
+                &=\frac{1}{4}\left[\frac{1}{2}x^2y+xy^2\right]_0^y\\
+                &=\frac{1}{4}\left(\frac{1}{2}x^2y+xy^2\right)\\
+                &=\frac{1}{8}x^2y+\frac{1}{4}xy^2, \quad 0<x<2, \quad 0<y<1.
+            \end{align*}
+            If $y\geq1$, $0<x<2$, then $P(X\leq x, Y\leq y)=\frac{1}{8}x^2+\frac{1}{4}x$. 
+
+            If $x\geq2$, $0<y<1$, then $P(X\leq x, Y\leq y)=\frac{1}{2}y+\frac{1}{2}y^2$. 
+
+            If $y\geq1$, $x\geq2$, then $P(X\leq x, Y\leq y)=1$. 
+
+            If $y<0$, $x<0$, then $P(X\leq x, Y\leq y)=0$. 
+            \item $Z=9/(X+1)^2$ is monotone, so, if $x\in(0,2)$, $z\in(1,9)$. And $X=3Z^{-1/2}-1$. $|J|=\frac{3}{2}Z^{-3/2}$. So, 
+            \[f(z)=\frac{1}{4}(3z^{-1/2}-1+1)\left(3/2z^{-3/2}\right)=\frac{9}{8}z^{-2}, \quad 1<z<9. \]
+        \end{enumerate}
+    \end{solution}
+
+    \begin{exercise}
+        \begin{enumerate}[(a)]
+            \item Find $P(X>\sqrt{y})$ if $X$ and $Y$ are jointly distributed with p.d.f. 
+            \[f(x,y)=x+y, \quad 0\leq x\leq 1, \quad 0\leq y\leq 1. \]
+            \item Find $P(X^2<Y<X)$ if $X$ and $Y$ are jointly distributed with p.d.f.
+            \[f(x,y)=2x, \quad 0\leq x\leq1, \quad 0\leq y\leq1. \]
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item \begin{align*}
+                P(X>\sqrt{y}) &= \int_0^1\int_{\sqrt{y}}^1f(x, y)dx dy\\
+                &=\int_0^1\int_{\sqrt{y}}^1(x+y)dx dy\\
+                &=\int_0^1\left[\frac{1}{2}x^2+yx\right]_{\sqrt{y}}^1dy\\
+                &=\int_0^1\left(\frac{1}{2}+y-\frac{1}{2}y-y^{3/2}\right)dy\\
+                &=\int_0^1\left(\frac{1}{2}+\frac{1}{2}y-y^{3/2}\right)dy\\
+                &=\left(\frac{1}{2}y+\frac{1}{4}y^2-\frac{2}{5}y^{5/2}\right)_{0}^1\\
+                &=\frac{7}{20}. 
+            \end{align*}
+            \item \begin{align*}
+                P(X^2<Y<X) &= \int_0^1\int_{x^2}^{x}f(x, y)dy dx\\
+                &=\int_0^1\int_{x^2}^{x}2x dy dx\\
+                &=2\int_0^1\left[xy\right]_{x^2}^xdx\\
+                &=2\int_0^1\left(x^2-x^3\right)dx\\
+                &=2\left[\frac{1}{3}x^3-\frac{1}{4}x^4\right]_{0}^1\\
+                &=\frac{1}{6}.
+            \end{align*}
+        \end{enumerate}
+    \end{solution}
+
+
+    \setcounter{exer}{8}
+    \begin{exercise}
+        Prove that if the joint c.d.f. of $X$ and $Y$ satisfies 
+        \[F_{X,Y}(x,y)=F_X(x)F_Y(y), \]
+        then for any pair of intervals $(a,b)$ and $(c,d)$,
+        \[
+            P(a\leq X\leq b, c\leq Y\leq d)=P(a\leq X\leq b)P(c\leq Y\leq d).
+        \]
+    \end{exercise}
+
+    \begin{solution}
+        \begin{align*}
+            &\quad P(a\leq X\leq b, c\leq Y\leq d)\\
+            &=P(X\leq b, c\leq Y\leq d)-P(X\leq a, c\leq Y\leq d)\\
+            &=P(X\leq b, c\leq Y\leq d)-P(X\leq a, Y\leq d)+P(X\leq a, Y\leq c)\\
+            &=P(X\leq b, Y\leq d)-P(X\leq b, Y\leq c)-P(X\leq a, Y\leq d)-P(X\leq a, Y\leq c)\\
+            &=F_{X,Y}(b,d)-F_{X,Y}(b,c)-F_{X,Y}(a,d)+F_{X,Y}(a,c)\\
+            &=F_X(b)F_Y(d)-F_X(b)F_Y(c)-F_X(a)F_Y(d)+F_X(a)F_Y(c)\\
+            &=(F_X(b)-F_X(a))F_Y(d)-(F_X(b)-F_X(a))F_Y(c)\\
+            &=(F_X(b)-F_X(a))(F_Y(d)-F_Y(c))\\
+            &=P(a\leq X\leq b)P(c\leq Y\leq d).
+        \end{align*}
+    \end{solution}
+
+    \begin{exercise}
+        The random pair $(X, Y)$ has the distribution
+\begin{longtable}[c]{cc|ccc}
+    \hline
+    \multicolumn{2}{c|}{\multirow{2}{*}{}} & \multicolumn{3}{c}{X}                  \\ \cline{3-5} 
+    \multicolumn{2}{c|}{}                  & $1$ & $2$                              & $3$ \\ \hline
+    \endfirsthead
+    %
+    \endhead
+    %
+    \multicolumn{1}{c|}{\multirow{3}{*}{Y}} & $2$ & $\frac{1}{12}$ & $\frac{1}{6}$ & $\frac{1}{12}$ \\
+    \multicolumn{1}{c|}{}                   & $3$ & $\frac{1}{6} $ & $0$                             & $\frac{1}{6}$  \\
+    \multicolumn{1}{c|}{}        & $4$       & $0$ & $\frac{1}{3}$ & $0$ \\ \hline
+    \end{longtable}
+    \begin{enumerate}[(a)]
+        \vspace{-20pt}\item Show that $X$ and $Y$ are independent.
+        \item Give a probability table for random variables $U$ and $V$ that have the same marginals as $X$ and $Y$ but are independent. 
+    \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item $P(X=2)=\frac{1}{6}+\frac{1}{3}=\frac{1}{2}$, $P(Y=3)=\frac{1}{6}+\frac{1}{6}=\frac{1}{3}$. But
+            \[P(X=2, Y=3)=0\neq\frac{1}{6}=P(X=2)P(Y=3). \]
+            So, they are dependent. 
+            \item \ \vspace{-10pt}
+\begin{table}[h]
+\centering
+\begin{tabular}{cc|cccc}
+\hline
+\multicolumn{2}{c|}{\multirow{2}{*}{}} & \multicolumn{4}{c}{U}                                                                \\ \cline{3-6} 
+\multicolumn{2}{c|}{}                  & 1              & 2             & \multicolumn{1}{c|}{3}              & Marginal      \\ \hline
+\multicolumn{1}{c|}{\multirow{4}{*}{V}} & 2 & $\frac{1}{12}$ & $\frac{1}{6}$ & \multicolumn{1}{c|}{$\frac{1}{12}$} & $\frac{1}{3}$ \\
+\multicolumn{1}{c|}{}    & 3           & $\frac{1}{12}$ & $\frac{1}{6}$ & \multicolumn{1}{c|}{$\frac{1}{12}$} & $\frac{1}{3}$ \\
+\multicolumn{1}{c|}{}    & 4           & $\frac{1}{12}$ & $\frac{1}{6}$ & \multicolumn{1}{c|}{$\frac{1}{12}$} & $\frac{1}{3}$ \\ \cline{2-6} 
+\multicolumn{1}{c|}{}    & Marginal    & $\frac{1}{4}$  & $\frac{1}{2}$ & \multicolumn{1}{c|}{$\frac{1}{4}$}  &         1      \\ \hline
+\end{tabular}
+\end{table}
+        \end{enumerate}
+    \end{solution}
+
+    \clearpage
+
+    \setcounter{exer}{12}
+    \begin{exercise}
+        Let $X$ and $Y$ be random variables with finite means. 
+        \begin{enumerate}[(a)]
+            \item Show that 
+            \[\min_{g(x)} E(Y-g(X))^2=E(Y-E(Y|X))^2, \]
+            where $g(x)$ ranges over all functions. ($E(Y|X)$ is sometimes called the \emph{regression} of $Y$ on $X$, the ``best'' predictor of $Y$ conditional on $X$.)
+            \item Show that equation (2.2.3) can be derived as a special case of part (a). 
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item \begin{align*}
+                E(Y-g(X))^2&=E(Y-E(Y|X)+E(Y|X)-g(X))^2\\
+                &=E(Y-E(Y|X))^2+2E(Y-E(Y|X))(E(Y|X)-g(X))\\
+                &\quad+E(E(Y|X)-g(X))^2\\
+                &=E(Y-E(Y|X))^2+E(E(Y|X)-g(X))^2\\
+                &\quad+2E(Y\cdot E(Y|X)-Y\cdot g(X)-(E(Y|X))^2+E(Y|X)\cdot g(X))\\
+                &=E(Y-E(Y|X))^2+E(E(Y|X)-g(X))^2+0\\
+                &\geq E(Y-E(Y|X))^2. 
+            \end{align*}
+            If we take $g(x)=E(Y|X)$, ``='' holds. And we get 
+            \[
+                \min_{g(x)} E(Y-g(X))^2=E(Y-E(Y|X))^2. 
+            \]
+            \item We need to derived \[\min_bE(X-b)^2=E(X-EX)^2. \]
+            Let $Y$ be $X$, then we take $g(X)=E(X|X)=E(X)=b$, 
+            \begin{align*}
+                \min_{b}E(X-b)^2=E(X-E(X|X))^2=E(X-EX)^2.
+            \end{align*}
+        \end{enumerate}
+    \end{solution}
+
+    \setcounter{exer}{18}
+    \begin{exercise}
+        \begin{enumerate}[(a)]
+            \item Let $X_1$ and $X_2$ be independent $N(0,1)$ random variables. Find the p.d.f. of $(X_1-X_2)^2/2$. 
+            \item If $X_i$, $i=1,2$ are independent $\Gamma(\alpha_i,1)$ random variables, find the marginal distributions of $X_1/(X_1+X_2)$ and $X_2/(X_1+X_2)$. 
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item We know that $X_1-X_2\sim N(0,2)$, so, $\frac{X_1-X_2}{\sqrt{2}}\sim N(0,1)$. Hence, 
+            \[\frac{(X_1-X_2)^2}{2}\sim\chi_1^2. \]
+            Let $z=\frac{(x_1-x_2)^2}{2}\sim\chi_1^2$, then 
+            \[f(z)={\frac {1}{2^{\frac {1}{2}}\Gamma ({\frac {1}{2}})}}x^{{\frac {1}{2}}-1}e^{\frac {-z}{2}}=\frac{1}{\sqrt{2\pi}}x^{-1/2}e^{-z/2}. \]
+            \item Let $Y_1=X_1/(X_1+X_2)$ and $Y_2=X_1+X_2$. Then, $X_1=Y_1Y_2$, $X_2=Y_2(1-Y_1)$. Hence,
+            \[|J|=\left|\begin{matrix}
+                Y_2&Y_1\\
+                -Y_2&1-Y_1
+            \end{matrix}\right|=Y_2. \]
+            So, \begin{align*}
+                f(x_1,x_2)&=f(x_1)f(x_2)\\
+                &=\frac{1}{\Gamma(\alpha_1)\Gamma(\alpha_2)}x_1^{\alpha_1-1}x_2^{\alpha_2-1}e^{-x_1-x_2}\\
+                f(y_1,y_2)&=\frac{1}{\Gamma(\alpha_1)\Gamma(\alpha_2)}(y_1y_2)^{\alpha_1-1}(y_2(1-y_1))^{\alpha_2-1}e^{-y_2}|y_2|
+            \end{align*}
+            And the marginal distribution for $Y_1$ is: 
+            \begin{align*}
+                f(y_1)&=\int_0^\infty f(y_1,y_2)dy_2\\
+                &=\frac{1}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\int_0^\infty(y_1y_2)^{\alpha_1-1}(y_2(1-y_1))^{\alpha_2-1}e^{-y_2}y_2dy_2\\
+                &=\frac{y_1^{\alpha_1-1}(1-y_1)^{\alpha_2-1}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\int_0^\infty y_2^{\alpha_1+\alpha_2-1}e^{-y_2}dy_2\\
+                &=\frac{\Gamma(\alpha_1+\alpha_2)}{\Gamma(\alpha_1)\Gamma(\alpha_2)}y_1^{\alpha_1-1}(1-y_1)^{\alpha_2-1}\sim Beta(\alpha_1,\alpha_2). 
+            \end{align*}
+            Similarly, we can get the marginal distribution for $Y_2$.
+            \[f(y_2)=Beta(\alpha_2, \alpha_1). \]
+            
+        \end{enumerate}
+    \end{solution}
+
+    \setcounter{exer}{22}
+    \begin{exercise}
+        For X and Y as in Example 4.3.3, find the distribution of $XY$ by making the transformations given in $(a)$ and $(b)$ and integrating out $V$. 
+        \begin{enumerate}[(a)]
+            \item $U= XY$, $V= Y$
+            \item $U= XY$, $V = X/Y$
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item $Y=V$, $X=U/V$, then
+            \[|J|=\left|\begin{matrix}
+                V^{-1}&-UV^{-2}\\
+                0&1
+            \end{matrix}\right|=V^{-1}. \]
+            And 
+            \[f(x,y)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}x^{\alpha-1}(1-x)^{\beta-1}y^{\alpha+\beta-1}(1-y)^{\gamma-1}. \]
+            So, 
+            \begin{align*}
+                f(u, v)=&\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}(u/v)^{\alpha-1}(1-u/v)^{\beta-1}v^{\alpha+\beta-1}(1-v)^{\gamma-1}v^{-1}\\
+                =&\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u/v)^{\beta-1}v^{\beta-1}(1-v)^{\gamma-1}\\
+                =&\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}u^{\alpha-1}(v-u)^{\beta-1}(1-v)^{\gamma-1}
+            \end{align*}
+            Let $y=\frac{v-u}{1-u}$, $dy=\frac{1}{1-u}dv$, 
+            \begin{align*}
+                f(u)&=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}u^{\alpha-1}\int_0^1(v-u)^{\beta-1}(1-v)^{\gamma-1}dv\\
+                &=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}u^{\alpha-1}\int_0^1y^{\beta-1}(1-y)^{\gamma-1}(1-u)^{\beta+\gamma-2+1}dy\\
+                &=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1} Beta(\beta, \gamma)\\
+                &=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1} \frac{\Gamma(\beta)\Gamma(\gamma)}{\Gamma(\beta+\gamma)}\\
+                &=\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta+\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1} \sim Beta(\alpha, \beta+\gamma). \\
+            \end{align*}
+            \item $Y=(U/V)^{1/2}$, $X=(UV)^{1/2}$. Then
+            \[|J|=\left|\begin{matrix}
+                \frac{1}{2}V(UV)^{-1/2}&\frac{1}{2}U(UV)^{-1/2}\\
+                \frac{1}{2}V^{-1}(U/V)^{-1/2}&\frac{1}{2}(U/V)^{-1/2}(-UV^{-2})
+            \end{matrix}\right|=(2V)^{-1}. \]
+            \[f(x,y)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}x^{\alpha-1}(1-x)^{\beta-1}y^{\alpha+\beta-1}(1-y)^{\gamma-1}. \]
+            So, 
+            \begin{align*}
+                f(u, v)&=\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}(uv)^{\frac{1}{2}(\alpha-1)}(1-(uv)^{1/2})^{\beta-1}\\
+                &\hspace{105pt}(u/v)^{\frac{1}{2}(\alpha+\beta-1)}(1-(u/v)^{1/2})^{\gamma-1}(2v)^{-1}\\
+                &=\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha+\frac{1}{2}\beta-1}v^{-\frac{1}{2}\beta}(1-(uv)^{1/2})^{\beta-1}(1-(u/v)^{1/2})^{\gamma-1}(2v)^{-1}\\
+                &=\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}((u/v)^{1/2})^{\beta}(1-(uv)^{1/2})^{\beta-1}(1-(u/v)^{1/2})^{\gamma-1}(2v)^{-1}
+            \end{align*}
+            Let $y=\frac{(u/v)^{1/2}-u}{1-u}$, $dy=\frac{\frac{1}{2}(u/v)^{-1/2}(-uv^{-2})}{1-u}dv=-\frac{u^{1/2}v^{-3/2}}{2(1-u)}dv$. 
+            
+            And $V=\frac{X}{Y}=\frac{X^2}{XY}=\frac{X^2}{U}\leq\frac{1}{U}$, and $V=\frac{XY}{Y^2}=\frac{U}{Y^2}\geq U$. So, 
+            \begin{align*}
+                f(u)&=\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}\int_u^{1/u}\left(\frac{(u/v)^{1/2}-u}{1-u}\right)^{\beta-1}\left(\frac{1-(u/v)^{1/2}}{1-u}\right)^{\gamma-1}\\
+                &\hspace{170pt}\frac{u^{1/2}v^{-3/2}}{2(1-u)}(1-u)^{\beta+\gamma-1}dv\\
+                &=\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1}\int_1^{0}y^{\beta-1}\left(1-y\right)^{\gamma-1}-dy\\
+                &=\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1}\int_0^{1}y^{\beta-1}\left(1-y\right)^{\gamma-1}dy\\
+                &=\frac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1} Beta(\beta, \gamma)\sim Beta(\alpha, \beta+\gamma). 
+            \end{align*}
+        \end{enumerate}
+    \end{solution}
+
+    \setcounter{exer}{26}
+    \begin{exercise}
+        Let $X \sim N(\mu, \sigma^2)$ and let $Y \sim N(\gamma, \sigma^2)$. Suppose $X$ and $Y$ are independent. Define $U = X +Y$ and $V = X- Y$. Show that $U$ and $V$ are independent normal random variables. Find the distribution of each of them. 
+    \end{exercise}
+
+    \begin{solution}
+        \begin{align*}
+            f(x, y)&=f(x)f(y)\\
+            &=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y-\gamma)^2}{2\sigma^2}}\\
+            &=\frac{1}{2\pi\sigma^2}e^{-\frac{(x-\mu)^2+(y-\gamma)^2}{2\sigma^2}}
+        \end{align*}
+        $X=(U+V)/2$, $Y=(U-V)/2$. Then
+        \[|J|=\left|\begin{matrix}
+            1/2&1/2\\
+            1/2&-1/2
+        \end{matrix}\right|=1/2. \]
+        \begin{align*}
+            f(u, v)&=\frac{1}{2\pi\sigma^2}\exp\left(\frac{-1}{2\sigma^2}\left(x^2-2\mu x+\mu^2+y^2-2\gamma y+\gamma^2\right)\right)\\
+            &=\frac{1}{2\pi\sigma^2}\exp\left(\frac{-(\mu^2+\gamma^2)}{2\sigma^2}-\frac{1}{2\sigma^2}\left(\frac{(u+v)^2}{4}-\mu(u+v)\right.\right.\\
+            &\hspace{85pt}\left.\left.+\frac{(u-v)^2}{4}-\gamma(u-v)\right)\right)\frac{1}{2}\\
+            &=\frac{1}{4\pi\sigma^2}\exp\left(\frac{-(\mu^2+\gamma^2)}{2\sigma^2}\right)\exp\left(-\frac{(u-(\mu+\gamma))^2-(\mu+\gamma)^2}{(2\sigma)^2}\right.\\
+            &\hspace{85pt}\left.-\frac{(v-(\mu-\gamma))^2-(\mu-\gamma)^2}{(2\sigma)^2}\right)\\
+            &=\frac{1}{4\pi\sigma^2}\exp\left(-\frac{(u-\mu-\gamma)^2}{(2\sigma)^2}\right)\exp\left(-\frac{(v-\mu+\gamma)^2}{(2\sigma)^2}\right)\\
+            &=\frac{1}{\sqrt{2\pi}\sqrt{2}\sigma}\exp\left(-\frac{(u-(\mu+\gamma))^2}{2(\sqrt{2}\sigma)^2}\right)\frac{1}{\sqrt{2\pi}\sqrt{2}\sigma}\exp\left(-\frac{(v-(\mu-\gamma))^2}{2(\sqrt{2}\sigma)^2}\right)
+        \end{align*}
+        So, \[f(u)=\int_{-\infty}^\infty f(u, v)dv=\frac{1}{\sqrt{2\pi}\sqrt{2}\sigma}\exp\left(-\frac{(u-(\mu+\gamma))^2}{2(\sqrt{2}\sigma)^2}\right)\sim N(\mu+\gamma, 2\sigma^2). \]
+        \[f(v)=\int_{-\infty}^\infty f(u, v)du=\frac{1}{\sqrt{2\pi}\sqrt{2}\sigma}\exp\left(-\frac{(v-(\mu-\gamma))^2}{2(\sqrt{2}\sigma)^2}\right)\sim N(\mu-\gamma, 2\sigma^2). \]
+        And $f(u)f(v)=f(u,v)$, i.e. they are independent. 
+    \end{solution}
+\end{document}
