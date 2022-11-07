@@ -14,15 +14,136 @@
 \begin{document}
 \include{title.tex}
 
-\setcounter{chapter}{4}
+\setcounter{chapter}{3}
 
 \chapter{}
-\setcounter{exer}{0}
+\setcounter{exer}{29}
     \begin{exercise}
+        Suppose the distribution of $Y$, conditional on $X=x$, is $n(x, x^2)$ and that the marginal distribution of $X$ is uniform(0,1). 
+        
+        Find $EY$, $Var Y$, and $Cov(X, Y)$. 
     \end{exercise}
 
     \begin{solution}
+        \[EY=E(E(Y|X))=EX=\frac{1}{2}. \]
+        \begin{align*}
+            VarY&=E(Var(Y|X))+Var(E(Y|X))\\
+            &=E(X^2)+Var(X)\\
+            &=Var(X)+(EX)^2+Var(X)\\
+            &=\frac{2}{12}+\frac{1}{4}\\
+            &=\frac{5}{12}.
+        \end{align*}
+        \begin{align*}
+            Cov(X, Y)&=E(XY)-EXEY\\
+            &=E(E(XY|X))-EXEY\\
+            &=E(X^2)-EXEY\\
+            &=\frac{1}{12}+\frac{1}{4}-\frac{1}{4}\\
+            &=\frac{1}{12}.
+        \end{align*}
+    \end{solution}
 
+    \setcounter{exer}{42}
+    \begin{exercise}
+        Let $X_1$, $X_2$, and $X_3$ be uncorrelated random variables, each with mean $\mu$ and variance $\sigma^2$. Find, in terms of $\mu$ and $\sigma^2$, $Cov(X_1 + X_2, X_2 + X_3)$ and $Cov(X_1 + X_2, X_1 - X_2)$. 
+    \end{exercise}
+
+    \begin{solution}
+        \begin{align*}
+            &\quad\ Cov(X_1 + X_2, X_2 + X_3)\\&=E[(X_1 + X_2)(X_2 + X_3)]-E(X_1 + X_2)E(X_2 + X_3)\\
+            &=E(X_1X_2 + X_1X_3 + X_2X_2 + X_2X_3)-E(X_1 + X_2)E(X_2 + X_3)\\
+            &=E(X_1X_2) + E(X_1X_3) + E(X_2X_2) + E(X_2X_3) - E(X_1 + X_2)E(X_2 + X_3)\\
+            &=\mu^2+\mu^2+\sigma^2+\mu^2+\mu^2-4\mu^2\\
+            &=\sigma^2.
+        \end{align*}
+        \begin{align*}
+            &\quad\ Cov(X_1 + X_2, X_1 - X_2)\\
+            &=E[(X_1 + X_2)(X_1 - X_2)]-E(X_1 + X_2)E(X_1 - X_2)\\
+            &=E(X_1X_1 + X_2X_1 - X_1X_2 - X_2X_2) - E(X_1 + X_2)E(X_1 - X_2)\\
+            &=E(X_1X_1) - E(X_2X_2) - E(X_1 + X_2)\cdot 0\\
+            &=\sigma^2+\mu^2-(\sigma^2+\mu^2)=0. 
+        \end{align*}
+    \end{solution}
+
+
+    \setcounter{exer}{43}
+    \begin{exercise}
+        Prove the following generalization of Theorem 4.5.6: For any random vector $(X_1, X_2, \cdots, X_n)$, 
+        \[Var\left(\sum_{i=1}^nX_i\right)=\sum_{i=1}^nVar X_i+2\sum_{1\leq i\leq j\leq n}Cov(X_i, X_j). \]
+    \end{exercise}
+
+    \begin{solution}
+        \begin{align*}
+            Var\left(\sum_{i=1}^n X_i\right)&=E\left(\sum_{i=1}^n X_i-\sum_{i=1}^n\mu_i\right)^2\\
+            &=E\left(\sum_{i=1}^n (X_i-\mu_i)\right)^2\\
+            &=\sum_{i=1}^nE(X_i-\mu_i)^2+2\sum_{1\leq i\leq j\leq n}E(X_i-\mu_i)(X_j-\mu_j)\\
+            &=\sum_{i=1}^nVar(X_i)+2\sum_{1\leq i\leq j\leq n}Cov(X_i, X_j).
+        \end{align*}
+    \end{solution}
+
+    \setcounter{exer}{57}
+    \begin{exercise}
+        For any two random variables $X$ and $Y$ with finite variances, prove that 
+        \begin{enumerate}[(a)]
+            \item \(Cov(X, Y)=Cov(X, E(Y|X))\). 
+            \item $X$ and $Y-E(Y|X)$ are uncorrelated. 
+            \item $Var(Y-E(Y|X)) = E(Var(Y|X))$. 
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item \begin{align*}
+                Cov(X, Y)&=E(XY)-EXEY\\
+                &=E(E(XY|X))-EXE(E(Y|X))\\
+                &=E(XE(Y|X))-EXE(E(Y|X))\\
+                &=Cov(X, E(Y|X))
+            \end{align*}
+            \item \begin{align*}
+                Cov(X, Y-E(Y|X))&=E(X(Y-E(Y|X)))-EXE(Y-E(Y|X))\\
+                &=E(XY)-E(XE(Y|X))-EXEY+EXE(Y|X)\\
+                &=Cov(X, Y)-Cov(X, E(Y|X))\\
+                &=0.
+            \end{align*}
+            \item \(E(Y-E(Y|X)|X)=E(Y|X)-E(Y|X)=0\). So, 
+            \begin{align*}
+                Var(Y-E(Y|X))
+                &=E(Var[Y-E(Y|X)|X])+Var(E[Y-E(Y|X)|X])\\
+                &=E(Var[Y-E(Y|X)|X])
+            \end{align*}
+            And \begin{align*}
+                Var(Y-E(Y|X)|X)&=E[(Y-E(Y|X)-E(Y-E(Y|X)))^2|X]\\
+                &=E[(Y-E(Y|X)-EY+E(E(Y|X)))^2|X]\\
+                &=E[(Y-E(Y|X)-EY+EY)^2|X]\\
+                &=E[(Y-E(Y|X))^2|X]\\
+                &=Var(Y|X).
+            \end{align*}
+            So, we finally get 
+            \[Var(Y-E(Y|X))=E(Var(Y|X)). \]
+        \end{enumerate}
+    \end{solution}
+
+    \setcounter{exer}{63}
+    \begin{exercise}
+        This exercise involves a well-known inequality known as the \emph{triangle inequality} (a special case of Minowski's inequality).
+        \begin{enumerate}[(a)]
+            \item Prove (without using Minowski's inequality) that for any numbers $a$, $b$, 
+            \[|a+b|\leq |a|+|b|. \]
+            \item Use part (a) to prove that for any random variables $X$ and $Y$ with finite expectations,
+            \[E|X+Y|\leq E|X|+E|Y|. \]
+        \end{enumerate}
+    \end{exercise}
+
+    \begin{solution}
+        \begin{enumerate}[(a)]
+            \item \begin{align*}
+                |a+b|\leq|a|+|b|&\Longleftrightarrow(a+b)^2\leq(|a|+|b|)^2\\
+                &\Longleftrightarrow a^2+2ab+b^2\leq|a|^2+2|a||b|+|b|^2\\
+                &\Longleftrightarrow a^2+2ab+b^2\leq a^2+2|a||b|+b^2\\
+                &\Longleftrightarrow ab\leq|a||b|
+            \end{align*}
+            It is always true that $ab\leq|a||b|$. So, we have proved the inequality. 
+            \item \[E|X+Y|\leq E(|X|+|Y|)= E|X|+E|Y|. \]
+        \end{enumerate}
     \end{solution}
 
 \end{document}
