@@ -1,4 +1,9 @@
-# %%
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -18,7 +23,10 @@ from sklearn.model_selection import train_test_split
 
 np.random.seed(20221107)
 
-# %%
+
+# In[2]:
+
+
 # Load the data
 path = "../data/weatherAUS.csv"
 
@@ -85,18 +93,22 @@ y = data["RainTomorrow"]
 
 # If you want to map the data to (0,1), uncomment the following two lines
 
-# Mm = MinMaxScaler()
-# x = Mm.fit_transform(x)
+Mm = MinMaxScaler()
+x = Mm.fit_transform(x)
 
 # If you want to use PCA, uncomment the following two lines
+# If you don't use PCA, SVM will consume a long time
 
-# pca = PCA(n_components=0.85)
-# x = pca.fit_transform(x)
+pca = PCA(n_components=0.85)
+x = pca.fit_transform(x)
 
 # Split the data into training and testing sets
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.4)
 
-# %%
+
+# In[3]:
+
+
 # Logistic Regression
 logreg = LogisticRegression(max_iter=3000)
 logreg.fit(x_train, y_train)
@@ -143,7 +155,10 @@ plt.show()
 target_names = ["Not Raining", "Raining"]
 print(classification_report(y_test, y_pred, target_names=target_names))
 
-# %%
+
+# In[4]:
+
+
 # SVM
 clf = svm.SVC(kernel="linear")
 
@@ -183,7 +198,10 @@ plt.show()
 target_names = ["Not Raining", "Raining"]
 print(classification_report(y_test, y_pred, target_names=target_names))
 
-# %%
+
+# In[5]:
+
+
 # SVM with polynomial kernel
 clf = svm.SVC(kernel="poly")
 
@@ -223,7 +241,10 @@ plt.show()
 target_names = ["Not Raining", "Raining"]
 print(classification_report(y_test, y_pred, target_names=target_names))
 
-# %%
+
+# In[6]:
+
+
 # SVM with rbf kernel
 
 clf = svm.SVC(kernel="rbf")
@@ -264,8 +285,26 @@ plt.show()
 target_names = ["Not Raining", "Raining"]
 print(classification_report(y_test, y_pred, target_names=target_names))
 
-# %%
+
+# In[7]:
+
+
 # Neural Network
+
+x = data.iloc[:, 1:]
+del x["RainTomorrow"]
+
+# Label
+y = data["RainTomorrow"]
+
+
+# If you want to map the data to (0,1), uncomment the following two lines
+
+Mm = MinMaxScaler()
+x = Mm.fit_transform(x)
+
+# Split the data into training and testing sets
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.4)
 
 # Split validation set
 x_val = x_train[:7423]
@@ -390,6 +429,16 @@ plt.savefig("FC_confusion_matrix.eps", bbox_inches="tight")
 
 plt.show()
 
-# %%
+
+# In[8]:
+
+
 # Plot the Neural Network Structure
 plot_model(model, to_file="Network_structure.png", show_shapes=True)
+
+
+# In[ ]:
+
+
+
+
