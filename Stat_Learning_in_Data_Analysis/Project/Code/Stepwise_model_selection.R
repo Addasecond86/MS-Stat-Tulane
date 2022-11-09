@@ -1,22 +1,31 @@
 library(tidyverse)
 library(lubridate)
 library(MASS)
+
+# Load data
 data <-
   read_csv(
-    "/Users/zehao/Documents/GitHub/MS-Stat-Tulane/Stat Learning in Data Analysis/Project/data/weatherAUS.csv"
+    "/Users/zehao/Documents/GitHub/MS-Stat-Tulane/Stat_Learning_in_Data_Analysis/Project/data/weatherAUS.csv"
   )
 
+# Drop rows with missing values
 data <- data %>%
-  drop_na('RainToday', 'RainTomorrow', 'Location')
+  drop_na(
+    "RainToday",
+    "RainTomorrow",
+    "Location",
+    "WindGustDir",
+    "WindDir9am",
+    "WindDir3pm"
+  )
 
 sapply(lapply(data, unique), length)
 
-data['Location'] <- factor(data$Location)
+# data["Location"] <- factor(data$Location)
 
-
-data[c('RainToday', 'RainTomorrow')][data[c('RainToday', 'RainTomorrow')] == "No"] <-
+data[c("RainToday", "RainTomorrow")][data[c("RainToday", "RainTomorrow")] == "No"] <-
   "0"
-data[c('RainToday', 'RainTomorrow')][data[c('RainToday', 'RainTomorrow')] == "Yes"] <-
+data[c("RainToday", "RainTomorrow")][data[c("RainToday", "RainTomorrow")] == "Yes"] <-
   "1"
 
 data$RainToday <- as.integer(data$RainToday)
@@ -25,9 +34,11 @@ data$RainTomorrow <- as.integer(data$RainTomorrow)
 data <- data %>%
   mutate(year = year(Date), month = month(Date))
 
+# fill NA with 0
 fillNA <- data[, c(1, 3:7, 9, 12:21)]
 fillNA[is.na(fillNA)] <- 0
 
+# fill NA with month median
 fillNA <- fillNA %>%
   mutate(year = year(Date), month = month(Date)) %>%
   group_by(year, month) %>%
@@ -61,8 +72,9 @@ for (i in 1:16) {
   data[name_x[i]][ind, ] <- pull(data[name_y[i]])[ind]
 }
 
+# split data into training and testing
 data <- data[, 2:23]
-sample_ind <- sample(c(1:dim(data)[1]), dim(data)[1] * 0.8)
+sample_ind <- sample(c(1:dim(data)[1]), dim(data)[1] * 0.6)
 data_train <- data %>%
   slice(sample_ind)
 
@@ -73,14 +85,21 @@ data_test <- data %>%
 
 sapply(lapply(data_test, unique), length)
 
-levels(data_train$Location)
+# levels(data_train$Location)
 
+# Null model
 null <- glm(RainTomorrow ~ 1,
-            family = binomial(link = "logit"),
-            data = data)
-full <-  glm(RainTomorrow ~ .,
-             family = binomial(link = "logit"),
-             data = data)
+  family = binomial(link = "logit"),
+  data = data
+)
+
+# Full Model
+full <- glm(RainTomorrow ~ .,
+  family = binomial(link = "logit"),
+  data = data
+)
+
+# Stepwise model selection
 step(
   full,
   scope = list(lower = null, upper = full),
