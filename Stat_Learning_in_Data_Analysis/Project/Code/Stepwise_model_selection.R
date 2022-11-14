@@ -10,14 +10,12 @@ data <-
 
 # Drop rows with missing values
 data <- data %>%
-  drop_na(
-    "RainToday",
-    "RainTomorrow",
-    "Location",
-    "WindGustDir",
-    "WindDir9am",
-    "WindDir3pm"
-  )
+  drop_na("RainToday",
+          "RainTomorrow",
+          "Location",
+          "WindGustDir",
+          "WindDir9am",
+          "WindDir3pm")
 
 sapply(lapply(data, unique), length)
 
@@ -69,7 +67,7 @@ name_y <- names(data)[c(26:41)]
 
 for (i in 1:16) {
   ind <- is.na(data[name_x[i]])[, 1]
-  data[name_x[i]][ind, ] <- pull(data[name_y[i]])[ind]
+  data[name_x[i]][ind,] <- pull(data[name_y[i]])[ind]
 }
 
 # split data into training and testing
@@ -89,20 +87,15 @@ sapply(lapply(data_test, unique), length)
 
 # Null model
 null <- glm(RainTomorrow ~ 1,
-  family = binomial(link = "logit"),
-  data = data
-)
+            family = binomial(link = "logit"),
+            data = data)
 
 # Full Model
 full <- glm(RainTomorrow ~ .,
-  family = binomial(link = "logit"),
-  data = data
-)
+            family = binomial(link = "logit"),
+            data = data)
 
 # Stepwise model selection
-step(
-  full,
-  scope = list(lower = null, upper = full),
-  direction = "both",
-  criterion = "AIC"
-)
+stepwise <- step(null,
+                 direction = 'both',
+                 scope = formula(full))
