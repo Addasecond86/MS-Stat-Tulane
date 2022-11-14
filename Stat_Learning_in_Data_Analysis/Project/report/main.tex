@@ -9,6 +9,8 @@
 \usepackage{amsmath}
 \usepackage{float}
 
+\usepackage{longtable}
+
 \addbibresource{Ref.bib}
 
 \leftheader{ZEHAO WANG}
@@ -21,12 +23,15 @@
 \course{BIOS-7650 Statistical Learning in Data Science}
 \professor{Dr.\ Li. }
 \duedate{\today}
-\abstract{In this report, we use the weather dataset from \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{Kaggle} to predict the weather. We first modeled the data with logistic regression, achieving an accuracy of about $85.365\%$ on the test set. Then the SVM with kernel trick was used, achieving $85.272\%$ accuracy on the same test set. Finally, we used the current mainstream method of machine learning, neural networks, to achieve an accuracy of $85.9995\%$. And the code can be found in \href{https://github.com/Addasecond86/MS-Stat-Tulane/tree/main/Stat_Learning_in_Data_Analysis/Project/Code}{Github}. 
+\abstract{Whether it rains or not has the most direct impact on our daily life, therefore, the weather forecast is particularly important for us. The traditional approach to predict raining is to use computers combined with satellite cloud maps to solve a set of dynamical system equations\cite{teague2017evolution}. However, since the 21st century, the statistical learning approach has gradually become mainstream. Therefore, in this report, We try to use statistical learning methods (logistc regression, SVM and neural networks) to predict the weather. 
+On the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} dataset, we achieved an accuracy of about $85\%$ using these three statistical learning methods. This result is slightly higher than the current weather forecast accuracy (\href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{forecasting accuracy in New Orleans}). And the code can be found in \href{https://github.com/Addasecond86/MS-Stat-Tulane/tree/main/Stat_Learning_in_Data_Analysis/Project/Code}{Github}. 
 }
 \begin{document}
 \maketitle
 \section{Methods}
-Before we start fitting the data, we first need to clean it. For missing value, I dropped the subjects that had missing values in the variables \emph{RainToday} and \emph{RainTomorrow}. Because I have no good idea to fill in the missing values in these two variables. And I also dropped the subjects that contains missing value in categorical variables. For other continuous variables, it is not appropriate to fill the missing values with $0$, because variables such as temperature and barometric pressure cannot be $0$ even if they are missing. So I use the median of the current month to substitute the missing values of these continuous variables. 
+
+The dataset we use is the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} on Kaggle, It contains data on different weather indicators (e.g. temperature, humidity, wind direction, etc.) and whether it rained the next day for various regions of Australia for almost a decade, from October 2007 to June 2017. Before we make a prediction, the first thing we need to do is to clean the data. 
+For missing value, I dropped the subjects that had missing values in the variables \emph{RainToday} and \emph{RainTomorrow}. And I also dropped the subjects that contains missing value in categorical variables. For other continuous variables, it is not appropriate to fill the missing values with $0$, because variables such as temperature and barometric pressure cannot be $0$ even if they are missing. So I use the median of the current month to substitute the missing values of these continuous variables. 
 \subsection{Logistic Regression}
     Logistic regression\cite{Berkson1944} is widely used in binary classification problems. Assume $p$ is the probability of rain tomorrow, then, for logistic regression, we have
     \begin{equation}
@@ -41,7 +46,7 @@ Before we start fitting the data, we first need to clean it. For missing value, 
     \end{equation}
     And $k$ is the number of estimated parameters in the model, $\hat{L}$ is the maximized value of the likelihood function for the model. So, the preferred model is the one with the minimum AIC value. 
 
-    We also used Principal Component Analysis (PCA)\cite{Pearson1901} to extract features from the data. PCA is a method of reducing the dimensionality of data by transformation, which assumes that variables with higher variance carry more information. By reducing the dimensionality, we expect a significant increase in the classification accuracy. And because the absolute values of the variables are too different from each other, such as temperature and pressures. One is $20$, the other is more than $1000$. So, we should first transform the variables by \ref{eq:trans} and map them all to [0,1]. 
+    We also used Principal Component Analysis (PCA)\cite{Pearson1901} to extract features from the data. PCA is a method of reducing the dimensionality of data by transformation, which assumes that variables with higher variance carry more information. By reducing the dimensionality, we expect a significant increase in the classification accuracy. And because the absolute values of the variables are too different from each other, we should first transform the variables by (\ref{eq:trans}) to map them all to $[0,1]$. 
     \begin{equation}
         \label{eq:trans}
         X_{new} = \frac{X - X_{\min}}{X_{\max}- X_{\min}}
@@ -60,7 +65,7 @@ Before we start fitting the data, we first need to clean it. For missing value, 
     For nonlinear data sets, we can use the kernel trick to map the original data to the projection space. After that, we can separate them in the higher dimensional projection space using a linear hyperplane. By introducing different kernel functions, we can project them into different spaces. The common kernel functions are polynomial kernel functions and Gaussian kernel functions. 
 
 \subsection{Neural Network}
-    In the 21st century, network-based approaches are undoubtedly the mainstream of machine learning. Considering the complexity of the data, we only use a simple fully connected network with two hidden layers. Its structure is shown in figure \ref{fig:NN}. In this network, the activation functions of both fully connected hidden layers are ReLU\cite{Lu2020}, and it is shown as \ref{eq:ReLU}. It can solve the gradient disappearance or explosion problem in some extent. 
+    In the 21st century, network-based approaches are undoubtedly the mainstream of machine learning. Considering the complexity of the data, we only use a simple fully connected network with two hidden layers. Its structure is shown in Figure~(\ref{fig:NN}). In this network, the activation functions of both fully connected hidden layers are ReLU\cite{Lu2020} (\ref{eq:ReLU}). It can solve the gradient disappearance or explosion problem in some extent. 
     \begin{equation}
         \label{eq:ReLU}
         ReLU(x) = \max(0,x)
@@ -70,7 +75,7 @@ Before we start fitting the data, we first need to clean it. For missing value, 
         \label{eq:sigmoid}
         Sigmoid(x) = \frac{1}{1+e^{-x}}
     \end{equation}
-    The optimization algorithm for neural network parameters is Backpropagation\cite{goodfellow20166}. It uses the chain derivative rule to complete the update of the parameters. Since we are dealing with a binary classification problem, we use binary cross-entropy as the loss function. 
+    The optimization algorithm for neural network parameters is Backpropagation\cite{goodfellow20166}. It uses the chain derivative rule to complete the update of the parameters. Since we are dealing with a binary classification problem, we use binary cross-entropy (\ref{eq:binary cross_entropy}) as the loss function. 
     \begin{equation}
         \label{eq:binary cross_entropy}
         L = -\frac{1}{n}\sum_{i=1}^{n}(y_i\ln(p_i)+(1-y_i)\ln(1-p_i))
@@ -80,30 +85,34 @@ Before we start fitting the data, we first need to clean it. For missing value, 
 \section{Results}
 
 \subsection{Logistic Regression}
-    Using $60\%$ as training set and $40\%$ as test set, logistic regression model with all the variables except the date has an accuracy of $85.365\%$ on the test set. And the accuracy on train set is $85.325\%$. The Confusion matrix is shown in figure~\ref{fig:logistic_confusion}. The accuracy and recall of this model are shown in table~\ref{tab:logistic_summary}. It can be seen that the accuracy ($0.88$) and recall ($0.95$) of the model are quite high with \emph{RainTomorrow} as \emph{No}. But it doesn't do well on data with \emph{RainTomorrow} as \emph{Yes}. 
+    Using $60\%$ as training set and $40\%$ as test set, logistic regression model with all the variables except the date has an accuracy of $85.365\%$ on the test set. And the accuracy on train set is $85.325\%$. The Confusion matrix is shown in Figure~(\ref{fig:logistic_confusion}). The accuracy and recall of this model are shown in Table~(\ref{tab:logistic_summary}). It can be seen that the accuracy ($0.88$) and recall ($0.95$) of the model are quite high with \emph{RainTomorrow} as \emph{No}. But it doesn't do well on data with \emph{RainTomorrow} as \emph{Yes}. 
 
-    Next, we start from the full model and use AIC as a criterion to see if any variables can be excluded. The full process of stepwise is shown in table~\ref{tab:model_selection_aic}. Unfortunately, the AIC value of the full model is the smallest, so we cannot exclude any variables. 
+    Next, we start from the full model and use AIC as a criterion to see if any variables can be excluded. The full process of stepwise is shown in Table~(\ref{tab:model_selection_aic}). Unfortunately, the AIC value of the full model is the smallest, so we cannot exclude any variables. 
 
 \subsection{SVM}
-Similarly, the data is divided by $60\%$ training set and $40\%$ test set. Using the SVM without kernel trick, the accuracy obtained on the test set is $85.272\%$. And the training accuracy is $85.170\%$. This result is basically the same as the logistic regression. It also shows that some of the data in our dataset are linearly inseparable. Its confusion matrix is shown in figure~\ref{fig:SVM_confusion}, and the accuracy and recall are shown in table~\ref{tab:SVM_summary}; It can also be seen that SVM has no improvement over logistic regression. 
+We used the same training and testing data on this method. Using SVM without kernel trick, the accuracy obtained on the test set is $85.272\%$. And the training accuracy is $85.170\%$. This result is basically the same as the logistic regression. It also shows that some of the data in our dataset are linearly inseparable. Its confusion matrix is shown in Figure~(\ref{fig:SVM_confusion}), and the accuracy and recall are shown in Table~(\ref{tab:SVM_summary}); It can also be seen that SVM has no improvement over logistic regression. 
 
-The reason for no improvement in classification accuracy may be that the data itself is linearly inseparable. So we try to introduce two kernel functions (polynomial and Gaussian). The results are shown in figure~\ref{fig:SVM_poly_confusion}, \ref{fig:SVM_gauss_confusion} and table~\ref{tab:SVM_poly_summary}, \ref{tab:SVM_gauss_summary}. However, based on the classification results, the accuracy of both methods on the test set is slightly lower. This is probably because the two kernel functions cannot separate these two classes of data. 
+The reason for no improvement in classification accuracy may be that the data itself is linearly inseparable. So we try to introduce two kernel functions (polynomial and Gaussian). The results are shown in Figure~(\ref{fig:SVM_poly_confusion}), (\ref{fig:SVM_gauss_confusion}) and Table~(\ref{tab:SVM_poly_summary}), (\ref{tab:SVM_gauss_summary}). However, based on the classification results, the accuracy of both methods on the test set is slightly lower. This is probably because the two kernel functions cannot separate these two classes of data. 
 
-However, in general, SVM should perform better, so we tried to use PCA to extract features first, and then use the model to classify the data. Using PCA, we chose to retain $85\%$ of the information, and we reduced the original 114-dimensional data to 64 dimensions. The classification results on this data are shown in table \ref{tab:Logit_PCA_summary}, \ref{tab:SVM_PCA_summary}, \ref{tab:SVM_poly_PCA_summary}, \ref{tab:SVM_gauss_PCA_summary}. 
-Unfortunately, however, these results indicate that there is no significant increase in accuracy on the test set. Unfortunately, however, these results indicate that the accuracy on the test set does not increase, but decreases slightly. At the same time, several SVM-based models show a further increase in training accuracy (SVM polynomial, train accuracy: $87.048\%$, test accuracy: $84.377\%$; SVM gaussian: train accuracy: $86.711\%$, test accuracy: $84.789\%$), but a decrease in test accuracy, indicating that overfitting has occurred. This indicates that PCA cannot lead to further improvement of accuracy. 
+However, in general, SVM should perform better, so we tried to use PCA to extract features first, and then use the model to classify the data. Using PCA, we chose to retain $85\%$ of the information, and we reduced the original 114-dimensional data to 64 dimensions. The classification results on this data are shown in Table~(\ref{tab:Logit_PCA_summary}), (\ref{tab:SVM_PCA_summary}), (\ref{tab:SVM_poly_PCA_summary}), (\ref{tab:SVM_gauss_PCA_summary}). 
+Unfortunately, however, these results indicate that the accuracy on the test set does not increase, but decreases slightly. At the same time, SVM models with kernel trick show a further increase in training accuracy (SVM polynomial, train accuracy: $87.048\%$, test accuracy: $84.377\%$; SVM gaussian: train accuracy: $86.711\%$, test accuracy: $84.789\%$), but a decrease in test accuracy, indicating that overfitting has occurred. This means that PCA cannot lead to further improvement of accuracy. 
 
 
 
 \subsection{Neural Network}
-We mapped the data to $(0,1)$ and started training. First, the network was trained with ¥ Epochs. The loss of the model on the test set and the loss on the validation set during the training process are shown in figure \ref{fig:NN_process_50}. It can be seen that, although the training loss keeps decreasing, the loss on the validation set stops decreasing after $20$ Epochs. It even starts to increase after $30$ Epochs. This indicates that the overfitting starts after $20$ Epochs. Therefore, we retrain a network with only $20$ Epochs. And the training process is shown as figure \ref{fig:NN_process_20}. It can be seen from the figure that no overfitting has occurred. The performance of this network on the test set is shown in figure \ref{fig:FC_confusion_matrix} and table \ref{tab:FC_summary}. In the end, we obtained an accuracy of $85.9995\%$ on the test set. This accuracy is a little higher than either logistic regression or SVM. 
+We used the same training and testing data and mapped the data to $(0,1)$ and started training. First, the network was trained with $50$ Epochs. The loss of the model on the test set and the loss on the validation set during the training process are shown in Figure~(\ref{fig:NN_process_50}). It can be seen that, although the training loss keeps decreasing, the loss on the validation set stops decreasing after $20$ Epochs. It even starts to increase after $30$ Epochs. This indicates that the overfitting starts after $20$ Epochs. Therefore, we retrain a network with only $20$ Epochs. And the training process is shown as Figure~(\ref{fig:NN_process_20}). It can be seen from the figure that no overfitting has occurred. The performance of this network on the test set is shown in Figure~(\ref{fig:FC_confusion_matrix}) and Table~(\ref{tab:FC_summary}). In the end, we obtained an accuracy of $85.9995\%$ on the test set. This accuracy is a little higher than either logistic regression or SVM. 
 
 \section{Discussion}
 
-As you can see, we use three different approaches. But the results are basically the same, that is, we can only achieve an accuracy of less than $86\%$ at most. This seems very frustrating, because it means that the error rate has about $15\%$. This means that on average we will be wrong one day out of a week. 
+As you can see, we use three different approaches. But the results are basically the same, that is, we can only achieve an accuracy of less than $86\%$ at most. This seems very frustrating, because the error rate is about $15\%$. This means that on average the prediction will be wrong one day out of a week. 
 
-However, this is about the level of accuracy of current weather predictions. You can see the accuracy of the weather predictions for New Orleans last year on this \href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{website}. As shown in figure \ref{fig:weather_prediction_nola}, this website shows that the highest channel for 2021 weather prediction accuracy in the New Orleans area is just $85\%$. 
+However, this is about the level of accuracy of current weather predictions. You can see the accuracy of the weather predictions for New Orleans last year on this \href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{website}. As shown in Figure~(\ref{fig:weather_prediction_nola}, this website shows that the highest channel for 2021 weather prediction accuracy in the New Orleans area is just $85\%$. 
 
-In addition, we can see that the accuracy and recall of the three models are relatively high for the forecast of not raining. For the forecast of raining, the accuracy and recall are lower. This means that when the weather prediction says it will not rain, then it is very likely that it will not rain. But when the prediction says it will rain, then there is also a chance that it will not rain. Therefore, we can see that weather prediction nowadays does not predict whether raining or not directly, but uses a rainfall probability instead. 
+In addition, we can see that the accuracy and recall of the three models are higher for not raining than raining. This means that when the weather prediction says it will not rain, then it is very likely that it will not rain. But when the prediction says it will rain, then there is also a chance that it will not rain. Therefore, to avoid the second case of error, which occurs more frequently, the weather forecast is now given in the form of rainfall probabilities. 
+
+On the other hand, due to the interpretability of the logistic regression model, we can see which variable causes the most significant change in the probability of raining after mapping each variable to $[0,1]$. The first 13 coefficients with the largest absolute values are shown in Table~(\ref{tab:rank_coef}). From the table, we can see that the pressure at 3pm is negatively correlated with raining, while the wind speed and the humidity at 3pm are positively correlated. 
+
+Finally, for further improvement, the date variable could be added to turn our data into a time series. On this basis, it might be useful to consider adding periodic factors such as seasonality to the forecasting model. Also, interactions can be introduced in the logistic regression model. 
 
 \printbibliography 
 \clearpage
@@ -111,7 +120,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
 \section{Figures and Tables}
 \begin{figure}[h]
     \centering
-    \caption{Confusion matrix of logistic regression model}\label{fig:logistic_confusion}
+    \caption{Confusion matrix of logistic regression model. $0$ means not raining and $1$ means raining. And darker colors indicate larger numbers. }\label{fig:logistic_confusion}
     \includegraphics[width=.45\textwidth]{figures/Logit_confusion_matrix.eps}
 \end{figure}
 
@@ -135,7 +144,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{table}[h]
     \centering
-    \caption{Logistic regression model summary}
+    \caption{Classification results of logistic regression models on the test set. }
     \label{tab:logistic_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
@@ -152,7 +161,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{table}[h]
     \centering
-    \caption{SVM summary}
+    \caption{Classification results of SVM on the test set. }
     \label{tab:SVM_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
@@ -169,7 +178,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{table}[h]
     \centering
-    \caption{SVM with polynomial kernel function summary}
+    \caption{Classification results of SVM with polynomial kernel function on the test set. }
     \label{tab:SVM_poly_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
@@ -186,7 +195,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{table}[h]
     \centering
-    \caption{SVM with gaussian kernel function summary}
+    \caption{Classification results of SVM with gaussian kernel function on the test set. }
     \label{tab:SVM_gauss_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
@@ -203,7 +212,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
     
 \begin{table}[h]
     \centering
-    \caption{Model selection for logistic regression with AIC as criterion}
+    \caption{Model selection for logistic regression with AIC as criterion. Full model has the smallest AIC. }
     \label{tab:model_selection_aic}
     \begin{tabular}{lrrr}
     \hline
@@ -235,7 +244,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{table}[h]
     \centering
-    \caption{Logistic regression model using PCA summary}
+    \caption{Classification results of Logistic regression model using PCA on the test set. }
     \label{tab:Logit_PCA_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
@@ -252,7 +261,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{table}[h]
     \centering
-    \caption{SVM using PCA summary}
+    \caption{Classification results of SVM using PCA on the test set. }
     \label{tab:SVM_PCA_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
@@ -269,7 +278,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{table}[h]
     \centering
-    \caption{SVM with polynomial kernel function and using PCA summary}
+    \caption{Classification results of SVM with polynomial kernel function and using PCA on the test set. }
     \label{tab:SVM_poly_PCA_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
@@ -286,7 +295,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{table}[h]
     \centering
-    \caption{SVM with gaussian kernel function and using PCA summary}
+    \caption{Classification results of SVM with gaussian kernel function and using PCA on the test set. }
     \label{tab:SVM_gauss_PCA_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
@@ -309,7 +318,7 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{figure}[h]
     \centering
-    \caption{Training process with epoch $=$ 50. }\label{fig:NN_process_50}
+    \caption{Training process with epoch $=$ 50. It can be seen that overfitting has occurred. }\label{fig:NN_process_50}
     \includegraphics[width=.45\textwidth]{figures/error_50.eps}
 \end{figure}
 
@@ -321,13 +330,13 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{figure}[h]
     \centering
-    \caption{Confusion matrix of Neural Network}\label{fig:FC_confusion_matrix}
+    \caption{Confusion matrix of Neural Network.}\label{fig:FC_confusion_matrix}
     \includegraphics[width=.45\textwidth]{figures/FC_confusion_matrix.eps}
 \end{figure}
 
 \begin{table}[h]
     \centering
-    \caption{Neural Network summary}
+    \caption{Classification results of Neural Network on the test set. }
     \label{tab:FC_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
@@ -344,8 +353,31 @@ In addition, we can see that the accuracy and recall of the three models are rel
 
 \begin{figure}[h]
     \centering
-    \caption{Weather prediction accuracy for New Orleans in 2021}\label{fig:weather_prediction_nola}
+    \caption{Weather prediction accuracy for New Orleans in 2021. The highest one has an accuracy of $84.92\%$. }\label{fig:weather_prediction_nola}
     \includegraphics[width=.55\textwidth]{figures/Weather2021.png}
 \end{figure}
+
+\begin{table}[h]
+\centering
+\caption{The first 13 variables with the largest absolute value of the coefficient}
+\label{tab:rank_coef}
+\begin{tabular}{lrr}
+\hline
+Variables             & Coef   & AbsCoef \\ \hline
+Pressure3pm           & -9.583 & 9.583   \\
+WindGustSpeed         & 7.243  & 7.243   \\
+Humidity3pm           & 6.232  & 6.232   \\
+Pressure9am           & 5.913  & 5.913   \\
+MaxTemp               & -2.384 & 2.384   \\
+WindSpeed3pm          & -1.947 & 1.947   \\
+Rainfall              & 1.899  & 1.899   \\
+Temp3pm               & 1.523  & 1.523   \\
+Sunshine              & -1.479 & 1.479   \\
+Location\_MountGinini & -1.086 & 1.086   \\
+Cloud3pm              & 1.074  & 1.074   \\
+MinTemp               & 1.048  & 1.048   \\
+Temp9am               & 1.022  & 1.022   \\ \hline
+\end{tabular}
+\end{table}
 
 \end{document}
