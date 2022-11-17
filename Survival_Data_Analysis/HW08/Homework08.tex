@@ -208,11 +208,34 @@ RUN;
             \end{center}
         \end{enumerate}
         \item \begin{enumerate}[(a)]
-            \item We could see that these two lines are generally parallel, which the proportional hazards assumption is fine. 
+            \item \begin{minted}[frame=lines,
+                framesep=2mm,
+                baselinestretch=1.2,
+                bgcolor=LightGray,
+                fontsize=\footnotesize]{SAS}
+DATA HW8_2; SET HW8;
+IF BMI <= 25 THEN Group = 0;
+IF BMI > 25 THEN Group = 1;
+PROC LIFETEST DATA=HW8_2 METHOD=km PLOT = LLS;
+TIME LENFOL*FSTAT(0);
+STRATA Group;
+RUN;
+            \end{minted}
+            We could see that these two lines are generally parallel, which the proportional hazards assumption is fine. 
             \begin{center}
                 \includegraphics[width=.6\textwidth]{q3a.png}
             \end{center}
-            \item From the results, we can see that $p$-$value=0.2123>0.05$, which means $\beta_1$ is not time varying. 
+            \item \begin{minted}[frame=lines,
+                framesep=2mm,
+                baselinestretch=1.2,
+                bgcolor=LightGray,
+                fontsize=\footnotesize]{SAS}
+PROC PHREG DATA = HW8 zph (global TRANSFORM=log);
+CLASS GENDER CHF; 
+MODEL LENFOL*FSTAT(0) = BMI GENDER AGE HR DIASBP CHF;
+RUN;
+            \end{minted}
+            From the results, we can see that $p$-$value=0.2123>0.05$, which means $\beta_1$ is not time varying. 
             \begin{center}
                 \includegraphics[width=.6\textwidth]{q3b1.png}
                 \includegraphics[width=.6\textwidth]{q3b2.png}

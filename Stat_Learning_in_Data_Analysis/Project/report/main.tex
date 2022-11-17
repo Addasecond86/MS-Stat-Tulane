@@ -23,15 +23,13 @@
 \course{BIOS-7650 Statistical Learning in Data Science}
 \professor{Dr.\ Li. }
 \duedate{\today}
-\abstract{Whether it rains or not has the most direct impact on our daily life, therefore, the weather forecast is particularly important for us. The traditional approach to predict raining is to use computers combined with satellite cloud maps to solve a set of dynamical system equations\cite{teague2017evolution}. However, since the 21st century, the statistical learning approach has gradually become mainstream. Therefore, in this report, We try to use statistical learning methods (logistc regression, SVM and neural networks) to predict the weather. 
+\abstract{Whether it rains or not has the most direct impact on our daily life, therefore, the weather forecast is particularly important for us. The traditional approach to predict raining is to use computers combined with satellite cloud maps to solve a set of dynamical system equations\cite{teague2017evolution}. However, since the 21st century, the statistical learning approach has gradually become mainstream. Therefore, in this report, we try to use statistical learning methods (logistc regression, SVM and neural networks) to predict the weather. 
 On the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} dataset, we achieved an accuracy of about $85\%$ using these three statistical learning methods. This result is slightly higher than the current weather forecast accuracy (\href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{forecasting accuracy in New Orleans}). And the code can be found in \href{https://github.com/Addasecond86/MS-Stat-Tulane/blob/main/Stat_Learning_in_Data_Analysis/Project/Code/Project_code.ipynb}{Github}. 
 }
 \begin{document}
 \maketitle
 \section{Methods}
-
-The dataset we use is the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} on Kaggle, It contains data on different weather indicators (e.g. temperature, humidity, wind direction, etc.) and whether it rained the next day for various regions of Australia for almost a decade, from October 2007 to June 2017. Before we make a prediction, the first thing we need to do is to clean the data. 
-For missing value, I dropped the subjects that had missing values in the variables \emph{RainToday} and \emph{RainTomorrow}. And I also dropped the subjects that contains missing value in categorical variables. For other continuous variables, it is not appropriate to fill the missing values with $0$, because variables such as temperature and barometric pressure cannot be $0$ even if they are missing. So I use the median of the current month to substitute the missing values of these continuous variables. 
+The dataset we use is the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} on Kaggle. It contains different weather indicators (e.g. temperature, humidity, wind direction, etc.) and whether it rained the next day for various regions of Australia for almost a decade, from October 2007 to June 2017. Before we make a prediction, the first thing we need to do is to clean the data. First, I dropped the subjects that had missing values in the variables \emph{RainToday} and \emph{RainTomorrow}. And I also dropped the subjects that contains missing value in categorical variables. For other continuous variables, it is not appropriate to fill the missing values with $0$, because variables such as temperature and barometric pressure cannot be $0$ even if they are missing. So I use the median of the current month to substitute the missing values of these continuous variables. 
 \subsection{Logistic Regression}
     Logistic regression\cite{Berkson1944} is widely used in binary classification problems. Assume $p$ is the probability of rain tomorrow, then, for logistic regression, we have
     \begin{equation}
@@ -39,7 +37,7 @@ For missing value, I dropped the subjects that had missing values in the variabl
     \end{equation}
     And we can estimate the coefficients $\beta_i$ by maximum likelihood estimation. 
 
-    We first use all the variables except the date as predictor variables to predict whether it will rain tomorrow. Further, we use stepwise to explore whether the model can be further optimized. Akaike information criterion (AIC)\cite{Akaike1974} was used to see if any of the variables can be eliminated. AIC is a measure of the relative quality of statistical models for a given set of data. It is defined as following: 
+    We first use all the variables except the date and interactions as predictor variables to predict whether it will rain tomorrow. Further, we use stepwise to explore whether the model can be further optimized. Akaike information criterion (AIC)\cite{Akaike1974} was used to see if any of the variables can be eliminated. AIC is a measure of the relative quality of statistical models for a given set of data. It is defined as following: 
     \begin{equation}
         \label{eq:AIC}
         {AIC} \,=\,2k-2\ln({\hat {L}}). 
@@ -49,10 +47,10 @@ For missing value, I dropped the subjects that had missing values in the variabl
     We also used Principal Component Analysis (PCA)\cite{Pearson1901} to extract features from the data. PCA is a method of reducing the dimensionality of data by transformation, which assumes that variables with higher variance carry more information. By reducing the dimensionality, we expect a significant increase in the classification accuracy. And because the absolute values of the variables are too different from each other, we should first transform the variables by (\ref{eq:trans}) to map them all to $[0,1]$. 
     \begin{equation}
         \label{eq:trans}
-        X_{new} = \frac{X - X_{\min}}{X_{\max}- X_{\min}}
+        X_{new} = \frac{X - X_{\min}}{X_{\max}- X_{\min}}. 
     \end{equation}
 \subsection{SVM}
-    Support Vector Machine (SVM) is a better method than logistic regression, it tries to maximize the margin between two different classes of data points. So it will have much lower risk on the test set. The optimization objectives of SVM are as follows: 
+    Support Vector Machine (SVM) is a better method than logistic regression, it tries to maximize the margin between two different classes of data points. So it will have much lower risk on the test set. The optimization objectives of SVM are as following:  
     \begin{equation}
         \min_{|w|}\ y_{i}(\mathbf {w} ^{\mathsf {T}}\mathbf {x} _{i}-b)\geq 1,\ i=1, \cdots, n
     \end{equation}
@@ -62,7 +60,7 @@ For missing value, I dropped the subjects that had missing values in the variabl
     \end{equation}
     After that, we can transform it into a dual problem and then estimate the parameters by gradient descent. 
 
-    For nonlinear data sets, we can use the kernel trick to map the original data to the projection space. After that, we can separate them in the higher dimensional projection space using a linear hyperplane. By introducing different kernel functions, we can project them into different spaces. The common kernel functions are polynomial kernel functions and Gaussian kernel functions. 
+    For nonlinear data sets, we can use the kernel trick to map the original data to the projection space. And in projection space, we can separate them using a linear hyperplane. By using different kernel functions, we can project them into different spaces. The common kernel functions are polynomial kernel functions and Gaussian kernel functions. 
 
 \subsection{Neural Network}
     In the 21st century, network-based approaches are undoubtedly the mainstream of machine learning. Considering the complexity of the data, we only use a simple fully connected network with two hidden layers. Its structure is shown in Figure~(\ref{fig:NN}). In this network, the activation functions of both fully connected hidden layers are ReLU\cite{Lu2020} (\ref{eq:ReLU}). It can solve the gradient disappearance or explosion problem in some extent. 
@@ -100,15 +98,15 @@ Unfortunately, however, these results indicate that the accuracy on the test set
 
 
 \subsection{Neural Network}
-We used the same training and testing data and mapped the data to $(0,1)$ and started training. First, the network was trained with $50$ Epochs. The loss of the model on the test set and the loss on the validation set during the training process are shown in Figure~(\ref{fig:NN_process_50}). It can be seen that, although the training loss keeps decreasing, the loss on the validation set stops decreasing after $20$ Epochs. It even starts to increase after $30$ Epochs. This indicates that the overfitting starts after $20$ Epochs. Therefore, we retrain a network with only $20$ Epochs. And the training process is shown as Figure~(\ref{fig:NN_process_20}). It can be seen from the figure that no overfitting has occurred. The performance of this network on the test set is shown in Figure~(\ref{fig:FC_confusion_matrix}) and Table~(\ref{tab:FC_summary}). In the end, we obtained an accuracy of $85.9995\%$ on the test set. This accuracy is a little higher than either logistic regression or SVM. 
+We used the same training and testing data and mapped the data to $(0,1)$ and started training. First, the network was trained with $50$ Epochs. The loss of the model on the test set and the loss on the validation set during the training process are shown in Figure~(\ref{fig:NN_process_50}). It can be seen that, although the training loss keeps decreasing, the loss on the validation set stops decreasing after $20$ Epochs. Then, we can see that it even starts to increase after $30$ Epochs. This indicates that the overfitting starts after $20$ Epochs. So, we retrain a $20$ Epochs network. And the training process is shown as Figure~(\ref{fig:NN_process_20}). It can be seen from the figure that overfitting has not occurred. The performance of this network on the test set is shown in Figure~(\ref{fig:FC_confusion_matrix}) and Table~(\ref{tab:FC_summary}). In the end, we obtained an accuracy of $85.9995\%$ on the test set. This accuracy is a little higher than either logistic regression or SVM. 
 
 \section{Discussion}
 
 As you can see, we use three different approaches. But the results are basically the same, that is, we can only achieve an accuracy of less than $86\%$ at most. This seems very frustrating, because the error rate is about $15\%$. This means that on average the prediction will be wrong one day out of a week. 
 
-However, this is about the level of accuracy of current weather predictions. You can see the accuracy of the weather predictions for New Orleans last year on this \href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{website}. As shown in Figure~(\ref{fig:weather_prediction_nola}, this website shows that the highest channel for 2021 weather prediction accuracy in the New Orleans area is just $85\%$. 
+However, this is about the level of accuracy of current weather predictions. You can see the accuracy of the weather predictions for New Orleans last year on this \href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{website}. As shown in Figure~(\ref{fig:weather_prediction_nola}), this website shows that the highest channel for 2021 weather prediction accuracy in the New Orleans area is just $84.92\%$. 
 
-In addition, we can see that the accuracy and recall of the three models are higher for not raining than raining. This means that when the weather prediction says it will not rain, then it is very likely that it will not rain. But when the prediction says it will rain, then there is also a chance that it will not rain. Therefore, to avoid the second case of error, which occurs more frequently, the weather forecast is now given in the form of rainfall probabilities. 
+In addition, we can see that the accuracy and recall of the three models are higher for not raining weather than raining weather. This means that when the weather prediction says it will not rain, then it is very likely that it will not rain. But when the prediction says it will rain, then there is also a chance that it will not rain. Therefore, to avoid the second error case, which occurs more frequently, the weather forecast is now given in the form of rainfall probabilities. 
 
 On the other hand, due to the interpretability of the logistic regression model, we can see which variable causes the most significant change in the probability of raining after mapping each variable to $[0,1]$. The first 13 coefficients with the largest absolute values are shown in Table~(\ref{tab:rank_coef}). From the table, we can see that the pressure at 3pm is negatively correlated with raining, while the wind speed and the humidity at 3pm are positively correlated. 
 
@@ -126,19 +124,19 @@ Finally, for further improvement, the date variable could be added to turn our d
 
 \begin{figure}[h]
     \centering
-    \caption{Confusion matrix of SVM}\label{fig:SVM_confusion}
+    \caption{Confusion matrix of SVM. }\label{fig:SVM_confusion}
     \includegraphics[width=.45\textwidth]{figures/SVM_confusion_matrix.eps}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \caption{Confusion matrix of SVM with polynomial kernel function}\label{fig:SVM_poly_confusion}
+    \caption{Confusion matrix of SVM with polynomial kernel function. }\label{fig:SVM_poly_confusion}
     \includegraphics[width=.45\textwidth]{figures/SVM_poly_confusion_matrix.eps}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \caption{Confusion matrix of SVM with gaussian kernel function}\label{fig:SVM_gauss_confusion}
+    \caption{Confusion matrix of SVM with gaussian kernel function. }\label{fig:SVM_gauss_confusion}
     \includegraphics[width=.45\textwidth]{figures/SVM_gauss_confusion_matrix.eps}
 \end{figure}
 
@@ -244,7 +242,7 @@ Finally, for further improvement, the date variable could be added to turn our d
 
 \begin{table}[h]
     \centering
-    \caption{Classification results of Logistic regression model using PCA on the test set. }
+    \caption{Classification results of logistic regression model using PCA on the test set. }
     \label{tab:Logit_PCA_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
@@ -312,25 +310,25 @@ Finally, for further improvement, the date variable could be added to turn our d
 
 \begin{figure}[h]
     \centering
-    \caption{Neural network structure}\label{fig:NN}
+    \caption{Neural network structure. }\label{fig:NN}
     \includegraphics[width=.3\textwidth]{figures/Network_structure.png}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \caption{Training process with epoch $=$ 50. It can be seen that overfitting has occurred. }\label{fig:NN_process_50}
+    \caption{Training process with epoch $=50$. It can be seen that overfitting has occurred. }\label{fig:NN_process_50}
     \includegraphics[width=.45\textwidth]{figures/error_50.eps}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \caption{Training process with epoch $=$ 20. }\label{fig:NN_process_20}
+    \caption{Training process with epoch $=20$. }\label{fig:NN_process_20}
     \includegraphics[width=.45\textwidth]{figures/error_20.eps}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \caption{Confusion matrix of Neural Network.}\label{fig:FC_confusion_matrix}
+    \caption{Confusion matrix of Neural Network. }\label{fig:FC_confusion_matrix}
     \includegraphics[width=.45\textwidth]{figures/FC_confusion_matrix.eps}
 \end{figure}
 
@@ -359,7 +357,7 @@ Finally, for further improvement, the date variable could be added to turn our d
 
 \begin{table}[h]
 \centering
-\caption{The first 13 variables with the largest absolute value of the coefficient}
+\caption{The first 13 variables with the largest absolute value of the coefficient. }
 \label{tab:rank_coef}
 \begin{tabular}{lrr}
 \hline
