@@ -24,7 +24,7 @@
 \professor{Dr.\ Li. }
 \duedate{\today}
 \abstract{Whether it rains or not has the most direct impact on our daily life, therefore, the weather forecast is particularly important for us. The traditional approach to predict raining is to use computers combined with satellite cloud maps to solve a set of dynamical system equations\cite{teague2017evolution}. However, since the 21st century, the statistical learning approach has gradually become mainstream. Therefore, in this report, we try to use statistical learning methods (logistc regression, SVM and neural networks) to predict the weather. 
-On the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} dataset, we achieved an accuracy of about $85\%$ using these three statistical learning methods. This result is slightly higher than the current weather forecast accuracy (\href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{forecasting accuracy in New Orleans}). And the code can be found in \href{https://github.com/Addasecond86/MS-Stat-Tulane/blob/main/Stat_Learning_in_Data_Analysis/Project/Code/Project_code.ipynb}{Github}. 
+On the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} dataset, we finally achieved an accuracy of $81.08\%$ by using neural network. This result is lower than the current weather forecast accuracy (\href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{forecasting accuracy in New Orleans}). And the code can be found in \href{https://github.com/Addasecond86/MS-Stat-Tulane/blob/main/Stat_Learning_in_Data_Analysis/Project/Code/Project_code.ipynb}{Github}. 
 }
 \begin{document}
 \maketitle
@@ -121,7 +121,7 @@ We used the same training and testing data and mapped the data to $(0,1)$ and st
 
 \section{Discussion}
 
-As you can see, we use three different approaches. But the results are basically the same, that is, we can only achieve an accuracy of less than $81\%$ at most. This seems very frustrating, because the error rate is about $19\%$. This means that on average the prediction will be wrong one day out of a week. 
+As you can see, we use three different approaches, but the results are basically the same, that is, we can only achieve an accuracy of over $81\%$ at most. This seems very frustrating, because the error rate is about $19\%$. This means that on average the prediction will be wrong one day out of a week. 
 
 However, this is about the level of accuracy of current weather predictions. You can see the accuracy of the weather predictions for New Orleans last year on this \href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{website}. As shown in Figure~(\ref{fig:weather_prediction_nola}), this website shows that the highest channel for 2021 weather prediction accuracy in the New Orleans area is just $84.92\%$. 
 
