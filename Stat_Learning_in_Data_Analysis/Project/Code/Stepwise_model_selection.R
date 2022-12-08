@@ -2,6 +2,8 @@ library(tidyverse)
 library(lubridate)
 library(MASS)
 
+set.seed(20221107)
+
 # Load data
 data <-
   read_csv(
@@ -72,7 +74,11 @@ for (i in 1:16) {
 
 # split data into training and testing
 data <- data[, 2:23]
-sample_ind <- sample(c(1:dim(data)[1]), dim(data)[1] * 0.6)
+
+data <- rbind(slice(data, sample(c(1:96318), 27392)),
+      filter(data, RainTomorrow == 1))
+
+sample_ind <- sample(c(1:dim(data)[1]), dim(data)[1] * 0.8)
 data_train <- data %>%
   slice(sample_ind)
 

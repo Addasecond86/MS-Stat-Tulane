@@ -149,8 +149,10 @@ RUN;
 
 DATA a;
 SET a;
-upper=median + 1.96 * se;
-lower=median - 1.96 * se;
+ltime=log(median);
+se=se/median;
+upper=median * exp(1.96 * se);
+lower=median * exp(-1.96 * se);
 RUN;
 
 PROC PRINT DATA=a;
@@ -197,7 +199,7 @@ RUN;
             \centering
             \includegraphics[width=0.65\textwidth]{HW9_3a.png}
         \end{figure}
-        From the log-log survival plot, we can see the line for two groups are almost parallel, and are straight lines. So, the exponential model is better than the Weibull model.
+        From the log-log survival plot, we can see the line for two groups are almost parallel, and are straight lines. So, the Weibull model is better. 
     \item \begin{minted}[frame=lines,
         framesep=2mm,
         baselinestretch=1.2,

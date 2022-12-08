@@ -1,10 +1,10 @@
 %!PS-Adobe-3.0 EPSF-3.0
-%%Title: SVM_gauss_confusion_matrix.eps
+%%Title: svm_cm_rbf.eps
 %%Creator: Matplotlib v3.6.2, https://matplotlib.org/
-%%CreationDate: Tue Nov  8 22:27:54 2022
+%%CreationDate: Wed Dec  7 15:18:29 2022
 %%Orientation: portrait
-%%BoundingBox: 68 217 544 575
-%%HiResBoundingBox: 68.161875 217.472813 543.838125 574.527187
+%%BoundingBox: 82 246 530 546
+%%HiResBoundingBox: 82.521875 246.232813 529.478125 545.767187
 %%EndComments
 %%BeginProlog
 /mpldict 12 dict def
@@ -496,7 +496,7 @@ FontName currentdict end definefont pop
 /FontMatrix [0.00048828125 0 0 0.00048828125 0 0] def
 /FontBBox [-2090 -948 3673 2524] def
 /FontType 3 def
-/Encoding [/zero /one /two /three /five /six /seven /eight] def
+/Encoding [/zero /one /two /three /four /five /seven /eight] def
 /CharStrings 9 dict dup begin
 /.notdef 0 def
 /zero{1303 0 135 -29 1167 1520 sc
@@ -594,6 +594,26 @@ ce} _d
 986 866 918 827 831 805 c
 
 ce} _d
+/four{1303 0 100 0 1188 1493 sc
+774 1317 m
+264 520 l
+774 520 l
+774 1317 l
+
+721 1493 m
+975 1493 l
+975 520 l
+1188 520 l
+1188 352 l
+975 352 l
+975 0 l
+774 0 l
+774 352 l
+100 352 l
+100 547 l
+721 1493 l
+
+ce} _d
 /five{1303 0 158 -29 1124 1493 sc
 221 1493 m
 1014 1493 l
@@ -618,37 +638,6 @@ ce} _d
 493 817 439 811 385 799 c
 332 787 277 768 221 743 c
 221 1493 l
-
-ce} _d
-/six{1303 0 143 -29 1174 1520 sc
-676 827 m
-585 827 513 796 460 734 c
-407 672 381 587 381 479 c
-381 372 407 287 460 224 c
-513 162 585 131 676 131 c
-767 131 838 162 891 224 c
-944 287 971 372 971 479 c
-971 587 944 672 891 734 c
-838 796 767 827 676 827 c
-
-1077 1460 m
-1077 1276 l
-1026 1300 975 1318 923 1331 c
-872 1344 821 1350 770 1350 c
-637 1350 535 1305 464 1215 c
-394 1125 354 989 344 807 c
-383 865 433 909 492 940 c
-551 971 617 987 688 987 c
-838 987 956 941 1043 850 c
-1130 759 1174 636 1174 479 c
-1174 326 1129 203 1038 110 c
-947 17 827 -29 676 -29 c
-503 -29 371 37 280 169 c
-189 302 143 494 143 745 c
-143 981 199 1169 311 1309 c
-423 1450 573 1520 762 1520 c
-813 1520 864 1515 915 1505 c
-967 1495 1021 1480 1077 1460 c
 
 ce} _d
 /seven{1303 0 168 0 1128 1493 sc
@@ -721,64 +710,63 @@ FontName currentdict end definefont pop
 end
 %%EndProlog
 mpldict begin
-68.162 217.473 translate
-475.676 357.054 0 0 clipbox
+82.522 246.233 translate
+446.956 299.534 0 0 clipbox
 gsave
 0 0 m
-475.67625 0 l
-475.67625 357.054375 l
-0 357.054375 l
+446.95625 0 l
+446.95625 299.534375 l
+0 299.534375 l
+0 0 l
 cl
-1.000 setgray
-fill
 grestore
 gsave
 46.35625 27.825 m
-468.47625 27.825 l
-468.47625 334.745 l
-46.35625 334.745 l
+439.75625 27.825 l
+439.75625 277.225 l
+46.35625 277.225 l
 cl
 1.000 setgray
 fill
 grestore
 gsave
-422.12 306.92 46.356 27.825 clipbox
-46.35625 334.745 m
-257.41625 334.745 l
-257.41625 181.285 l
-46.35625 181.285 l
-46.35625 334.745 l
+393.4 249.4 46.356 27.825 clipbox
+46.35625 277.225 m
+243.05625 277.225 l
+243.05625 152.525 l
+46.35625 152.525 l
+46.35625 277.225 l
 0.031 0.114 0.345 setrgbcolor
 fill
 grestore
 gsave
-422.12 306.92 46.356 27.825 clipbox
-257.41625 334.745 m
-468.47625 334.745 l
-468.47625 181.285 l
-257.41625 181.285 l
-257.41625 334.745 l
+393.4 249.4 46.356 27.825 clipbox
+243.05625 277.225 m
+439.75625 277.225 l
+439.75625 152.525 l
+243.05625 152.525 l
+243.05625 277.225 l
 1.000 1.000 0.851 setrgbcolor
 fill
 grestore
 gsave
-422.12 306.92 46.356 27.825 clipbox
-46.35625 181.285 m
-257.41625 181.285 l
-257.41625 27.825 l
+393.4 249.4 46.356 27.825 clipbox
+46.35625 152.525 m
+243.05625 152.525 l
+243.05625 27.825 l
 46.35625 27.825 l
-46.35625 181.285 l
-0.934 0.974 0.703 setrgbcolor
+46.35625 152.525 l
+0.960 0.984 0.762 setrgbcolor
 fill
 grestore
 gsave
-422.12 306.92 46.356 27.825 clipbox
-257.41625 181.285 m
-468.47625 181.285 l
-468.47625 27.825 l
-257.41625 27.825 l
-257.41625 181.285 l
-0.947 0.979 0.733 setrgbcolor
+393.4 249.4 46.356 27.825 clipbox
+243.05625 152.525 m
+439.75625 152.525 l
+439.75625 27.825 l
+243.05625 27.825 l
+243.05625 152.525 l
+0.106 0.173 0.500 setrgbcolor
 fill
 grestore
 0.800 setlinewidth
@@ -806,12 +794,12 @@ grestore
 stroke
 grestore
 } bind def
-151.886 27.825 o
+144.706 27.825 o
 grestore
 /TimesNewRomanPSMT 15.000 selectfont
 gsave
 
-148.136 10.4031 translate
+140.956 10.4031 translate
 0 rotate
 0 0 m /zero glyphshow
 grestore
@@ -835,19 +823,19 @@ grestore
 stroke
 grestore
 } bind def
-362.946 27.825 o
+341.406 27.825 o
 grestore
 /TimesNewRomanPSMT 15.000 selectfont
 gsave
 
-359.196 10.4031 translate
+337.656 10.4031 translate
 0 rotate
 0 0 m /one glyphshow
 grestore
 /TimesNewRomanPSMT 16.000 selectfont
 gsave
 
-209.619 338.745 translate
+195.259 281.225 translate
 0 rotate
 0 0 m /P glyphshow
 8.89844 0 m /r glyphshow
@@ -885,12 +873,12 @@ grestore
 stroke
 grestore
 } bind def
-46.3563 258.015 o
+46.3563 214.875 o
 grestore
 /TimesNewRomanPSMT 15.000 selectfont
 gsave
 
-36.1531 254.265 translate
+36.1531 211.125 translate
 90 rotate
 0 0 m /zero glyphshow
 grestore
@@ -914,19 +902,19 @@ grestore
 stroke
 grestore
 } bind def
-46.3563 104.555 o
+46.3563 90.175 o
 grestore
 /TimesNewRomanPSMT 15.000 selectfont
 gsave
 
-36.1531 100.805 translate
+36.1531 86.425 translate
 90 rotate
 0 0 m /one glyphshow
 grestore
 /TimesNewRomanPSMT 16.000 selectfont
 gsave
 
-18.3094 142.379 translate
+18.3094 113.619 translate
 90 rotate
 0 0 m /A glyphshow
 11.5547 0 m /c glyphshow
@@ -945,44 +933,44 @@ grestore
 /DejaVuSans 10.000 selectfont
 gsave
 
-135.988 255.257 translate
+131.988 212.117 translate
 0 rotate
-0 0 m /three glyphshow
-6.3623 0 m /six glyphshow
+0 0 m /four glyphshow
+6.3623 0 m /three glyphshow
 12.7246 0 m /eight glyphshow
-19.0869 0 m /seven glyphshow
-25.4492 0 m /one glyphshow
+19.0869 0 m /three glyphshow
 grestore
 0.150 setgray
 /DejaVuSans 10.000 selectfont
 gsave
 
-350.228 255.257 translate
+328.687 212.117 translate
 0 rotate
 0 0 m /one glyphshow
-6.3623 0 m /seven glyphshow
-12.7246 0 m /zero glyphshow
-19.0869 0 m /zero glyphshow
+6.3623 0 m /one glyphshow
+12.7246 0 m /one glyphshow
+19.0869 0 m /five glyphshow
 grestore
 /DejaVuSans 10.000 selectfont
 gsave
 
-139.168 101.797 translate
+131.988 87.4172 translate
 0 rotate
-0 0 m /five glyphshow
-6.3623 0 m /eight glyphshow
-12.7246 0 m /three glyphshow
+0 0 m /one glyphshow
+6.3623 0 m /three glyphshow
+12.7246 0 m /five glyphshow
 19.0869 0 m /two glyphshow
 grestore
+1.000 setgray
 /DejaVuSans 10.000 selectfont
 gsave
 
-350.228 101.797 translate
+328.687 87.4172 translate
 0 rotate
-0 0 m /five glyphshow
-6.3623 0 m /zero glyphshow
-12.7246 0 m /eight glyphshow
-19.0869 0 m /one glyphshow
+0 0 m /four glyphshow
+6.3623 0 m /one glyphshow
+12.7246 0 m /zero glyphshow
+19.0869 0 m /seven glyphshow
 grestore
 
 end

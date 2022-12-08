@@ -1,9 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
+# %%
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -21,12 +16,11 @@ from sklearn.metrics import classification_report
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
+from imblearn.under_sampling import RandomUnderSampler
+
 np.random.seed(20221107)
 
-
-# In[2]:
-
-
+# %%
 # Load the data
 path = "../data/weatherAUS.csv"
 
@@ -87,9 +81,21 @@ del data["month"]
 x = data.iloc[:, 1:]
 del x["RainTomorrow"]
 
+# del x["Humidity9am"]
+
+x_columns = x.columns
+
 # Label
 y = data["RainTomorrow"]
 
+print(y.value_counts())
+print(y.value_counts() / len(y))
+
+ros = RandomUnderSampler(random_state=0)
+x, y = ros.fit_resample(x, y)
+
+print(y.value_counts())
+print(y.value_counts() / len(y))
 
 # If you want to map the data to (0,1), uncomment the following two lines
 
@@ -99,16 +105,22 @@ x = Mm.fit_transform(x)
 # If you want to use PCA, uncomment the following two lines
 # If you don't use PCA, SVM will consume a long time
 
-pca = PCA(n_components=0.85)
-x = pca.fit_transform(x)
+# pca = PCA(n_components=0.95)
+# x = pca.fit_transform(x)
+
+# print(len(x[0]))
 
 # Split the data into training and testing sets
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.4)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
+# %%
+font1 = {
+    "family": "Times New Roman",
+    "weight": "normal",
+    "size": 16,
+}
 
-# In[3]:
-
-
+# %%
 # Logistic Regression
 logreg = LogisticRegression(max_iter=3000)
 logreg.fit(x_train, y_train)
@@ -124,12 +136,6 @@ print(
 
 # Confusion Matrix
 cnf_matrix = metrics.confusion_matrix(y_test, y_pred)
-
-font1 = {
-    "family": "Times New Roman",
-    "weight": "normal",
-    "size": 16,
-}
 
 class_names = [0, 1]
 fig, ax = plt.subplots()
@@ -147,7 +153,7 @@ plt.tick_params(labelsize=15)
 labels = ax.get_xticklabels() + ax.get_yticklabels()
 [label.set_fontname("Times New Roman") for label in labels]
 
-plt.savefig("Logit_confusion_matrix.eps", bbox_inches="tight")
+plt.savefig("Logit_confusion_matrix_undersampling.eps", bbox_inches="tight")
 
 plt.show()
 
@@ -155,10 +161,11 @@ plt.show()
 target_names = ["Not Raining", "Raining"]
 print(classification_report(y_test, y_pred, target_names=target_names))
 
+# %%
+for i in np.argsort(np.abs(logreg.coef_[0]))[-1:-11:-1]: 
+    print(x_columns[i], logreg.coef_[0][i], np.abs(logreg.coef_[0][i]))
 
-# In[4]:
-
-
+# %%
 # SVM
 clf = svm.SVC(kernel="linear")
 
@@ -191,17 +198,14 @@ plt.tick_params(labelsize=15)
 labels = ax.get_xticklabels() + ax.get_yticklabels()
 [label.set_fontname("Times New Roman") for label in labels]
 
-plt.savefig("SVM_confusion_matrix.eps", bbox_inches="tight")
+plt.savefig("SVM_confusion_matrix_undersampling.eps", bbox_inches="tight")
 
 plt.show()
 
 target_names = ["Not Raining", "Raining"]
 print(classification_report(y_test, y_pred, target_names=target_names))
 
-
-# In[5]:
-
-
+# %%
 # SVM with polynomial kernel
 clf = svm.SVC(kernel="poly")
 
@@ -234,17 +238,14 @@ plt.tick_params(labelsize=15)
 labels = ax.get_xticklabels() + ax.get_yticklabels()
 [label.set_fontname("Times New Roman") for label in labels]
 
-plt.savefig("SVM_poly_confusion_matrix.eps", bbox_inches="tight")
+plt.savefig("SVM_poly_confusion_matrix_undersampling.eps", bbox_inches="tight")
 
 plt.show()
 
 target_names = ["Not Raining", "Raining"]
 print(classification_report(y_test, y_pred, target_names=target_names))
 
-
-# In[6]:
-
-
+# %%
 # SVM with rbf kernel
 
 clf = svm.SVC(kernel="rbf")
@@ -278,47 +279,31 @@ plt.tick_params(labelsize=15)
 labels = ax.get_xticklabels() + ax.get_yticklabels()
 [label.set_fontname("Times New Roman") for label in labels]
 
-plt.savefig("SVM_gauss_confusion_matrix.eps", bbox_inches="tight")
+plt.savefig("SVM_gauss_confusion_matrix_undersampling.eps",
+            bbox_inches="tight")
 
 plt.show()
 
 target_names = ["Not Raining", "Raining"]
 print(classification_report(y_test, y_pred, target_names=target_names))
 
-
-# In[7]:
-
-
-# Neural Network
-
-x = data.iloc[:, 1:]
-del x["RainTomorrow"]
-
-# Label
-y = data["RainTomorrow"]
-
-
-# If you want to map the data to (0,1), uncomment the following two lines
-
-Mm = MinMaxScaler()
-x = Mm.fit_transform(x)
-
-# Split the data into training and testing sets
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.4)
-
+# %%
 # Split validation set
-x_val = x_train[:7423]
-partial_x_train = x_train[7423:]
-y_val = y_train[:7423]
-partial_y_train = y_train[7423:]
+x_val = x_train[:1000]
+partial_x_train = x_train[1000:]
+y_val = y_train.iloc[:1000]
+partial_y_train = y_train.iloc[1000:]
 
 # Build network
 model = keras.Sequential(
     [
-        layers.Dense(64, activation="relu"),
+        layers.Dense(64, activation="relu",),
+        layers.Dropout(0.2),
         layers.Dense(16, activation="relu"),
+        layers.Dropout(0.1),
         layers.Dense(1, activation="sigmoid"),
     ]
+
 )
 
 # Set optimizer, loss function and metrics
@@ -331,6 +316,7 @@ history = model.fit(
     epochs=50,
     batch_size=256,
     validation_data=(x_val, y_val),
+    verbose=0
 )
 
 # Calculate accuracy
@@ -351,8 +337,8 @@ history_dict = history.history
 loss_values = history_dict["loss"]
 val_loss_values = history_dict["val_loss"]
 epochs = range(1, len(loss_values) + 1)
-plt.plot(epochs, loss_values, "bo", label="Training loss")
-plt.plot(epochs, val_loss_values, "b", label="Validation loss")
+plt.plot(epochs, loss_values, "r", label="Training loss")
+plt.plot(epochs, val_loss_values, "b.", label="Validation loss")
 plt.title("Training and validation loss")
 plt.xlabel("Epochs")
 plt.ylabel("Loss")
@@ -363,8 +349,10 @@ plt.show()
 # Retrain model with 20 epochs
 model = keras.Sequential(
     [
-        layers.Dense(64, activation="relu"),
+        layers.Dense(64, activation="relu",),
+        layers.Dropout(0.2),
         layers.Dense(16, activation="relu"),
+        layers.Dropout(0.1),
         layers.Dense(1, activation="sigmoid"),
     ]
 )
@@ -429,16 +417,11 @@ plt.savefig("FC_confusion_matrix.eps", bbox_inches="tight")
 
 plt.show()
 
-
-# In[8]:
-
-
+# %%
 # Plot the Neural Network Structure
 plot_model(model, to_file="Network_structure.png", show_shapes=True)
 
-
-# In[ ]:
-
+# %%
 
 
 
