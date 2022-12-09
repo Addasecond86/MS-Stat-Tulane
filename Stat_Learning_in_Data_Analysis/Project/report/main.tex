@@ -105,7 +105,7 @@ Since we have a larger amount of data, we can use undersampling, i.e., discard s
 
     Although the accuracy of the model trained with all data is higher, it only has ability to predict weather without rain. It has a recall of only $52\%$ and an accuracy of only $73\%$ for rainy days. On the contrary, the model trained with undersampled data can better predict the non-rainy weather. This means that it makes sense for us to use undersampling to deal with imbalanced data. 
 
-    Next, we start from the full model and use AIC as a criterion to see if any variables can be excluded. The full process of stepwise is shown in Table~(\ref{tab:model_selection_aic}). Unfortunately, the AIC value of the full model is the smallest, so we cannot exclude any variables. 
+    Next, we start from the full model and use AIC as a criterion to see if any variables can be excluded. The full process of stepwise is shown in Table~(\ref{tab:model_selection_aic}). It shows that we can exclude the variable \emph{Humidity9am} to get a better model. The accuracy of this model on the test set is $79.6568\%$, and the accuracy on the training set is $79.8207\%$. The accuracy is improved slightly, so we can conclude that the variable \emph{Humidity9am} is not very useful for predicting the weather.
 
 \subsection{SVM}
     We used the same training and testing data on this method. Using SVM without kernel trick, the accuracy obtained on the test set is $79.7755\%$. And the training accuracy is $79.8572\%$. This result is basically the same as the logistic regression. And test accuracy only improved by $0.3742\%$. This means that out of the 10,957 days in the test set, SVM correctly predicted 41 more days than logistic regression. On the other hand, this result also means that some of the data in our dataset are linearly inseparable. Its confusion matrix is shown in Figure~(\ref{fig:svm_cm}), and the accuracy and recall are shown in Table~(\ref{tab:svm_summary}). 
@@ -114,7 +114,7 @@ Since we have a larger amount of data, we can use undersampling, i.e., discard s
 
     However, in general, we do expect SVM perform better, so we tried to use PCA to extract features first, and then use the model to classify the data. Using PCA, we chose to retain $95\%$ of the information, and we reduced the original 114-dimensional data to 64 dimensions. The classification results on this data are shown in Table~(\ref{tab:svm_summary_pca}), (\ref{tab:svm_summary_poly_pca}), (\ref{tab:svm_summary_gaus_pca}). 
 
-    After using PCA, the accuracy of SVM decrease to $77.0923\%$ on the test set. Similarly, the accuracy of SVM polynomial decrease to $78.9723\%$. But the accuracy of SVM gaussian slightly increased to $79.9680\%$. This means PCA cannot extract some efficient features from this data.
+    After using PCA, the accuracy of SVM decrease to $77.0923\%$ on the test set. Similarly, the accuracy of SVM polynomial decrease to $78.9723\%$. But the accuracy of SVM gaussian slightly increased to $79.9680\%$. This means PCA cannot extract too many efficient features from this data.
 
 \subsection{Neural Network}
 We used the same training and testing data and mapped the data to $(0,1)$ and started training. First, the network was trained with $50$ Epochs. The loss of the model on the test set and the loss on the validation set during the training process are shown in Figure~(\ref{fig:nn_50}). It can be seen that, although the training loss keeps decreasing, the loss on the validation set stops decreasing after $20$ Epochs. Then, we can see that it even starts to increase after $30$ Epochs. This indicates that the overfitting starts after $20$ Epochs. So, we retrain a $20$ Epochs network. And the training process is shown as Figure~(\ref{fig:nn_20}). It can be seen from the figure that overfitting has not occurred. The performance of this network on the test set is shown in Figure~(\ref{fig:nn_cm}) and Table~(\ref{tab:nn_summary}). In the end, we obtained an accuracy of $81.08\%$ on the test set. And This is the highest accuracy we have obtained so far.
@@ -211,7 +211,7 @@ Finally, for further improvement, the date variable could be added to turn our d
     Model & precision & recall & f1-score & support \\ \hline
     Not Raining  & 0.77 & 0.80 & 0.78 & 5498 \\
     Raining      & 0.79 & 0.76 & 0.77 & 5498  \\
-    accuracy     &      &      & 0.85 & 10957 \\
+    accuracy     &      &      & 0.78 & 10957 \\
     macro avg    & 0.78 & 0.78 & 0.78 & 10957 \\
     weighted avg & 0.78 & 0.78 & 0.78 & 10957 \\ \hline
     \end{tabular}%
@@ -222,7 +222,7 @@ Finally, for further improvement, the date variable could be added to turn our d
     Model & precision & recall & f1-score & support \\ \hline
     Not Raining  & 0.76 & 0.80 & 0.78 & 5498  \\
     Raining      & 0.79 & 0.75 & 0.77 & 5459  \\
-    accuracy     &      &      & 0.79 & 10957 \\
+    accuracy     &      &      & 0.78 & 10957 \\
     macro avg    & 0.78 & 0.77 & 0.77 & 10957 \\
     weighted avg & 0.78 & 0.77 & 0.77 & 10957 \\ \hline
     \end{tabular}%

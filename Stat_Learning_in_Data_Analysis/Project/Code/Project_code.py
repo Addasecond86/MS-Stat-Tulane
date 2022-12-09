@@ -81,7 +81,7 @@ del data["month"]
 x = data.iloc[:, 1:]
 del x["RainTomorrow"]
 
-# del x["Humidity9am"]
+del x["Humidity9am"]
 
 x_columns = x.columns
 
