@@ -1,7 +1,7 @@
 %!PS-Adobe-3.0 EPSF-3.0
-%%Title: Logit_confusion_matrix_without_undersampling.eps
+%%Title: svm_cm_undersampling.eps
 %%Creator: Matplotlib v3.6.2, https://matplotlib.org/
-%%CreationDate: Fri Dec  2 13:22:47 2022
+%%CreationDate: Tue Dec 13 15:18:53 2022
 %%Orientation: portrait
 %%BoundingBox: 82 246 530 546
 %%HiResBoundingBox: 82.521875 246.232813 529.478125 545.767187
@@ -496,31 +496,9 @@ FontName currentdict end definefont pop
 /FontMatrix [0.00048828125 0 0 0.00048828125 0 0] def
 /FontBBox [-2090 -948 3673 2524] def
 /FontType 3 def
-/Encoding [/zero /one /two /three /four /five /six /seven /eight /nine] def
-/CharStrings 11 dict dup begin
+/Encoding [/one /two /three /four /five /seven /eight /nine] def
+/CharStrings 9 dict dup begin
 /.notdef 0 def
-/zero{1303 0 135 -29 1167 1520 sc
-651 1360 m
-547 1360 469 1309 416 1206 c
-364 1104 338 950 338 745 c
-338 540 364 387 416 284 c
-469 182 547 131 651 131 c
-756 131 834 182 886 284 c
-939 387 965 540 965 745 c
-965 950 939 1104 886 1206 c
-834 1309 756 1360 651 1360 c
-
-651 1520 m
-818 1520 946 1454 1034 1321 c
-1123 1189 1167 997 1167 745 c
-1167 494 1123 302 1034 169 c
-946 37 818 -29 651 -29 c
-484 -29 356 37 267 169 c
-179 302 135 494 135 745 c
-135 997 179 1189 267 1321 c
-356 1454 484 1520 651 1520 c
-
-ce} _d
 /one{1303 0 225 0 1114 1493 sc
 254 170 m
 584 170 l
@@ -638,37 +616,6 @@ ce} _d
 493 817 439 811 385 799 c
 332 787 277 768 221 743 c
 221 1493 l
-
-ce} _d
-/six{1303 0 143 -29 1174 1520 sc
-676 827 m
-585 827 513 796 460 734 c
-407 672 381 587 381 479 c
-381 372 407 287 460 224 c
-513 162 585 131 676 131 c
-767 131 838 162 891 224 c
-944 287 971 372 971 479 c
-971 587 944 672 891 734 c
-838 796 767 827 676 827 c
-
-1077 1460 m
-1077 1276 l
-1026 1300 975 1318 923 1331 c
-872 1344 821 1350 770 1350 c
-637 1350 535 1305 464 1215 c
-394 1125 354 989 344 807 c
-383 865 433 909 492 940 c
-551 971 617 987 688 987 c
-838 987 956 941 1043 850 c
-1130 759 1174 636 1174 479 c
-1174 326 1129 203 1038 110 c
-947 17 827 -29 676 -29 c
-503 -29 371 37 280 169 c
-189 302 143 494 143 745 c
-143 981 199 1169 311 1309 c
-423 1450 573 1520 762 1520 c
-813 1520 864 1515 915 1505 c
-967 1495 1021 1480 1077 1460 c
 
 ce} _d
 /seven{1303 0 168 0 1128 1493 sc
@@ -818,7 +765,7 @@ gsave
 243.05625 27.825 l
 46.35625 27.825 l
 46.35625 152.525 l
-0.951 0.981 0.743 setrgbcolor
+0.984 0.994 0.817 setrgbcolor
 fill
 grestore
 gsave
@@ -828,7 +775,7 @@ gsave
 439.75625 27.825 l
 243.05625 27.825 l
 243.05625 152.525 l
-0.942 0.978 0.723 setrgbcolor
+0.039 0.119 0.360 setrgbcolor
 fill
 grestore
 0.800 setlinewidth
@@ -995,44 +942,42 @@ grestore
 /DejaVuSans 10.000 selectfont
 gsave
 
-128.808 212.117 translate
+131.988 212.117 translate
 0 rotate
 0 0 m /one glyphshow
-6.3623 0 m /eight glyphshow
-12.7246 0 m /two glyphshow
-19.0869 0 m /four glyphshow
-25.4492 0 m /six glyphshow
+6.3623 0 m /nine glyphshow
+12.7246 0 m /nine glyphshow
+19.0869 0 m /nine glyphshow
 grestore
 0.150 setgray
 /DejaVuSans 10.000 selectfont
 gsave
 
-328.687 212.117 translate
+331.867 212.117 translate
 0 rotate
-0 0 m /one glyphshow
-6.3623 0 m /zero glyphshow
-12.7246 0 m /seven glyphshow
-19.0869 0 m /one glyphshow
+0 0 m /four glyphshow
+6.3623 0 m /seven glyphshow
+12.7246 0 m /three glyphshow
 grestore
 /DejaVuSans 10.000 selectfont
 gsave
 
-131.988 87.4172 translate
+135.167 87.4172 translate
 0 rotate
-0 0 m /two glyphshow
-6.3623 0 m /five glyphshow
-12.7246 0 m /nine glyphshow
-19.0869 0 m /four glyphshow
+0 0 m /five glyphshow
+6.3623 0 m /one glyphshow
+12.7246 0 m /seven glyphshow
 grestore
+1.000 setgray
 /DejaVuSans 10.000 selectfont
 gsave
 
 328.687 87.4172 translate
 0 rotate
-0 0 m /two glyphshow
-6.3623 0 m /eight glyphshow
-12.7246 0 m /three glyphshow
-19.0869 0 m /one glyphshow
+0 0 m /one glyphshow
+6.3623 0 m /nine glyphshow
+12.7246 0 m /eight glyphshow
+19.0869 0 m /two glyphshow
 grestore
 
 end

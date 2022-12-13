@@ -12,70 +12,26 @@ data <-
 
 # Drop rows with missing values
 data <- data %>%
-  drop_na("RainToday",
-          "RainTomorrow",
-          "Location",
-          "WindGustDir",
-          "WindDir9am",
-          "WindDir3pm")
+  drop_na()
 
 sapply(lapply(data, unique), length)
 
 # data["Location"] <- factor(data$Location)
 
-data[c("RainToday", "RainTomorrow")][data[c("RainToday", "RainTomorrow")] == "No"] <-
+data[c("RainTomorrow")][data[c("RainTomorrow")] == "No"] <-
   "0"
-data[c("RainToday", "RainTomorrow")][data[c("RainToday", "RainTomorrow")] == "Yes"] <-
+data[c("RainTomorrow")][data[c("RainTomorrow")] == "Yes"] <-
   "1"
 
-data$RainToday <- as.integer(data$RainToday)
 data$RainTomorrow <- as.integer(data$RainTomorrow)
-
-data <- data %>%
-  mutate(year = year(Date), month = month(Date))
-
-# fill NA with 0
-fillNA <- data[, c(1, 3:7, 9, 12:21)]
-fillNA[is.na(fillNA)] <- 0
-
-# fill NA with month median
-fillNA <- fillNA %>%
-  mutate(year = year(Date), month = month(Date)) %>%
-  group_by(year, month) %>%
-  summarise(
-    MinTemp = median(MinTemp),
-    MaxTemp = median(MaxTemp),
-    Rainfall = median(Rainfall),
-    Evaporation = median(Evaporation),
-    Sunshine = median(Sunshine),
-    WindGustSpeed = median(WindGustSpeed),
-    WindSpeed9am = median(WindSpeed9am),
-    WindSpeed3pm = median(WindSpeed3pm),
-    Humidity9am = median(Humidity9am),
-    Humidity3pm = median(Humidity3pm),
-    Pressure9am = median(Pressure9am),
-    Pressure3pm = median(Pressure3pm),
-    Cloud9am = median(Cloud9am),
-    Cloud3pm = median(Cloud3pm),
-    Temp9am = median(Temp9am),
-    Temp3pm = median(Temp3pm)
-  )
-
-data <- data %>%
-  left_join(fillNA, by = c("year" = "year", "month" = "month"))
-
-name_x <- names(data)[c(3:7, 9, 12:21)]
-name_y <- names(data)[c(26:41)]
-
-for (i in 1:16) {
-  ind <- is.na(data[name_x[i]])[, 1]
-  data[name_x[i]][ind,] <- pull(data[name_y[i]])[ind]
-}
 
 # split data into training and testing
 data <- data[, 2:23]
 
-data <- rbind(slice(data, sample(c(1:96318), 27392)),
+data %>% filter(RainTomorrow==1) %>% 
+  count()
+
+data <- rbind(slice(filter(data, RainTomorrow == 0), sample(c(1:43993), 12427)),
       filter(data, RainTomorrow == 1))
 
 sample_ind <- sample(c(1:dim(data)[1]), dim(data)[1] * 0.8)
@@ -91,17 +47,14 @@ sapply(lapply(data_test, unique), length)
 
 # levels(data_train$Location)
 
-# Null model
-null <- glm(RainTomorrow ~ 1,
-            family = binomial(link = "logit"),
-            data = data)
-
 # Full Model
 full <- glm(RainTomorrow ~ .,
             family = binomial(link = "logit"),
             data = data)
 
 # Stepwise model selection
-stepwise <- step(null,
+stepwise <- step(full,
                  direction = 'both',
                  scope = formula(full))
+mean(round(predict(stepwise, newdata = data_test[,-22], type = c('response')))==data_test[,22])
+

@@ -23,15 +23,13 @@
 \course{BIOS-7650 Statistical Learning in Data Science}
 \professor{Dr.\ Li. }
 \duedate{\today}
-\abstract{Whether it rains or not has the most direct impact on our daily life, therefore, the weather forecast is particularly important for us. The traditional approach to predict raining is to use computers combined with satellite cloud maps to solve a set of dynamical system equations\cite{teague2017evolution}. However, since the 21st century, the statistical learning approach has gradually become mainstream. Therefore, in this report, we try to use statistical learning methods (logistc regression, SVM and neural networks) to predict the weather. 
-On the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} dataset, we finally achieved an accuracy of $81.08\%$ by using neural network. This result is lower than the current weather forecast accuracy (\href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{forecasting accuracy in New Orleans}). And the code can be found in \href{https://github.com/Addasecond86/MS-Stat-Tulane/blob/main/Stat_Learning_in_Data_Analysis/Project/Code/Project_code.ipynb}{Github}. 
+\abstract{Whether it rains or not has the most direct impact on our daily life, therefore, the weather forecast is particularly important for us. The traditional approach to predict raining is to use computers combined with satellite cloud maps to solve a set of dynamical system equations\cite{teague2017evolution}. However, since the 21st century, the statistical learning approach has gradually become mainstream. Therefore, in this report, we try to use statistical learning methods (logistic regression, SVM and neural networks) to predict the weather. 
+On the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} dataset, we finally achieved an accuracy of $80.5\%$ by using logistic regression. This result is lower than the current weather forecast accuracy (\href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{forecasting accuracy in New Orleans}). And the code can be found in \href{https://github.com/Addasecond86/MS-Stat-Tulane/blob/main/Stat_Learning_in_Data_Analysis/Project/Code/Project_code.ipynb}{Github}. 
 }
 \begin{document}
 \maketitle
 \section{Methods}
-The dataset we use is the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} on Kaggle. It contains different weather indicators (e.g. temperature, humidity, wind direction, etc.) and whether it rained the next day for various regions of Australia for almost a decade, from October 2007 to June 2017. Before we make a prediction, the first thing we need to do is to clean the data. First, I dropped the subjects that had missing values in the variables \emph{RainToday} and \emph{RainTomorrow}. And I also dropped the subjects that contains missing value in categorical variables. For other continuous variables, it is not appropriate to fill the missing values with $0$, because variables like barometric pressure won't be zero even if they are missing. So I use the median of the current month to substitute the missing values of these continuous variables. 
-
-After finishing data cleaning, as shown in Table~(\ref{tab:day_imbalance}), we can find that the distribution of the data is imbalanced. The number of days that it rained is only about $22\%$ of the total number of days. This means that if we assume that all weather is not going to rain, then we also have an accuracy of $77.8579\%$. Therefore, we need to use some methods to deal with the imbalanced data. 
+The dataset we use is the \href{https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package}{\emph{Rain in Australia}} on Kaggle. It contains different weather indicators (e.g. temperature, humidity, wind direction, etc.) and whether it rained the next day for various regions of Australia for almost a decade, from October 2007 to June 2017. Before we make a prediction, the first thing we need to do is to clean the data. I dropped the subjects that contains \emph{NA} value in any variables. And then, I also transform the categorical variables into dummy variables. After finishing data cleaning, as shown in Table~(\ref{tab:day_imbalance}), we can find that the distribution of the data is imbalanced. The number of days that it rained is only about $22\%$ of the total number of days. This means that if we assume that all weather is not going to rain, then we also have an accuracy of $77.9741\%$. Therefore, we need to use some methods to deal with the imbalanced data. 
 \begin{table}[h]
     \centering
     \caption{Distribution of the number of days with and without rain after data cleaning.}
@@ -39,8 +37,8 @@ After finishing data cleaning, as shown in Table~(\ref{tab:day_imbalance}), we c
     \begin{tabular}{lll}
     \hline
     Weather     & \# Days & Percentage \\ \hline
-    Not raining & 96318   & 0.778579   \\
-    Raining     & 27392   & 0.221421   \\ \hline
+    Not raining & 43993   & 0.779741   \\
+    Raining     & 12427   & 0.220259   \\ \hline
     \end{tabular}
 \end{table}
 
@@ -52,8 +50,8 @@ Since we have a larger amount of data, we can use undersampling, i.e., discard s
     \begin{tabular}{lll}
     \hline
     Weather     & \# Days & Percentage \\ \hline
-    Not raining & 27392   & 0.5   \\
-    Raining     & 27392   & 0.5   \\ \hline
+    Not raining & 12427   & 0.5   \\
+    Raining     & 12427   & 0.5   \\ \hline
     \end{tabular}
 \end{table}
 \subsection{Logistic Regression}
@@ -101,33 +99,33 @@ Since we have a larger amount of data, we can use undersampling, i.e., discard s
 \section{Results}
 
 \subsection{Logistic Regression}
-    Using $80\%$ data as training set and $20\%$ as test set, we using the undersampling data trained a logistic regression model with all the variables except the date. The accuracy on test set and train set are $79.4013\%$ and $79.6746\%$. Figure~(\ref{fig:log_cm}) and Table~(\ref{tab:log_summary}) show test results. From these two results, we can compare the model trained on the imbalanced data with the model trained on undersampling data. 
+    Using $80\%$ data as training set and $20\%$ as test set, we first fitted a logistic regression model with the original data, which is imbalanced. The accuracy on test set and train set are $85.8029\%$ and $85.6323\%$. Figure~(\ref{fig:log_cm}) and Table~(\ref{tab:log_summary}) show test results. It can be seen that the model has a high accuracy and recall for rainy days. However, it has a low recall for non-rainy days. This means the model fitted with imbalanced data has no ability to predict a raining day. 
+    
+    Next, we using the undersampling data trained a logistic regression model. The accuracy on test set and train set are $80.5673\%$ and $80.5009\%$. Comparing these two models, we can see that although the overall accuracy of the model trained with undersampled data is lower, it has a higher recall for rainy days. This means that the model trained with undersampled data has better ability to predict rainy days. 
 
-    Although the accuracy of the model trained with all data is higher, it only has ability to predict weather without rain. It has a recall of only $52\%$ and an accuracy of only $73\%$ for rainy days. On the contrary, the model trained with undersampled data can better predict the non-rainy weather. This means that it makes sense for us to use undersampling to deal with imbalanced data. 
-
-    Next, we start from the full model and use AIC as a criterion to see if any variables can be excluded. The full process of stepwise is shown in Table~(\ref{tab:model_selection_aic}). It shows that we can exclude the variable \emph{Humidity9am} to get a better model. The accuracy of this model on the test set is $79.6568\%$, and the accuracy on the training set is $79.8207\%$. The accuracy is improved slightly, so we can conclude that the variable \emph{Humidity9am} is not very useful for predicting the weather.
+    Then, we start from the full model and use AIC as a criterion to see if any variables can be excluded. The last step of stepwise is shown in Table~(\ref{tab:model_selection_aic}). It shows that we can exclude the variable \emph{Evaporation}, \emph{MaxTemp}, \emph{Temp3pm} to get a better model. The accuracy of this model on the test set is $80.2253\%$, and this accuracy is slightly lower. 
 
 \subsection{SVM}
-    We used the same training and testing data on this method. Using SVM without kernel trick, the accuracy obtained on the test set is $79.7755\%$. And the training accuracy is $79.8572\%$. This result is basically the same as the logistic regression. And test accuracy only improved by $0.3742\%$. This means that out of the 10,957 days in the test set, SVM correctly predicted 41 more days than logistic regression. On the other hand, this result also means that some of the data in our dataset are linearly inseparable. Its confusion matrix is shown in Figure~(\ref{fig:svm_cm}), and the accuracy and recall are shown in Table~(\ref{tab:svm_summary}). 
+    We used the same training and testing data on this method. Using SVM with linear kernel, the accuracy obtained on the test set is $80.0845\%$. And the training accuracy is $80.8027\%$. This result is basically same as the logistic regression, which indicate that some of subjects in our dataset are linearly inseparable. Its confusion matrix is shown in Figure~(\ref{fig:svm_cm}), and the accuracy and recall are shown in Table~(\ref{tab:svm_summary}). 
 
-    The reason for no improvement in classification accuracy may be that the data itself is linearly inseparable. So we try to introduce two kernel functions (polynomial and Gaussian). The results are shown in Figure~(\ref{fig:svm_cm_kernel}) and Table~(\ref{tab:svm_kernel_summary}). However, based on the classification results, the accuracy of both methods on the test set are slightly decreased. This is probably because these two kernel functions cannot separate the two classes of data. 
+    The reason for no improvement in classification accuracy may be that the data itself is linearly inseparable. So we try to introduce two kernel functions (polynomial and Gaussian). The results are shown in Table~(\ref{tab:svm_kernel_summary}). However, based on the classification results, the accuracy of both methods on the test set are much lower. And they are almost in the same level with the model just directly predict every days as not raining. This is probably because these two kernel functions cannot separate the two classes of data. 
 
-    However, in general, we do expect SVM perform better, so we tried to use PCA to extract features first, and then use the model to classify the data. Using PCA, we chose to retain $95\%$ of the information, and we reduced the original 114-dimensional data to 64 dimensions. The classification results on this data are shown in Table~(\ref{tab:svm_summary_pca}), (\ref{tab:svm_summary_poly_pca}), (\ref{tab:svm_summary_gaus_pca}). 
+    However, in general, we do expect SVM perform better, so we tried to use PCA to extract features first, and then use the model to classify the data. Using PCA, we chose to retain $95\%$ of the information, and we reduced the original 115-dimensional data to 66 dimensions. The classification results on this data are shown in Table~(\ref{tab:svm_summary_pca}), (\ref{tab:svm_summary_poly_pca}), (\ref{tab:svm_summary_gaus_pca}). 
 
-    After using PCA, the accuracy of SVM decrease to $77.0923\%$ on the test set. Similarly, the accuracy of SVM polynomial decrease to $78.9723\%$. But the accuracy of SVM gaussian slightly increased to $79.9680\%$. This means PCA cannot extract too many efficient features from this data.
+    After using PCA, the accuracy of these three methods basically did not change. This is probably because the data itself is linearly inseparable. So, the PCA method cannot extract features that can separate the two classes of data. 
 
 \subsection{Neural Network}
-We used the same training and testing data and mapped the data to $(0,1)$ and started training. First, the network was trained with $50$ Epochs. The loss of the model on the test set and the loss on the validation set during the training process are shown in Figure~(\ref{fig:nn_50}). It can be seen that, although the training loss keeps decreasing, the loss on the validation set stops decreasing after $20$ Epochs. Then, we can see that it even starts to increase after $30$ Epochs. This indicates that the overfitting starts after $20$ Epochs. So, we retrain a $20$ Epochs network. And the training process is shown as Figure~(\ref{fig:nn_20}). It can be seen from the figure that overfitting has not occurred. The performance of this network on the test set is shown in Figure~(\ref{fig:nn_cm}) and Table~(\ref{tab:nn_summary}). In the end, we obtained an accuracy of $81.08\%$ on the test set. And This is the highest accuracy we have obtained so far.
+We used the same training and testing data and mapped the data to $(0,1)$ and started training. First, the network was trained with $100$ Epochs. The loss of the model on the test set and the loss on the validation set during the training process are shown in Figure~(\ref{fig:nn_100}). It can be seen that, although the training loss keeps decreasing, the loss on the validation set stops decreasing after $40$ epochs and even starts to increase. This indicates that the overfitting starts after $40$ Epochs. So, we retrain a $40$ Epochs network. And the training process is shown as Figure~(\ref{fig:nn_40}). It can be seen from the figure that overfitting has not occurred. The performance of this network on the test set is shown in Figure~(\ref{fig:nn_cm}) and Table~(\ref{tab:nn_summary}). In the end, we obtained an accuracy of $80.3661\%$ on the test set. And This is the highest accuracy we have obtained so far.
 
 \section{Discussion}
 
-As you can see, we use three different approaches, but the results are basically the same, that is, we can only achieve an accuracy of over $81\%$ at most. This seems very frustrating, because the error rate is about $19\%$. This means that on average the prediction will be wrong one day out of a week. 
+As you can see, we use three different approaches, but the results are basically the same, that is, we can only achieve an accuracy of over $80.5\%$ at most. This seems very frustrating, because the error rate is about $19\%$. This means that on average the prediction will be wrong one day out of a week. 
 
 However, this is about the level of accuracy of current weather predictions. You can see the accuracy of the weather predictions for New Orleans last year on this \href{https://www.forecastadvisor.com/Louisiana/NewOrleans/70112/}{website}. As shown in Figure~(\ref{fig:weather_prediction_nola}), this website shows that the highest channel for 2021 weather prediction accuracy in the New Orleans area is just $84.92\%$. 
 
 In addition, we can see that the accuracy and recall of the three models are higher for not raining weather than raining weather. This means that when the weather prediction says it will not rain, then it is very likely that it will not rain. But when the prediction says it will rain, then there is also a chance that it will not rain. Therefore, to avoid the second error case, which occurs more frequently, the weather forecast is now given in the form of rainfall probabilities. 
 
-On the other hand, due to the interpretability of the logistic regression model, we can see which variable causes the most significant change in the probability of raining after mapping each variable to $[0,1]$. The first 10 coefficients with the largest absolute values are shown in Table~(\ref{tab:rank_coef}). From the table, we can see that the pressure at 3pm is negatively correlated with raining, while the wind speed and the humidity at 3pm are positively correlated. 
+On the other hand, due to the interpretability of the logistic regression model, we can see which variable causes the most significant change in the probability of raining after mapping each variable to $[0,1]$. The first 10 coefficients with the largest absolute values are shown in Table~(\ref{tab:rank_coef}). From the table, we can see that the pressure at 3pm is negatively correlated with raining, while the wind speed and the humidity at 3pm are positively correlated with raining. 
 
 Finally, for further improvement, the date variable could be added to turn our data into a time series. On this basis, it might be useful to consider adding periodic factors such as seasonality to the forecasting model. Also, interactions can be introduced in the logistic regression model. 
 
@@ -138,44 +136,52 @@ Finally, for further improvement, the date variable could be added to turn our d
 
 \begin{figure}[p]
     \centering
-    \caption{Confusion matrix for logistic regression models on the test set. The first matrix shows the test results of the model trained with undersampled data. The second one is the result of training with imbalanced data. }\label{fig:log_cm}
+    \caption{Confusion matrix for logistic regression models with imbalanced data on the test set. 0 means not raining and 1 means raining. }\label{fig:log_cm}
     \includegraphics[width=.45\textwidth]{figures/log_cm.eps}
-    \includegraphics[width=.45\textwidth]{figures/Logit_confusion_matrix_without_undersampling.eps}
 \end{figure}
 
 \begin{table}[p]
     \centering
-    \caption{Classification results of logistic regression models on the test set. }
-    \label{tab:log_summary}
+    \caption{Classification results of logistic regression model with imbalanced data on the test set. }\label{tab:log_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
     \hline
-    \begin{tabular}[c]{@{}l@{}}Model\\ (imbalanced data)\end{tabular} & precision & recall & f1-score & support \\ \hline
-    Not Raining  & 0.88 & 0.94 & 0.91 & 19317 \\
-    Raining      & 0.73 & 0.52 & 0.61 & 5425  \\
-    accuracy     &      &      & 0.85 & 24742 \\
-    macro avg    & 0.80 & 0.73 & 0.76 & 24742 \\
-    weighted avg & 0.84 & 0.85 & 0.84 & 24742 \\ \hline
-    \end{tabular}%
-    }
-    \resizebox{\columnwidth}{!}{%
-    \begin{tabular}{rrrrr}
-    \hline
-    \begin{tabular}[c]{@{}l@{}}Model\\ (undersampling data)\end{tabular} & precision & recall & f1-score & support \\ \hline
-    Not Raining  & 0.79 & 0.81 & 0.80 & 5498  \\
-    Raining      & 0.80 & 0.78 & 0.79 & 5459  \\
-    accuracy     &      &      & 0.79 & 10957 \\
-    macro avg    & 0.79 & 0.79 & 0.79 & 10957 \\
-    weighted avg & 0.79 & 0.79 & 0.79 & 10957 \\ \hline
+        Model & precision & recall & f1-score & support \\ \hline
+    Not Raining  & 0.88 & 0.95 & 0.91 & 8720 \\
+    Raining      & 0.76 & 0.55 & 0.64 & 2564  \\
+    accuracy     &      &      & 0.86 & 11284 \\
+    macro avg    & 0.82 & 0.75 & 0.77 & 11284 \\
+    weighted avg & 0.85 & 0.86 & 0.85 & 11284 \\ \hline
     \end{tabular}%
     }
 \end{table}
 
+\begin{figure}[p]
+    \centering
+    \caption{Confusion matrix for logistic regression models with undersampled data on the test set.}\label{fig:log_cm_undersampling}
+    \includegraphics[width=.45\textwidth]{figures/log_cm_undersampling.eps}
+\end{figure}
+
+\begin{table}[p]
+    \centering
+    \caption{Classification results of logistic regression model with undersampled data on the test set. }\label{tab:log_undersampling_summary}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{rrrrr}
+    \hline
+        Model & precision & recall & f1-score & support \\ \hline
+    Not Raining  & 0.80 & 0.80 & 0.80 & 2456 \\
+    Raining      & 0.81 & 0.81 & 0.81 & 2515  \\
+    accuracy     &      &      & 0.81 & 4971 \\
+    macro avg    & 0.81 & 0.81 & 0.81 & 4971 \\
+    weighted avg & 0.81 & 0.81 & 0.81 & 4971 \\ \hline
+    \end{tabular}%
+    }
+\end{table}
 
 \begin{figure}[p]
     \centering
     \caption{Confusion matrix for SVM on the test set. }\label{fig:svm_cm}
-    \includegraphics[width=.45\textwidth]{figures/svm_cm.eps}
+    \includegraphics[width=.45\textwidth]{figures/svm_cm_undersampling.eps}
 \end{figure}
 
 \begin{table}[p]
@@ -185,21 +191,14 @@ Finally, for further improvement, the date variable could be added to turn our d
     \begin{tabular}{rrrrr}
     \hline
         Model & precision & recall & f1-score & support \\ \hline
-    Not Raining  & 0.79 & 0.82 & 0.80 & 5498 \\
-    Raining      & 0.81 & 0.77 & 0.79 & 5498  \\
-    accuracy     &      &      & 0.80 & 10957 \\
-    macro avg    & 0.80 & 0.80 & 0.80 & 10957 \\
-    weighted avg & 0.80 & 0.80 & 0.80 & 10957 \\ \hline
+    Not Raining  & 0.79 & 0.81 & 0.80 & 2472 \\
+    Raining      & 0.81 & 0.79 & 0.80 & 2499  \\
+    accuracy     &      &      & 0.80 & 4971 \\
+    macro avg    & 0.80 & 0.80 & 0.80 & 4971 \\
+    weighted avg & 0.80 & 0.80 & 0.80 & 4971 \\ \hline
     \end{tabular}%
     }
 \end{table}
-
-\begin{figure}[p]
-    \centering
-    \caption{Confusion matrix for kernel SVM on the test set. The first matrix shows the test results of the polynomial kernel function. The second one is gaussian kernel function. }\label{fig:svm_cm_kernel}
-    \includegraphics[width=.45\textwidth]{figures/svm_cm_poly.eps}
-    \includegraphics[width=.45\textwidth]{figures/svm_cm_rbf.eps}
-\end{figure}
 
 \begin{table}[p]
     \centering
@@ -209,22 +208,22 @@ Finally, for further improvement, the date variable could be added to turn our d
     \begin{tabular}{rrrrr}
     \hline
     Model & precision & recall & f1-score & support \\ \hline
-    Not Raining  & 0.77 & 0.80 & 0.78 & 5498 \\
-    Raining      & 0.79 & 0.76 & 0.77 & 5498  \\
-    accuracy     &      &      & 0.78 & 10957 \\
-    macro avg    & 0.78 & 0.78 & 0.78 & 10957 \\
-    weighted avg & 0.78 & 0.78 & 0.78 & 10957 \\ \hline
+    Not Raining  & 0.76 & 0.79 & 0.78 & 2472 \\
+    Raining      & 0.79 & 0.76 & 0.77 & 2499  \\
+    accuracy     &      &      & 0.78 & 4971 \\
+    macro avg    & 0.78 & 0.78 & 0.78 & 4971 \\
+    weighted avg & 0.78 & 0.78 & 0.78 & 4971 \\ \hline
     \end{tabular}%
     }
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
     \hline
     Model & precision & recall & f1-score & support \\ \hline
-    Not Raining  & 0.76 & 0.80 & 0.78 & 5498  \\
-    Raining      & 0.79 & 0.75 & 0.77 & 5459  \\
-    accuracy     &      &      & 0.78 & 10957 \\
-    macro avg    & 0.78 & 0.77 & 0.77 & 10957 \\
-    weighted avg & 0.78 & 0.77 & 0.77 & 10957 \\ \hline
+    Not Raining  & 0.76 & 0.78 & 0.77 & 2472  \\
+    Raining      & 0.78 & 0.76 & 0.77 & 2499  \\
+    accuracy     &      &      & 0.77 & 4971 \\
+    macro avg    & 0.78 & 0.77 & 0.77 & 4971 \\
+    weighted avg & 0.78 & 0.77 & 0.77 & 4971 \\ \hline
     \end{tabular}%
     }
 \end{table}
@@ -235,12 +234,12 @@ Finally, for further improvement, the date variable could be added to turn our d
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
     \hline
-        Model & precision & recall & f1-score & support \\ \hline
-    Not Raining  & 0.78 & 0.76 & 0.77 & 5498 \\
-    Raining      & 0.77 & 0.78 & 0.77 & 5498  \\
-    accuracy     &      &      & 0.77 & 10957 \\
-    macro avg    & 0.77 & 0.77 & 0.77 & 10957 \\
-    weighted avg & 0.77 & 0.77 & 0.77 & 10957 \\ \hline
+    Model & precision & recall & f1-score & support \\ \hline
+    Not Raining  & 0.79 & 0.73 & 0.76 & 2472  \\
+    Raining      & 0.75 & 0.81 & 0.78 & 2499  \\
+    accuracy     &      &      & 0.77 & 4971 \\
+    macro avg    & 0.78 & 0.77 & 0.77 & 4971 \\
+    weighted avg & 0.78 & 0.77 & 0.77 & 4971 \\ \hline
     \end{tabular}%
     }
 \end{table}
@@ -251,12 +250,12 @@ Finally, for further improvement, the date variable could be added to turn our d
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
     \hline
-        Model & precision & recall & f1-score & support \\ \hline
-    Not Raining  & 0.79 & 0.80 & 0.79 & 5498 \\
-    Raining      & 0.79 & 0.78 & 0.79 & 5498  \\
-    accuracy     &      &      & 0.79 & 10957 \\
-    macro avg    & 0.79 & 0.79 & 0.79 & 10957 \\
-    weighted avg & 0.79 & 0.79 & 0.79 & 10957 \\ \hline
+    Model & precision & recall & f1-score & support \\ \hline
+    Not Raining  & 0.78 & 0.76 & 0.77 & 2472  \\
+    Raining      & 0.77 & 0.79 & 0.78 & 2499  \\
+    accuracy     &      &      & 0.77 & 4971 \\
+    macro avg    & 0.78 & 0.77 & 0.77 & 4971 \\
+    weighted avg & 0.78 & 0.77 & 0.77 & 4971 \\ \hline
     \end{tabular}%
     }
 \end{table}
@@ -267,47 +266,47 @@ Finally, for further improvement, the date variable could be added to turn our d
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
     \hline
-        Model & precision & recall & f1-score & support \\ \hline
-    Not Raining  & 0.80 & 0.80 & 0.80 & 5498 \\
-    Raining      & 0.80 & 0.80 & 0.80 & 5498  \\
-    accuracy     &      &      & 0.80 & 10957 \\
-    macro avg    & 0.80 & 0.80 & 0.80 & 10957 \\
-    weighted avg & 0.80 & 0.80 & 0.80 & 10957 \\ \hline
+    Model & precision & recall & f1-score & support \\ \hline
+    Not Raining  & 0.80 & 0.76 & 0.78 & 2472  \\
+    Raining      & 0.78 & 0.81 & 0.79 & 2499  \\
+    accuracy     &      &      & 0.79 & 4971 \\
+    macro avg    & 0.79 & 0.79 & 0.79 & 4971 \\
+    weighted avg & 0.79 & 0.79 & 0.79 & 4971 \\ \hline
     \end{tabular}%
     }
 \end{table}
 
 \begin{figure}[p]
     \centering
-    \caption{Training process for 50 epochs. }\label{fig:nn_50}
-    \includegraphics[width=.45\textwidth]{figures/error_50.eps}
+    \caption{Training process for 50 epochs. }\label{fig:nn_100}
+    \includegraphics[width=.45\textwidth]{figures/error_100.eps}
 \end{figure}
 
 \begin{figure}[p]
     \centering
-    \caption{Training process for 20 epochs. }\label{fig:nn_20}
-    \includegraphics[width=.45\textwidth]{figures/error_20.eps}
+    \caption{Training process for 20 epochs. }\label{fig:nn_40}
+    \includegraphics[width=.45\textwidth]{figures/error_40.eps}
 \end{figure}
 
 
 \begin{figure}[p]
     \centering
-    \caption{Confusion matrix for neural network trained for 20 epochs. }\label{fig:nn_cm}
+    \caption{Confusion matrix for neural network trained for 40 epochs. }\label{fig:nn_cm}
     \includegraphics[width=.45\textwidth]{figures/nn_cm.eps}
 \end{figure}
 
 \begin{table}[p]
     \centering
-    \caption{Classification results of SVM using PCA and gaussian kernel function on the test set. }\label{tab:nn_summary}
+    \caption{Classification results of neural network on the test set. }\label{tab:nn_summary}
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{rrrrr}
     \hline
-        Model & precision & recall & f1-score & support \\ \hline
-    Not Raining  & 0.81 & 0.81 & 0.81 & 5498 \\
-    Raining      & 0.81 & 0.81 & 0.81 & 5498  \\
-    accuracy     &      &      & 0.81 & 10957 \\
-    macro avg    & 0.81 & 0.81 & 0.81 & 10957 \\
-    weighted avg & 0.81 & 0.81 & 0.81 & 10957 \\ \hline
+    Model & precision & recall & f1-score & support \\ \hline
+    Not Raining  & 0.81 & 0.79 & 0.80 & 2472  \\
+    Raining      & 0.80 & 0.82 & 0.81 & 2499  \\
+    accuracy     &      &      & 0.80 & 4971 \\
+    macro avg    & 0.80 & 0.80 & 0.80 & 4971 \\
+    weighted avg & 0.80 & 0.80 & 0.80 & 4971 \\ \hline
     \end{tabular}%
     }
 \end{table}
@@ -318,43 +317,38 @@ Finally, for further improvement, the date variable could be added to turn our d
     \includegraphics[width=.35\textwidth]{figures/Network_structure.png}
 \end{figure}
 
-
-
-
-
-
-    
 \begin{table}[p]
     \centering
     \caption{Model selection for logistic regression with AIC as criterion. the model exclude Humidity9am has the smallest AIC. }
     \label{tab:model_selection_aic}
-    \begin{tabular}{llll}
-        \hline
-        Variables     & Df & Deviance & AIC                          \\ \hline
-        Humidity9am   & 1  & 42862    & {\color[HTML]{FE0000} 43078} \\
-        .             &    & 42862    & 43080                        \\
-        Cloud9am      & 1  & 42864    & 43080                        \\
-        Temp9am       & 1  & 42866    & 43082                        \\
-        Evaporation   & 1  & 42867    & 43083                        \\
-        WindGustDir   & 15 & 42900    & 43088                        \\
-        Rainfall      & 1  & 42874    & 43090                        \\
-        MinTemp       & 1  & 42874    & 43090                        \\
-        WindSpeed9am  & 1  & 42881    & 43097                        \\
-        Temp3pm       & 1  & 42895    & 43111                        \\
-        MaxTemp       & 1  & 42932    & 43148                        \\
-        WindDir3pm    & 15 & 42966    & 43154                        \\
-        WindDir9am    & 15 & 42985    & 43173                        \\
-        WindSpeed3pm  & 1  & 43008    & 43224                        \\
-        RainToday     & 1  & 43069    & 43285                        \\
-        Sunshine      & 1  & 43109    & 43325                        \\
-        Pressure9am   & 1  & 43271    & 43487                        \\
-        Cloud3pm      & 1  & 43382    & 43598                        \\
-        Pressure3pm   & 1  & 43586    & 43802                        \\
-        WindGustSpeed & 1  & 44724    & 44940                        \\
-        Humidity3pm   & 1  & 44808    & 45024                        \\
-        Location      & 46 & 47455    & 47581                        \\ \hline
+    \begin{tabular}{lll}
+    \hline
+                   & Deviance & AIC   \\ \hline
+    None           & 20525    & 20695 \\
+    +Evaporation   & 20523    & 20695 \\
+    +MaxTemp       & 20524    & 20696 \\
+    +Temp3pm       & 20524    & 20696 \\
+    -Cloud9am      & 20528    & 20696 \\
+    -MinTemp       & 20531    & 20699 \\
+    -Humidity9am   & 20531    & 20699 \\
+    -Rainfall      & 20532    & 20700 \\
+    -WindSpeed9am  & 20534    & 20702 \\
+    -WindGustDir   & 20563    & 20703 \\
+    -Temp9am       & 20537    & 20705 \\
+    -WindSpeed3pm  & 20551    & 20719 \\
+    -WindDir3pm    & 20591    & 20731 \\
+    -RainToday     & 20615    & 20783 \\
+    -WindDir9am    & 20645    & 20785 \\
+    -Cloud3pm      & 20696    & 20864 \\
+    -Pressure9am   & 20698    & 20866 \\
+    -Location      & 20796    & 20916 \\
+    -Pressure3pm   & 20868    & 21036 \\
+    -Sunshine      & 20891    & 21059 \\
+    -WindGustSpeed & 21267    & 21435 \\
+    -Humidity3pm   & 21715    & 21883 \\ \hline
     \end{tabular}
-\end{table}
+    \end{table}
+
 
 \begin{figure}[p]
     \centering
@@ -369,17 +363,17 @@ Finally, for further improvement, the date variable could be added to turn our d
 \begin{tabular}{lrr}
     \hline
     Variables     & Coef       & AbsCoef    \\ \hline
-    Pressure3pm   & -8.8323716 & 8.83237163 \\
-    WindGustSpeed & 7.72115698 & 7.72115698 \\
-    Humidity3pm   & 6.12308429 & 6.12308429 \\
-    Pressure9am   & 5.27292535 & 5.27292535 \\
-    Rainfall      & 2.53036919 & 2.53036919 \\
-    MaxTemp       & -2.0530381 & 2.05303814 \\
-    WindSpeed3pm  & -1.8681496 & 1.86814961 \\
-    Temp3pm       & 1.80487916 & 1.80487916 \\
-    Sunshine      & -1.7363971 & 1.73639709 \\
-    WindSpeed9am  & -1.2049372 & 1.20493722 \\ \hline
-\end{tabular}
+    Pressure3pm   & -6.376243  & 6.37624304 \\
+    WindGustSpeed & 6.015306   & 6.015306   \\
+    Humidity3pm   & 5.30604568 & 5.30604568 \\
+    Pressure9am   & 2.39249102 & 2.39249102 \\
+    Sunshine      & -2.1990392 & 2.1990392  \\
+    Rainfall      & 1.51833808 & 1.51833808 \\
+    Cloud3pm      & 1.04841031 & 1.04841031 \\
+    MinTemp       & -0.9993698 & 0.99936978 \\
+    WindSpeed3pm  & -0.8875335 & 0.88753345 \\
+    MaxTemp       & 0.77989505 & 0.77989505 \\ \hline
+    \end{tabular}
 \end{table}
 
 \end{document}
